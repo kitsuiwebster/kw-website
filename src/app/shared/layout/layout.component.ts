@@ -8,4 +8,18 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./layout.component.scss'],
   imports: [RouterModule],
 })
-export class LayoutComponent {}
+export class LayoutComponent {
+  copyDiscordUsername() {
+    navigator.clipboard.writeText('kitsuiwebster').then(() => {
+      const copiedMessage = document.createElement('div');
+      copiedMessage.id = 'copiedMessage';
+      copiedMessage.innerText = 'Copied to clipboard!';
+      document.body.appendChild(copiedMessage);
+      setTimeout(() => {
+        document.body.removeChild(copiedMessage);
+      }, 3000);
+    });
+  }
+}
+
+

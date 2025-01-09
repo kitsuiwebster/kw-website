@@ -1,131 +1,140 @@
 <div id="home">
-  <div>
+  <div class="home">
     <header class="home-header">
       <div class="home-header-text">
         <h1 class="home-header-title">Raphaël MARTIN</h1>
-        <h2 class="home-header-subtitle">IT Freelance, Prompt Engineer, Developer</h2>
+        <h2 class="home-header-subtitle">
+          IT Freelance, Trainer, Prompt Engineer, Developer
+        </h2>
         <h3 class="home-header-location">📍 Montpellier, France</h3>
         <p class="home-header-bio">
-          Passionate about IT, convinced by the values of opensource, I am
-          continually training and seeking out projects that resonate with me.
-          As a great self-taught, I have already developed a wide range of
-          skills since I was very young around this field and always thirsty for
-          knowledge, I never stop evolving in IT.
+          Passionate about IT and deeply committed to security principles, I am
+          convinced by the values of opensource and knowledge sharing. As a
+          self-taught enthusiast, I have developed a wide range of skills since
+          my early years in this field. Always eager to learn and exchange
+          knowledge with others, I never stop evolving in IT.
         </p>
       </div>
-      <img
-        loading="lazy"
-        src="assets/images/profile-picture.webp"
-        alt="Raphaël Martin kitsuiwebster"
-        class="home-header-profilepic"
-      />
+      <div class="home-header-profilepic-container">
+        <img
+          loading="lazy"
+          src="assets/images/profile-picture.jpg"
+          alt="Raphaël Martin kitsuiwebster"
+          class="home-header-profilepic"
+        />
+      </div>
     </header>
 
     <section class="home-social">
       <nav class="home-social-links">
         <a
           href="https://gitlab.com/kitsuiwebster"
-          class="home-social-link"
           target="_blank"
           rel="noopener noreferrer"
+          class="home-social-link"
         >
           <img
             loading="lazy"
-            class="home-social-link-img"
             src="assets/images/social/gitlab.webp"
             alt="GitLab"
+            class="home-social-link-img"
           />
         </a>
         <a
           href="https://github.com/kitsuiwebster"
-          class="home-social-link"
           target="_blank"
           rel="noopener noreferrer"
+          class="home-social-link"
         >
           <img
             loading="lazy"
-            class="home-social-link-img"
             src="assets/images/social/github.webp"
             alt="GitHub"
+            class="home-social-link-img"
           />
         </a>
         <a
           href="https://www.linkedin.com/in/kitsuiwebster"
-          class="home-social-link"
           target="_blank"
           rel="noopener noreferrer"
+          class="home-social-link"
         >
           <img
             loading="lazy"
-            class="home-social-link-img"
             src="assets/images/social/linkedin.webp"
             alt="LinkedIn"
+            class="home-social-link-img"
           />
         </a>
         <a
           href="https://twitter.com/kitsuiwebster"
-          class="home-social-link"
           target="_blank"
           rel="noopener noreferrer"
+          class="home-social-link"
         >
           <img
             loading="lazy"
-            class="home-social-link-img"
             src="assets/images/social/x.webp"
             alt="Twitter X"
+            class="home-social-link-img"
           />
         </a>
         <a
           href="https://kitsuiwebster.medium.com"
-          class="home-social-link"
           target="_blank"
           rel="noopener noreferrer"
+          class="home-social-link"
         >
           <img
             loading="lazy"
-            class="home-social-link-img"
             src="assets/images/social/medium.webp"
             alt="Medium"
+            class="home-social-link-img"
           />
         </a>
         <a
           href="https://dev.to/kitsuiwebster"
-          class="home-social-link"
           target="_blank"
           rel="noopener noreferrer"
+          class="home-social-link"
         >
           <img
             loading="lazy"
-            class="home-social-link-img"
             src="assets/images/social/devto.webp"
             alt="Dev.to"
+            class="home-social-link-img"
           />
         </a>
         <div (click)="copyDiscordUsername()" class="home-social-link">
           <img
             loading="lazy"
-            class="home-social-link-img"
             src="assets/images/social/discord.webp"
             alt="Discord"
+            class="home-social-link-img"
           />
         </div>
       </nav>
     </section>
 
     <section class="home-languages">
-      <img loading="lazy" class="home-languages-icon" />
+      <img
+        loading="lazy"
+        class="home-languages-icon"
+        src="assets/images/speak.webp"
+        alt="speak"
+      />
       <div class="home-languages-flags">
         <img
           loading="lazy"
-          class="home-languages-flags-img"
           src="assets/images/flags/fr.webp"
           alt="French flag"
+          class="home-languages-flags-img"
         />
         <img
           loading="lazy"
-          class="home-languages-flags-img"
           src="assets/images/flags/uk.webp"
           alt="United Kingdom flag"
+          class="home-languages-flags-img"
         />
       </div>
     </section>
@@ -133,31 +142,210 @@
     <section class="home-skills">
       <h2 class="home-skills-title">Skills</h2>
 
-      <h3 class="home-skills-titles">AI Technologies</h3>
+      <h3 class="home-skills-titles">AI - Prompt Engineering</h3>
       <div class="home-skills-category">
-        <!-- Add AI logos and stars as necessary -->
+        <techno-icon
+          style="width: 6rem; display: flex; justify-content: center"
+          *ngFor="let techno of aiTechnologies"
+          [src]="techno.src"
+          [alt]="techno.alt"
+          [name]="techno.name"
+          [star1]="techno.star1"
+          [star2]="techno.star2"
+          [star3]="techno.star3"
+          [star4]="techno.star4"
+          [star5]="techno.star5"
+        >
+        </techno-icon>
       </div>
 
-      <h3 class="home-skills-titles">Programming Languages</h3>
+      <h3 class="home-skills-titles">Languages</h3>
       <div class="home-skills-category">
-        <!-- Add programming languages logos and stars -->
+        <techno-icon
+          style="width: 6rem; display: flex; justify-content: center"
+          *ngFor="let techno of languages"
+          [src]="techno.src"
+          [alt]="techno.alt"
+          [name]="techno.name"
+          [star1]="techno.star1"
+          [star2]="techno.star2"
+          [star3]="techno.star3"
+          [star4]="techno.star4"
+          [star5]="techno.star5"
+        >
+        </techno-icon>
+      </div>
+
+      <h3 class="home-skills-titles">Development</h3>
+      <div class="home-skills-category">
+        <techno-icon
+          style="width: 6rem; display: flex; justify-content: center"
+          *ngFor="let techno of devTechnologies"
+          [src]="techno.src"
+          [alt]="techno.alt"
+          [name]="techno.name"
+          [star1]="techno.star1"
+          [star2]="techno.star2"
+          [star3]="techno.star3"
+          [star4]="techno.star4"
+          [star5]="techno.star5"
+        >
+        </techno-icon>
       </div>
 
       <h3 class="home-skills-titles">Development Tools</h3>
       <div class="home-skills-category">
-        <!-- Add development tools logos and stars -->
+        <techno-icon
+          style="width: 6rem; display: flex; justify-content: center"
+          *ngFor="let techno of devTools"
+          [src]="techno.src"
+          [alt]="techno.alt"
+          [name]="techno.name"
+          [star1]="techno.star1"
+          [star2]="techno.star2"
+          [star3]="techno.star3"
+          [star4]="techno.star4"
+          [star5]="techno.star5"
+        >
+        </techno-icon>
       </div>
 
-      <h3 class="home-skills-titles">Other Tools</h3>
+      <h3 class="home-skills-titles">Databases</h3>
       <div class="home-skills-category">
-        <!-- Add other tools logos and stars -->
+        <techno-icon
+          style="width: 6rem; display: flex; justify-content: center"
+          *ngFor="let techno of databases"
+          [src]="techno.src"
+          [alt]="techno.alt"
+          [name]="techno.name"
+          [star1]="techno.star1"
+          [star2]="techno.star2"
+          [star3]="techno.star3"
+          [star4]="techno.star4"
+          [star5]="techno.star5"
+        >
+        </techno-icon>
+      </div>
+
+      <h3 class="home-skills-titles">Architecture</h3>
+      <div class="home-skills-category">
+        <techno-icon
+          style="width: 6rem; display: flex; justify-content: center"
+          *ngFor="let techno of architectureTechnologies"
+          [src]="techno.src"
+          [alt]="techno.alt"
+          [name]="techno.name"
+          [star1]="techno.star1"
+          [star2]="techno.star2"
+          [star3]="techno.star3"
+          [star4]="techno.star4"
+          [star5]="techno.star5"
+        >
+        </techno-icon>
+      </div>
+
+      <h3 class="home-skills-titles">Automation</h3>
+      <div class="home-skills-category">
+        <techno-icon
+          style="width: 6rem; display: flex; justify-content: center"
+          *ngFor="let techno of automationTools"
+          [src]="techno.src"
+          [alt]="techno.alt"
+          [name]="techno.name"
+          [star1]="techno.star1"
+          [star2]="techno.star2"
+          [star3]="techno.star3"
+          [star4]="techno.star4"
+          [star5]="techno.star5"
+        >
+        </techno-icon>
+      </div>
+
+      <h3 class="home-skills-titles">System</h3>
+      <div class="home-skills-category">
+        <techno-icon
+          style="width: 6rem; display: flex; justify-content: center"
+          *ngFor="let techno of systems"
+          [src]="techno.src"
+          [alt]="techno.alt"
+          [name]="techno.name"
+          [star1]="techno.star1"
+          [star2]="techno.star2"
+          [star3]="techno.star3"
+          [star4]="techno.star4"
+          [star5]="techno.star5"
+        >
+        </techno-icon>
+      </div>
+
+      <h3 class="home-skills-titles">Visual</h3>
+      <div class="home-skills-category">
+        <techno-icon
+          style="width: 6rem; display: flex; justify-content: center"
+          *ngFor="let techno of visualTools"
+          [src]="techno.src"
+          [alt]="techno.alt"
+          [name]="techno.name"
+          [star1]="techno.star1"
+          [star2]="techno.star2"
+          [star3]="techno.star3"
+          [star4]="techno.star4"
+          [star5]="techno.star5"
+        >
+        </techno-icon>
+      </div>
+
+      <h3 class="home-skills-titles">Music</h3>
+      <div class="home-skills-category">
+        <techno-icon
+          style="width: 6rem; display: flex; justify-content: center"
+          *ngFor="let techno of musicTools"
+          [src]="techno.src"
+          [alt]="techno.alt"
+          [name]="techno.name"
+          [star1]="techno.star1"
+          [star2]="techno.star2"
+          [star3]="techno.star3"
+          [star4]="techno.star4"
+          [star5]="techno.star5"
+        >
+        </techno-icon>
       </div>
     </section>
 
     <section class="home-certifications">
-      <h2 class="home-certifications-title">Certifications</h2>
+      <h2 class="home-certifications-title">Diplomas & Professional Titles</h2>
+
       <div class="home-certifications-professional-title">
-        <!-- Add certification details here -->
+        <paper-proof
+          *ngFor="let title of professionalTitles"
+          [date]="title.date"
+          [src]="title.src"
+          [alt]="title.alt"
+        >
+        </paper-proof>
+      </div>
+
+      <h2 class="home-certifications-title">Certifications</h2>
+      <div class="home-certifications-certifs">
+        <paper-proof
+          *ngFor="let cert of certifs"
+          [date]="cert.date"
+          [src]="cert.src"
+          [alt]="cert.alt"
+        >
+        </paper-proof>
+      </div>
+
+      <h2 class="home-certifications-subtitle">Certificates of Completion</h2>
+      <div class="home-certifications-certificates">
+        <paper-proof
+          *ngFor="let certificate of certificates"
+          [date]="certificate.date"
+          [src]="certificate.src"
+          [alt]="certificate.alt"
+        >
+        </paper-proof>
       </div>
     </section>
   </div>

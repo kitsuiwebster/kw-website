@@ -1,0 +1,54 @@
+.techno-icon {
+    margin: 0.7rem 0;
+    padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 5rem;
+    min-height: 6rem;
+    width: 1%;
+  
+    &-image {
+        width: 3rem;
+        height: auto;
+        margin-bottom: 5px;
+        transition: transform 0.2s;
+  
+        &:hover {
+          transform: scale(1.05);
+        }
+    }
+  
+    &-name {
+        font-size: 0.8rem;
+        min-width: 7rem;
+        text-align: center;
+        margin: 0;
+    }
+
+
+
+    &-star {
+        width: 0.7rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .techno-icon {
+        padding: 0;
+
+        &-image {
+            width: 3rem;
+        }
+
+        &-name {
+            font-size: 0.8rem;
+        }
+
+        &-star {
+            width: 0.8rem;
+        }
+    }
+}
+  

@@ -1,12 +1,123 @@
-<header class="site-header">
-  <nav>
-  </nav>
-</header>
-<main class="site-content">
-  <router-outlet>
-
-  </router-outlet>
-</main>
-<footer class="site-footer">
-  <p>&copy; 2024 kitsuiwebster</p>
-</footer>
+<div class="layout">
+  <header class="layout-header">
+    <div class="layout-header-title-container">
+      <img
+        class="layout-header-logo"
+        src="assets/images/logo.webp"
+        alt="kitsuiwebster logo"
+      />
+      <h1 class="layout-header-title">&#64;kitsuiwebster</h1>
+    </div>
+    <div class="layout-header-mobile">
+      <img
+        loading="lazy"
+        alt="Menu Icon"
+        src="assets/images/menu.webp"
+        class="layout-header-icon"
+      />
+    </div>
+    <nav class="layout-header-nav">
+      <ul class="layout-header-nav-ul">
+        <li class="layout-header-nav-ul-li">
+          <a class="layout-header-nav-ul-li-a" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        </li>
+        <li class="layout-header-nav-ul-li">
+          <a class="layout-header-nav-ul-li-a" routerLink="/projects" routerLinkActive="active">Projects</a>
+        </li>
+        <li class="layout-header-nav-ul-li">
+          <a class="layout-header-nav-ul-li-a" routerLink="/articles" routerLinkActive="active">Articles</a>
+        </li>
+        <li class="layout-header-nav-ul-li">
+          <a class="layout-header-nav-ul-li-a" routerLink="/contact" routerLinkActive="active">Contact</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main class="layout-main">
+    <router-outlet></router-outlet>
+  </main>
+  <footer class="layout-footer">
+    <nav class="layout-footer-links">
+      <a
+        href="https://gitlab.com/kitsuiwebster"
+        class="layout-footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          class="layout-footer-link-img"
+          src="assets/images/social/gitlab.webp"
+          alt="GitLab"
+        />
+      </a>
+      <a
+        href="https://github.com/kitsuiwebster"
+        class="layout-footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          class="layout-footer-link-img"
+          src="assets/images/social/github.webp"
+          alt="GitHub"
+        />
+      </a>
+      <a
+        href="https://www.linkedin.com/in/kitsuiwebster"
+        class="layout-footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          class="layout-footer-link-img"
+          src="assets/images/social/linkedin.webp"
+          alt="LinkedIn"
+        />
+      </a>
+      <a
+        href="https://twitter.com/kitsuiwebster"
+        class="layout-footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          class="layout-footer-link-img"
+          src="assets/images/social/x.webp"
+          alt="Twitter X"
+        />
+      </a>
+      <a
+        href="https://kitsuiwebster.medium.com"
+        class="layout-footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          class="layout-footer-link-img"
+          src="assets/images/social/medium.webp"
+          alt="Medium"
+        />
+      </a>
+      <a
+        href="https://dev.to/kitsuiwebster"
+        class="layout-footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          class="layout-footer-link-img"
+          src="assets/images/social/devto.webp"
+          alt="Dev.to"
+        />
+      </a>
+      <div (click)="copyDiscordUsername()" class="layout-footer-link">
+        <img
+          class="layout-footer-link-img"
+          src="assets/images/social/discord.webp"
+          alt="Discord"
+        />
+      </div>
+    </nav>
+    <p class="layout-footer-text">© 2025 kitsuiwebster</p>
+  </footer>
+</div>

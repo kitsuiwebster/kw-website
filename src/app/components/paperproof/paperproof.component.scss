@@ -1,0 +1,41 @@
+.paperproof {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28rem;
+    min-height: 7.3rem;
+    margin: 1rem;
+  
+    &-image {
+        width: 100%;
+        height: auto;
+        margin-bottom: 5px;
+        transition: transform 0.2s;
+        border-radius: 10px;
+  
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+  
+    &-name {
+        font-size: 1.2rem;
+        color: #000000;
+    }
+}
+  
+@media screen and (max-width: 1200px) {
+    .paperproof {
+        min-width: 20rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .paperproof {
+
+      margin: 1rem;
+      min-width: 1rem;
+      max-width: 15rem;
+    }
+}

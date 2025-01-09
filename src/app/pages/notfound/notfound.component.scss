@@ -1,9 +1,24 @@
 .notfound {
   text-align: center;
   margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .notfound-image {
   width: 15rem;
   border-radius: 10px;
+}
+
+.notfound-button {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    color: red;
+    cursor: pointer;
+  }
 }
