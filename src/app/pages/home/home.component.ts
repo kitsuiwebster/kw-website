@@ -443,7 +443,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/helf.webp'
+      star5: 'assets/images/stars/half.webp'
     },
     {
       src: 'assets/images/technos/conda.webp',
