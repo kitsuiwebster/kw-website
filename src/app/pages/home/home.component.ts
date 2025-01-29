@@ -23,13 +23,9 @@ interface Certification {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    CommonModule,
-    TechnoIconComponent,
-    PaperProofComponent
-  ],
+  imports: [CommonModule, TechnoIconComponent, PaperProofComponent],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
   aiTechnologies: Technology[] = [
@@ -41,7 +37,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/yellow.webp'
+      star5: 'assets/images/stars/yellow.webp',
     },
     {
       src: 'assets/images/technos/chat-gpt.webp',
@@ -51,7 +47,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/yellow.webp'
+      star5: 'assets/images/stars/yellow.webp',
     },
     {
       src: 'assets/images/technos/claude.webp',
@@ -61,7 +57,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/gemini.webp',
@@ -71,7 +67,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/half.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/midjourney.webp',
@@ -81,7 +77,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/yellow.webp'
+      star5: 'assets/images/stars/yellow.webp',
     },
   ];
 
@@ -94,7 +90,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/yellow.webp'
+      star5: 'assets/images/stars/yellow.webp',
     },
     {
       src: 'assets/images/technos/css.webp',
@@ -104,7 +100,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/yellow.webp'
+      star5: 'assets/images/stars/yellow.webp',
     },
     {
       src: 'assets/images/technos/sass.webp',
@@ -114,7 +110,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/yellow.webp'
+      star5: 'assets/images/stars/yellow.webp',
     },
     {
       src: 'assets/images/technos/js.webp',
@@ -124,7 +120,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/ts.webp',
@@ -134,7 +130,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/rust.png',
@@ -144,7 +140,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/python.webp',
@@ -154,7 +150,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/c-sharp.png',
@@ -164,9 +160,8 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
-
   ];
 
   devTechnologies: Technology[] = [
@@ -178,7 +173,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/angular.png',
@@ -188,7 +183,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/half.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/vuejs.png',
@@ -198,7 +193,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/nuxt.png',
@@ -208,7 +203,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/next.webp',
@@ -218,7 +213,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/tailwind.png',
@@ -228,7 +223,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/half.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/node.webp',
@@ -238,7 +233,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp'
+      star5: 'assets/images/stars/half.webp',
     },
     {
       src: 'assets/images/technos/nest.webp',
@@ -248,7 +243,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
   ];
 
@@ -261,7 +256,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp'
+      star5: 'assets/images/stars/half.webp',
     },
     {
       src: 'assets/images/technos/vs-code.webp',
@@ -271,7 +266,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp'
+      star5: 'assets/images/stars/half.webp',
     },
     {
       src: 'assets/images/technos/figma.webp',
@@ -281,7 +276,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/unity.png',
@@ -291,7 +286,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/insomnia.png',
@@ -301,7 +296,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/half.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
   ];
 
@@ -314,7 +309,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/mongodb.webp',
@@ -324,7 +319,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/mysql.png',
@@ -334,7 +329,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
   ];
 
@@ -347,7 +342,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/gravitee.png',
@@ -357,7 +352,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp'
+      star5: 'assets/images/stars/half.webp',
     },
     {
       src: 'assets/images/technos/keycloak.png',
@@ -367,7 +362,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
   ];
 
@@ -380,7 +375,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/nodered.webp',
@@ -390,7 +385,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/flowise.svg',
@@ -400,7 +395,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
   ];
 
@@ -413,7 +408,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/linux.webp',
@@ -423,7 +418,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp'
+      star5: 'assets/images/stars/half.webp',
     },
     {
       src: 'assets/images/technos/bash.webp',
@@ -433,7 +428,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp'
+      star5: 'assets/images/stars/half.webp',
     },
     {
       src: 'assets/images/technos/zsh.webp',
@@ -443,7 +438,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp'
+      star5: 'assets/images/stars/half.webp',
     },
     {
       src: 'assets/images/technos/conda.webp',
@@ -453,7 +448,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/raspberry-pi.webp',
@@ -463,7 +458,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/workstation.webp',
@@ -473,7 +468,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp'
+      star5: 'assets/images/stars/half.webp',
     },
     {
       src: 'assets/images/technos/virtualbox.webp',
@@ -483,7 +478,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/yellow.webp'
+      star5: 'assets/images/stars/yellow.webp',
     },
   ];
 
@@ -496,7 +491,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/vegas-pro.webp',
@@ -506,7 +501,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/kden-live.webp',
@@ -516,7 +511,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/gimp.webp',
@@ -526,7 +521,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp'
+      star5: 'assets/images/stars/half.webp',
     },
     {
       src: 'assets/images/technos/blender.webp',
@@ -536,7 +531,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/obs.webp',
@@ -546,7 +541,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/yellow.webp'
+      star5: 'assets/images/stars/yellow.webp',
     },
   ];
 
@@ -559,7 +554,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/yellow.webp'
+      star5: 'assets/images/stars/yellow.webp',
     },
     {
       src: 'assets/images/technos/reaper.webp',
@@ -569,7 +564,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/yellow.webp'
+      star5: 'assets/images/stars/yellow.webp',
     },
     {
       src: 'assets/images/technos/cubase.webp',
@@ -579,7 +574,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp'
+      star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/auto-tune.webp',
@@ -589,72 +584,84 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp'
+      star5: 'assets/images/stars/half.webp',
     },
   ];
-
-
-
 
   professionalTitles: Certification[] = [
     {
       date: '2022-11-21',
       src: 'assets/images/certifications/systems-and-networks-tech.png',
-      alt: 'Systems and Networks Technician (Cybersecurity Option)'
+      alt: 'Systems and Networks Technician (Cybersecurity Option)',
     },
     {
       date: '2024-04-19',
       src: 'assets/images/certifications/web-integrator-and-developer.png',
-      alt: 'Web Integrator and Developer'
-    }
+      alt: 'Web Integrator and Developer',
+    },
   ];
 
   certifs: Certification[] = [
     {
       date: '2023-08-30',
       src: 'assets/images/certifications/prompt-engineer.webp',
-      alt: 'Certified Prompt Engineer'
+      alt: 'Certified Prompt Engineer',
     },
     {
       date: '2024-06-11',
       src: 'assets/images/certifications/react-developer.webp',
-      alt: 'Certified React Developer'
+      alt: 'Certified React Developer',
     },
     {
       date: '2023-08-21',
       src: 'assets/images/certifications/csi-linux-investigator.webp',
-      alt: 'Certified CSI Linux Investigator'
+      alt: 'Certified CSI Linux Investigator',
     },
     {
       date: '2024-06-26',
       src: 'assets/images/certifications/gravitee-certified.png',
-      alt: 'Gravitee.io Certified'
+      alt: 'Gravitee.io Certified',
     },
     {
       date: '2024-11-18',
       src: 'assets/images/certifications/certified-junior-angular-developer.png',
-      alt: 'Certfiied Junior Angular Developer'
-    }
+      alt: 'Certfiied Junior Angular Developer',
+    },
+    {
+      date: '2025-01-29',
+      src: 'assets/images/certifications/certified-chatbot-expert.png',
+      alt: 'Certfiied Chatbot Expert',
+    },
   ];
 
   certificates: Certification[] = [
     {
       date: '2023-07-02',
       src: 'assets/images/certifications/coc-linux.webp',
-      alt: 'Certificate of Completion General Linux Administration'
+      alt: 'Certificate of Completion General Linux Administration',
     },
     {
       date: '2023-01-03',
       src: 'assets/images/certifications/just-javascript.webp',
-      alt: 'Certificate of Completion Just JavaScript'
-    }
+      alt: 'Certificate of Completion Just JavaScript',
+    },
   ];
 
-  copyDiscordUsername() {
+  copyDiscordUsername(): void {
     navigator.clipboard.writeText('kitsuiwebster').then(() => {
       const copiedMessage = document.createElement('div');
       copiedMessage.id = 'copiedMessage';
       copiedMessage.innerText = 'Copied to clipboard!';
+
+      copiedMessage.style.position = 'fixed';
+      copiedMessage.style.top = '40px';
+      copiedMessage.style.left = '50%';
+      copiedMessage.style.transform = 'translateX(-50%)';
+      copiedMessage.style.color = 'red';
+      copiedMessage.style.padding = '10px 20px';
+      copiedMessage.style.borderRadius = '4px';
+      copiedMessage.style.zIndex = '9999';
+
       document.body.appendChild(copiedMessage);
       setTimeout(() => {
         document.body.removeChild(copiedMessage);

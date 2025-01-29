@@ -16,19 +16,48 @@
         class="layout-header-icon"
       />
     </div>
-    <nav class="layout-header-nav">
+    <div class="layout-header-mobile" (click)="toggleMenu()">
+      <img
+        loading="lazy"
+        alt="Menu Icon"
+        src="assets/images/menu.webp"
+        class="layout-header-icon"
+      />
+    </div>
+    <nav class="layout-header-nav" [class.open]="isMenuOpen">
       <ul class="layout-header-nav-ul">
         <li class="layout-header-nav-ul-li">
-          <a class="layout-header-nav-ul-li-a" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+          <a
+            class="layout-header-nav-ul-li-a"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
+        </li>
+        <li class="layout-header-nav-ul-li hidden">
+          <a
+            class="layout-header-nav-ul-li-a"
+            routerLink="/projects"
+            routerLinkActive="active"
+            >Projects</a
+          >
+        </li>
+        <li class="layout-header-nav-ul-li hidden">
+          <a
+            class="layout-header-nav-ul-li-a"
+            routerLink="/articles"
+            routerLinkActive="active"
+            >Articles</a
+          >
         </li>
         <li class="layout-header-nav-ul-li">
-          <a class="layout-header-nav-ul-li-a" routerLink="/projects" routerLinkActive="active">Projects</a>
-        </li>
-        <li class="layout-header-nav-ul-li">
-          <a class="layout-header-nav-ul-li-a" routerLink="/articles" routerLinkActive="active">Articles</a>
-        </li>
-        <li class="layout-header-nav-ul-li">
-          <a class="layout-header-nav-ul-li-a" routerLink="/contact" routerLinkActive="active">Contact</a>
+          <a
+            class="layout-header-nav-ul-li-a"
+            routerLink="/contact"
+            routerLinkActive="active"
+            >Contact</a
+          >
         </li>
       </ul>
     </nav>
