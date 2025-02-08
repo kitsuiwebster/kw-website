@@ -5,40 +5,37 @@
   padding: 15px;
   border-radius: 5px;
   font-family: 'Courier New', Courier, monospace;
-  white-space: normal; /* Ensure text wraps */
-  word-break: break-word; /* Forces long words to break */
+  white-space: normal;
+  word-break: break-word;
   font-size:medium;
 }
 
-/* Adjust width on smaller screens */
 @media (max-width: 800px) {
   :host {
     width: 90%;
   }
 }
 
-/* Ensure normal text inside .gist-container wraps properly */
 .gist-container {
   max-width: 100%;
-  overflow: hidden; /* Prevents full container scrolling */
-  word-wrap: break-word; /* Ensures words break if too long */
-  white-space: normal; /* Ensures text wraps inside container */
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 ::ng-deep .gist-container pre {
-  background-color: #2d2d2d !important; /* Fond sombre */
-  color: #ffffff !important; /* Texte clair */
+  background-color: #2d2d2d !important;
+  color: #ffffff !important;
   padding: 15px !important;
   border-radius: 8px !important;
-  overflow-x: auto !important; /* Active le scroll horizontal */
+  overflow-x: auto !important;
   max-width: 100% !important;
-  white-space: pre !important; /* Empêche le retour à la ligne */
+  white-space: pre !important;
 }
 
-/* Styles pour le texte du code */
 ::ng-deep .gist-container pre code {
-  background: none !important; /* Supprime le fond inutile */
-  color: #ffffff !important; /* Texte clair */
+  background: none !important;
+  color: #ffffff !important;
   display: block !important;
   font-size: 14px !important;
 }
