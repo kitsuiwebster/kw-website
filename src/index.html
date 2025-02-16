@@ -6,8 +6,8 @@
 
       function getChatbotSize() {
         return {
-          width: Math.min(window.innerWidth * 0.8, 700), // 80% of screen width, max 700px
-          height: Math.min(window.innerHeight * 0.8, 600), // 80% of screen height, max 600px
+          width: Math.min(window.innerWidth * 0.8, 700),
+          height: Math.min(window.innerHeight * 0.8, 600),
         };
       }
 
@@ -94,10 +94,8 @@
         });
       }
 
-      // Initialize chatbot on page load
       initChatbot();
 
-      // Resize dynamically on window resize
       window.addEventListener("resize", () => {
         initChatbot();
       });
