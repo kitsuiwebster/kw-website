@@ -5,7 +5,7 @@
       import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed@latest/dist/web.js";
 
       Chatbot.init({
-        chatflowid: "da2d2582-6ad0-4f2d-bb76-9498ea2cec41",
+        chatflowid: "4bac049d-9d10-435b-b039-87a2c8fcd970",
         apiHost: "https://flowise.bashroom.com",
         theme: {
           button: {
@@ -27,14 +27,14 @@
           },
           chatWindow: {
             showTitle: true,
-            title: "Bot",
+            title: "Assistant",
             titleAvatarSrc:
               "assets/images/bot-icon.png",
             welcomeMessage: "👋 Hello, how can I assist you?",
             errorMessage: "⚠️ An error has occurred, please send an email to contact@kitsuiwebster.com to report it 😊.",
             backgroundColor: "#ffffff",
             height: 700,
-            width: 400,
+            width: 700,
             fontSize: 16,
             starterPrompts: [""],
             starterPromptFontSize: 15,
@@ -65,7 +65,9 @@
                 "You exceeded the characters limit. Please input less than 200 characters.",
               autoFocus: true,
               sendMessageSound: true,
+              sendSoundLocation: "assets/sounds/hat.ogg",
               receiveMessageSound: true,
+              receiveSoundLocation: "assets/sounds/plop.ogg",
             },
             feedback: {
               color: "#303235",
