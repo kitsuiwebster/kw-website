@@ -4,86 +4,102 @@
     <script type="module">
       import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed@latest/dist/web.js";
 
-      Chatbot.init({
-        chatflowid: "4bac049d-9d10-435b-b039-87a2c8fcd970",
-        apiHost: "https://flowise.bashroom.com",
-        theme: {
-          button: {
-            backgroundColor: "black",
-            right: 20,
-            bottom: 20,
-            size: 64,
-            dragAndDrop: true,
-            iconColor: "white",
-            customIconSrc:
-              "assets/images/chat-icon.png",
-          },
-          tooltip: {
-            showTooltip: true,
-            tooltipMessage: "Hi there 👋!",
-            tooltipBackgroundColor: "black",
-            tooltipTextColor: "white",
-            tooltipFontSize: 16,
-          },
-          chatWindow: {
-            showTitle: true,
-            title: "Assistant",
-            titleAvatarSrc:
-              "assets/images/bot-icon.png",
-            welcomeMessage: "👋 Hello, how can I assist you?",
-            errorMessage: "⚠️ An error has occurred, please send an email to contact@kitsuiwebster.com to report it 😊.",
-            backgroundColor: "#ffffff",
-            height: 700,
-            width: 700,
-            fontSize: 16,
-            starterPrompts: [""],
-            starterPromptFontSize: 15,
-            clearChatOnReload: false,
-            sourceDocsTitle: "Sources:",
-            renderHTML: true,
-            botMessage: {
-              backgroundColor: "#f7f8ff",
-              textColor: "#303235",
-              showAvatar: true,
-              avatarSrc:
-                "assets/images/bot-icon.png",
+      function getChatbotSize() {
+        return {
+          width: Math.min(window.innerWidth * 0.8, 700), // 80% of screen width, max 700px
+          height: Math.min(window.innerHeight * 0.8, 600), // 80% of screen height, max 600px
+        };
+      }
+
+      function initChatbot() {
+        const { width, height } = getChatbotSize();
+
+        Chatbot.init({
+          chatflowid: "4bac049d-9d10-435b-b039-87a2c8fcd970",
+          apiHost: "https://flowise.bashroom.com",
+          theme: {
+            button: {
+              backgroundColor: "black",
+              right: 20,
+              bottom: 20,
+              size: 64,
+              dragAndDrop: true,
+              iconColor: "white",
+              customIconSrc: "assets/images/chat-icon.png",
             },
-            userMessage: {
-              backgroundColor: "red",
-              textColor: "#ffffff",
-              showAvatar: true,
-              avatarSrc:
-                "assets/images/user-icon.png",
+            tooltip: {
+              showTooltip: true,
+              tooltipMessage: "Hi there 👋!",
+              tooltipBackgroundColor: "black",
+              tooltipTextColor: "white",
+              tooltipFontSize: 16,
             },
-            textInput: {
-              placeholder: "Type your question",
+            chatWindow: {
+              showTitle: true,
+              title: "Assistant",
+              titleAvatarSrc: "assets/images/bot-icon.png",
+              welcomeMessage: "👋 Hello, how can I assist you?",
+              errorMessage:
+                "⚠️ An error has occurred, please send an email to contact@kitsuiwebster.com to report it 😊.",
               backgroundColor: "#ffffff",
-              textColor: "#303235",
-              sendButtonColor: "red",
-              maxChars: 200,
-              maxCharsWarningMessage:
-                "You exceeded the characters limit. Please input less than 200 characters.",
-              autoFocus: true,
-              sendMessageSound: true,
-              sendSoundLocation: "assets/sounds/hat.ogg",
-              receiveMessageSound: true,
-              receiveSoundLocation: "assets/sounds/plop.ogg",
-            },
-            feedback: {
-              color: "#303235",
-            },
-            dateTimeToggle: {
-              date: true,
-              time: true,
-            },
-            footer: {
-              textColor: "#303235",
-              text: "Contact",
-              company: "Raphaël",
-              companyLink: "https://wa.me/33652639088",
+              height: height,
+              width: width,
+              fontSize: 16,
+              starterPrompts: [""],
+              starterPromptFontSize: 15,
+              clearChatOnReload: false,
+              sourceDocsTitle: "Sources:",
+              renderHTML: true,
+              botMessage: {
+                backgroundColor: "#f7f8ff",
+                textColor: "#303235",
+                showAvatar: true,
+                avatarSrc: "assets/images/bot-icon.png",
+              },
+              userMessage: {
+                backgroundColor: "red",
+                textColor: "#ffffff",
+                showAvatar: true,
+                avatarSrc: "assets/images/user-icon.png",
+              },
+              textInput: {
+                placeholder: "Type your question",
+                backgroundColor: "#ffffff",
+                textColor: "#303235",
+                sendButtonColor: "red",
+                maxChars: 200,
+                maxCharsWarningMessage:
+                  "You exceeded the characters limit. Please input less than 200 characters.",
+                autoFocus: true,
+                sendMessageSound: true,
+                sendSoundLocation: "assets/sounds/hat.ogg",
+                receiveMessageSound: true,
+                receiveSoundLocation: "assets/sounds/plop.ogg",
+              },
+              feedback: {
+                color: "#303235",
+              },
+              dateTimeToggle: {
+                date: true,
+                time: true,
+              },
+              footer: {
+                textColor: "#303235",
+                text: "Contact",
+                company: "Raphaël",
+                companyLink: "https://wa.me/33652639088",
+              },
             },
           },
-        },
+        });
+      }
+
+      // Initialize chatbot on page load
+      initChatbot();
+
+      // Resize dynamically on window resize
+      window.addEventListener("resize", () => {
+        initChatbot();
       });
     </script>
 
