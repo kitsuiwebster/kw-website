@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-critters-container>
   <head>
     <script type="module">
       import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed@latest/dist/web.js";
@@ -97,7 +97,12 @@
       initChatbot();
 
       window.addEventListener("resize", () => {
-        initChatbot();
+        const chatbotElement = document.querySelector("flowise-chatbot");
+        if (chatbotElement) {
+          const { width, height } = getChatbotSize();
+          chatbotElement.style.width = `${width}px`;
+          chatbotElement.style.height = `${height}px`;
+        }
       });
     </script>
 
@@ -173,10 +178,39 @@
         }
       }
     </script>
+    <style>
+      body {
+        margin: 0;
+        font-family: Courier New, monospace;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #f1f1f1;
+        color: #000;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+      }
+      app-root {
+        width: 100%;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="styles-6B74GMPP.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript><link rel="stylesheet" href="styles-6B74GMPP.css" /></noscript>
   </head>
   <body>
     <app-root></app-root>
     <app-hackaprompt></app-hackaprompt>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script src="polyfills-FFHMD2TL.js" type="module"></script>
+    <script src="main-F7WKV3UJ.js" type="module"></script>
   </body>
 </html>
