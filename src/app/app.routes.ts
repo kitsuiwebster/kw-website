@@ -6,12 +6,14 @@ import { ProjectsComponent } from './pages/projects/projects.component';
 import { ArticlesComponent } from './pages/articles/articles.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { HackapromptComponent } from './pages/articles/hackaprompt/hackaprompt.component';
+import { MidjourneyComponent } from './pages/articles/midjourney/midjourney.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'projects', component: ProjectsComponent},
   { path: 'articles', component: ArticlesComponent},
   { path: 'hackaprompt', component: HackapromptComponent},
+  { path: 'midjourney', component: MidjourneyComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'notfound' } 

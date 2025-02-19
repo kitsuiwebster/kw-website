@@ -1,14 +1,38 @@
 .container {
   max-width: 600px;
+  margin: 0 auto;
+  padding: 16px; // Equivalent to p-4
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px; // Equivalent to gap-4
 }
 
 a {
   text-decoration: none;
   color: inherit;
-}
+  display: block;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
 
-a:hover {
-  text-decoration: none;
-  color: inherit;
-  color: red;
+  h2 {
+    font-size: 1.25rem; // Equivalent to text-xl
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  .description,
+  .date {
+    color: #4a5568; // Equivalent to text-gray-600
+  }
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    color: red;
+  }
 }
