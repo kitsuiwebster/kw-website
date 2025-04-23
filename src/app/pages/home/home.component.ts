@@ -42,7 +42,7 @@ export class HomeComponent {
     {
       src: 'assets/images/technos/chat-gpt.webp',
       alt: 'ChatGPT',
-      name: 'ChatGPT❤️',
+      name: 'ChatGPT',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
@@ -57,7 +57,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/clear.webp',
+      star5: 'assets/images/stars/yellow.webp',
     },
     {
       src: 'assets/images/technos/gemini.webp',
@@ -119,7 +119,7 @@ export class HomeComponent {
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
-      star4: 'assets/images/stars/clear.webp',
+      star4: 'assets/images/stars/yellow.webp',
       star5: 'assets/images/stars/clear.webp',
     },
     {
@@ -129,7 +129,7 @@ export class HomeComponent {
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
-      star4: 'assets/images/stars/clear.webp',
+      star4: 'assets/images/stars/half.webp',
       star5: 'assets/images/stars/clear.webp',
     },
     {
@@ -233,7 +233,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp',
+      star5: 'assets/images/stars/yellow.webp',
     },
     {
       src: 'assets/images/technos/nest.webp',
@@ -242,6 +242,26 @@ export class HomeComponent {
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
+      star4: 'assets/images/stars/clear.webp',
+      star5: 'assets/images/stars/clear.webp',
+    },
+    {
+      src: 'assets/images/technos/ionic.webp',
+      alt: 'Ionic',
+      name: 'Ionic',
+      star1: 'assets/images/stars/yellow.webp',
+      star2: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/half.webp',
+      star4: 'assets/images/stars/clear.webp',
+      star5: 'assets/images/stars/clear.webp',
+    },
+    {
+      src: 'assets/images/technos/electron.png',
+      alt: 'Electron.js',
+      name: 'Electron.js',
+      star1: 'assets/images/stars/yellow.webp',
+      star2: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
       star5: 'assets/images/stars/clear.webp',
     },
@@ -298,18 +318,28 @@ export class HomeComponent {
       star4: 'assets/images/stars/half.webp',
       star5: 'assets/images/stars/clear.webp',
     },
+    {
+      src: 'assets/images/technos/android-studio.png',
+      alt: 'Android Studio',
+      name: 'Android Studio',
+      star1: 'assets/images/stars/yellow.webp',
+      star2: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/half.webp',
+      star4: 'assets/images/stars/clear.webp',
+      star5: 'assets/images/stars/clear.webp',
+    },
   ];
 
   databases: Technology[] = [
     {
       src: 'assets/images/technos/couchdb.webp',
       alt: 'CouchDB',
-      name: 'CouchDB',
+      name: 'CouchDB❤️',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/clear.webp',
+      star5: 'assets/images/stars/half.webp',
     },
     {
       src: 'assets/images/technos/mongodb.webp',
@@ -318,7 +348,7 @@ export class HomeComponent {
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
-      star4: 'assets/images/stars/clear.webp',
+      star4: 'assets/images/stars/yellow.webp',
       star5: 'assets/images/stars/clear.webp',
     },
     {
@@ -335,9 +365,19 @@ export class HomeComponent {
 
   architectureTechnologies: Technology[] = [
     {
+      src: 'assets/images/technos/docker.webp',
+      alt: 'Docker',
+      name: 'Docker',
+      star1: 'assets/images/stars/yellow.webp',
+      star2: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/yellow.webp',
+      star4: 'assets/images/stars/yellow.webp',
+      star5: 'assets/images/stars/clear.webp',
+    },
+    {
       src: 'assets/images/technos/kubernetes.png',
       alt: 'Kubernetes',
-      name: 'Kubernetes',
+      name: 'Kubernetes❤️',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
@@ -364,6 +404,16 @@ export class HomeComponent {
       star4: 'assets/images/stars/clear.webp',
       star5: 'assets/images/stars/clear.webp',
     },
+    {
+      src: 'assets/images/technos/azure.png',
+      alt: 'Azure',
+      name: 'Azure',
+      star1: 'assets/images/stars/yellow.webp',
+      star2: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/yellow.webp',
+      star4: 'assets/images/stars/clear.webp',
+      star5: 'assets/images/stars/clear.webp',
+    },
   ];
 
   automationTools: Technology[] = [
@@ -374,7 +424,7 @@ export class HomeComponent {
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
-      star4: 'assets/images/stars/clear.webp',
+      star4: 'assets/images/stars/yellow.webp',
       star5: 'assets/images/stars/clear.webp',
     },
     {
