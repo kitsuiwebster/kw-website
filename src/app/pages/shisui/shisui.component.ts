@@ -1,5 +1,5 @@
 // shisui.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
@@ -7,7 +7,7 @@ import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 interface Entry {
   date: string;
   flag: string;
-  city: string;
+  cities: string[]; // Modifié : maintenant un tableau
   people: string[];
 }
 
@@ -20,7 +20,7 @@ interface Entry {
 })
 export class ShisuiComponent implements OnInit {
   // Utiliser une chaîne simple pour la position de la légende
-  legendPosition = 'right';
+  legendPosition: string = 'right';
   
   // Palette de couleurs arc-en-ciel étendue
   colorScheme: Color = {
@@ -45,6 +45,7 @@ export class ShisuiComponent implements OnInit {
   };
   
   view: [number, number] = [1200, 800];
+  showLegend = true;
   
   entries: Entry[] = [];
   cityStats: { name: string; value: number }[] = [];
@@ -53,10 +54,46 @@ export class ShisuiComponent implements OnInit {
   
   loading = true;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.updateChartSize();
+  }
 
   ngOnInit(): void {
     this.fetchData();
+    this.updateChartSize();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.updateChartSize();
+  }
+
+  updateChartSize() {
+    const width = window.innerWidth;
+    
+    if (width <= 400) {
+      this.view = [280, 280];
+      this.showLegend = false;
+    } else if (width <= 576) {
+      this.view = [300, 300];
+      this.showLegend = false;
+    } else if (width <= 768) {
+      this.view = [450, 300];
+      this.showLegend = true;
+      this.legendPosition = 'bottom';
+    } else if (width <= 992) {
+      this.view = [500, 350];
+      this.showLegend = true;
+      this.legendPosition = 'right';
+    } else if (width <= 1200) {
+      this.view = [550, 400];
+      this.showLegend = true;
+      this.legendPosition = 'right';
+    } else {
+      this.view = [1200, 800];
+      this.showLegend = true;
+      this.legendPosition = 'right';
+    }
   }
 
   fetchData(): void {
@@ -85,7 +122,8 @@ export class ShisuiComponent implements OnInit {
       this.entries = data.map((row: string[]) => ({
         date: row[0]?.trim() || '',
         flag: row[1]?.trim() || '',
-        city: row[2]?.trim() || '',
+        // Modifié : maintenant traite les villes comme les personnes
+        cities: row[2] ? row[2].split(' ').map((c) => c.trim()).filter(c => c) : [],
         people: row[3] ? row[3].split(' ').map((p) => p.trim()).filter(p => p) : [],
       }));
 
@@ -100,10 +138,13 @@ export class ShisuiComponent implements OnInit {
   }
 
   computeCityStats(): void {
+    // Modifié : maintenant traite les villes comme les personnes
     const count: { [city: string]: number } = {};
     for (const entry of this.entries) {
-      if (entry.city) {
-        count[entry.city] = (count[entry.city] || 0) + 1;
+      for (const city of entry.cities) {
+        if (city) {
+          count[city] = (count[city] || 0) + 1;
+        }
       }
     }
     this.cityStats = Object.entries(count)
@@ -139,6 +180,11 @@ export class ShisuiComponent implements OnInit {
 
   // Méthode pour formater les étiquettes des graphiques
   formatLabel(label: string): string {
+    const width = window.innerWidth;
+    // Sur mobile, raccourcir davantage les étiquettes
+    if (width <= 576) {
+      return label.length > 10 ? label.substring(0, 10) + '...' : label;
+    }
     return label.length > 20 ? label.substring(0, 20) + '...' : label;
   }
 }

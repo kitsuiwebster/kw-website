@@ -75,13 +75,16 @@
       <div *ngIf="cityStats.length > 0" class="chart-container">
         <ngx-charts-pie-chart
           [results]="cityStats"
-          [legend]="true"
+          [legend]="showLegend"
+          [legendTitle]="'Villes'"
           [labels]="true"
           [doughnut]="false"
           [explodeSlices]="true"
           [animations]="true"
           [view]="view"
           [scheme]="colorScheme"
+          [trimLabels]="false"
+          [maxLabelLength]="20"
           [labelFormatting]="formatLabel">
         </ngx-charts-pie-chart>
       </div>
@@ -93,13 +96,16 @@
       <div *ngIf="peopleStats.length > 0" class="chart-container">
         <ngx-charts-pie-chart
           [results]="peopleStats"
-          [legend]="true"
+          [legend]="showLegend"
+          [legendTitle]="'Personnes'"
           [labels]="true"
           [doughnut]="false"
           [explodeSlices]="true"
           [animations]="true"
           [view]="view"
           [scheme]="colorScheme"
+          [trimLabels]="false"
+          [maxLabelLength]="20"
           [labelFormatting]="formatLabel">
         </ngx-charts-pie-chart>
       </div>
@@ -111,13 +117,16 @@
       <div *ngIf="flagStats.length > 0" class="chart-container">
         <ngx-charts-pie-chart
           [results]="flagStats"
-          [legend]="true"
+          [legend]="showLegend"
+          [legendTitle]="'Pays'"
           [labels]="true"
           [doughnut]="false"
           [explodeSlices]="true"
           [animations]="true"
           [view]="view"
           [scheme]="colorScheme"
+          [trimLabels]="false"
+          [maxLabelLength]="20"
           [labelFormatting]="formatLabel">
         </ngx-charts-pie-chart>
       </div>
