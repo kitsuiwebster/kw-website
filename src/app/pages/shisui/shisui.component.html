@@ -1,0 +1,58 @@
+<div class="container">
+  <h2 class="title">kitsuiwebster's stats</h2>
+
+  <div *ngIf="loading" class="loading-container">
+    <p>Chargement des données...</p>
+    <div class="loading-spinner"></div>
+  </div>
+
+  <div *ngIf="!loading" class="stats-container">
+    <div class="chart-section">
+      <h3>📍 Par ville</h3>
+      <div *ngIf="cityStats.length > 0" class="chart-container">
+        <ngx-charts-pie-chart
+          [results]="cityStats"
+          [legend]="true"
+          [labels]="true"
+          [doughnut]="false"
+          [explodeSlices]="true"
+          [animations]="true"
+          [view]="view">
+        </ngx-charts-pie-chart>
+      </div>
+      <p *ngIf="cityStats.length === 0" class="no-data">Aucune donnée disponible</p>
+    </div>
+
+    <div class="chart-section">
+      <h3>👥 Par personne</h3>
+      <div *ngIf="peopleStats.length > 0" class="chart-container">
+        <ngx-charts-pie-chart
+          [results]="peopleStats"
+          [legend]="true"
+          [labels]="true"
+          [doughnut]="false"
+          [explodeSlices]="true"
+          [animations]="true"
+          [view]="view">
+        </ngx-charts-pie-chart>
+      </div>
+      <p *ngIf="peopleStats.length === 0" class="no-data">Aucune donnée disponible</p>
+    </div>
+
+    <div class="chart-section">
+      <h3>🌍 Par pays</h3>
+      <div *ngIf="flagStats.length > 0" class="chart-container">
+        <ngx-charts-pie-chart
+          [results]="flagStats"
+          [legend]="true"
+          [labels]="true"
+          [doughnut]="false"
+          [explodeSlices]="true"
+          [animations]="true"
+          [view]="view">
+        </ngx-charts-pie-chart>
+      </div>
+      <p *ngIf="flagStats.length === 0" class="no-data">Aucune donnée disponible</p>
+    </div>
+  </div>
+</div>

@@ -7,14 +7,16 @@ import { ArticlesComponent } from './pages/articles/articles.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { HackapromptComponent } from './pages/articles/hackaprompt/hackaprompt.component';
 import { MidjourneyComponent } from './pages/articles/midjourney/midjourney.component';
+import { ShisuiComponent } from './pages/shisui/shisui.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'projects', component: ProjectsComponent},
-  { path: 'articles', component: ArticlesComponent},
-  { path: 'hackaprompt', component: HackapromptComponent},
-  { path: 'midjourney', component: MidjourneyComponent},
-  { path: 'contact', component: ContactComponent},
+  { path: 'projects', component: ProjectsComponent },
+  { path: 'articles', component: ArticlesComponent },
+  { path: 'hackaprompt', component: HackapromptComponent },
+  { path: 'midjourney', component: MidjourneyComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'shisui', component: ShisuiComponent },
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'notfound' } 
 ];
