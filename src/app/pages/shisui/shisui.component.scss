@@ -1,6 +1,5 @@
 .container {
   padding: 20px;
-  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -35,6 +34,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-height: 600px;
+  overflow-y: auto;
 }
 
 .table-container:hover {
@@ -49,6 +50,9 @@
   padding: 15px;
   text-align: center;
   font-size: 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .stats-table {
@@ -63,6 +67,9 @@
   text-align: left;
   padding: 12px 15px;
   border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 53px; /* Hauteur du titre h3 */
+  z-index: 5;
 }
 
 .stats-table td {
@@ -124,7 +131,7 @@
 }
 
 .chart-container {
-  height: 450px;
+  height: 800px;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -162,6 +169,25 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Styles pour les barres de défilement personnalisées */
+.table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 /* Styles responsifs */

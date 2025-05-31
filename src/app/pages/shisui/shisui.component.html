@@ -7,7 +7,7 @@
   </div>
 
   <div *ngIf="!loading" class="stats-container">
-    <!-- Tableaux des tops -->
+    <!-- Tableaux des tops - sans limitation à 5 éléments -->
     <div class="top-tables">
       <div class="table-container">
         <h3>🏆 Top Villes</h3>
@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let city of cityStats.slice(0, 5); let i = index">
+            <tr *ngFor="let city of cityStats; let i = index">
               <td class="rank">{{ i + 1 }}</td>
               <td class="name">{{ city.name }}</td>
               <td class="value">{{ city.value }}</td>
@@ -40,7 +40,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let flag of flagStats.slice(0, 5); let i = index">
+            <tr *ngFor="let flag of flagStats; let i = index">
               <td class="rank">{{ i + 1 }}</td>
               <td class="name">{{ flag.name }}</td>
               <td class="value">{{ flag.value }}</td>
@@ -60,7 +60,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let person of peopleStats.slice(0, 5); let i = index">
+            <tr *ngFor="let person of peopleStats; let i = index">
               <td class="rank">{{ i + 1 }}</td>
               <td class="name">{{ person.name }}</td>
               <td class="value">{{ person.value }}</td>
