@@ -18,6 +18,96 @@
   gap: 40px;
 }
 
+/* Styles pour les tableaux de tops */
+.top-tables {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.table-container {
+  flex: 1;
+  min-width: 250px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.table-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.table-container h3 {
+  background-color: #4a5568;
+  color: white;
+  margin: 0;
+  padding: 15px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stats-table th {
+  background-color: #f8f9fa;
+  color: #4a5568;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.stats-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.stats-table tr:last-child td {
+  border-bottom: none;
+}
+
+.stats-table tr:hover {
+  background-color: #f8fafc;
+}
+
+.stats-table .rank {
+  font-weight: bold;
+  color: #4a5568;
+  text-align: center;
+  width: 40px;
+}
+
+.stats-table .name {
+  font-weight: 500;
+}
+
+.stats-table .value {
+  color: #4a5568;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Top 3 styling */
+.stats-table tr:nth-child(1) .rank {
+  color: #f6ad55;
+}
+
+.stats-table tr:nth-child(2) .rank {
+  color: #a0aec0;
+}
+
+.stats-table tr:nth-child(3) .rank {
+  color: #ed8936;
+}
+
 .chart-section {
   background-color: #f8f9fa;
   border-radius: 8px;
@@ -60,7 +150,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border-left-color: rgb(255, 0, 21);
+  border-left-color: rgb(255, 0, 34);
   animation: spin 1s linear infinite;
   margin-top: 20px;
 }
@@ -74,8 +164,16 @@
   }
 }
 
-// Styles responsifs
+/* Styles responsifs */
 @media (max-width: 900px) {
+  .top-tables {
+    flex-direction: column;
+  }
+  
+  .table-container {
+    width: 100%;
+  }
+
   .chart-container {
     height: 400px;
   }

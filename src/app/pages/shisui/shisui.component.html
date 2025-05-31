@@ -7,6 +7,69 @@
   </div>
 
   <div *ngIf="!loading" class="stats-container">
+    <!-- Tableaux des tops -->
+    <div class="top-tables">
+      <div class="table-container">
+        <h3>🏆 Top Villes</h3>
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Ville</th>
+              <th>Jours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let city of cityStats.slice(0, 5); let i = index">
+              <td class="rank">{{ i + 1 }}</td>
+              <td class="name">{{ city.name }}</td>
+              <td class="value">{{ city.value }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <h3>🏆 Top Pays</h3>
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Pays</th>
+              <th>Jours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let flag of flagStats.slice(0, 5); let i = index">
+              <td class="rank">{{ i + 1 }}</td>
+              <td class="name">{{ flag.name }}</td>
+              <td class="value">{{ flag.value }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <h3>🏆 Top Personnes</h3>
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Personne</th>
+              <th>Jours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let person of peopleStats.slice(0, 5); let i = index">
+              <td class="rank">{{ i + 1 }}</td>
+              <td class="name">{{ person.name }}</td>
+              <td class="value">{{ person.value }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="chart-section">
       <h3>📍 Par ville</h3>
       <div *ngIf="cityStats.length > 0" class="chart-container">
@@ -17,7 +80,9 @@
           [doughnut]="false"
           [explodeSlices]="true"
           [animations]="true"
-          [view]="view">
+          [view]="view"
+          [scheme]="colorScheme"
+          [labelFormatting]="formatLabel">
         </ngx-charts-pie-chart>
       </div>
       <p *ngIf="cityStats.length === 0" class="no-data">Aucune donnée disponible</p>
@@ -33,7 +98,9 @@
           [doughnut]="false"
           [explodeSlices]="true"
           [animations]="true"
-          [view]="view">
+          [view]="view"
+          [scheme]="colorScheme"
+          [labelFormatting]="formatLabel">
         </ngx-charts-pie-chart>
       </div>
       <p *ngIf="peopleStats.length === 0" class="no-data">Aucune donnée disponible</p>
@@ -49,7 +116,9 @@
           [doughnut]="false"
           [explodeSlices]="true"
           [animations]="true"
-          [view]="view">
+          [view]="view"
+          [scheme]="colorScheme"
+          [labelFormatting]="formatLabel">
         </ngx-charts-pie-chart>
       </div>
       <p *ngIf="flagStats.length === 0" class="no-data">Aucune donnée disponible</p>
