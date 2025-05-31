@@ -34,7 +34,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/kitsuiwebster/browser/
-          server-dir: ./
+          server-dir: ./public_html/
           delete-removed: true
 
-          
