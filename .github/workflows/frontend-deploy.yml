@@ -21,22 +21,18 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Install Angular CLI
-        run: yarn add @angular/cli
-        working-directory: frontend
-      
+      - name: Install Angular CLI globally
+        run: yarn global add @angular/cli
 
       - name: Build Angular app
-        run: yarn ng build --output-path=dist/kitsuiwebster/
-        working-directory: frontend
-
+        run: ng build --output-path=dist/kitsuiwebster/
+        
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.0
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: frontend/dist/kitsuiwebster/browser/
-          server-dir: ./
+          local-dir: dist/kitsuiwebster/browser/
+          server-dir: public_html/
           delete-removed: true
-
