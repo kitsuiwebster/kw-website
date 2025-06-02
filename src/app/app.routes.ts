@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/notfound/notfound.component';
-import { ProjectsComponent } from './pages/projects/projects.component';
 import { ArticlesComponent } from './pages/articles/articles.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { HackapromptComponent } from './pages/articles/hackaprompt/hackaprompt.component';
 import { MidjourneyComponent } from './pages/articles/midjourney/midjourney.component';
 import { ShisuiComponent } from './pages/shisui/shisui.component';
+import { YnovComponent } from './pages/ynov/ynov.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'projects', component: ProjectsComponent },
   { path: 'articles', component: ArticlesComponent },
   { path: 'hackaprompt', component: HackapromptComponent },
   { path: 'midjourney', component: MidjourneyComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'shisui', component: ShisuiComponent },
+  { path: 'ynov', component: YnovComponent }, 
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'notfound' } 
 ];
