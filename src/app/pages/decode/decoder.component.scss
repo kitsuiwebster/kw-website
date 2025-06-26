@@ -1,0 +1,210 @@
+.container {
+  max-width: 450px;
+  margin: 50px auto;
+  padding: 25px;
+  border-radius: 15px;
+}
+
+.container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.key-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #dadada;
+  border-radius: 8px;
+  color: 2a2a2a;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.key-input:focus {
+  outline: none;
+  border-color: #27ae60;
+  box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+}
+
+.key-input::placeholder {
+  font-style: italic;
+  font-family: "Courier New", monospace;
+  background-color: white;
+}
+
+.input-area {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #dadada;
+  border-radius: 8px;
+  font-size: 16px;
+  resize: vertical;
+  min-height: 100px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.input-area:focus {
+  outline: none;
+  border-color: #27ae60;
+  box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+}
+
+.input-area::placeholder {
+  font-style: italic;
+}
+
+.result {
+  padding: 20px;
+  border-radius: 10px;
+  min-height: 60px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid #dadada;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-break: break-word;
+  margin-bottom: 15px;
+}
+
+.result.waiting {
+  background: #dadada;
+  border-color: #aaaaaa;
+  color: rgba(112, 112, 112, 0.7);
+  font-style: italic;
+}
+
+.result.success {
+  background: #0d4f3c;
+  border-color: #27ae60;
+  color: white;
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(39, 174, 96, 0.2);
+}
+
+.result.error {
+  background: #4f0d0d;
+  border-color: #e74c3c;
+  color: white;
+  animation: shake 0.5s ease-in-out;
+}
+
+.copy-button {
+  width: 100%;
+  padding: 12px 20px;
+  background: white;
+  border: 2px solid #aaaaaa;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "Courier New", monospace;
+}
+
+.copy-button:hover {
+  background: #dadada;
+  transform: translateY(-2px);
+}
+
+.copy-button:active {
+  transform: translateY(0);
+}
+
+.copy-button.copied {
+  background: #27ae60;
+  animation: pulse 0.3s ease-in-out;
+}
+
+.copy-button.copied:hover {
+  background: #229954;
+}
+
+.info {
+  text-align: center;
+  opacity: 0.6;
+  font-size: 12px;
+  margin-top: 15px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  .key-input,
+  .input-area {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .result {
+    font-size: 16px;
+    padding: 15px;
+  }
+
+  .container h1 {
+    font-size: 1.6rem;
+  }
+
+  .copy-button {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+}
+
+.laius {
+    font-style: italic;
+    color: #757575;
+    font-size: 14px;
+}

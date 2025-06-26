@@ -7,7 +7,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { HackapromptComponent } from './pages/articles/hackaprompt/hackaprompt.component';
 import { MidjourneyComponent } from './pages/articles/midjourney/midjourney.component';
 import { ShisuiComponent } from './pages/shisui/shisui.component';
-import { YnovComponent } from './pages/ynov/ynov.component';
+import { DecoderComponent } from './pages/decode/decoder.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: 'midjourney', component: MidjourneyComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'shisui', component: ShisuiComponent },
-  { path: 'ynov', component: YnovComponent }, 
+  { path: 'decoder', component: DecoderComponent },
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'notfound' } 
 ];

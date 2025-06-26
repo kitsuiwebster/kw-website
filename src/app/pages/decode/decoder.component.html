@@ -1,0 +1,47 @@
+<div class="container">
+  <h1>🔓Decoder</h1>
+  <p class="laius">kitsuiwebster is never alone, but who's by his side?</p>
+  
+  <div class="input-group">
+    <label for="key">Secret key</label>
+    <input
+      id="key"
+      type="text"
+      [(ngModel)]="secretKey"
+      (input)="decode()"
+      placeholder="Enter secret key"
+      class="key-input"
+    />
+  </div>
+  
+  <div class="input-group">
+    <label for="message">Encrypted message</label>
+    <textarea
+      id="message"
+      [(ngModel)]="inputMessage"
+      (input)="decode()"
+      placeholder="Enter encrypted message"
+      rows="4"
+      class="input-area"
+    ></textarea>
+  </div>
+  
+  <div 
+    class="result" 
+    [class.success]="isSuccess()"
+    [class.error]="isError()"
+    [class.waiting]="isWaiting()"
+  >
+    {{ result() }}
+  </div>
+
+  @if (shouldShowCopyButton()) {
+    <button 
+      (click)="copyResult()"
+      class="copy-button"
+      [class.copied]="copyButtonText() === 'Copied!'"
+    >
+      {{ copyButtonText() }}
+    </button>
+  }
+</div>
