@@ -52,6 +52,10 @@ export class ShisuiComponent implements OnInit {
   peopleStats: { name: string; value: number }[] = [];
   flagStats: { name: string; value: number }[] = [];
   
+  // Nouvelles statistiques
+  peopleByCountryStats: { [country: string]: { name: string; value: number }[] } = {};
+  consecutiveDaysStats: { name: string; value: number }[] = [];
+  
   loading = true;
 
   constructor(private http: HttpClient) {
@@ -135,6 +139,8 @@ export class ShisuiComponent implements OnInit {
     this.computeCityStats();
     this.computePeopleStats();
     this.computeFlagStats();
+    this.computePeopleByCountryStats();
+    this.computeConsecutiveDaysStats();
   }
 
   computeCityStats(): void {
@@ -178,6 +184,116 @@ export class ShisuiComponent implements OnInit {
     this.flagStats = Object.entries(count)
       .map(([name, value]) => ({ name, value }))
       .sort((a, b) => b.value - a.value); // Tri par ordre décroissant
+  }
+
+  computePeopleByCountryStats(): void {
+    // Réinitialiser les stats
+    this.peopleByCountryStats = {};
+    
+    for (const entry of this.entries) {
+      // Pour chaque pays dans l'entrée
+      for (const flag of entry.flag) {
+        if (flag) {
+          // Initialiser le pays s'il n'existe pas
+          if (!this.peopleByCountryStats[flag]) {
+            this.peopleByCountryStats[flag] = [];
+          }
+          
+          // Compter les personnes pour ce pays
+          const countForCountry: { [person: string]: number } = {};
+          
+          // Récupérer toutes les personnes pour ce pays
+          for (const otherEntry of this.entries) {
+            if (otherEntry.flag.includes(flag)) {
+              for (const person of otherEntry.people) {
+                if (person) {
+                  countForCountry[person] = (countForCountry[person] || 0) + 1;
+                }
+              }
+            }
+          }
+          
+          // Convertir en tableau trié
+          this.peopleByCountryStats[flag] = Object.entries(countForCountry)
+            .map(([name, value]) => ({ name, value }))
+            .sort((a, b) => b.value - a.value);
+        }
+      }
+    }
+  }
+
+  computeConsecutiveDaysStats(): void {
+    // Trier les entrées par date pour pouvoir calculer les jours consécutifs
+    const sortedEntries = [...this.entries].sort((a, b) => {
+      // Parser les dates au format DD/MM/YYYY
+      const parseDate = (dateStr: string): Date => {
+        const [day, month, year] = dateStr.split('/').map(num => parseInt(num, 10));
+        return new Date(year, month - 1, day); // month - 1 car les mois commencent à 0
+      };
+      
+      const dateA = parseDate(a.date);
+      const dateB = parseDate(b.date);
+      return dateA.getTime() - dateB.getTime();
+    });
+
+    const maxConsecutive: { [person: string]: number } = {};
+    
+    // Pour chaque personne, calculer ses jours consécutifs
+    const allPeople = [...new Set(this.entries.flatMap(entry => entry.people))].filter(p => p);
+    
+    for (const person of allPeople) {
+      let currentStreak = 0;
+      let maxStreak = 0;
+      let previousDate: Date | null = null;
+      
+      for (const entry of sortedEntries) {
+        const parseDate = (dateStr: string): Date => {
+          const [day, month, year] = dateStr.split('/').map(num => parseInt(num, 10));
+          return new Date(year, month - 1, day);
+        };
+        
+        const currentDate = parseDate(entry.date);
+        const personIsPresent = entry.people.includes(person);
+        
+        if (personIsPresent) {
+          // Vérifier si c'est consécutif avec le jour précédent
+          if (previousDate) {
+            const dayDifference = (currentDate.getTime() - previousDate.getTime()) / (1000 * 60 * 60 * 24);
+            if (Math.abs(dayDifference - 1) < 0.1) { // Tolérance pour éviter les erreurs de float
+              // Jour consécutif
+              currentStreak++;
+            } else {
+              // Pas consécutif, recommencer
+              currentStreak = 1;
+            }
+          } else {
+            // Premier jour pour cette personne
+            currentStreak = 1;
+          }
+          
+          // Mettre à jour le maximum
+          maxStreak = Math.max(maxStreak, currentStreak);
+          previousDate = currentDate;
+        } else {
+          // Personne absente, réinitialiser pour la prochaine séquence
+          currentStreak = 0;
+          previousDate = null;
+        }
+      }
+      
+      if (maxStreak > 0) {
+        maxConsecutive[person] = maxStreak;
+      }
+    }
+
+    this.consecutiveDaysStats = Object.entries(maxConsecutive)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value);
+  }
+
+  // Méthode utilitaire pour obtenir les pays avec des personnes
+  getCountriesWithPeople(): string[] {
+    return Object.keys(this.peopleByCountryStats);
   }
 
   // Méthode pour formater les étiquettes des graphiques

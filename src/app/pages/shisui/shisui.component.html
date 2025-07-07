@@ -7,7 +7,7 @@
   </div>
 
   <div *ngIf="!loading" class="stats-container">
-    <!-- Tableaux des tops - sans limitation à 5 éléments -->
+    <!-- Tableaux des tops généraux -->
     <div class="top-tables">
       <div class="table-container">
         <h3>🏆 Top Villes</h3>
@@ -70,6 +70,56 @@
       </div>
     </div>
 
+    <!-- Nouveau tableau : Jours consécutifs -->
+    <div class="special-tables">
+      <div class="table-container full-width">
+        <h3>🔥 Top Jours Consécutifs par Personne</h3>
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Personne</th>
+              <th>Jours Consécutifs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let consecutive of consecutiveDaysStats; let i = index">
+              <td class="rank">{{ i + 1 }}</td>
+              <td class="name">{{ consecutive.name }}</td>
+              <td class="value">{{ consecutive.value }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Nouveaux tableaux : Personnes par pays -->
+    <div class="country-tables" *ngIf="getCountriesWithPeople().length > 0">
+      <h2 class="section-title">👥 Top Personnes par Pays</h2>
+      <div class="country-tables-grid">
+        <div class="table-container" *ngFor="let country of getCountriesWithPeople()">
+          <h3>{{ country }} Top Personnes</h3>
+          <table class="stats-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Personne</th>
+                <th>Jours</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let person of peopleByCountryStats[country]; let i = index">
+                <td class="rank">{{ i + 1 }}</td>
+                <td class="name">{{ person.name }}</td>
+                <td class="value">{{ person.value }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Graphiques existants -->
     <div class="chart-section">
       <h3>📍 Par ville</h3>
       <div *ngIf="cityStats.length > 0" class="chart-container">
