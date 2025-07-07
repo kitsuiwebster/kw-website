@@ -6,8 +6,8 @@ import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 
 interface Entry {
   date: string;
-  flag: string;
-  cities: string[]; // Modifié : maintenant un tableau
+  flag: string[]; // Modifié : maintenant un tableau comme les villes
+  cities: string[];
   people: string[];
 }
 
@@ -121,8 +121,8 @@ export class ShisuiComponent implements OnInit {
 
       this.entries = data.map((row: string[]) => ({
         date: row[0]?.trim() || '',
-        flag: row[1]?.trim() || '',
-        // Modifié : maintenant traite les villes comme les personnes
+        // Modifié : traiter les drapeaux comme les villes et personnes
+        flag: row[1] ? row[1].split(' ').map((f) => f.trim()).filter(f => f) : [],
         cities: row[2] ? row[2].split(' ').map((c) => c.trim()).filter(c => c) : [],
         people: row[3] ? row[3].split(' ').map((p) => p.trim()).filter(p => p) : [],
       }));
@@ -138,7 +138,6 @@ export class ShisuiComponent implements OnInit {
   }
 
   computeCityStats(): void {
-    // Modifié : maintenant traite les villes comme les personnes
     const count: { [city: string]: number } = {};
     for (const entry of this.entries) {
       for (const city of entry.cities) {
@@ -169,8 +168,11 @@ export class ShisuiComponent implements OnInit {
   computeFlagStats(): void {
     const count: { [flag: string]: number } = {};
     for (const entry of this.entries) {
-      if (entry.flag) {
-        count[entry.flag] = (count[entry.flag] || 0) + 1;
+      // Modifié : parcourir le tableau de drapeaux comme pour les villes et personnes
+      for (const flag of entry.flag) {
+        if (flag) {
+          count[flag] = (count[flag] || 0) + 1;
+        }
       }
     }
     this.flagStats = Object.entries(count)
