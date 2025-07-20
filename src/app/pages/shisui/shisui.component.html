@@ -19,59 +19,70 @@
             placeholder="Sélectionnez une date"
             (change)="searchByDate()"
           />
-          <button class="search-button" (click)="searchByDate()" [disabled]="!searchDate">
-            Rechercher
-          </button>
-          <button class="clear-button" (click)="clearSearch()" [disabled]="!searchDate">
-            Effacer
-          </button>
         </div>
         
         <!-- Résultats de la recherche -->
-        <div *ngIf="dateSearchResult" class="search-results">
-          <div *ngIf="dateSearchResult.found" class="result-found">
-            <h4>📅 Résultats pour le {{ dateSearchResult.date }}</h4>
+        <div *ngIf="dateSearchResult" class="search-results-fancy">
+          <div *ngIf="dateSearchResult.found" class="result-cards">
+            <div class="date-header">
+              <span class="date-label">{{ dateSearchResult.date }}</span>
+            </div>
             
-            <div class="result-section">
-              <h5>🌍 Pays visités :</h5>
-              <div class="result-items">
-                <span *ngFor="let country of dateSearchResult.countries" class="result-item country-item">
-                  {{ country }}
-                </span>
-                <span *ngIf="dateSearchResult.countries.length === 0" class="no-result">
-                  Aucun pays enregistré
-                </span>
+            <div class="result-grid">
+              <!-- Carte Pays -->
+              <div class="result-card countries-card">
+                <div class="card-icon">🌍</div>
+                <h5 class="card-title">Pays visités</h5>
+                <div class="card-content">
+                  <div *ngIf="dateSearchResult.countries.length > 0" class="items-grid">
+                    <div *ngFor="let country of dateSearchResult.countries" class="fancy-item country-tag">
+                      {{ country }}
+                    </div>
+                  </div>
+                  <div *ngIf="dateSearchResult.countries.length === 0" class="empty-state">
+                    <span>Aucun pays</span>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div class="result-section">
-              <h5>🏙️ Villes visitées :</h5>
-              <div class="result-items">
-                <span *ngFor="let city of dateSearchResult.cities" class="result-item city-item">
-                  {{ getCityWithFlag(city) }}
-                </span>
-                <span *ngIf="dateSearchResult.cities.length === 0" class="no-result">
-                  Aucune ville enregistrée
-                </span>
+              <!-- Carte Villes -->
+              <div class="result-card cities-card">
+                <div class="card-icon">🏙️</div>
+                <h5 class="card-title">Villes visitées</h5>
+                <div class="card-content">
+                  <div *ngIf="dateSearchResult.cities.length > 0" class="items-grid">
+                    <div *ngFor="let city of dateSearchResult.cities" class="fancy-item city-tag">
+                      {{ getCityWithFlag(city) }}
+                    </div>
+                  </div>
+                  <div *ngIf="dateSearchResult.cities.length === 0" class="empty-state">
+                    <span>Aucune ville</span>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div class="result-section">
-              <h5>👥 Personnes présentes :</h5>
-              <div class="result-items">
-                <span *ngFor="let person of dateSearchResult.people" class="result-item person-item">
-                  {{ person }}
-                </span>
-                <span *ngIf="dateSearchResult.people.length === 0" class="no-result">
-                  Aucune personne enregistrée
-                </span>
+              <!-- Carte Personnes -->
+              <div class="result-card people-card">
+                <div class="card-icon">👥</div>
+                <h5 class="card-title">Personnes présentes</h5>
+                <div class="card-content">
+                  <div *ngIf="dateSearchResult.people.length > 0" class="items-grid">
+                    <div *ngFor="let person of dateSearchResult.people" class="fancy-item person-tag">
+                      {{ person }}
+                    </div>
+                  </div>
+                  <div *ngIf="dateSearchResult.people.length === 0" class="empty-state">
+                    <span>Aucune personne</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           
-          <div *ngIf="!dateSearchResult.found" class="result-not-found">
-            <h4>❌ Aucun résultat pour le {{ dateSearchResult.date }}</h4>
-            <p>Cette date n'a pas de données.</p>
+          <div *ngIf="!dateSearchResult.found" class="no-data-fancy">
+            <div class="no-data-icon">📅</div>
+            <h4>Aucune donnée disponible</h4>
+            <p>Il n'y a pas d'informations enregistrées pour le {{ dateSearchResult.date }}</p>
           </div>
         </div>
       </div>

@@ -29,25 +29,48 @@
 
 /* Nouveaux styles pour la section de recherche par date */
 .date-search-section {
-  background-color: #f8f9fa;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.date-search-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: shimmer 15s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .date-search-section h3 {
-  color: #333;
+  color: white;
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .search-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
+  z-index: 10;
 }
 
 .search-input-group {
@@ -56,21 +79,36 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 10;
 }
 
 .date-input {
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-  background-color: white;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-weight: 500;
+  color: #333;
+  position: relative;
+  z-index: 20;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .date-input:focus {
   outline: none;
-  border-color: #4a5568;
-  box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.date-input:hover {
+  background-color: rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
 }
 
 .search-button, .clear-button, .export-button {
@@ -123,76 +161,177 @@
   transform: translateY(-2px);
 }
 
-.search-results {
+/* Styles pour les résultats de recherche fancy */
+.search-results-fancy {
+  margin-top: 30px;
+  animation: slideIn 0.5s ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+.date-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.date-label {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: inline-block;
+  box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
   margin-top: 20px;
-  padding: 20px;
-  border-radius: 8px;
-  animation: fadeIn 0.5s ease-in-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.result-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.result-found {
-  background-color: #e6fffa;
-  border: 2px solid #38a169;
+.result-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--card-color-1) 0%, var(--card-color-2) 100%);
 }
 
-.result-not-found {
-  background-color: #fed7d7;
-  border: 2px solid #e53e3e;
+.countries-card {
+  --card-color-1: #4facfe;
+  --card-color-2: #00f2fe;
+}
+
+.cities-card {
+  --card-color-1: #43e97b;
+  --card-color-2: #38f9d7;
+}
+
+.people-card {
+  --card-color-1: #fa709a;
+  --card-color-2: #fee140;
+}
+
+.result-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 20px 0;
   text-align: center;
 }
 
-.result-found h4, .result-not-found h4 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  color: #333;
+.card-content {
+  min-height: 80px;
 }
 
-.result-section {
-  margin-bottom: 15px;
-}
-
-.result-section h5 {
-  margin: 0 0 10px 0;
-  color: #4a5568;
-  font-size: 1.1rem;
-}
-
-.result-items {
+.items-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
+  justify-content: center;
 }
 
-.result-item {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
+.fancy-item {
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: default;
 }
 
-.country-item {
-  background-color: #bee3f8;
-  color: #2b6cb0;
+.country-tag {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
 }
 
-.city-item {
-  background-color: #c6f6d5;
-  color: #2f855a;
+.city-tag {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  box-shadow: 0 4px 10px rgba(240, 147, 251, 0.3);
 }
 
-.person-item {
-  background-color: #fbb6ce;
-  color: #b83280;
+.person-tag {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  box-shadow: 0 4px 10px rgba(79, 172, 254, 0.3);
 }
 
-.no-result {
-  color: #718096;
+.fancy-item:hover {
+  transform: scale(1.05);
+}
+
+.empty-state {
+  text-align: center;
+  color: #a0aec0;
   font-style: italic;
+  padding: 20px;
+}
+
+/* Styles pour l'état no data */
+.no-data-fancy {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.no-data-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+
+.no-data-fancy h4 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.no-data-fancy p {
+  color: #718096;
+  font-size: 1.1rem;
+  margin: 0;
 }
 
 /* Styles pour les tableaux de tops généraux */
@@ -521,12 +660,30 @@
     padding: 20px;
   }
   
-  .result-items {
-    flex-direction: column;
-    gap: 5px;
+  .result-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
   
-  .result-item {
-    text-align: center;
+  .result-card {
+    padding: 20px;
+  }
+  
+  .card-icon {
+    font-size: 2.5rem;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+  
+  .fancy-item {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .date-label {
+    font-size: 1.1rem;
+    padding: 10px 20px;
   }
 }
