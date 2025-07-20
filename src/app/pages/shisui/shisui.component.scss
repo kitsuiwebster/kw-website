@@ -27,6 +27,174 @@
   gap: 40px;
 }
 
+/* Nouveaux styles pour la section de recherche par date */
+.date-search-section {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.date-search-section h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.search-input-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.date-input {
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background-color: white;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #4a5568;
+  box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+}
+
+.search-button, .clear-button, .export-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-button {
+  background-color: #4a5568;
+  color: white;
+}
+
+.search-button:hover:not(:disabled) {
+  background-color: #2d3748;
+  transform: translateY(-2px);
+}
+
+.search-button:disabled {
+  background-color: #cbd5e0;
+  cursor: not-allowed;
+}
+
+.clear-button {
+  background-color: #e53e3e;
+  color: white;
+}
+
+.clear-button:hover:not(:disabled) {
+  background-color: #c53030;
+  transform: translateY(-2px);
+}
+
+.clear-button:disabled {
+  background-color: #fed7d7;
+  cursor: not-allowed;
+}
+
+.export-button {
+  background-color: #38a169;
+  color: white;
+}
+
+.export-button:hover {
+  background-color: #2f855a;
+  transform: translateY(-2px);
+}
+
+.search-results {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result-found {
+  background-color: #e6fffa;
+  border: 2px solid #38a169;
+}
+
+.result-not-found {
+  background-color: #fed7d7;
+  border: 2px solid #e53e3e;
+  text-align: center;
+}
+
+.result-found h4, .result-not-found h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.result-section {
+  margin-bottom: 15px;
+}
+
+.result-section h5 {
+  margin: 0 0 10px 0;
+  color: #4a5568;
+  font-size: 1.1rem;
+}
+
+.result-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.result-item {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.country-item {
+  background-color: #bee3f8;
+  color: #2b6cb0;
+}
+
+.city-item {
+  background-color: #c6f6d5;
+  color: #2f855a;
+}
+
+.person-item {
+  background-color: #fbb6ce;
+  color: #b83280;
+}
+
+.no-result {
+  color: #718096;
+  font-style: italic;
+}
+
 /* Styles pour les tableaux de tops généraux */
 .top-tables {
   display: flex;
@@ -81,7 +249,7 @@
   background-color: #4a5568;
   color: white;
   margin: 0;
-  padding: 15px;
+  padding: 12px 10px;
   text-align: center;
   font-size: 1.2rem;
   position: sticky;
@@ -108,7 +276,7 @@
   color: #4a5568;
   font-weight: 600;
   text-align: left;
-  padding: 12px 15px;
+  padding: 12px 8px;
   border-bottom: 1px solid #e2e8f0;
   position: sticky;
   top: 53px; /* Hauteur du titre h3 */
@@ -116,7 +284,7 @@
 }
 
 .stats-table td {
-  padding: 12px 15px;
+  padding: 10px 8px;
   border-bottom: 1px solid #e2e8f0;
 }
 
@@ -245,9 +413,54 @@
   background: #555;
 }
 
+/* Styles pour les tableaux par année */
+.yearly-tables {
+  margin-bottom: 40px;
+}
+
+.year-section {
+  margin-bottom: 40px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.year-title {
+  color: #333;
+  text-align: center;
+  margin: 0 0 20px 0;
+  font-size: 1.6rem;
+  font-weight: bold;
+  border-bottom: 2px solid #805ad5;
+  padding-bottom: 10px;
+}
+
+.year-tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.yearly-tables .table-container h4 {
+  background-color: #805ad5;
+  color: white;
+  margin: 0;
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 1.1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
 /* Styles responsifs */
 @media (max-width: 1200px) {
   .country-tables-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  .year-tables-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 }
@@ -267,6 +480,19 @@
 
   .country-tables-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .year-tables-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .search-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .date-input, .search-button, .clear-button, .export-button {
+    width: 100%;
   }
 }
 
@@ -289,5 +515,18 @@
 
   .section-title {
     font-size: 1.4rem;
+  }
+  
+  .date-search-section {
+    padding: 20px;
+  }
+  
+  .result-items {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .result-item {
+    text-align: center;
   }
 }

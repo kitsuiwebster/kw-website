@@ -2,19 +2,33 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Ajouté pour ngModel
 import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 
 interface Entry {
   date: string;
-  flag: string[]; // Modifié : maintenant un tableau comme les villes
+  flag: string[];
   cities: string[];
   people: string[];
+}
+
+interface DateSearchResult {
+  date: string;
+  countries: string[];
+  cities: string[];
+  people: string[];
+  found: boolean;
+}
+
+interface CityWithFlag {
+  city: string;
+  flag: string;
 }
 
 @Component({
   selector: 'app-shisui',
   standalone: true,
-  imports: [CommonModule, NgxChartsModule],
+  imports: [CommonModule, NgxChartsModule, FormsModule], // Ajouté FormsModule
   templateUrl: './shisui.component.html',
   styleUrls: ['./shisui.component.scss'],
 })
@@ -56,6 +70,22 @@ export class ShisuiComponent implements OnInit {
   peopleByCountryStats: { [country: string]: { name: string; value: number }[] } = {};
   consecutiveDaysStats: { name: string; value: number }[] = [];
   
+  // Map pour stocker la correspondance ville -> drapeau
+  cityFlagMap: Map<string, string> = new Map();
+  
+  // Statistiques par année
+  yearlyStats: {
+    [year: string]: {
+      cities: { name: string; value: number }[];
+      countries: { name: string; value: number }[];
+      people: { name: string; value: number }[];
+    }
+  } = {};
+  
+  // Nouvelle propriété pour la recherche par date
+  searchDate: string = '';
+  dateSearchResult: DateSearchResult | null = null;
+  
   loading = true;
 
   constructor(private http: HttpClient) {
@@ -63,7 +93,9 @@ export class ShisuiComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchData();
+    this.fetchVillesData().then(() => {
+      this.fetchData();
+    });
     this.updateChartSize();
   }
 
@@ -100,6 +132,30 @@ export class ShisuiComponent implements OnInit {
     }
   }
 
+  async fetchVillesData(): Promise<void> {
+    const villesUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTA7o5kyxn2EljodBFyQE2yG6t9s2Rg9gYrpuK080_TBhNRrygO7o_zk5cksPtcqo6py_onhoOdboAc/pub?gid=1937358699&single=true&output=csv';
+    
+    try {
+      const csvText = await this.http.get(villesUrl, { responseType: 'text' }).toPromise();
+      if (csvText) {
+        const lines = csvText.split('\n').filter(line => line.trim() !== '');
+        if (lines.length > 1) {
+          const [, ...dataLines] = lines;
+          dataLines.forEach(line => {
+            const [ville, pays] = line.split(',').map(s => s.trim());
+            if (ville && pays) {
+              this.cityFlagMap.set(ville, pays);
+            }
+          });
+        }
+      }
+      console.log('Sheet villes chargée avec succès:', this.cityFlagMap.size, 'villes');
+    } catch (error) {
+      console.warn('La sheet villes n\'est pas disponible. Assurez-vous que le gid est correct.');
+      // L'application continue de fonctionner sans les drapeaux
+    }
+  }
+
   fetchData(): void {
     const csvUrl =
       'https://docs.google.com/spreadsheets/d/e/2PACX-1vTA7o5kyxn2EljodBFyQE2yG6t9s2Rg9gYrpuK080_TBhNRrygO7o_zk5cksPtcqo6py_onhoOdboAc/pub?gid=0&single=true&output=csv';
@@ -125,7 +181,6 @@ export class ShisuiComponent implements OnInit {
 
       this.entries = data.map((row: string[]) => ({
         date: row[0]?.trim() || '',
-        // Modifié : traiter les drapeaux comme les villes et personnes
         flag: row[1] ? row[1].split(' ').map((f) => f.trim()).filter(f => f) : [],
         cities: row[2] ? row[2].split(' ').map((c) => c.trim()).filter(c => c) : [],
         people: row[3] ? row[3].split(' ').map((p) => p.trim()).filter(p => p) : [],
@@ -135,12 +190,52 @@ export class ShisuiComponent implements OnInit {
     }
   }
 
+  // Nouvelle méthode pour rechercher par date
+  searchByDate(): void {
+    if (!this.searchDate) {
+      this.dateSearchResult = null;
+      return;
+    }
+
+    // Convertir la date du format YYYY-MM-DD vers DD/MM/YYYY
+    const [year, month, day] = this.searchDate.split('-');
+    const formattedDate = `${day}/${month}/${year}`;
+
+    // Chercher l'entrée correspondante
+    const entry = this.entries.find(e => e.date === formattedDate);
+
+    if (entry) {
+      this.dateSearchResult = {
+        date: formattedDate,
+        countries: entry.flag,
+        cities: entry.cities,
+        people: entry.people,
+        found: true
+      };
+    } else {
+      this.dateSearchResult = {
+        date: formattedDate,
+        countries: [],
+        cities: [],
+        people: [],
+        found: false
+      };
+    }
+  }
+
+  // Méthode pour effacer la recherche
+  clearSearch(): void {
+    this.searchDate = '';
+    this.dateSearchResult = null;
+  }
+
   computeAllStats(): void {
     this.computeCityStats();
     this.computePeopleStats();
     this.computeFlagStats();
     this.computePeopleByCountryStats();
     this.computeConsecutiveDaysStats();
+    this.computeYearlyStats();
   }
 
   computeCityStats(): void {
@@ -154,7 +249,7 @@ export class ShisuiComponent implements OnInit {
     }
     this.cityStats = Object.entries(count)
       .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value); // Tri par ordre décroissant
+      .sort((a, b) => b.value - a.value);
   }
 
   computePeopleStats(): void {
@@ -168,13 +263,12 @@ export class ShisuiComponent implements OnInit {
     }
     this.peopleStats = Object.entries(count)
       .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value); // Tri par ordre décroissant
+      .sort((a, b) => b.value - a.value);
   }
 
   computeFlagStats(): void {
     const count: { [flag: string]: number } = {};
     for (const entry of this.entries) {
-      // Modifié : parcourir le tableau de drapeaux comme pour les villes et personnes
       for (const flag of entry.flag) {
         if (flag) {
           count[flag] = (count[flag] || 0) + 1;
@@ -183,26 +277,21 @@ export class ShisuiComponent implements OnInit {
     }
     this.flagStats = Object.entries(count)
       .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value); // Tri par ordre décroissant
+      .sort((a, b) => b.value - a.value);
   }
 
   computePeopleByCountryStats(): void {
-    // Réinitialiser les stats
     this.peopleByCountryStats = {};
     
     for (const entry of this.entries) {
-      // Pour chaque pays dans l'entrée
       for (const flag of entry.flag) {
         if (flag) {
-          // Initialiser le pays s'il n'existe pas
           if (!this.peopleByCountryStats[flag]) {
             this.peopleByCountryStats[flag] = [];
           }
           
-          // Compter les personnes pour ce pays
           const countForCountry: { [person: string]: number } = {};
           
-          // Récupérer toutes les personnes pour ce pays
           for (const otherEntry of this.entries) {
             if (otherEntry.flag.includes(flag)) {
               for (const person of otherEntry.people) {
@@ -213,7 +302,6 @@ export class ShisuiComponent implements OnInit {
             }
           }
           
-          // Convertir en tableau trié
           this.peopleByCountryStats[flag] = Object.entries(countForCountry)
             .map(([name, value]) => ({ name, value }))
             .sort((a, b) => b.value - a.value);
@@ -223,12 +311,10 @@ export class ShisuiComponent implements OnInit {
   }
 
   computeConsecutiveDaysStats(): void {
-    // Trier les entrées par date pour pouvoir calculer les jours consécutifs
     const sortedEntries = [...this.entries].sort((a, b) => {
-      // Parser les dates au format DD/MM/YYYY
       const parseDate = (dateStr: string): Date => {
         const [day, month, year] = dateStr.split('/').map(num => parseInt(num, 10));
-        return new Date(year, month - 1, day); // month - 1 car les mois commencent à 0
+        return new Date(year, month - 1, day);
       };
       
       const dateA = parseDate(a.date);
@@ -238,7 +324,6 @@ export class ShisuiComponent implements OnInit {
 
     const maxConsecutive: { [person: string]: number } = {};
     
-    // Pour chaque personne, calculer ses jours consécutifs
     const allPeople = [...new Set(this.entries.flatMap(entry => entry.people))].filter(p => p);
     
     for (const person of allPeople) {
@@ -256,26 +341,20 @@ export class ShisuiComponent implements OnInit {
         const personIsPresent = entry.people.includes(person);
         
         if (personIsPresent) {
-          // Vérifier si c'est consécutif avec le jour précédent
           if (previousDate) {
             const dayDifference = (currentDate.getTime() - previousDate.getTime()) / (1000 * 60 * 60 * 24);
-            if (Math.abs(dayDifference - 1) < 0.1) { // Tolérance pour éviter les erreurs de float
-              // Jour consécutif
+            if (Math.abs(dayDifference - 1) < 0.1) {
               currentStreak++;
             } else {
-              // Pas consécutif, recommencer
               currentStreak = 1;
             }
           } else {
-            // Premier jour pour cette personne
             currentStreak = 1;
           }
           
-          // Mettre à jour le maximum
           maxStreak = Math.max(maxStreak, currentStreak);
           previousDate = currentDate;
         } else {
-          // Personne absente, réinitialiser pour la prochaine séquence
           currentStreak = 0;
           previousDate = null;
         }
@@ -291,15 +370,98 @@ export class ShisuiComponent implements OnInit {
       .sort((a, b) => b.value - a.value);
   }
 
-  // Méthode utilitaire pour obtenir les pays avec des personnes
+  computeYearlyStats(): void {
+    this.yearlyStats = {};
+    
+    // Grouper les entrées par année
+    const entriesByYear: { [year: string]: Entry[] } = {};
+    
+    for (const entry of this.entries) {
+      // Extraire l'année de la date (format DD/MM/YYYY)
+      const parts = entry.date.split('/');
+      if (parts.length === 3) {
+        const year = parts[2];
+        if (!entriesByYear[year]) {
+          entriesByYear[year] = [];
+        }
+        entriesByYear[year].push(entry);
+      }
+    }
+    
+    // Calculer les statistiques pour chaque année
+    for (const [year, yearEntries] of Object.entries(entriesByYear)) {
+      // Statistiques des villes
+      const cityCount: { [city: string]: number } = {};
+      for (const entry of yearEntries) {
+        for (const city of entry.cities) {
+          if (city) {
+            cityCount[city] = (cityCount[city] || 0) + 1;
+          }
+        }
+      }
+      
+      // Statistiques des pays
+      const countryCount: { [country: string]: number } = {};
+      for (const entry of yearEntries) {
+        for (const country of entry.flag) {
+          if (country) {
+            countryCount[country] = (countryCount[country] || 0) + 1;
+          }
+        }
+      }
+      
+      // Statistiques des personnes
+      const peopleCount: { [person: string]: number } = {};
+      for (const entry of yearEntries) {
+        for (const person of entry.people) {
+          if (person) {
+            peopleCount[person] = (peopleCount[person] || 0) + 1;
+          }
+        }
+      }
+      
+      this.yearlyStats[year] = {
+        cities: Object.entries(cityCount)
+          .map(([name, value]) => ({ name, value }))
+          .sort((a, b) => b.value - a.value),
+        countries: Object.entries(countryCount)
+          .map(([name, value]) => ({ name, value }))
+          .sort((a, b) => b.value - a.value),
+        people: Object.entries(peopleCount)
+          .map(([name, value]) => ({ name, value }))
+          .sort((a, b) => b.value - a.value)
+      };
+    }
+  }
+
   getCountriesWithPeople(): string[] {
     return Object.keys(this.peopleByCountryStats);
   }
+  
+  getYears(): string[] {
+    return Object.keys(this.yearlyStats).sort((a, b) => b.localeCompare(a)); // Tri décroissant
+  }
 
-  // Méthode pour formater les étiquettes des graphiques
+  getAllUniqueCities(): string[] {
+    const allCities = new Set<string>();
+    for (const entry of this.entries) {
+      for (const city of entry.cities) {
+        if (city && city.trim()) {
+          allCities.add(city.trim());
+        }
+      }
+    }
+    return Array.from(allCities).sort();
+  }
+  
+  getCityWithFlag(cityName: string): string {
+    const flag = this.cityFlagMap.get(cityName);
+    return flag ? `${flag} ${cityName}` : cityName;
+  }
+
+
   formatLabel(label: string): string {
     const width = window.innerWidth;
-    // Sur mobile, raccourcir davantage les étiquettes
     if (width <= 576) {
       return label.length > 10 ? label.substring(0, 10) + '...' : label;
     }
