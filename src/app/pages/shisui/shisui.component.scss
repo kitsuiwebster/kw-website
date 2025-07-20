@@ -100,6 +100,14 @@
   appearance: none;
 }
 
+.date-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  background-color: transparent;
+  color: #667eea;
+  font-size: 1.2rem;
+  padding: 10px;
+}
+
 .date-input:focus {
   outline: none;
   transform: translateY(-2px);
