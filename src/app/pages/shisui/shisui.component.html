@@ -32,7 +32,7 @@
               <!-- Carte Pays -->
               <div class="result-card countries-card">
                 <div class="card-icon">🌍</div>
-                <h5 class="card-title">Pays visités</h5>
+                <h5 class="card-title">Pays</h5>
                 <div class="card-content">
                   <div *ngIf="dateSearchResult.countries.length > 0" class="items-grid">
                     <div *ngFor="let country of dateSearchResult.countries" class="fancy-item country-tag">
@@ -48,7 +48,7 @@
               <!-- Carte Villes -->
               <div class="result-card cities-card">
                 <div class="card-icon">🏙️</div>
-                <h5 class="card-title">Villes visitées</h5>
+                <h5 class="card-title">Ville(s)</h5>
                 <div class="card-content">
                   <div *ngIf="dateSearchResult.cities.length > 0" class="items-grid">
                     <div *ngFor="let city of dateSearchResult.cities" class="fancy-item city-tag">
@@ -64,7 +64,7 @@
               <!-- Carte Personnes -->
               <div class="result-card people-card">
                 <div class="card-icon">👥</div>
-                <h5 class="card-title">Personnes présentes</h5>
+                <h5 class="card-title">Personne(s)</h5>
                 <div class="card-content">
                   <div *ngIf="dateSearchResult.people.length > 0" class="items-grid">
                     <div *ngFor="let person of dateSearchResult.people" class="fancy-item person-tag">
