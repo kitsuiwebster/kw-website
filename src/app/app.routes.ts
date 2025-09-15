@@ -8,6 +8,7 @@ import { HackapromptComponent } from './pages/articles/hackaprompt/hackaprompt.c
 import { MidjourneyComponent } from './pages/articles/midjourney/midjourney.component';
 import { ShisuiComponent } from './pages/shisui/shisui.component';
 import { DecoderComponent } from './pages/decode/decoder.component';
+import { HtmlToPdfComponent } from './pages/html-to-pdf/html-to-pdf.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'shisui', component: ShisuiComponent },
   { path: 'decoder', component: DecoderComponent },
+  { path: 'html-to-pdf', component: HtmlToPdfComponent },
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'notfound' } 
 ];

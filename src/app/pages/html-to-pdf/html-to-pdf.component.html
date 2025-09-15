@@ -1,0 +1,26 @@
+<div class="html-to-pdf-container">
+  <h1>Convertisseur HTML vers PDF</h1>
+  
+  <div class="converter-section">
+    <div class="input-section">
+      <label for="html-input">Entrez votre code HTML :</label>
+      <textarea
+        id="html-input"
+        [(ngModel)]="htmlContent"
+        rows="20"
+        [disabled]="isConverting"
+      ></textarea>
+    </div>
+
+    <div class="button-section">
+      <button 
+        class="convert-button"
+        (click)="convertToPdf()"
+        [disabled]="isConverting || !htmlContent.trim()"
+      >
+        <span *ngIf="!isConverting">Convertir en PDF</span>
+        <span *ngIf="isConverting">Conversion en cours...</span>
+      </button>
+    </div>
+  </div>
+</div>
