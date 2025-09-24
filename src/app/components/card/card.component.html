@@ -1,0 +1,13 @@
+<div class="card" [id]="id" [attr.data-type]="card.type">
+  <div class="card-type-indicator"></div>
+  <div class="card-image-container">
+    <img [src]="card.image" [alt]="card.nom" class="card-image">
+    <div class="card-emoji">{{ card.emoji }}</div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-name">{{ card.nom }}</h3>
+    <p class="card-location">{{ card.localisation }}</p>
+    <p class="card-info">{{ getCardInfo() }}</p>
+    <p class="card-type">{{ card.type }}</p>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class='all-cards-container'>
+  <div class='header'>
+    <h1 class='header-title'>Cartes de la Terre 🌍</h1>
+    <div class='buttons-container'>
+      <div *ngIf="isLoading" class="loading" style="color: white; text-align: center; font-size: 16px; margin-right: 10px;">
+        Préparation du téléchargement... {{ Math.round(progress) }}%
+      </div>
+      <button class='download-btn' (click)="downloadAllCards()" [disabled]="isLoading">
+        Télécharger 📥
+      </button>
+      <select (change)="handleFilterChange($event)" class="filter-select">
+        <option value="">Tous les types</option>
+        <option value="Sommet">Sommets</option>
+        <option value="Lac">Lacs</option>
+        <option value="Ville">Villes</option>
+        <option value="Pays">Pays</option>
+        <option value="Mer">Mers</option>
+        <option value="Océan">Océans</option>
+        <option value="Fleuve">Fleuves</option>
+        <option value="Désert">Déserts</option>
+        <option value="Île">îles</option>
+      </select>
+    </div>
+  </div>
+  <div class='cards-grid'>
+    <app-card 
+      *ngFor="let card of shuffledCards" 
+      [card]="card" 
+      [id]="'card-' + card.nom"
+      class="card-box">
+    </app-card>
+  </div>
+</div>

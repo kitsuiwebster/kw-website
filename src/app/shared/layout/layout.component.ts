@@ -1,14 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
 })
 export class LayoutComponent {
+  isCardsPage = false;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isCardsPage = event.url === '/cards';
+      }
+    });
+  }
+
   copyDiscordUsername(): void {
     navigator.clipboard.writeText('kitsuiwebster').then(() => {
       const copiedMessage = document.createElement('div');
