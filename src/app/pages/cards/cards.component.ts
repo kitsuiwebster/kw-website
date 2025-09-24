@@ -960,6 +960,228 @@ export class CardsComponent implements OnInit {
         superficie: "214,969 km²"
       },
 
+      // Amérique du Nord
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/canada.jpg",
+        nom: "Canada",
+        localisation: "Amérique du Nord",
+        population: "38.2 M",
+        superficie: "9,984,670 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/usa.jpg",
+        nom: "États-Unis",
+        localisation: "Amérique du Nord",
+        population: "331.9 M",
+        superficie: "9,833,520 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/mexico.jpg",
+        nom: "Mexique",
+        localisation: "Amérique du Nord",
+        population: "128.9 M",
+        superficie: "1,964,375 km²"
+      },
+
+      // Amérique centrale
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/guatemala.jpg",
+        nom: "Guatemala",
+        localisation: "Amérique centrale",
+        population: "17.3 M",
+        superficie: "108,889 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/belize.jpg",
+        nom: "Belize",
+        localisation: "Amérique centrale",
+        population: "0.4 M",
+        superficie: "22,966 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/honduras.jpg",
+        nom: "Honduras",
+        localisation: "Amérique centrale",
+        population: "10.1 M",
+        superficie: "112,492 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/el-salvador.jpg",
+        nom: "Salvador",
+        localisation: "Amérique centrale",
+        population: "6.5 M",
+        superficie: "21,041 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/nicaragua.jpg",
+        nom: "Nicaragua",
+        localisation: "Amérique centrale",
+        population: "6.8 M",
+        superficie: "130,373 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/costa-rica.jpg",
+        nom: "Costa Rica",
+        localisation: "Amérique centrale",
+        population: "5.2 M",
+        superficie: "51,100 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/panama.jpg",
+        nom: "Panama",
+        localisation: "Amérique centrale",
+        population: "4.4 M",
+        superficie: "75,417 km²"
+      },
+
+      // Caraïbes
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/cuba.jpg",
+        nom: "Cuba",
+        localisation: "Caraïbes",
+        population: "11.3 M",
+        superficie: "109,884 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/haiti.jpg",
+        nom: "Haïti",
+        localisation: "Caraïbes",
+        population: "11.5 M",
+        superficie: "27,750 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/dominican-republic.jpg",
+        nom: "République Dominicaine",
+        localisation: "Caraïbes",
+        population: "11.0 M",
+        superficie: "48,671 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/jamaica.jpg",
+        nom: "Jamaïque",
+        localisation: "Caraïbes",
+        population: "2.8 M",
+        superficie: "10,991 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/puerto-rico.jpg",
+        nom: "Porto Rico",
+        localisation: "Caraïbes",
+        population: "3.2 M",
+        superficie: "9,104 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/trinidad-and-tobago.jpg",
+        nom: "Trinité-et-Tobago",
+        localisation: "Caraïbes",
+        population: "1.4 M",
+        superficie: "5,131 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/barbados.jpg",
+        nom: "Barbade",
+        localisation: "Caraïbes",
+        population: "0.3 M",
+        superficie: "439 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/bahamas.jpg",
+        nom: "Bahamas",
+        localisation: "Caraïbes",
+        population: "0.4 M",
+        superficie: "13,943 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/saint-lucia.jpg",
+        nom: "Sainte-Lucie",
+        localisation: "Caraïbes",
+        population: "0.2 M",
+        superficie: "617 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/grenada.jpg",
+        nom: "Grenade",
+        localisation: "Caraïbes",
+        population: "0.1 M",
+        superficie: "344 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/antigua-and-barbuda.jpg",
+        nom: "Antigua-et-Barbuda",
+        localisation: "Caraïbes",
+        population: "0.1 M",
+        superficie: "443 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/dominica.jpg",
+        nom: "Dominique",
+        localisation: "Caraïbes",
+        population: "0.07 M",
+        superficie: "751 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/saint-kitts-and-nevis.jpg",
+        nom: "Saint-Christophe-et-Niévès",
+        localisation: "Caraïbes",
+        population: "0.05 M",
+        superficie: "261 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🤠",
+        image: "assets/images/cards/country/saint-vincent-and-the-grenadines.jpg",
+        nom: "Saint-Vincent-et-les-Grenadines",
+        localisation: "Caraïbes",
+        population: "0.1 M",
+        superficie: "389 km²"
+      },
+
       // seas
       {
         type: "Mer",
