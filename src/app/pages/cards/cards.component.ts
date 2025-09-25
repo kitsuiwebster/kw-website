@@ -1341,6 +1341,1010 @@ export class CardsComponent implements OnInit {
         superficie: "389 km²"
       },
 
+      // African countries
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Algérie",
+        localisation: "Afrique du Nord",
+        continent: "Afrique",
+        population: "44.9 M",
+        superficie: "2,381,741 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Angola",
+        localisation: "Afrique australe",
+        continent: "Afrique",
+        population: "35.6 M",
+        superficie: "1,246,700 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Bénin",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "13.5 M",
+        superficie: "112,622 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Botswana",
+        localisation: "Afrique australe",
+        continent: "Afrique",
+        population: "2.4 M",
+        superficie: "581,730 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Burkina Faso",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "22.7 M",
+        superficie: "274,200 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Burundi",
+        localisation: "Afrique de l'Est",
+        continent: "Afrique",
+        population: "12.6 M",
+        superficie: "27,830 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Cameroun",
+        localisation: "Afrique centrale",
+        continent: "Afrique",
+        population: "28.6 M",
+        superficie: "475,440 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Cap-Vert",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "0.6 M",
+        superficie: "4,033 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "République centrafricaine",
+        localisation: "Afrique centrale",
+        continent: "Afrique",
+        population: "5.5 M",
+        superficie: "622,984 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Tchad",
+        localisation: "Afrique centrale",
+        continent: "Afrique",
+        population: "17.7 M",
+        superficie: "1,284,000 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Comores",
+        localisation: "Océan Indien",
+        continent: "Afrique",
+        population: "0.9 M",
+        superficie: "2,235 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "République démocratique du Congo",
+        localisation: "Afrique centrale",
+        continent: "Afrique",
+        population: "102.3 M",
+        superficie: "2,344,858 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "République du Congo",
+        localisation: "Afrique centrale",
+        continent: "Afrique",
+        population: "5.8 M",
+        superficie: "342,000 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Côte d'Ivoire",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "28.2 M",
+        superficie: "322,463 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Djibouti",
+        localisation: "Corne de l'Afrique",
+        continent: "Afrique",
+        population: "1.1 M",
+        superficie: "23,200 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Égypte",
+        localisation: "Afrique du Nord",
+        continent: "Afrique",
+        population: "109.3 M",
+        superficie: "1,001,450 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Guinée équatoriale",
+        localisation: "Afrique centrale",
+        continent: "Afrique",
+        population: "1.7 M",
+        superficie: "28,051 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Érythrée",
+        localisation: "Corne de l'Afrique",
+        continent: "Afrique",
+        population: "3.7 M",
+        superficie: "117,600 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Éthiopie",
+        localisation: "Corne de l'Afrique",
+        continent: "Afrique",
+        population: "123.4 M",
+        superficie: "1,104,300 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Gabon",
+        localisation: "Afrique centrale",
+        continent: "Afrique",
+        population: "2.4 M",
+        superficie: "267,667 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Gambie",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "2.7 M",
+        superficie: "11,295 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Ghana",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "33.5 M",
+        superficie: "238,533 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Guinée",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "14.2 M",
+        superficie: "245,857 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Guinée-Bissau",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "2.1 M",
+        superficie: "36,125 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Kenya",
+        localisation: "Afrique de l'Est",
+        continent: "Afrique",
+        population: "56.2 M",
+        superficie: "580,367 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Lesotho",
+        localisation: "Afrique australe",
+        continent: "Afrique",
+        population: "2.3 M",
+        superficie: "30,355 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Libéria",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "5.4 M",
+        superficie: "111,369 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Libye",
+        localisation: "Afrique du Nord",
+        continent: "Afrique",
+        population: "7.0 M",
+        superficie: "1,759,540 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Madagascar",
+        localisation: "Océan Indien",
+        continent: "Afrique",
+        population: "30.3 M",
+        superficie: "587,041 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Malawi",
+        localisation: "Afrique de l'Est",
+        continent: "Afrique",
+        population: "20.4 M",
+        superficie: "118,484 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Mali",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "22.6 M",
+        superficie: "1,240,192 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Mauritanie",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "5.0 M",
+        superficie: "1,030,700 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Maurice",
+        localisation: "Océan Indien",
+        continent: "Afrique",
+        population: "1.3 M",
+        superficie: "2,040 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Maroc",
+        localisation: "Afrique du Nord",
+        continent: "Afrique",
+        population: "37.7 M",
+        superficie: "446,550 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Mozambique",
+        localisation: "Afrique de l'Est",
+        continent: "Afrique",
+        population: "33.9 M",
+        superficie: "801,590 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Namibie",
+        localisation: "Afrique australe",
+        continent: "Afrique",
+        population: "2.6 M",
+        superficie: "824,292 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Niger",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "26.2 M",
+        superficie: "1,267,000 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Nigeria",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "223.8 M",
+        superficie: "923,768 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Rwanda",
+        localisation: "Afrique de l'Est",
+        continent: "Afrique",
+        population: "14.1 M",
+        superficie: "26,338 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "São Tomé-et-Príncipe",
+        localisation: "Afrique centrale",
+        continent: "Afrique",
+        population: "0.2 M",
+        superficie: "964 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Sénégal",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "18.4 M",
+        superficie: "196,722 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Seychelles",
+        localisation: "Océan Indien",
+        continent: "Afrique",
+        population: "0.1 M",
+        superficie: "455 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Sierra Leone",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "8.8 M",
+        superficie: "71,740 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Somalie",
+        localisation: "Corne de l'Afrique",
+        continent: "Afrique",
+        population: "18.1 M",
+        superficie: "637,657 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Afrique du Sud",
+        localisation: "Afrique australe",
+        continent: "Afrique",
+        population: "60.4 M",
+        superficie: "1,221,037 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Soudan du Sud",
+        localisation: "Afrique de l'Est",
+        continent: "Afrique",
+        population: "11.1 M",
+        superficie: "644,329 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Soudan",
+        localisation: "Afrique du Nord",
+        continent: "Afrique",
+        population: "48.1 M",
+        superficie: "1,861,484 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Eswatini",
+        localisation: "Afrique australe",
+        continent: "Afrique",
+        population: "1.2 M",
+        superficie: "17,364 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Tanzanie",
+        localisation: "Afrique de l'Est",
+        continent: "Afrique",
+        population: "65.5 M",
+        superficie: "947,303 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Togo",
+        localisation: "Afrique de l'Ouest",
+        continent: "Afrique",
+        population: "8.8 M",
+        superficie: "56,785 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Tunisie",
+        localisation: "Afrique du Nord",
+        continent: "Afrique",
+        population: "12.4 M",
+        superficie: "163,610 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Ouganda",
+        localisation: "Afrique de l'Est",
+        continent: "Afrique",
+        population: "48.6 M",
+        superficie: "241,038 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Zambie",
+        localisation: "Afrique australe",
+        continent: "Afrique",
+        population: "20.0 M",
+        superficie: "752,612 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🌍",
+        image: "assets/images/cards/default.jpg",
+        nom: "Zimbabwe",
+        localisation: "Afrique australe",
+        continent: "Afrique",
+        population: "16.3 M",
+        superficie: "390,757 km²"
+      },
+
+      // Asian countries
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Afghanistan",
+        localisation: "Asie centrale",
+        continent: "Asie",
+        population: "41.1 M",
+        superficie: "652,867 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Arménie",
+        localisation: "Caucase",
+        continent: "Asie",
+        population: "3.0 M",
+        superficie: "29,743 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Azerbaïdjan",
+        localisation: "Caucase",
+        continent: "Asie",
+        population: "10.4 M",
+        superficie: "86,600 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Bahreïn",
+        localisation: "Golfe Persique",
+        continent: "Asie",
+        population: "1.8 M",
+        superficie: "778 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Bangladesh",
+        localisation: "Asie du Sud",
+        continent: "Asie",
+        population: "171.2 M",
+        superficie: "147,570 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Bhoutan",
+        localisation: "Himalaya",
+        continent: "Asie",
+        population: "0.8 M",
+        superficie: "38,394 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Brunei",
+        localisation: "Asie du Sud-Est",
+        continent: "Asie",
+        population: "0.5 M",
+        superficie: "5,765 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Cambodge",
+        localisation: "Asie du Sud-Est",
+        continent: "Asie",
+        population: "16.9 M",
+        superficie: "181,035 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Chine",
+        localisation: "Asie de l'Est",
+        continent: "Asie",
+        population: "1,425.7 M",
+        superficie: "9,596,960 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Corée du Nord",
+        localisation: "Asie de l'Est",
+        continent: "Asie",
+        population: "26.0 M",
+        superficie: "120,538 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Corée du Sud",
+        localisation: "Asie de l'Est",
+        continent: "Asie",
+        population: "51.7 M",
+        superficie: "100,210 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Émirats arabes unis",
+        localisation: "Golfe Persique",
+        continent: "Asie",
+        population: "9.4 M",
+        superficie: "83,600 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Inde",
+        localisation: "Asie du Sud",
+        continent: "Asie",
+        population: "1,428.6 M",
+        superficie: "3,287,263 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Indonésie",
+        localisation: "Asie du Sud-Est",
+        continent: "Asie",
+        population: "277.5 M",
+        superficie: "1,904,569 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Irak",
+        localisation: "Moyen-Orient",
+        continent: "Asie",
+        population: "44.5 M",
+        superficie: "438,317 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Iran",
+        localisation: "Moyen-Orient",
+        continent: "Asie",
+        population: "86.0 M",
+        superficie: "1,648,195 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Israël",
+        localisation: "Moyen-Orient",
+        continent: "Asie",
+        population: "9.7 M",
+        superficie: "22,072 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Japon",
+        localisation: "Asie de l'Est",
+        continent: "Asie",
+        population: "123.3 M",
+        superficie: "377,975 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Jordanie",
+        localisation: "Moyen-Orient",
+        continent: "Asie",
+        population: "11.3 M",
+        superficie: "89,342 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Kazakhstan",
+        localisation: "Asie centrale",
+        continent: "Asie",
+        population: "20.0 M",
+        superficie: "2,724,900 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Kirghizistan",
+        localisation: "Asie centrale",
+        continent: "Asie",
+        population: "7.0 M",
+        superficie: "199,951 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Koweït",
+        localisation: "Golfe Persique",
+        continent: "Asie",
+        population: "4.3 M",
+        superficie: "17,818 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Laos",
+        localisation: "Asie du Sud-Est",
+        continent: "Asie",
+        population: "7.5 M",
+        superficie: "236,800 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Liban",
+        localisation: "Moyen-Orient",
+        continent: "Asie",
+        population: "5.5 M",
+        superficie: "10,452 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Malaisie",
+        localisation: "Asie du Sud-Est",
+        continent: "Asie",
+        population: "34.2 M",
+        superficie: "329,847 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Maldives",
+        localisation: "Océan Indien",
+        continent: "Asie",
+        population: "0.5 M",
+        superficie: "298 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Mongolie",
+        localisation: "Asie de l'Est",
+        continent: "Asie",
+        population: "3.4 M",
+        superficie: "1,564,110 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Myanmar",
+        localisation: "Asie du Sud-Est",
+        continent: "Asie",
+        population: "54.2 M",
+        superficie: "676,578 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Népal",
+        localisation: "Himalaya",
+        continent: "Asie",
+        population: "30.5 M",
+        superficie: "147,516 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Oman",
+        localisation: "Péninsule arabique",
+        continent: "Asie",
+        population: "4.6 M",
+        superficie: "309,500 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Ouzbékistan",
+        localisation: "Asie centrale",
+        continent: "Asie",
+        population: "35.6 M",
+        superficie: "447,400 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Pakistan",
+        localisation: "Asie du Sud",
+        continent: "Asie",
+        population: "240.5 M",
+        superficie: "881,913 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Palestine",
+        localisation: "Moyen-Orient",
+        continent: "Asie",
+        population: "5.4 M",
+        superficie: "6,020 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Philippines",
+        localisation: "Asie du Sud-Est",
+        continent: "Asie",
+        population: "117.3 M",
+        superficie: "300,000 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Qatar",
+        localisation: "Golfe Persique",
+        continent: "Asie",
+        population: "2.7 M",
+        superficie: "11,586 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Arabie saoudite",
+        localisation: "Péninsule arabique",
+        continent: "Asie",
+        population: "36.4 M",
+        superficie: "2,149,690 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Singapour",
+        localisation: "Asie du Sud-Est",
+        continent: "Asie",
+        population: "6.0 M",
+        superficie: "719 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Sri Lanka",
+        localisation: "Asie du Sud",
+        continent: "Asie",
+        population: "22.2 M",
+        superficie: "65,610 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Syrie",
+        localisation: "Moyen-Orient",
+        continent: "Asie",
+        population: "23.2 M",
+        superficie: "185,180 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Tadjikistan",
+        localisation: "Asie centrale",
+        continent: "Asie",
+        population: "10.1 M",
+        superficie: "143,100 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Thaïlande",
+        localisation: "Asie du Sud-Est",
+        continent: "Asie",
+        population: "71.7 M",
+        superficie: "513,120 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Timor oriental",
+        localisation: "Asie du Sud-Est",
+        continent: "Asie",
+        population: "1.4 M",
+        superficie: "14,919 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Turkménistan",
+        localisation: "Asie centrale",
+        continent: "Asie",
+        population: "6.1 M",
+        superficie: "488,100 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Turquie",
+        localisation: "Anatolie",
+        continent: "Asie",
+        population: "85.3 M",
+        superficie: "783,562 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Viêt Nam",
+        localisation: "Asie du Sud-Est",
+        continent: "Asie",
+        population: "98.2 M",
+        superficie: "331,212 km²"
+      },
+      {
+        type: "Pays",
+        emoji: "🏯",
+        image: "assets/images/cards/default.jpg",
+        nom: "Yémen",
+        localisation: "Péninsule arabique",
+        continent: "Asie",
+        population: "34.4 M",
+        superficie: "527,968 km²"
+      },
+
       // seas
       {
         type: "Mer",
