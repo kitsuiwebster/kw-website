@@ -29,7 +29,7 @@
             align-items: center;
         }
 
-        .download-btn, .filter-select {
+        .download-btn, .filter-btn {
             background-color: #fff;
             color: #000;
             border: none;
@@ -42,14 +42,90 @@
             margin: 0 0.5rem;
 
             &:hover {
-                background-color: #fff;
+                background-color: #f0f0f0;
+            }
+            
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
             }
         }
+    }
 
-        .filter-select {
-            display: inline-block;
-            -webkit-appearance: none;
-            appearance: none;
+    .filters-container {
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        border: 1px solid #333;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        
+        .filters-section {
+            flex: 1;
+            min-width: 250px;
+            
+            h3 {
+                color: #fff;
+                font-size: 16px;
+                margin: 0 0 15px 0;
+                font-family: "Courier New", monospace;
+            }
+            
+            .filter-group {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                
+                .filter-item {
+                    display: flex;
+                    align-items: center;
+                    color: #ddd;
+                    cursor: pointer;
+                    font-family: "Courier New", monospace;
+                    font-size: 14px;
+                    transition: color 0.2s;
+                    
+                    &:hover {
+                        color: #fff;
+                    }
+                    
+                    input[type="checkbox"] {
+                        margin-right: 8px;
+                        cursor: pointer;
+                        width: 16px;
+                        height: 16px;
+                    }
+                    
+                    span {
+                        user-select: none;
+                    }
+                }
+            }
+        }
+        
+        .filters-actions {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            
+            .clear-filters-btn {
+                background-color: #dc3545;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                font-family: "Courier New", monospace;
+                transition: background-color 0.3s;
+                
+                &:hover {
+                    background-color: #c82333;
+                }
+            }
         }
     }
 

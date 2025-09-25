@@ -8,20 +8,48 @@
       <button class='download-btn' (click)="downloadAllCards()" [disabled]="isLoading">
         Télécharger 📥
       </button>
-      <select (change)="handleFilterChange($event)" class="filter-select">
-        <option value="">Tous les types</option>
-        <option value="Sommet">Sommets</option>
-        <option value="Lac">Lacs</option>
-        <option value="Ville">Villes</option>
-        <option value="Pays">Pays</option>
-        <option value="Mer">Mers</option>
-        <option value="Océan">Océans</option>
-        <option value="Fleuve">Fleuves</option>
-        <option value="Désert">Déserts</option>
-        <option value="Île">îles</option>
-      </select>
+      <button class='filter-btn' (click)="toggleFilters()">
+        Filtres {{ showFilters ? '▲' : '▼' }}
+      </button>
     </div>
   </div>
+  
+  <div class='filters-container' *ngIf="showFilters">
+    <div class='filters-section'>
+      <h3>Types de cartes</h3>
+      <div class='filter-group'>
+        <label *ngFor="let filter of typeFilters" class='filter-item'>
+          <input 
+            type="checkbox" 
+            [(ngModel)]="filter.checked" 
+            (change)="applyFilters()"
+          />
+          <span>{{ filter.label }}</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class='filters-section'>
+      <h3>Continents</h3>
+      <div class='filter-group'>
+        <label *ngFor="let filter of continentFilters" class='filter-item'>
+          <input 
+            type="checkbox" 
+            [(ngModel)]="filter.checked" 
+            (change)="applyFilters()"
+          />
+          <span>{{ filter.label }}</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class='filters-actions'>
+      <button class='clear-filters-btn' (click)="clearAllFilters()">
+        Effacer tous les filtres
+      </button>
+    </div>
+  </div>
+  
   <div class='cards-grid'>
     <app-card 
       *ngFor="let card of shuffledCards" 

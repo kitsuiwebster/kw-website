@@ -7,6 +7,7 @@ interface Card {
   image: string;
   nom: string;
   localisation: string;
+  continent?: string;
   hauteur?: string;
   surface?: string;
   population?: string;

@@ -29,6 +29,10 @@
     .card-type-indicator {
       background-color: #A0522D;
     }
+    .card-type {
+      color: #A0522D !important;
+      font-weight: bold !important;
+    }
   }
   
   &[data-type="Lac"] {
@@ -38,6 +42,10 @@
     }
     .card-type-indicator {
       background-color: #4169E1;
+    }
+    .card-type {
+      color: #4169E1 !important;
+      font-weight: bold !important;
     }
   }
   
@@ -49,6 +57,10 @@
     .card-type-indicator {
       background-color: #FFA500;
     }
+    .card-type {
+      color: #FFA500 !important;
+      font-weight: bold !important;
+    }
   }
   
   &[data-type="Pays"] {
@@ -58,6 +70,10 @@
     }
     .card-type-indicator {
       background-color: #228B22;
+    }
+    .card-type {
+      color: #228B22 !important;
+      font-weight: bold !important;
     }
   }
   
@@ -69,6 +85,10 @@
     .card-type-indicator {
       background-color: #20B2AA;
     }
+    .card-type {
+      color: #20B2AA !important;
+      font-weight: bold !important;
+    }
   }
   
   &[data-type="Océan"] {
@@ -78,6 +98,10 @@
     }
     .card-type-indicator {
       background-color: #4682B4;
+    }
+    .card-type {
+      color: #4682B4 !important;
+      font-weight: bold !important;
     }
   }
   
@@ -89,6 +113,10 @@
     .card-type-indicator {
       background-color: #5F9EA0;
     }
+    .card-type {
+      color: #5F9EA0 !important;
+      font-weight: bold !important;
+    }
   }
   
   &[data-type="Désert"] {
@@ -99,6 +127,10 @@
     .card-type-indicator {
       background-color: #D2691E;
     }
+    .card-type {
+      color: #D2691E !important;
+      font-weight: bold !important;
+    }
   }
   
   &[data-type="Île"] {
@@ -108,6 +140,10 @@
     }
     .card-type-indicator {
       background-color: #3CB371;
+    }
+    .card-type {
+      color: #3CB371 !important;
+      font-weight: bold !important;
     }
   }
   
@@ -177,6 +213,7 @@
       color: #888;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      font-weight: normal;
     }
   }
 }
