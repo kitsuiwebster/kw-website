@@ -1,9 +1,9 @@
 <div class="card" [id]="id" [attr.data-type]="card.type" (click)="openModal()">
   <div class="card-type-indicator"></div>
   <div class="card-image-container">
-    <img [src]="card.image" [alt]="card.nom" class="card-image">
+    <img [src]="getSmallImageUrl()" [alt]="card.nom" class="card-image" loading="lazy">
     <div class="card-flag" *ngIf="getFlagUrl()">
-      <img [src]="getFlagUrl()" [alt]="card.nom + ' flag'" class="flag-image">
+      <img [src]="getFlagUrl()" [alt]="card.nom + ' flag'" class="flag-image" loading="lazy">
     </div>
   </div>
   <div class="card-content">
@@ -20,7 +20,7 @@
     <button class="modal-close" (click)="closeModal()">&times;</button>
     <div class="modal-card-type-indicator"></div>
     <div class="modal-card-image-container">
-      <img [src]="card.image" [alt]="card.nom" class="modal-card-image">
+      <img [src]="getFullImageUrl()" [alt]="card.nom" class="modal-card-image">
       <div class="modal-card-flag" *ngIf="getFlagUrl()">
         <img [src]="getFlagUrl()" [alt]="card.nom + ' flag'" class="modal-flag-image">
       </div>

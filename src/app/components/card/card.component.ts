@@ -57,6 +57,16 @@ export class CardComponent {
     return '';
   }
 
+  getSmallImageUrl(): string {
+    // Pour l'instant, utiliser l'image originale (on peut optimiser plus tard)
+    return this.card.image;
+  }
+
+  getFullImageUrl(): string {
+    // Retourner l'image en taille originale
+    return this.card.image;
+  }
+
   getFlagUrl(): string | null {
     if (this.card.type === 'Pays' || this.card.type === 'Ville') {
       // Mapping des noms vers les codes pays pour les drapeaux
