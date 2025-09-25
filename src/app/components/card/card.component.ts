@@ -53,7 +53,7 @@ export class CardComponent implements OnInit, OnDestroy {
         });
       },
       {
-        rootMargin: '50px',
+        rootMargin: '100px',
         threshold: 0.1
       }
     );

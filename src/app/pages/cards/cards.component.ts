@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from '../../components/card/card.component';
@@ -26,9 +26,11 @@ interface Card {
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.scss']
 })
-export class CardsComponent implements OnInit {
+export class CardsComponent implements OnInit, AfterViewInit {
+  allCards: Card[] = [];
   cards: Card[] = [];
   shuffledCards: Card[] = [];
+  displayedCards: Card[] = [];
   filterType: string = '';
   isLoading: boolean = false;
   progress: number = 0;
@@ -36,6 +38,12 @@ export class CardsComponent implements OnInit {
   
   showFilters: boolean = false;
   searchTerm: string = '';
+  
+  // Infinite scroll properties
+  private cardsPerLoad = 20;
+  private currentIndex = 0;
+  isLoadingMore = false;
+  private containerElement?: HTMLElement;
   
   // Filtres par type
   typeFilters = [
@@ -65,10 +73,98 @@ export class CardsComponent implements OnInit {
   ngOnInit() {
     this.loadCards();
     this.shuffleAndFilter();
+    this.loadInitialCards();
+  }
+
+  ngAfterViewInit() {
+    // Attendre que la vue soit initialisée pour trouver le container
+    setTimeout(() => {
+      this.containerElement = document.querySelector('.all-cards-container') as HTMLElement;
+      if (this.containerElement) {
+        this.containerElement.addEventListener('scroll', () => this.onContainerScroll());
+      }
+    }, 100);
+  }
+
+  onContainerScroll() {
+    if (!this.containerElement) return;
+    
+    if (this.isLoadingMore || this.currentIndex >= this.shuffledCards.length) return;
+
+    const scrollTop = this.containerElement.scrollTop;
+    const scrollHeight = this.containerElement.scrollHeight;
+    const clientHeight = this.containerElement.clientHeight;
+    const scrollPercentage = ((scrollTop + clientHeight) / scrollHeight) * 100;
+
+
+    if (scrollPercentage >= 80) {
+      this.loadMoreCards();
+    }
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  @HostListener('document:scroll', ['$event'])
+  onScroll(event?: any) {
+    this.checkScrollOnWindow();
+  }
+
+  private checkScrollOnElement(element: HTMLElement) {
+    if (this.isLoadingMore || this.currentIndex >= this.shuffledCards.length) return;
+
+    const scrollTop = element.scrollTop;
+    const scrollHeight = element.scrollHeight;
+    const clientHeight = element.clientHeight;
+    const scrollPercentage = ((scrollTop + clientHeight) / scrollHeight) * 100;
+
+
+    if (scrollPercentage >= 80) {
+      this.loadMoreCards();
+    }
+  }
+
+  private checkScrollOnWindow() {
+    if (this.isLoadingMore || this.currentIndex >= this.shuffledCards.length) return;
+
+    // Essayer différentes méthodes pour détecter le scroll
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const scrollHeight = Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight,
+      document.body.clientHeight, document.documentElement.clientHeight
+    );
+    const clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+    const scrollPercentage = ((scrollTop + clientHeight) / scrollHeight) * 100;
+
+
+    // Charger plus quand on est à 80% du scroll
+    if (scrollPercentage >= 80) {
+      this.loadMoreCards();
+    }
+  }
+
+  private loadInitialCards() {
+    this.currentIndex = 0;
+    this.displayedCards = [];
+    this.loadMoreCards();
+  }
+
+  private loadMoreCards() {
+    if (this.isLoadingMore || this.currentIndex >= this.shuffledCards.length) return;
+    
+    this.isLoadingMore = true;
+    
+    // Simuler un petit délai pour le loading
+    setTimeout(() => {
+      const nextCards = this.shuffledCards.slice(this.currentIndex, this.currentIndex + this.cardsPerLoad);
+      this.displayedCards = [...this.displayedCards, ...nextCards];
+      this.currentIndex += this.cardsPerLoad;
+      this.isLoadingMore = false;
+    }, 300);
   }
 
   loadCards() {
-    this.cards = [
+    this.allCards = [
       // mountains
       {
         type: "Sommet",
@@ -2495,7 +2591,7 @@ export class CardsComponent implements OnInit {
   }
 
   shuffleAndFilter() {
-    let filtered = [...this.cards];
+    let filtered = [...this.allCards];
     
     // Filtre par recherche textuelle
     if (this.searchTerm && this.searchTerm.trim() !== '') {
@@ -2525,6 +2621,7 @@ export class CardsComponent implements OnInit {
     }
     
     this.shuffledCards = this.shuffleArray(filtered);
+    this.loadInitialCards(); // Recharger l'affichage avec les nouvelles cartes filtrées
   }
 
   private matchesSearch(card: Card, searchTerm: string): boolean {

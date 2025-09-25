@@ -237,6 +237,24 @@
         }
     }
 
+    .loading-more {
+        text-align: center;
+        padding: 40px 20px;
+        color: #fff;
+        font-family: "Courier New", monospace;
+        
+        .loading-spinner {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin: 0;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+    }
+
     // Mobile responsive styles
     @media (max-width: 768px) {
         padding: 15px;

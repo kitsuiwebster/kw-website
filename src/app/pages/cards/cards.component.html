@@ -69,10 +69,16 @@
   
   <div class='cards-grid'>
     <app-card 
-      *ngFor="let card of shuffledCards" 
+      *ngFor="let card of displayedCards" 
       [card]="card" 
       [id]="'card-' + card.nom"
       class="card-box">
     </app-card>
+  </div>
+  
+  <!-- Loading indicator -->
+  <div *ngIf="isLoadingMore" class="loading-more">
+    <div class="loading-spinner">⏳</div>
+    <p>Chargement de plus de cartes...</p>
   </div>
 </div>
