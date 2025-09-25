@@ -166,7 +166,7 @@ export class CardComponent {
         'Viêt Nam': 'vn',
         'Yémen': 'ye',
         
-        // Pays existants (exemples)
+        // Pays européens
         'France': 'fr',
         'Belgique': 'be',
         'Allemagne': 'de',
@@ -174,17 +174,118 @@ export class CardComponent {
         'Italie': 'it',
         'Russie': 'ru',
         'Géorgie': 'ge',
+        'Albanie': 'al',
+        'Andorre': 'ad',
+        'Autriche': 'at',
+        'Biélorussie': 'by',
+        'Bosnie-Herzégovine': 'ba',
+        'Bulgarie': 'bg',
+        'Chypre': 'cy',
+        'Croatie': 'hr',
+        'Danemark': 'dk',
+        'Estonie': 'ee',
+        'Finlande': 'fi',
+        'Grèce': 'gr',
+        'Hongrie': 'hu',
+        'Irlande': 'ie',
+        'Islande': 'is',
+        'Lettonie': 'lv',
+        'Lituanie': 'lt',
+        'Luxembourg': 'lu',
+        'Macédoine du Nord': 'mk',
+        'Malte': 'mt',
+        'Moldavie': 'md',
+        'Monténégro': 'me',
+        'Norvège': 'no',
+        'Pays-Bas': 'nl',
+        'Pologne': 'pl',
+        'Portugal': 'pt',
+        'République Tchèque': 'cz',
+        'Roumanie': 'ro',
+        'Royaume-Uni': 'gb',
+        'Saint-Marin': 'sm',
+        'Serbie': 'rs',
+        'Slovaquie': 'sk',
+        'Slovénie': 'si',
+        'Suisse': 'ch',
+        'Suède': 'se',
+        'Ukraine': 'ua',
+        
+        // Pays américains
+        'Argentine': 'ar',
+        'Antigua-et-Barbuda': 'ag',
+        'Bahamas': 'bs',
+        'Barbade': 'bb',
+        'Belize': 'bz',
+        'Bolivie': 'bo',
+        'Brésil': 'br',
+        'Canada': 'ca',
+        'Chili': 'cl',
+        'Colombie': 'co',
+        'Costa Rica': 'cr',
+        'Cuba': 'cu',
+        'Dominique': 'dm',
+        'États-Unis': 'us',
+        'Équateur': 'ec',
+        'Grenade': 'gd',
+        'Guatemala': 'gt',
+        'Guyana': 'gy',
+        'Haïti': 'ht',
+        'Honduras': 'hn',
+        'Jamaïque': 'jm',
+        'Mexique': 'mx',
+        'Nicaragua': 'ni',
+        'Panama': 'pa',
+        'Paraguay': 'py',
+        'Porto Rico': 'pr',
+        'Pérou': 'pe',
+        'République Dominicaine': 'do',
+        'Saint-Christophe-et-Niévès': 'kn',
+        'Saint-Vincent-et-les-Grenadines': 'vc',
+        'Sainte-Lucie': 'lc',
+        'Salvador': 'sv',
+        'Suriname': 'sr',
+        'Trinité-et-Tobago': 'tt',
+        'Uruguay': 'uy',
+        'Venezuela': 've',
+        
+        // Pays océaniens
+        'Australie': 'au',
+        'Fidji': 'fj',
+        'Kiribati': 'ki',
+        'Micronésie': 'fm',
+        'Nauru': 'nr',
+        'Nouvelle-Zélande': 'nz',
+        'Palaos': 'pw',
+        'Papouasie-Nouvelle-Guinée': 'pg',
+        'Samoa': 'ws',
+        'Tonga': 'to',
+        'Tuvalu': 'tv',
+        'Vanuatu': 'vu',
+        'Îles Marshall': 'mh',
+        'Îles Salomon': 'sb',
         
         // Villes (prendre le pays)
         'Paris': 'fr',
         'Tokyo': 'jp',
         'Mumbai': 'in',
         'Pékin': 'cn',
-        'Le Cap': 'za'
+        'Le Cap': 'za',
+        'Berlin': 'de',
+        'Londres': 'gb',
+        'Moscou': 'ru',
+        'New York': 'us',
+        'Rio de Janeiro': 'br',
+        'Sydney': 'au'
       };
       
       const countryCode = countryMapping[this.card.nom];
       if (countryCode) {
+        // Cas spéciaux pour les drapeaux non-rectangulaires
+        if (countryCode === 'ch' || countryCode === 'np') {
+          // Utiliser une version rectangulaire alternative
+          return `https://flagpedia.net/data/flags/w580/${countryCode}.webp`;
+        }
         return `https://flagcdn.com/w40/${countryCode}.png`;
       }
     }
