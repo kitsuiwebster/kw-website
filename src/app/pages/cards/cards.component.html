@@ -16,6 +16,20 @@
   
   <div class='filters-container' *ngIf="showFilters">
     <div class='filters-section'>
+      <h3>Recherche</h3>
+      <div class='search-container'>
+        <input 
+          type="text" 
+          class='search-input'
+          placeholder="Rechercher une carte (nom, lieu, type, continent...)"
+          [(ngModel)]="searchTerm" 
+          (input)="applyFilters()"
+        />
+        <span class='search-icon'>🔍</span>
+      </div>
+    </div>
+    
+    <div class='filters-section'>
       <h3>Types de cartes</h3>
       <div class='filter-group'>
         <label *ngFor="let filter of typeFilters" class='filter-item'>

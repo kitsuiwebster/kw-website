@@ -72,6 +72,46 @@
                 margin: 0 0 15px 0;
                 font-family: "Courier New", monospace;
             }
+
+            .search-container {
+                position: relative;
+                width: 100%;
+                margin-bottom: 10px;
+
+                .search-input {
+                    width: 100%;
+                    padding: 12px 45px 12px 15px;
+                    border: 1px solid #555;
+                    border-radius: 8px;
+                    background-color: #2a2a2a;
+                    color: #fff;
+                    font-size: 14px;
+                    font-family: "Courier New", monospace;
+                    transition: border-color 0.3s ease, background-color 0.3s ease;
+                    box-sizing: border-box;
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a9eff;
+                        background-color: #333;
+                    }
+
+                    &::placeholder {
+                        color: #aaa;
+                        opacity: 1;
+                    }
+                }
+
+                .search-icon {
+                    position: absolute;
+                    right: 15px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: #aaa;
+                    font-size: 16px;
+                    pointer-events: none;
+                }
+            }
             
             .filter-group {
                 display: flex;
