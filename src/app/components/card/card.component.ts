@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Card {
@@ -26,6 +26,25 @@ interface Card {
 export class CardComponent {
   @Input() card!: Card;
   @Input() id!: string;
+  
+  isModalOpen = false;
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape' && this.isModalOpen) {
+      this.closeModal();
+    }
+  }
+
+  openModal() {
+    this.isModalOpen = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    document.body.style.overflow = 'auto';
+  }
 
   getCardInfo(): string {
     if (this.card.hauteur) return this.card.hauteur;

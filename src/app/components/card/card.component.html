@@ -1,4 +1,4 @@
-<div class="card" [id]="id" [attr.data-type]="card.type">
+<div class="card" [id]="id" [attr.data-type]="card.type" (click)="openModal()">
   <div class="card-type-indicator"></div>
   <div class="card-image-container">
     <img [src]="card.image" [alt]="card.nom" class="card-image">
@@ -9,5 +9,23 @@
     <p class="card-location">{{ card.localisation }}</p>
     <p class="card-info">{{ getCardInfo() }}</p>
     <p class="card-type">{{ card.type }}</p>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" [class.active]="isModalOpen" (click)="closeModal()">
+  <div class="modal-card" [attr.data-type]="card.type" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">&times;</button>
+    <div class="modal-card-type-indicator"></div>
+    <div class="modal-card-image-container">
+      <img [src]="card.image" [alt]="card.nom" class="modal-card-image">
+      <div class="modal-card-emoji">{{ card.emoji }}</div>
+    </div>
+    <div class="modal-card-content">
+      <h3 class="modal-card-name">{{ card.nom }}</h3>
+      <p class="modal-card-location">{{ card.localisation }}</p>
+      <p class="modal-card-info">{{ getCardInfo() }}</p>
+      <p class="modal-card-type">{{ card.type }}</p>
+    </div>
   </div>
 </div>
