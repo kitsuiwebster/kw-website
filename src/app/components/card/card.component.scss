@@ -177,6 +177,23 @@
       justify-content: center;
       font-size: 18px;
     }
+    
+    .card-flag {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      width: 30px;
+      height: 20px;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      
+      .flag-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
   }
   
   .card-content {
@@ -319,6 +336,23 @@
       justify-content: center;
       font-size: 54px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .modal-card-flag {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      width: 90px;
+      height: 60px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      
+      .modal-flag-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 

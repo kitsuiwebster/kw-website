@@ -1,34 +1,37 @@
 <div class='all-cards-container'>
   <div class='header'>
-    <h1 class='header-title'>Cartes de la Terre 🌍</h1>
+    <h1 class='header-title'>Geo Cards</h1>
     <div class='buttons-container'>
       <div *ngIf="isLoading" class="loading" style="color: white; text-align: center; font-size: 16px; margin-right: 10px;">
         Préparation du téléchargement... {{ Math.round(progress) }}%
       </div>
       <button class='download-btn' (click)="downloadAllCards()" [disabled]="isLoading">
-        Télécharger 📥
+        <span class="btn-icon">📥</span>
+        <span class="btn-text">Télécharger</span>
       </button>
       <button class='filter-btn' (click)="toggleFilters()">
-        Filtres {{ showFilters ? '▲' : '▼' }}
+        <span class="btn-icon">🔧</span>
+        <span class="btn-text">Filtres</span>
+        <span class="btn-arrow">{{ showFilters ? '▲' : '▼' }}</span>
       </button>
+    </div>
+  </div>
+
+  <!-- Search Bar - Always Visible -->
+  <div class='search-section'>
+    <div class='search-container'>
+      <input 
+        type="text" 
+        class='search-input'
+        placeholder="Rechercher une carte (nom, lieu, type, continent...)"
+        [(ngModel)]="searchTerm" 
+        (input)="applyFilters()"
+      />
+      <span class='search-icon'>🔍</span>
     </div>
   </div>
   
   <div class='filters-container' *ngIf="showFilters">
-    <div class='filters-section'>
-      <h3>Recherche</h3>
-      <div class='search-container'>
-        <input 
-          type="text" 
-          class='search-input'
-          placeholder="Rechercher une carte (nom, lieu, type, continent...)"
-          [(ngModel)]="searchTerm" 
-          (input)="applyFilters()"
-        />
-        <span class='search-icon'>🔍</span>
-      </div>
-    </div>
-    
     <div class='filters-section'>
       <h3>Types de cartes</h3>
       <div class='filter-group'>
