@@ -1,9 +1,18 @@
 <div class="card" [id]="id" [attr.data-type]="card.type" (click)="openModal()">
   <div class="card-type-indicator"></div>
   <div class="card-image-container">
-    <img [src]="getSmallImageUrl()" [alt]="card.nom" class="card-image" loading="lazy">
-    <div class="card-flag" *ngIf="getFlagUrl()">
-      <img [src]="getFlagUrl()" [alt]="card.nom + ' flag'" class="flag-image" loading="lazy">
+    <img 
+      *ngIf="imageLoaded" 
+      [src]="getSmallImageUrl()" 
+      [alt]="card.nom" 
+      class="card-image">
+    <div 
+      *ngIf="!imageLoaded" 
+      class="card-image-placeholder">
+      <div class="placeholder-content">📸</div>
+    </div>
+    <div class="card-flag" *ngIf="getFlagUrl() && imageLoaded">
+      <img [src]="getFlagUrl()" [alt]="card.nom + ' flag'" class="flag-image">
     </div>
   </div>
   <div class="card-content">

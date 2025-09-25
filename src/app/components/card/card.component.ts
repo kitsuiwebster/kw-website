@@ -1,4 +1,4 @@
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, Input, HostListener, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Card {
@@ -22,11 +22,44 @@ interface Card {
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent {
+export class CardComponent implements OnInit, OnDestroy {
   @Input() card!: Card;
   @Input() id!: string;
   
   isModalOpen = false;
+  imageLoaded = false;
+  private observer?: IntersectionObserver;
+
+  constructor(private elementRef: ElementRef) {}
+
+  ngOnInit() {
+    this.setupIntersectionObserver();
+  }
+
+  ngOnDestroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
+
+  private setupIntersectionObserver() {
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !this.imageLoaded) {
+            this.imageLoaded = true;
+            this.observer?.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        rootMargin: '50px',
+        threshold: 0.1
+      }
+    );
+
+    this.observer.observe(this.elementRef.nativeElement);
+  }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
