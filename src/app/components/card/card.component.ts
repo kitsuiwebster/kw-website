@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 interface Card {
   type: string;
-  emoji: string;
   image: string;
   nom: string;
   localisation: string;

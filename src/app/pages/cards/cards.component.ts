@@ -7,7 +7,6 @@ import JSZip from 'jszip';
 
 interface Card {
   type: string;
-  emoji: string;
   image: string;
   nom: string;
   localisation: string;
@@ -73,7 +72,6 @@ export class CardsComponent implements OnInit {
       // mountains
       {
         type: "Sommet",
-        emoji: "🏔️",
         image: "assets/images/cards/mountain/everest.jpg",
         nom: "Mont Everest",
         localisation: "Népal",
@@ -82,7 +80,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Sommet",
-        emoji: "🏔️",
         image: "assets/images/cards/mountain/k2.jpg",
         nom: "K2",
         localisation: "Pakistan et Chine",
@@ -91,7 +88,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Sommet",
-        emoji: "🏔️",
         image: "assets/images/cards/mountain/denali.jpg",
         nom: "Denali",
         localisation: "États-Unis",
@@ -100,7 +96,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Sommet",
-        emoji: "🏔️",
         image: "assets/images/cards/mountain/kilimanjaro.jpg",
         nom: "Kilimandjaro",
         localisation: "Tanzanie",
@@ -109,7 +104,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Sommet",
-        emoji: "🏔️",
         image: "assets/images/cards/mountain/elbrus.jpg",
         nom: "Mont Elbrouz",
         localisation: "Russie",
@@ -118,7 +112,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Sommet",
-        emoji: "🏔️",
         image: "assets/images/cards/mountain/vinson.jpg",
         nom: "Mont Vinson",
         localisation: "Antarctique",
@@ -127,7 +120,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Sommet",
-        emoji: "🏔️",
         image: "assets/images/cards/mountain/aconcagua.jpg",
         nom: "Aconcagua",
         localisation: "Argentine",
@@ -138,7 +130,6 @@ export class CardsComponent implements OnInit {
       // lakes
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/baikal.jpg",
         nom: "Lac Baïkal",
         localisation: "Russie",
@@ -147,7 +138,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/superior.jpg",
         nom: "Lac Supérieur",
         localisation: "États-Unis et Canada",
@@ -156,7 +146,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/victoria.jpg",
         nom: "Lac Victoria",
         localisation: "Tanzanie, Ouganda et Kenya",
@@ -165,7 +154,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/huron.jpg",
         nom: "Lac Huron",
         localisation: "États-Unis et Canada",
@@ -174,7 +162,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/michigan.jpg",
         nom: "Lac Michigan",
         localisation: "États-Unis",
@@ -183,7 +170,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/tanganyika.jpg",
         nom: "Lac Tanganyika",
         localisation: "Burundi, R.D.C, Tanzanie et Zambie",
@@ -192,7 +178,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/titicaca.jpg",
         nom: "Lac Titicaca",
         localisation: "Pérou et Bolivie",
@@ -201,7 +186,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/malawi.jpg",
         nom: "Lac Malawi",
         localisation: "Malawi, Mozambique et Tanzanie",
@@ -210,7 +194,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/great-slave.jpg",
         nom: "Grand Lac des Esclaves",
         localisation: "Canada",
@@ -219,7 +202,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/leman.jpg",
         nom: "Lac Léman",
         localisation: "Suisse et France",
@@ -228,7 +210,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/natron.png",
         nom: "Lac Natron",
         localisation: "Tanzanie",
@@ -237,7 +218,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/almaty.jpg",
         nom: "Lac d'Almaty",
         localisation: "Kazakhstan",
@@ -246,7 +226,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/erie.jpg",
         nom: "Lac Érié",
         localisation: "États-Unis et Canada",
@@ -255,7 +234,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/ontario.jpeg",
         nom: "Lac Ontario",
         localisation: "États-Unis et Canada",
@@ -264,7 +242,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/great-bear.jpg",
         nom: "Grand Lac de l'Ours",
         localisation: "Canada",
@@ -273,7 +250,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/kariba.jpg",
         nom: "Lac Kariba",
         localisation: "Zimbabwe et Zambie",
@@ -282,7 +258,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/issyk-kul.jpg",
         nom: "Lac Issyk-Koul",
         localisation: "Kirghizistan",
@@ -291,7 +266,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Lac",
-        emoji: "🐟",
         image: "assets/images/cards/lake/caspian.jpg",
         nom: "Mer Caspienne",
         localisation: "Iran, Russie, Kazakhstan, Turkménistan et Azerbaïdjan",
@@ -302,7 +276,6 @@ export class CardsComponent implements OnInit {
       // cities
       {
         type: "Ville",
-        emoji: "🏘️",
         image: "assets/images/cards/city/paris.jpg",
         nom: "Paris",
         localisation: "France",
@@ -311,7 +284,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Ville",
-        emoji: "🏘️",
         image: "assets/images/cards/city/tokyo.jpg",
         nom: "Tokyo",
         localisation: "Japon",
@@ -320,7 +292,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Ville",
-        emoji: "🏘️",
         image: "assets/images/cards/city/new-york.jpg",
         nom: "New York",
         localisation: "États-Unis",
@@ -329,7 +300,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Ville",
-        emoji: "🏘️",
         image: "assets/images/cards/city/london.jpg",
         nom: "Londres",
         localisation: "Royaume-Uni",
@@ -338,7 +308,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Ville",
-        emoji: "🏘️",
         image: "assets/images/cards/city/sydney.jpeg",
         nom: "Sydney",
         localisation: "Australie",
@@ -347,7 +316,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Ville",
-        emoji: "🏘️",
         image: "assets/images/cards/city/berlin.jpg",
         nom: "Berlin",
         localisation: "Allemagne",
@@ -356,7 +324,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Ville",
-        emoji: "🏘️",
         image: "assets/images/cards/city/moscow.jpg",
         nom: "Moscou",
         localisation: "Russie",
@@ -365,7 +332,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Ville",
-        emoji: "🏘️",
         image: "assets/images/cards/city/rio.jpg",
         nom: "Rio de Janeiro",
         localisation: "Brésil",
@@ -374,7 +340,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Ville",
-        emoji: "🏘️",
         image: "assets/images/cards/city/mumbai.jpg",
         nom: "Mumbai",
         localisation: "Inde",
@@ -383,7 +348,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Ville",
-        emoji: "🏘️",
         image: "assets/images/cards/city/cape-town.jpg",
         nom: "Le Cap",
         localisation: "Afrique du Sud",
@@ -392,7 +356,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Ville",
-        emoji: "🏘️",
         image: "assets/images/cards/city/beijing.jpg",
         nom: "Pékin",
         localisation: "Chine",
@@ -403,7 +366,6 @@ export class CardsComponent implements OnInit {
       // countries - oceania
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/australia.png",
         nom: "Australie",
         localisation: "Océanie",
@@ -413,7 +375,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/fiji.jpg",
         nom: "Fidji",
         localisation: "Océanie",
@@ -423,7 +384,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/papua_new_guinea.jpg",
         nom: "Papouasie-Nouvelle-Guinée",
         localisation: "Océanie",
@@ -433,7 +393,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/new_zealand.jpg",
         nom: "Nouvelle-Zélande",
         localisation: "Océanie",
@@ -443,7 +402,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/vanuatu.jpg",
         nom: "Vanuatu",
         localisation: "Océanie",
@@ -453,7 +411,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/samoa.jpg",
         nom: "Samoa",
         localisation: "Océanie",
@@ -463,7 +420,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/tonga.jpg",
         nom: "Tonga",
         localisation: "Océanie",
@@ -473,7 +429,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/kiribati.jpg",
         nom: "Kiribati",
         localisation: "Océanie",
@@ -483,7 +438,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/marshall_islands.jpg",
         nom: "Îles Marshall",
         localisation: "Océanie",
@@ -493,7 +447,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/micronesia.jpeg",
         nom: "Micronésie",
         localisation: "Océanie",
@@ -503,7 +456,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/palau.jpg",
         nom: "Palaos",
         localisation: "Océanie",
@@ -513,7 +465,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/nauru.jpg",
         nom: "Nauru",
         localisation: "Océanie",
@@ -523,7 +474,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/solomon_islands.jpg",
         nom: "Îles Salomon",
         localisation: "Océanie",
@@ -533,7 +483,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/tuvalu.jpg",
         nom: "Tuvalu",
         localisation: "Océanie",
@@ -545,7 +494,6 @@ export class CardsComponent implements OnInit {
       // countries - europe
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/albania.jpg",
         nom: "Albanie",
         localisation: "Europe",
@@ -555,7 +503,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/germany.jpg",
         nom: "Allemagne",
         localisation: "Europe",
@@ -565,7 +512,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/andorra.jpg",
         nom: "Andorre",
         localisation: "Europe",
@@ -575,7 +521,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/austria.jpg",
         nom: "Autriche",
         localisation: "Europe",
@@ -585,7 +530,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/belarus.jpg",
         nom: "Biélorussie",
         localisation: "Europe",
@@ -595,7 +539,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/belgium.jpg",
         nom: "Belgique",
         localisation: "Europe",
@@ -605,7 +548,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/bosnia.jpg",
         nom: "Bosnie-Herzégovine",
         localisation: "Europe",
@@ -615,7 +557,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/bulgaria.jpg",
         nom: "Bulgarie",
         localisation: "Europe",
@@ -625,7 +566,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/croatia.jpg",
         nom: "Croatie",
         localisation: "Europe",
@@ -635,7 +575,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/cyprus.jpg",
         nom: "Chypre",
         localisation: "Europe",
@@ -645,7 +584,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/czech-republic.jpg",
         nom: "République Tchèque",
         localisation: "Europe",
@@ -655,7 +593,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/denmark.jpeg",
         nom: "Danemark",
         localisation: "Europe",
@@ -665,7 +602,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/estonia.jpg",
         nom: "Estonie",
         localisation: "Europe",
@@ -675,7 +611,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/finland.jpg",
         nom: "Finlande",
         localisation: "Europe",
@@ -685,7 +620,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/france.jpg",
         nom: "France",
         localisation: "Europe",
@@ -695,7 +629,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/georgia.jpg",
         nom: "Géorgie",
         localisation: "Europe et Asie",
@@ -705,7 +638,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/greece.jpg",
         nom: "Grèce",
         localisation: "Europe",
@@ -715,7 +647,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/hungary.jpg",
         nom: "Hongrie",
         localisation: "Europe",
@@ -725,7 +656,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/iceland.jpg",
         nom: "Islande",
         localisation: "Europe",
@@ -735,7 +665,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/ireland.jpg",
         nom: "Irlande",
         localisation: "Europe",
@@ -745,7 +674,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/italy.jpg",
         nom: "Italie",
         localisation: "Europe",
@@ -755,7 +683,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/latvia.jpg",
         nom: "Lettonie",
         localisation: "Europe",
@@ -765,7 +692,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/lithuania.jpg",
         nom: "Lituanie",
         localisation: "Europe",
@@ -775,7 +701,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/luxembourg.jpg",
         nom: "Luxembourg",
         localisation: "Europe",
@@ -785,7 +710,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/malta.jpeg",
         nom: "Malte",
         localisation: "Europe",
@@ -795,7 +719,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/moldova.jpg",
         nom: "Moldavie",
         localisation: "Europe",
@@ -805,7 +728,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/montenegro.jpeg",
         nom: "Monténégro",
         localisation: "Europe",
@@ -815,7 +737,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/netherlands.jpg",
         nom: "Pays-Bas",
         localisation: "Europe",
@@ -825,7 +746,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/norway.jpg",
         nom: "Norvège",
         localisation: "Europe",
@@ -835,7 +755,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/poland.jpg",
         nom: "Pologne",
         localisation: "Europe",
@@ -845,7 +764,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/portugal.jpg",
         nom: "Portugal",
         localisation: "Europe",
@@ -855,7 +773,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/romania.jpg",
         nom: "Roumanie",
         localisation: "Europe",
@@ -865,7 +782,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/russia.jpg",
         nom: "Russie",
         localisation: "Europe et Asie",
@@ -875,7 +791,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/san-marino.jpg",
         nom: "Saint-Marin",
         localisation: "Europe",
@@ -885,7 +800,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/serbia.jpg",
         nom: "Serbie",
         localisation: "Europe",
@@ -895,7 +809,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/slovakia.jpg",
         nom: "Slovaquie",
         localisation: "Europe",
@@ -905,7 +818,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/slovenia.jpg",
         nom: "Slovénie",
         localisation: "Europe",
@@ -915,7 +827,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/spain.jpg",
         nom: "Espagne",
         localisation: "Europe",
@@ -925,7 +836,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/sweden.jpg",
         nom: "Suède",
         localisation: "Europe",
@@ -935,7 +845,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/switzerland.jpeg",
         nom: "Suisse",
         localisation: "Europe",
@@ -945,7 +854,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/ukraine.jpg",
         nom: "Ukraine",
         localisation: "Europe",
@@ -955,7 +863,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/united-kingdom.jpg",
         nom: "Royaume-Uni",
         localisation: "Europe",
@@ -965,7 +872,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/macedonia.jpeg",
         nom: "Macédoine du Nord",
         localisation: "Europe",
@@ -977,7 +883,6 @@ export class CardsComponent implements OnInit {
       // countries - south america
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/argentina.jpeg",
         nom: "Argentine",
         localisation: "Amérique du Sud",
@@ -987,7 +892,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/brazil.jpg",
         nom: "Brésil",
         localisation: "Amérique du Sud",
@@ -997,7 +901,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/chile.jpg",
         nom: "Chili",
         localisation: "Amérique du Sud",
@@ -1007,7 +910,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/colombia.jpg",
         nom: "Colombie",
         localisation: "Amérique du Sud",
@@ -1017,7 +919,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/ecuador.jpg",
         nom: "Équateur",
         localisation: "Amérique du Sud",
@@ -1027,7 +928,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/peru.jpg",
         nom: "Pérou",
         localisation: "Amérique du Sud",
@@ -1037,7 +937,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/venezuela.jpg",
         nom: "Venezuela",
         localisation: "Amérique du Sud",
@@ -1047,7 +946,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/uruguay.jpg",
         nom: "Uruguay",
         localisation: "Amérique du Sud",
@@ -1057,7 +955,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/paraguay.jpg",
         nom: "Paraguay",
         localisation: "Amérique du Sud",
@@ -1067,7 +964,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/bolivia.jpg",
         nom: "Bolivie",
         localisation: "Amérique du Sud",
@@ -1077,7 +973,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/suriname.jpg",
         nom: "Suriname",
         localisation: "Amérique du Sud",
@@ -1087,7 +982,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/country/guyana.jpg",
         nom: "Guyana",
         localisation: "Amérique du Sud",
@@ -1099,7 +993,6 @@ export class CardsComponent implements OnInit {
       // Amérique du Nord
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Canada",
         localisation: "Amérique du Nord",
@@ -1109,7 +1002,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "États-Unis",
         localisation: "Amérique du Nord",
@@ -1119,7 +1011,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Mexique",
         localisation: "Amérique du Nord",
@@ -1131,7 +1022,6 @@ export class CardsComponent implements OnInit {
       // Amérique centrale
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Guatemala",
         localisation: "Amérique centrale",
@@ -1141,7 +1031,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Belize",
         localisation: "Amérique centrale",
@@ -1151,7 +1040,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Honduras",
         localisation: "Amérique centrale",
@@ -1161,7 +1049,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Salvador",
         localisation: "Amérique centrale",
@@ -1171,7 +1058,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Nicaragua",
         localisation: "Amérique centrale",
@@ -1181,7 +1067,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Costa Rica",
         localisation: "Amérique centrale",
@@ -1191,7 +1076,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Panama",
         localisation: "Amérique centrale",
@@ -1203,7 +1087,6 @@ export class CardsComponent implements OnInit {
       // Amérique centrale - Caraïbes
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Cuba",
         localisation: "Amérique centrale",
@@ -1213,7 +1096,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Haïti",
         localisation: "Amérique centrale",
@@ -1223,7 +1105,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "République Dominicaine",
         localisation: "Amérique centrale",
@@ -1233,7 +1114,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Jamaïque",
         localisation: "Amérique centrale",
@@ -1243,7 +1123,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Porto Rico",
         localisation: "Amérique centrale",
@@ -1253,7 +1132,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Trinité-et-Tobago",
         localisation: "Amérique centrale",
@@ -1263,7 +1141,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Barbade",
         localisation: "Amérique centrale",
@@ -1273,7 +1150,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Bahamas",
         localisation: "Amérique centrale",
@@ -1283,7 +1159,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Sainte-Lucie",
         localisation: "Amérique centrale",
@@ -1293,7 +1168,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Grenade",
         localisation: "Amérique centrale",
@@ -1303,7 +1177,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Antigua-et-Barbuda",
         localisation: "Amérique centrale",
@@ -1313,7 +1186,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Dominique",
         localisation: "Amérique centrale",
@@ -1323,7 +1195,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Saint-Christophe-et-Niévès",
         localisation: "Amérique centrale",
@@ -1333,7 +1204,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Saint-Vincent-et-les-Grenadines",
         localisation: "Amérique centrale",
@@ -1345,7 +1215,6 @@ export class CardsComponent implements OnInit {
       // African countries
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Algérie",
         localisation: "Afrique du Nord",
@@ -1355,7 +1224,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Angola",
         localisation: "Afrique australe",
@@ -1365,7 +1233,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Bénin",
         localisation: "Afrique de l'Ouest",
@@ -1375,7 +1242,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Botswana",
         localisation: "Afrique australe",
@@ -1385,7 +1251,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Burkina Faso",
         localisation: "Afrique de l'Ouest",
@@ -1395,7 +1260,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Burundi",
         localisation: "Afrique de l'Est",
@@ -1405,7 +1269,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Cameroun",
         localisation: "Afrique centrale",
@@ -1415,7 +1278,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Cap-Vert",
         localisation: "Afrique de l'Ouest",
@@ -1425,7 +1287,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "République centrafricaine",
         localisation: "Afrique centrale",
@@ -1435,7 +1296,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Tchad",
         localisation: "Afrique centrale",
@@ -1445,7 +1305,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Comores",
         localisation: "Océan Indien",
@@ -1455,7 +1314,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "République démocratique du Congo",
         localisation: "Afrique centrale",
@@ -1465,7 +1323,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "République du Congo",
         localisation: "Afrique centrale",
@@ -1475,7 +1332,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Côte d'Ivoire",
         localisation: "Afrique de l'Ouest",
@@ -1485,7 +1341,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Djibouti",
         localisation: "Corne de l'Afrique",
@@ -1495,7 +1350,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Égypte",
         localisation: "Afrique du Nord",
@@ -1505,7 +1359,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Guinée équatoriale",
         localisation: "Afrique centrale",
@@ -1515,7 +1368,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Érythrée",
         localisation: "Corne de l'Afrique",
@@ -1525,7 +1377,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Éthiopie",
         localisation: "Corne de l'Afrique",
@@ -1535,7 +1386,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Gabon",
         localisation: "Afrique centrale",
@@ -1545,7 +1395,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Gambie",
         localisation: "Afrique de l'Ouest",
@@ -1555,7 +1404,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Ghana",
         localisation: "Afrique de l'Ouest",
@@ -1565,7 +1413,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Guinée",
         localisation: "Afrique de l'Ouest",
@@ -1575,7 +1422,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Guinée-Bissau",
         localisation: "Afrique de l'Ouest",
@@ -1585,7 +1431,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Kenya",
         localisation: "Afrique de l'Est",
@@ -1595,7 +1440,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Lesotho",
         localisation: "Afrique australe",
@@ -1605,7 +1449,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Libéria",
         localisation: "Afrique de l'Ouest",
@@ -1615,7 +1458,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Libye",
         localisation: "Afrique du Nord",
@@ -1625,7 +1467,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Madagascar",
         localisation: "Océan Indien",
@@ -1635,7 +1476,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Malawi",
         localisation: "Afrique de l'Est",
@@ -1645,7 +1485,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Mali",
         localisation: "Afrique de l'Ouest",
@@ -1655,7 +1494,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Mauritanie",
         localisation: "Afrique de l'Ouest",
@@ -1665,7 +1503,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Maurice",
         localisation: "Océan Indien",
@@ -1675,7 +1512,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Maroc",
         localisation: "Afrique du Nord",
@@ -1685,7 +1521,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Mozambique",
         localisation: "Afrique de l'Est",
@@ -1695,7 +1530,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Namibie",
         localisation: "Afrique australe",
@@ -1705,7 +1539,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Niger",
         localisation: "Afrique de l'Ouest",
@@ -1715,7 +1548,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Nigeria",
         localisation: "Afrique de l'Ouest",
@@ -1725,7 +1557,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Rwanda",
         localisation: "Afrique de l'Est",
@@ -1735,7 +1566,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "São Tomé-et-Príncipe",
         localisation: "Afrique centrale",
@@ -1745,7 +1575,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Sénégal",
         localisation: "Afrique de l'Ouest",
@@ -1755,7 +1584,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Seychelles",
         localisation: "Océan Indien",
@@ -1765,7 +1593,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Sierra Leone",
         localisation: "Afrique de l'Ouest",
@@ -1775,7 +1602,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Somalie",
         localisation: "Corne de l'Afrique",
@@ -1785,7 +1611,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Afrique du Sud",
         localisation: "Afrique australe",
@@ -1795,7 +1620,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Soudan du Sud",
         localisation: "Afrique de l'Est",
@@ -1805,7 +1629,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Soudan",
         localisation: "Afrique du Nord",
@@ -1815,7 +1638,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Eswatini",
         localisation: "Afrique australe",
@@ -1825,7 +1647,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Tanzanie",
         localisation: "Afrique de l'Est",
@@ -1835,7 +1656,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Togo",
         localisation: "Afrique de l'Ouest",
@@ -1845,7 +1665,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Tunisie",
         localisation: "Afrique du Nord",
@@ -1855,7 +1674,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Ouganda",
         localisation: "Afrique de l'Est",
@@ -1865,7 +1683,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Zambie",
         localisation: "Afrique australe",
@@ -1875,7 +1692,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Zimbabwe",
         localisation: "Afrique australe",
@@ -1887,7 +1703,6 @@ export class CardsComponent implements OnInit {
       // Asian countries
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Afghanistan",
         localisation: "Asie centrale",
@@ -1897,7 +1712,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Arménie",
         localisation: "Caucase",
@@ -1907,7 +1721,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Azerbaïdjan",
         localisation: "Caucase",
@@ -1917,7 +1730,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Bahreïn",
         localisation: "Golfe Persique",
@@ -1927,7 +1739,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Bangladesh",
         localisation: "Asie du Sud",
@@ -1937,7 +1748,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Bhoutan",
         localisation: "Himalaya",
@@ -1947,7 +1757,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Brunei",
         localisation: "Asie du Sud-Est",
@@ -1957,7 +1766,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Cambodge",
         localisation: "Asie du Sud-Est",
@@ -1967,7 +1775,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Chine",
         localisation: "Asie de l'Est",
@@ -1977,7 +1784,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Corée du Nord",
         localisation: "Asie de l'Est",
@@ -1987,7 +1793,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Corée du Sud",
         localisation: "Asie de l'Est",
@@ -1997,7 +1802,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Émirats arabes unis",
         localisation: "Golfe Persique",
@@ -2007,7 +1811,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Inde",
         localisation: "Asie du Sud",
@@ -2017,7 +1820,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Indonésie",
         localisation: "Asie du Sud-Est",
@@ -2027,7 +1829,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Irak",
         localisation: "Moyen-Orient",
@@ -2037,7 +1838,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Iran",
         localisation: "Moyen-Orient",
@@ -2047,7 +1847,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Israël",
         localisation: "Moyen-Orient",
@@ -2057,7 +1856,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Japon",
         localisation: "Asie de l'Est",
@@ -2067,7 +1865,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Jordanie",
         localisation: "Moyen-Orient",
@@ -2077,7 +1874,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Kazakhstan",
         localisation: "Asie centrale",
@@ -2087,7 +1883,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Kirghizistan",
         localisation: "Asie centrale",
@@ -2097,7 +1892,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Koweït",
         localisation: "Golfe Persique",
@@ -2107,7 +1901,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Laos",
         localisation: "Asie du Sud-Est",
@@ -2117,7 +1910,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Liban",
         localisation: "Moyen-Orient",
@@ -2127,7 +1919,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Malaisie",
         localisation: "Asie du Sud-Est",
@@ -2137,7 +1928,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Maldives",
         localisation: "Océan Indien",
@@ -2147,7 +1937,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Mongolie",
         localisation: "Asie de l'Est",
@@ -2157,7 +1946,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Myanmar",
         localisation: "Asie du Sud-Est",
@@ -2167,7 +1955,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Népal",
         localisation: "Himalaya",
@@ -2177,7 +1964,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Oman",
         localisation: "Péninsule arabique",
@@ -2187,7 +1973,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Ouzbékistan",
         localisation: "Asie centrale",
@@ -2197,7 +1982,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Pakistan",
         localisation: "Asie du Sud",
@@ -2207,7 +1991,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Palestine",
         localisation: "Moyen-Orient",
@@ -2217,7 +2000,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Philippines",
         localisation: "Asie du Sud-Est",
@@ -2227,7 +2009,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Qatar",
         localisation: "Golfe Persique",
@@ -2237,7 +2018,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Arabie saoudite",
         localisation: "Péninsule arabique",
@@ -2247,7 +2027,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Singapour",
         localisation: "Asie du Sud-Est",
@@ -2257,7 +2036,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Sri Lanka",
         localisation: "Asie du Sud",
@@ -2267,7 +2045,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Syrie",
         localisation: "Moyen-Orient",
@@ -2277,7 +2054,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Tadjikistan",
         localisation: "Asie centrale",
@@ -2287,7 +2063,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Thaïlande",
         localisation: "Asie du Sud-Est",
@@ -2297,7 +2072,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Timor oriental",
         localisation: "Asie du Sud-Est",
@@ -2307,7 +2081,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Turkménistan",
         localisation: "Asie centrale",
@@ -2317,7 +2090,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Turquie",
         localisation: "Anatolie",
@@ -2327,7 +2099,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Viêt Nam",
         localisation: "Asie du Sud-Est",
@@ -2337,7 +2108,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Pays",
-        emoji: "🤠",
         image: "assets/images/cards/default.jpg",
         nom: "Yémen",
         localisation: "Péninsule arabique",
@@ -2349,7 +2119,6 @@ export class CardsComponent implements OnInit {
       // seas
       {
         type: "Mer",
-        emoji: "🌊",
         image: "assets/images/cards/sea/mediterranean.jpg",
         nom: "Mer Méditerranée",
         localisation: "Europe, Afrique et Asie",
@@ -2358,7 +2127,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Mer",
-        emoji: "🌊",
         image: "assets/images/cards/sea/caribbean.jpeg",
         nom: "Mer des Caraïbes",
         localisation: "Amérique",
@@ -2367,7 +2135,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Mer",
-        emoji: "🌊",
         image: "assets/images/cards/sea/baltic.jpg",
         nom: "Mer Baltique",
         localisation: "Europe",
@@ -2376,7 +2143,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Mer",
-        emoji: "🌊",
         image: "assets/images/cards/sea/arabian.jpg",
         nom: "Mer d'Arabie",
         localisation: "Asie",
@@ -2385,7 +2151,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Mer",
-        emoji: "🌊",
         image: "assets/images/cards/sea/bering.jpeg",
         nom: "Mer de Béring",
         localisation: "Amérique et Asie",
@@ -2394,7 +2159,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Mer",
-        emoji: "🌊",
         image: "assets/images/cards/sea/south-china.jpg",
         nom: "Mer de Chine Méridionale",
         localisation: "Asie",
@@ -2403,7 +2167,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Mer",
-        emoji: "🌊",
         image: "assets/images/cards/sea/black.jpg",
         nom: "Mer Noire",
         localisation: "Europe et Asie",
@@ -2414,7 +2177,6 @@ export class CardsComponent implements OnInit {
       // oceans
       {
         type: "Océan",
-        emoji: "🌀",
         image: "assets/images/cards/ocean/pacific.jpg",
         nom: "Océan Pacifique",
         localisation: "Amérique, Asie et Océanie",
@@ -2423,7 +2185,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Océan",
-        emoji: "🌀",
         image: "assets/images/cards/ocean/atlantic.jpg",
         nom: "Océan Atlantique",
         localisation: "Amérique, Europe et Afrique",
@@ -2432,7 +2193,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Océan",
-        emoji: "🌀",
         image: "assets/images/cards/ocean/southern.jpg",
         nom: "Océan Austral",
         localisation: "Antarctique",
@@ -2441,7 +2201,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Océan",
-        emoji: "🌀",
         image: "assets/images/cards/ocean/indian.jpg",
         nom: "Océan Indien",
         localisation: "Asie, Afrique et Australie",
@@ -2450,7 +2209,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Océan",
-        emoji: "🌀",
         image: "assets/images/cards/ocean/arctic.jpg",
         nom: "Océan Arctique",
         localisation: "Arctique",
@@ -2461,7 +2219,6 @@ export class CardsComponent implements OnInit {
       // rivers
       {
         type: "Fleuve",
-        emoji: "💦",
         image: "assets/images/cards/river/nil.jpg",
         nom: "Nil",
         localisation: "Égypte, Soudan et Soudan du sud",
@@ -2470,7 +2227,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Fleuve",
-        emoji: "💦",
         image: "assets/images/cards/river/amazon.jpg",
         nom: "Amazone",
         localisation: "Brésil, Pérou, Colombie",
@@ -2479,7 +2235,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Fleuve",
-        emoji: "💦",
         image: "assets/images/cards/river/yangtze.jpg",
         nom: "Yangtsé",
         localisation: "Chine",
@@ -2488,7 +2243,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Fleuve",
-        emoji: "💦",
         image: "assets/images/cards/river/mississippi.png",
         nom: "Mississippi",
         localisation: "États-Unis",
@@ -2497,7 +2251,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Fleuve",
-        emoji: "💦",
         image: "assets/images/cards/river/yenisei.jpg",
         nom: "Ienisseï",
         localisation: "Russie",
@@ -2506,7 +2259,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Fleuve",
-        emoji: "💦",
         image: "assets/images/cards/river/congo.jpg",
         nom: "Congo",
         localisation: "République démocratique du Congo",
@@ -2515,7 +2267,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Fleuve",
-        emoji: "💦",
         image: "assets/images/cards/river/volga.jpg",
         nom: "Volga",
         localisation: "Russie",
@@ -2524,7 +2275,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Fleuve",
-        emoji: "💦",
         image: "assets/images/cards/river/mekong.jpg",
         nom: "Mékong",
         localisation: "Chine, Myanmar, Laos, Thaïlande, Cambodge, Vietnam",
@@ -2533,7 +2283,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Fleuve",
-        emoji: "💦",
         image: "assets/images/cards/river/ganges.jpg",
         nom: "Gange",
         localisation: "Inde et Bangladesh",
@@ -2542,7 +2291,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Fleuve",
-        emoji: "💦",
         image: "assets/images/cards/river/danube.jpg",
         nom: "Danube",
         localisation: "Allemagne, Autriche, Slovaquie, Hongrie, Croatie, Serbie, Roumanie, Bulgarie, Moldavie, Ukraine",
@@ -2553,7 +2301,6 @@ export class CardsComponent implements OnInit {
       // deserts
       {
         type: "Désert",
-        emoji: "🌵",
         image: "assets/images/cards/desert/sahara.jpg",
         nom: "Sahara",
         localisation: "Afrique",
@@ -2562,7 +2309,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Désert",
-        emoji: "🌵",
         image: "assets/images/cards/desert/arabian-desert.jpg",
         nom: "Désert Arabique",
         localisation: "Asie",
@@ -2571,7 +2317,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Désert",
-        emoji: "🌵",
         image: "assets/images/cards/desert/gobi.jpeg",
         nom: "Désert de Gobi",
         localisation: "Asie",
@@ -2580,7 +2325,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Désert",
-        emoji: "🌵",
         image: "assets/images/cards/desert/kalahari.jpg",
         nom: "Désert de Kalahari",
         localisation: "Afrique",
@@ -2589,7 +2333,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Désert",
-        emoji: "🌵",
         image: "assets/images/cards/desert/great-basin.jpg",
         nom: "Grand Bassin",
         localisation: "Amérique",
@@ -2598,7 +2341,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Désert",
-        emoji: "🌵",
         image: "assets/images/cards/desert/sonoran.jpg",
         nom: "Désert de Sonora",
         localisation: "Amérique",
@@ -2607,7 +2349,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Désert",
-        emoji: "🌵",
         image: "assets/images/cards/desert/atacama.jpg",
         nom: "Désert d'Atacama",
         localisation: "Amérique",
@@ -2618,7 +2359,6 @@ export class CardsComponent implements OnInit {
       // islands
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/bali.jpg",
         nom: "Bali",
         localisation: "Indonésie",
@@ -2627,7 +2367,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/greenland.jpg",
         nom: "Groenland",
         localisation: "Danemark",
@@ -2636,7 +2375,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/java.jpg",
         nom: "Java",
         localisation: "Indonésie",
@@ -2645,7 +2383,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/hawaii.jpg",
         nom: "Hawaï",
         localisation: "États-Unis",
@@ -2654,7 +2391,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/sicily.jpg",
         nom: "Sicile",
         localisation: "Italie",
@@ -2663,7 +2399,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/new-zealand-north.jpg",
         nom: "Île du Nord",
         localisation: "Nouvelle-Zélande",
@@ -2672,7 +2407,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/new-zealand-south.jpg",
         nom: "Île du Sud",
         localisation: "Nouvelle-Zélande",
@@ -2681,7 +2415,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/borneo.jpeg",
         nom: "Bornéo",
         localisation: "Indonésie, Malaisie et Brunei",
@@ -2690,7 +2423,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/sumatra.jpg",
         nom: "Sumatra",
         localisation: "Indonésie",
@@ -2699,7 +2431,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/crete.jpg",
         nom: "Crète",
         localisation: "Grèce",
@@ -2708,7 +2439,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/long-island.jpg",
         nom: "Long Island",
         localisation: "États-Unis",
@@ -2717,7 +2447,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/jeju.jpg",
         nom: "Jeju",
         localisation: "Corée du Sud",
@@ -2726,7 +2455,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/phuket.jpg",
         nom: "Phuket",
         localisation: "Thaïlande",
@@ -2735,7 +2463,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/galapagos.jpg",
         nom: "Galápagos",
         localisation: "Équateur",
@@ -2744,7 +2471,6 @@ export class CardsComponent implements OnInit {
       },
       {
         type: "Île",
-        emoji: "🌴",
         image: "assets/images/cards/island/majorca.jpg",
         nom: "Majorque",
         localisation: "Espagne",
