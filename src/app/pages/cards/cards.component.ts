@@ -28,7 +28,7 @@ export class CardsComponent implements OnInit, AfterViewInit {
   searchTerm: string = '';
   
   // Infinite scroll properties
-  private cardsPerLoad = 20;
+  private cardsPerLoad = 30;
   private currentIndex = 0;
   isLoadingMore = false;
   private containerElement?: HTMLElement;

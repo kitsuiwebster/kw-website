@@ -840,7 +840,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/algerie.jpg",
     nom: "Algérie",
     localisation: "Afrique du Nord",
     continent: "Afrique",
@@ -849,7 +849,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/angola.jpg",
     nom: "Angola",
     localisation: "Afrique australe",
     continent: "Afrique",
@@ -858,7 +858,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/benin.jpg",
     nom: "Bénin",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -867,7 +867,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/botswana.jpg",
     nom: "Botswana",
     localisation: "Afrique australe",
     continent: "Afrique",
@@ -876,7 +876,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/burkina-faso.jpg",
     nom: "Burkina Faso",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -885,7 +885,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/burundi.jpg",
     nom: "Burundi",
     localisation: "Afrique de l'Est",
     continent: "Afrique",
@@ -894,7 +894,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/cameroun.jpg",
     nom: "Cameroun",
     localisation: "Afrique centrale",
     continent: "Afrique",
@@ -903,7 +903,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/cap-vert.jpeg",
     nom: "Cap-Vert",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -912,8 +912,8 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
-    nom: "République centrafricaine",
+    image: "assets/images/cards/country/centrafrique.webp",
+    nom: "Centrafrique",
     localisation: "Afrique centrale",
     continent: "Afrique",
     population: "5.5 M",
@@ -921,7 +921,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/tchad.jpg",
     nom: "Tchad",
     localisation: "Afrique centrale",
     continent: "Afrique",
@@ -930,7 +930,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/comores.jpg",
     nom: "Comores",
     localisation: "Océan Indien",
     continent: "Afrique",
@@ -939,8 +939,8 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
-    nom: "République démocratique du Congo",
+    image: "assets/images/cards/country/rdc.jpeg",
+    nom: "R.D. du Congo",
     localisation: "Afrique centrale",
     continent: "Afrique",
     population: "102.3 M",
@@ -948,8 +948,8 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
-    nom: "République du Congo",
+    image: "assets/images/cards/country/congo.jpg",
+    nom: "Congo",
     localisation: "Afrique centrale",
     continent: "Afrique",
     population: "5.8 M",
@@ -957,7 +957,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/cote-divoire.jpg",
     nom: "Côte d'Ivoire",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -966,7 +966,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/djibouti.webp",
     nom: "Djibouti",
     localisation: "Corne de l'Afrique",
     continent: "Afrique",
@@ -975,7 +975,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/egypte.jpg",
     nom: "Égypte",
     localisation: "Afrique du Nord",
     continent: "Afrique",
@@ -984,7 +984,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/guinee-equatoriale.webp",
     nom: "Guinée équatoriale",
     localisation: "Afrique centrale",
     continent: "Afrique",
@@ -993,7 +993,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/erythree.webp",
     nom: "Érythrée",
     localisation: "Corne de l'Afrique",
     continent: "Afrique",
@@ -1002,7 +1002,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/ethiopie.jpg",
     nom: "Éthiopie",
     localisation: "Corne de l'Afrique",
     continent: "Afrique",
@@ -1011,7 +1011,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/gabon.jpeg",
     nom: "Gabon",
     localisation: "Afrique centrale",
     continent: "Afrique",
@@ -1020,7 +1020,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/gambie.webp",
     nom: "Gambie",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1029,7 +1029,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/ghana.jpg",
     nom: "Ghana",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1038,7 +1038,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/guinee.jpg",
     nom: "Guinée",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1047,7 +1047,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/guinee-bissau.webp",
     nom: "Guinée-Bissau",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1056,7 +1056,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/kenya.webp",
     nom: "Kenya",
     localisation: "Afrique de l'Est",
     continent: "Afrique",
@@ -1065,7 +1065,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/lesotho.jpg",
     nom: "Lesotho",
     localisation: "Afrique australe",
     continent: "Afrique",
@@ -1074,7 +1074,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/liberia.jpg",
     nom: "Libéria",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1083,7 +1083,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/libye.jpg",
     nom: "Libye",
     localisation: "Afrique du Nord",
     continent: "Afrique",
@@ -1092,7 +1092,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/madagascar.jpg",
     nom: "Madagascar",
     localisation: "Océan Indien",
     continent: "Afrique",
@@ -1101,7 +1101,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/malawi.jpg",
     nom: "Malawi",
     localisation: "Afrique de l'Est",
     continent: "Afrique",
@@ -1110,7 +1110,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/mali.jpg",
     nom: "Mali",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1119,7 +1119,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/mauritanie.jpg",
     nom: "Mauritanie",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1128,7 +1128,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/maurice.jpg",
     nom: "Maurice",
     localisation: "Océan Indien",
     continent: "Afrique",
@@ -1137,7 +1137,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/maroc.jpg",
     nom: "Maroc",
     localisation: "Afrique du Nord",
     continent: "Afrique",
@@ -1146,7 +1146,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/mozambique.avif",
     nom: "Mozambique",
     localisation: "Afrique de l'Est",
     continent: "Afrique",
@@ -1155,7 +1155,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/namibie.jpg",
     nom: "Namibie",
     localisation: "Afrique australe",
     continent: "Afrique",
@@ -1164,7 +1164,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/niger.jpg",
     nom: "Niger",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1173,7 +1173,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/nigeria.jpg",
     nom: "Nigeria",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1182,7 +1182,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/rwanda.jpg",
     nom: "Rwanda",
     localisation: "Afrique de l'Est",
     continent: "Afrique",
@@ -1191,7 +1191,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/sao-tome-et-principe.jpg",
     nom: "São Tomé-et-Príncipe",
     localisation: "Afrique centrale",
     continent: "Afrique",
@@ -1200,7 +1200,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/senegal.jpg",
     nom: "Sénégal",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1209,7 +1209,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/seychelles.jpg",
     nom: "Seychelles",
     localisation: "Océan Indien",
     continent: "Afrique",
@@ -1218,7 +1218,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/sierra-leone.jpg",
     nom: "Sierra Leone",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1227,7 +1227,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/somalie.jpg",
     nom: "Somalie",
     localisation: "Corne de l'Afrique",
     continent: "Afrique",
@@ -1236,7 +1236,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/afrique-du-sud.jpg",
     nom: "Afrique du Sud",
     localisation: "Afrique australe",
     continent: "Afrique",
@@ -1245,7 +1245,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/soudan-du-sud.jpg",
     nom: "Soudan du Sud",
     localisation: "Afrique de l'Est",
     continent: "Afrique",
@@ -1254,7 +1254,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/soudan.jpg",
     nom: "Soudan",
     localisation: "Afrique du Nord",
     continent: "Afrique",
@@ -1263,7 +1263,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/eswatini.webp",
     nom: "Eswatini",
     localisation: "Afrique australe",
     continent: "Afrique",
@@ -1272,7 +1272,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/tanzanie.jpg",
     nom: "Tanzanie",
     localisation: "Afrique de l'Est",
     continent: "Afrique",
@@ -1281,7 +1281,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/togo.webp",
     nom: "Togo",
     localisation: "Afrique de l'Ouest",
     continent: "Afrique",
@@ -1290,7 +1290,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/tunisie.jpg",
     nom: "Tunisie",
     localisation: "Afrique du Nord",
     continent: "Afrique",
@@ -1299,7 +1299,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/ouganda.jpg",
     nom: "Ouganda",
     localisation: "Afrique de l'Est",
     continent: "Afrique",
@@ -1308,7 +1308,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/zambie.jpg",
     nom: "Zambie",
     localisation: "Afrique australe",
     continent: "Afrique",
@@ -1317,7 +1317,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/zimbabwe.jpg",
     nom: "Zimbabwe",
     localisation: "Afrique australe",
     continent: "Afrique",
