@@ -7,9 +7,16 @@ import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 
 interface Entry {
   date: string;
-  flag: string[];
-  cities: string[];
-  people: string[];
+  c1: string;
+  city1: string;
+  people1: string[];
+  c2: string;
+  city2: string;
+  people2: string[];
+  c3: string;
+  city3: string;
+  people3: string[];
+  day: string;
 }
 
 interface DateSearchResult {
@@ -70,7 +77,7 @@ export class ShisuiComponent implements OnInit {
   peopleByCountryStats: { [country: string]: { name: string; value: number }[] } = {};
   consecutiveDaysStats: { name: string; value: number }[] = [];
   
-  // Map pour stocker la correspondance ville -> drapeau
+  // Map pour stocker la correspondance ville -> drapeau (plus utilisé avec la nouvelle structure)
   cityFlagMap: Map<string, string> = new Map();
   
   // Statistiques par année
@@ -93,9 +100,7 @@ export class ShisuiComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchVillesData().then(() => {
-      this.fetchData();
-    });
+    this.fetchData();
     this.updateChartSize();
   }
 
@@ -132,29 +137,8 @@ export class ShisuiComponent implements OnInit {
     }
   }
 
-  async fetchVillesData(): Promise<void> {
-    const villesUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTA7o5kyxn2EljodBFyQE2yG6t9s2Rg9gYrpuK080_TBhNRrygO7o_zk5cksPtcqo6py_onhoOdboAc/pub?gid=1937358699&single=true&output=csv';
-    
-    try {
-      const csvText = await this.http.get(villesUrl, { responseType: 'text' }).toPromise();
-      if (csvText) {
-        const lines = csvText.split('\n').filter(line => line.trim() !== '');
-        if (lines.length > 1) {
-          const [, ...dataLines] = lines;
-          dataLines.forEach(line => {
-            const [ville, pays] = line.split(',').map(s => s.trim());
-            if (ville && pays) {
-              this.cityFlagMap.set(ville, pays);
-            }
-          });
-        }
-      }
-      console.log('Sheet villes chargée avec succès:', this.cityFlagMap.size, 'villes');
-    } catch (error) {
-      console.warn('La sheet villes n\'est pas disponible. Assurez-vous que le gid est correct.');
-      // L'application continue de fonctionner sans les drapeaux
-    }
-  }
+  // Plus besoin de charger la sheet villes séparée avec la nouvelle structure
+  // Les drapeaux sont maintenant directement dans les colonnes c1, c2, c3
 
   fetchData(): void {
     const csvUrl =
@@ -181,9 +165,16 @@ export class ShisuiComponent implements OnInit {
 
       this.entries = data.map((row: string[]) => ({
         date: row[0]?.trim() || '',
-        flag: row[1] ? row[1].split(' ').map((f) => f.trim()).filter(f => f) : [],
-        cities: row[2] ? row[2].split(' ').map((c) => c.trim()).filter(c => c) : [],
-        people: row[3] ? row[3].split(' ').map((p) => p.trim()).filter(p => p) : [],
+        c1: row[1]?.trim() || '',
+        city1: row[2]?.trim() || '',
+        people1: row[3] ? row[3].split(' ').map((p) => p.trim()).filter(p => p) : [],
+        c2: row[4]?.trim() || '',
+        city2: row[5]?.trim() || '',
+        people2: row[6] ? row[6].split(' ').map((p) => p.trim()).filter(p => p) : [],
+        c3: row[7]?.trim() || '',
+        city3: row[8]?.trim() || '',
+        people3: row[9] ? row[9].split(' ').map((p) => p.trim()).filter(p => p) : [],
+        day: row[10]?.trim() || '',
       }));
 
       this.computeAllStats();
@@ -205,11 +196,39 @@ export class ShisuiComponent implements OnInit {
     const entry = this.entries.find(e => e.date === formattedDate);
 
     if (entry) {
+      // Collecter tous les pays, villes et personnes
+      const countries: string[] = [];
+      const cities: string[] = [];
+      const people: string[] = [];
+      
+      if (entry.c1) countries.push(entry.c1);
+      if (entry.c2) countries.push(entry.c2);
+      if (entry.c3) countries.push(entry.c3);
+      
+      // Séparer les villes si plusieurs dans une même cellule
+      if (entry.city1) {
+        entry.city1.split(' ').forEach(city => {
+          if (city.trim()) cities.push(city.trim());
+        });
+      }
+      if (entry.city2) {
+        entry.city2.split(' ').forEach(city => {
+          if (city.trim()) cities.push(city.trim());
+        });
+      }
+      if (entry.city3) {
+        entry.city3.split(' ').forEach(city => {
+          if (city.trim()) cities.push(city.trim());
+        });
+      }
+      
+      people.push(...entry.people1, ...entry.people2, ...entry.people3);
+      
       this.dateSearchResult = {
         date: formattedDate,
-        countries: entry.flag,
-        cities: entry.cities,
-        people: entry.people,
+        countries: countries,
+        cities: cities,
+        people: people,
         found: true
       };
     } else {
@@ -241,10 +260,28 @@ export class ShisuiComponent implements OnInit {
   computeCityStats(): void {
     const count: { [city: string]: number } = {};
     for (const entry of this.entries) {
-      for (const city of entry.cities) {
-        if (city) {
-          count[city] = (count[city] || 0) + 1;
-        }
+      // Ne compter qu'une seule fois par jour, même si plusieurs pays
+      const cities = new Set<string>();
+      
+      // Séparer les villes si plusieurs dans une même cellule
+      if (entry.city1) {
+        entry.city1.split(' ').forEach(city => {
+          if (city.trim()) cities.add(city.trim());
+        });
+      }
+      if (entry.city2) {
+        entry.city2.split(' ').forEach(city => {
+          if (city.trim()) cities.add(city.trim());
+        });
+      }
+      if (entry.city3) {
+        entry.city3.split(' ').forEach(city => {
+          if (city.trim()) cities.add(city.trim());
+        });
+      }
+      
+      for (const city of cities) {
+        count[city] = (count[city] || 0) + 1;
       }
     }
     this.cityStats = Object.entries(count)
@@ -255,10 +292,14 @@ export class ShisuiComponent implements OnInit {
   computePeopleStats(): void {
     const count: { [person: string]: number } = {};
     for (const entry of this.entries) {
-      for (const person of entry.people) {
-        if (person) {
-          count[person] = (count[person] || 0) + 1;
-        }
+      // Ne compter qu'une seule fois par personne par jour
+      const people = new Set<string>();
+      entry.people1.forEach(p => people.add(p));
+      entry.people2.forEach(p => people.add(p));
+      entry.people3.forEach(p => people.add(p));
+      
+      for (const person of people) {
+        count[person] = (count[person] || 0) + 1;
       }
     }
     this.peopleStats = Object.entries(count)
@@ -269,10 +310,14 @@ export class ShisuiComponent implements OnInit {
   computeFlagStats(): void {
     const count: { [flag: string]: number } = {};
     for (const entry of this.entries) {
-      for (const flag of entry.flag) {
-        if (flag) {
-          count[flag] = (count[flag] || 0) + 1;
-        }
+      // Ne compter qu'une seule fois par pays par jour
+      const flags = new Set<string>();
+      if (entry.c1) flags.add(entry.c1);
+      if (entry.c2) flags.add(entry.c2);
+      if (entry.c3) flags.add(entry.c3);
+      
+      for (const flag of flags) {
+        count[flag] = (count[flag] || 0) + 1;
       }
     }
     this.flagStats = Object.entries(count)
@@ -283,29 +328,46 @@ export class ShisuiComponent implements OnInit {
   computePeopleByCountryStats(): void {
     this.peopleByCountryStats = {};
     
+    // Collecter tous les pays uniques
+    const allCountries = new Set<string>();
     for (const entry of this.entries) {
-      for (const flag of entry.flag) {
-        if (flag) {
-          if (!this.peopleByCountryStats[flag]) {
-            this.peopleByCountryStats[flag] = [];
-          }
-          
-          const countForCountry: { [person: string]: number } = {};
-          
-          for (const otherEntry of this.entries) {
-            if (otherEntry.flag.includes(flag)) {
-              for (const person of otherEntry.people) {
-                if (person) {
-                  countForCountry[person] = (countForCountry[person] || 0) + 1;
-                }
-              }
+      if (entry.c1) allCountries.add(entry.c1);
+      if (entry.c2) allCountries.add(entry.c2);
+      if (entry.c3) allCountries.add(entry.c3);
+    }
+    
+    for (const country of allCountries) {
+      const countForCountry: { [person: string]: number } = {};
+      
+      for (const entry of this.entries) {
+        // Associer les personnes au bon pays
+        if (entry.c1 === country) {
+          entry.people1.forEach(person => {
+            if (person) {
+              countForCountry[person] = (countForCountry[person] || 0) + 1;
             }
-          }
-          
-          this.peopleByCountryStats[flag] = Object.entries(countForCountry)
-            .map(([name, value]) => ({ name, value }))
-            .sort((a, b) => b.value - a.value);
+          });
         }
+        if (entry.c2 === country) {
+          entry.people2.forEach(person => {
+            if (person) {
+              countForCountry[person] = (countForCountry[person] || 0) + 1;
+            }
+          });
+        }
+        if (entry.c3 === country) {
+          entry.people3.forEach(person => {
+            if (person) {
+              countForCountry[person] = (countForCountry[person] || 0) + 1;
+            }
+          });
+        }
+      }
+      
+      if (Object.keys(countForCountry).length > 0) {
+        this.peopleByCountryStats[country] = Object.entries(countForCountry)
+          .map(([name, value]) => ({ name, value }))
+          .sort((a, b) => b.value - a.value);
       }
     }
   }
@@ -324,7 +386,13 @@ export class ShisuiComponent implements OnInit {
 
     const maxConsecutive: { [person: string]: number } = {};
     
-    const allPeople = [...new Set(this.entries.flatMap(entry => entry.people))].filter(p => p);
+    // Collecter toutes les personnes uniques
+    const allPeople = new Set<string>();
+    this.entries.forEach(entry => {
+      entry.people1.forEach(p => allPeople.add(p));
+      entry.people2.forEach(p => allPeople.add(p));
+      entry.people3.forEach(p => allPeople.add(p));
+    });
     
     for (const person of allPeople) {
       let currentStreak = 0;
@@ -338,7 +406,9 @@ export class ShisuiComponent implements OnInit {
         };
         
         const currentDate = parseDate(entry.date);
-        const personIsPresent = entry.people.includes(person);
+        const personIsPresent = entry.people1.includes(person) || 
+                               entry.people2.includes(person) || 
+                               entry.people3.includes(person);
         
         if (personIsPresent) {
           if (previousDate) {
@@ -390,33 +460,56 @@ export class ShisuiComponent implements OnInit {
     
     // Calculer les statistiques pour chaque année
     for (const [year, yearEntries] of Object.entries(entriesByYear)) {
-      // Statistiques des villes
+      // Statistiques des villes (ne compter qu'une fois par jour)
       const cityCount: { [city: string]: number } = {};
       for (const entry of yearEntries) {
-        for (const city of entry.cities) {
-          if (city) {
-            cityCount[city] = (cityCount[city] || 0) + 1;
-          }
+        const cities = new Set<string>();
+        
+        // Séparer les villes si plusieurs dans une même cellule
+        if (entry.city1) {
+          entry.city1.split(' ').forEach(city => {
+            if (city.trim()) cities.add(city.trim());
+          });
+        }
+        if (entry.city2) {
+          entry.city2.split(' ').forEach(city => {
+            if (city.trim()) cities.add(city.trim());
+          });
+        }
+        if (entry.city3) {
+          entry.city3.split(' ').forEach(city => {
+            if (city.trim()) cities.add(city.trim());
+          });
+        }
+        
+        for (const city of cities) {
+          cityCount[city] = (cityCount[city] || 0) + 1;
         }
       }
       
-      // Statistiques des pays
+      // Statistiques des pays (ne compter qu'une fois par jour)
       const countryCount: { [country: string]: number } = {};
       for (const entry of yearEntries) {
-        for (const country of entry.flag) {
-          if (country) {
-            countryCount[country] = (countryCount[country] || 0) + 1;
-          }
+        const countries = new Set<string>();
+        if (entry.c1) countries.add(entry.c1);
+        if (entry.c2) countries.add(entry.c2);
+        if (entry.c3) countries.add(entry.c3);
+        
+        for (const country of countries) {
+          countryCount[country] = (countryCount[country] || 0) + 1;
         }
       }
       
-      // Statistiques des personnes
+      // Statistiques des personnes (ne compter qu'une fois par jour)
       const peopleCount: { [person: string]: number } = {};
       for (const entry of yearEntries) {
-        for (const person of entry.people) {
-          if (person) {
-            peopleCount[person] = (peopleCount[person] || 0) + 1;
-          }
+        const people = new Set<string>();
+        entry.people1.forEach(p => people.add(p));
+        entry.people2.forEach(p => people.add(p));
+        entry.people3.forEach(p => people.add(p));
+        
+        for (const person of people) {
+          peopleCount[person] = (peopleCount[person] || 0) + 1;
         }
       }
       
@@ -445,18 +538,41 @@ export class ShisuiComponent implements OnInit {
   getAllUniqueCities(): string[] {
     const allCities = new Set<string>();
     for (const entry of this.entries) {
-      for (const city of entry.cities) {
-        if (city && city.trim()) {
-          allCities.add(city.trim());
-        }
+      // Séparer les villes si plusieurs dans une même cellule
+      if (entry.city1 && entry.city1.trim()) {
+        entry.city1.split(' ').forEach(city => {
+          if (city.trim()) allCities.add(city.trim());
+        });
+      }
+      if (entry.city2 && entry.city2.trim()) {
+        entry.city2.split(' ').forEach(city => {
+          if (city.trim()) allCities.add(city.trim());
+        });
+      }
+      if (entry.city3 && entry.city3.trim()) {
+        entry.city3.split(' ').forEach(city => {
+          if (city.trim()) allCities.add(city.trim());
+        });
       }
     }
     return Array.from(allCities).sort();
   }
   
   getCityWithFlag(cityName: string): string {
-    const flag = this.cityFlagMap.get(cityName);
-    return flag ? `${flag} ${cityName}` : cityName;
+    // Chercher dans quelle colonne se trouve cette ville pour récupérer le bon drapeau
+    for (const entry of this.entries) {
+      // Vérifier si la ville est dans city1 (peut être avec d'autres villes)
+      if (entry.city1 && entry.city1.includes(cityName) && entry.c1) {
+        return `${entry.c1} ${cityName}`;
+      }
+      if (entry.city2 && entry.city2.includes(cityName) && entry.c2) {
+        return `${entry.c2} ${cityName}`;
+      }
+      if (entry.city3 && entry.city3.includes(cityName) && entry.c3) {
+        return `${entry.c3} ${cityName}`;
+      }
+    }
+    return cityName; // Si pas trouvé, retourner juste le nom
   }
 
 

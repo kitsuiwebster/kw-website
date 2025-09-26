@@ -20,7 +20,10 @@
       </div>
     </h3>
     <p class="card-location">{{ card.localisation }}</p>
-    <p class="card-info">{{ getCardInfo() }}</p>
+    <div class="card-info-container" *ngIf="getCardInfoLabel()">
+      <span class="card-info-label">{{ getCardInfoLabel() }}</span>
+      <span class="card-info-value">{{ getCardInfoValue() }}</span>
+    </div>
     <p class="card-type">{{ card.type }}</p>
   </div>
 </div>
@@ -41,7 +44,10 @@
         </div>
       </h3>
       <p class="modal-card-location">{{ card.localisation }}</p>
-      <p class="modal-card-info">{{ getCardInfo() }}</p>
+      <div class="modal-card-info-container" *ngIf="getCardInfoLabel()">
+        <span class="modal-card-info-label">{{ getCardInfoLabel() }}</span>
+        <span class="modal-card-info-value">{{ getCardInfoValue() }}</span>
+      </div>
       <p class="modal-card-type">{{ card.type }}</p>
     </div>
   </div>

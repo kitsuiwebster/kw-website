@@ -1,19 +1,6 @@
 import { Component, Input, HostListener, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface Card {
-  type: string;
-  image: string;
-  nom: string;
-  localisation: string;
-  continent?: string;
-  hauteur?: string;
-  surface?: string;
-  population?: string;
-  superficie?: string;
-  profondeur?: string;
-  longueur?: string;
-}
+import { Card } from '../../interfaces/card.interface';
 
 @Component({
   selector: 'app-card',
@@ -79,15 +66,72 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   getCardInfo(): string {
-    if (this.card.hauteur) return this.card.hauteur;
-    if (this.card.surface) return this.card.surface;
-    if (this.card.population && this.card.superficie) {
-      return `${this.card.population} - ${this.card.superficie}`;
-    }
-    if (this.card.profondeur) return this.card.profondeur;
-    if (this.card.longueur) return this.card.longueur;
-    if (this.card.superficie) return this.card.superficie;
     return '';
+  }
+
+  getCardInfoLabel(): string {
+    if (this.card.hauteur) return 'Hauteur:';
+    if (this.card.surface) return 'Surface:';
+    if (this.card.population && this.card.agglomeration) {
+      return 'Population:\nAgglomération:';
+    }
+    if (this.card.population && this.card.superficie) {
+      return 'Population:\nSuperficie:';
+    }
+    if (this.card.population) return 'Population:';
+    if (this.card.profondeur) return 'Profondeur:';
+    if (this.card.longueur) return 'Longueur:';
+    if (this.card.superficie) return 'Superficie:';
+    return '';
+  }
+
+  getCardInfoValue(): string {
+    if (this.card.hauteur) return this.card.hauteur;
+    if (this.card.surface) return this.formatArea(this.card.surface);
+    if (this.card.population && this.card.agglomeration) {
+      const pop = this.formatNumber(this.card.population);
+      const agglo = this.formatNumber(this.card.agglomeration);
+      return `${pop}\n${agglo}`;
+    }
+    if (this.card.population && this.card.superficie) {
+      const pop = this.formatNumber(this.card.population);
+      const superficie = this.formatArea(this.card.superficie);
+      return `${pop}\n${superficie}`;
+    }
+    if (this.card.population) return this.formatNumber(this.card.population);
+    if (this.card.profondeur) return this.card.profondeur;
+    if (this.card.longueur) return this.formatArea(this.card.longueur);
+    if (this.card.superficie) return this.formatArea(this.card.superficie);
+    return '';
+  }
+
+  private formatNumber(value: string): string {
+    // Convertir "12,506,000 M" en "12.5 M"
+    if (value.includes(',') && value.includes(' M')) {
+      const numStr = value.replace(' M', '').replace(/,/g, '');
+      const num = parseFloat(numStr) / 1000000;
+      return `${num.toFixed(1)} M`;
+    }
+    return value;
+  }
+
+  private formatArea(value: string): string {
+    // Convertir "82,100 km²" en "82.1 km²" ou "643,801 km²" en "643.8 km²"
+    if (value.includes('km²') || value.includes('km')) {
+      const match = value.match(/^([\d,]+)\s*(km²?)/);
+      if (match) {
+        const numStr = match[1].replace(/,/g, '');
+        const num = parseFloat(numStr);
+        const unit = match[2];
+        
+        if (num >= 1000) {
+          return `${(num / 1000).toFixed(1)}k ${unit}`;
+        } else {
+          return `${num.toFixed(1)} ${unit}`;
+        }
+      }
+    }
+    return value;
   }
 
   getSmallImageUrl(): string {
@@ -318,7 +362,25 @@ export class CardComponent implements OnInit, OnDestroy {
         'Moscou': 'ru',
         'New York': 'us',
         'Rio de Janeiro': 'br',
-        'Sydney': 'au'
+        'Sydney': 'au',
+        // Nouvelles villes africaines
+        'Lagos': 'ng',
+        'Kinshasa': 'cd',
+        'Le Caire': 'eg',
+        'Casablanca': 'ma',
+        'Nairobi': 'ke',
+        'Johannesburg': 'za',
+        'Luanda': 'ao',
+        'Addis-Abeba': 'et',
+        'Abidjan': 'ci',
+        'Alexandrie': 'eg',
+        'Khartoum': 'sd',
+        'Dakar': 'sn',
+        'Accra': 'gh',
+        'Tunis': 'tn',
+        'Rabat': 'ma',
+        'Alger': 'dz',
+        'Oran': 'dz'
       };
       
       const countryCode = countryMapping[this.card.nom];

@@ -35,6 +35,9 @@
       color: #A0522D !important;
       font-weight: bold !important;
     }
+    .card-info-value {
+      color: #A0522D !important;
+    }
   }
   
   &[data-type="Lac"] {
@@ -48,6 +51,9 @@
     .card-type {
       color: #4169E1 !important;
       font-weight: bold !important;
+    }
+    .card-info-value {
+      color: #4169E1 !important;
     }
   }
   
@@ -63,6 +69,9 @@
       color: #FFA500 !important;
       font-weight: bold !important;
     }
+    .card-info-value {
+      color: #FFA500 !important;
+    }
   }
   
   &[data-type="Pays"] {
@@ -76,6 +85,9 @@
     .card-type {
       color: #228B22 !important;
       font-weight: bold !important;
+    }
+    .card-info-value {
+      color: #228B22 !important;
     }
   }
   
@@ -91,6 +103,9 @@
       color: #20B2AA !important;
       font-weight: bold !important;
     }
+    .card-info-value {
+      color: #20B2AA !important;
+    }
   }
   
   &[data-type="Océan"] {
@@ -104,6 +119,9 @@
     .card-type {
       color: #4682B4 !important;
       font-weight: bold !important;
+    }
+    .card-info-value {
+      color: #4682B4 !important;
     }
   }
   
@@ -119,6 +137,9 @@
       color: #5F9EA0 !important;
       font-weight: bold !important;
     }
+    .card-info-value {
+      color: #5F9EA0 !important;
+    }
   }
   
   &[data-type="Désert"] {
@@ -133,6 +154,9 @@
       color: #D2691E !important;
       font-weight: bold !important;
     }
+    .card-info-value {
+      color: #D2691E !important;
+    }
   }
   
   &[data-type="Île"] {
@@ -146,6 +170,9 @@
     .card-type {
       color: #3CB371 !important;
       font-weight: bold !important;
+    }
+    .card-info-value {
+      color: #3CB371 !important;
     }
   }
   
@@ -262,11 +289,23 @@
       line-height: 1.1;
     }
     
-    .card-info {
+    .card-info-container {
       margin: 0 0 3px 0;
       font-size: 8px;
-      color: #e0e0e0;
-      line-height: 1.1;
+      line-height: 1.2;
+      display: flex;
+      gap: 4px;
+      
+      .card-info-label {
+        color: #e0e0e0;
+        white-space: pre-line;
+      }
+      
+      .card-info-value {
+        color: #e0e0e0;
+        white-space: pre-line;
+        font-weight: bold;
+      }
     }
     
     .card-type {
@@ -429,11 +468,23 @@
       line-height: 1.1;
     }
     
-    .modal-card-info {
+    .modal-card-info-container {
       margin: 0 0 9px 0;
       font-size: 24px;
-      color: #e0e0e0;
-      line-height: 1.1;
+      line-height: 1.3;
+      display: flex;
+      gap: 12px;
+      
+      .modal-card-info-label {
+        color: #e0e0e0;
+        white-space: pre-line;
+      }
+      
+      .modal-card-info-value {
+        color: #e0e0e0;
+        white-space: pre-line;
+        font-weight: bold;
+      }
     }
     
     .modal-card-type {
@@ -456,6 +507,9 @@
       color: #A0522D !important;
       font-weight: bold !important;
     }
+    .modal-card-info-value {
+      color: #A0522D !important;
+    }
   }
 
   &[data-type="Lac"] {
@@ -466,6 +520,9 @@
     .modal-card-type {
       color: #4169E1 !important;
       font-weight: bold !important;
+    }
+    .modal-card-info-value {
+      color: #4169E1 !important;
     }
   }
 
@@ -478,6 +535,9 @@
       color: #FFA500 !important;
       font-weight: bold !important;
     }
+    .modal-card-info-value {
+      color: #FFA500 !important;
+    }
   }
 
   &[data-type="Pays"] {
@@ -488,6 +548,9 @@
     .modal-card-type {
       color: #228B22 !important;
       font-weight: bold !important;
+    }
+    .modal-card-info-value {
+      color: #228B22 !important;
     }
   }
 
@@ -500,6 +563,9 @@
       color: #20B2AA !important;
       font-weight: bold !important;
     }
+    .modal-card-info-value {
+      color: #20B2AA !important;
+    }
   }
 
   &[data-type="Océan"] {
@@ -510,6 +576,9 @@
     .modal-card-type {
       color: #4682B4 !important;
       font-weight: bold !important;
+    }
+    .modal-card-info-value {
+      color: #4682B4 !important;
     }
   }
 
@@ -522,6 +591,9 @@
       color: #5F9EA0 !important;
       font-weight: bold !important;
     }
+    .modal-card-info-value {
+      color: #5F9EA0 !important;
+    }
   }
 
   &[data-type="Désert"] {
@@ -533,6 +605,9 @@
       color: #D2691E !important;
       font-weight: bold !important;
     }
+    .modal-card-info-value {
+      color: #D2691E !important;
+    }
   }
 
   &[data-type="Île"] {
@@ -543,6 +618,9 @@
     .modal-card-type {
       color: #3CB371 !important;
       font-weight: bold !important;
+    }
+    .modal-card-info-value {
+      color: #3CB371 !important;
     }
   }
 }
@@ -584,6 +662,8 @@
       
       .modal-card-info {
         font-size: 16px;
+        line-height: 1.3;
+        white-space: pre-line;
       }
       
       .modal-card-type {
