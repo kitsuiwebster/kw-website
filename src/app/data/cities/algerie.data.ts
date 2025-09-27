@@ -12,7 +12,7 @@ export const algerieCitiesData: Card[] = [
   },
   {
     type: "Ville",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/city/oran.jpg",
     nom: "Oran",
     localisation: "Algérie",
     continent: "Afrique",

@@ -3,7 +3,7 @@ import { Card } from '../../interfaces/card.interface';
 export const nigeriaCitiesData: Card[] = [
   {
     type: "Ville",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/city/lagos.jpg",
     nom: "Lagos",
     localisation: "Nigeria",
     continent: "Afrique",

@@ -12,7 +12,7 @@ export const afriqueDuSudCitiesData: Card[] = [
   },
   {
     type: "Ville",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/city/johannesburg.avif",
     nom: "Johannesburg",
     localisation: "Afrique du Sud",
     continent: "Afrique",

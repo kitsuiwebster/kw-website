@@ -3,7 +3,7 @@ import { Card } from '../../interfaces/card.interface';
 export const ethiopieCitiesData: Card[] = [
   {
     type: "Ville",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/city/addis-abeba.jpg",
     nom: "Addis-Abeba",
     localisation: "Éthiopie",
     continent: "Afrique",

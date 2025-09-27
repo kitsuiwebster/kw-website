@@ -3,7 +3,7 @@ import { Card } from '../../interfaces/card.interface';
 export const senegalCitiesData: Card[] = [
   {
     type: "Ville",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/city/dakar.jpg",
     nom: "Dakar",
     localisation: "Sénégal",
     continent: "Afrique",

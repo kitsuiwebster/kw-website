@@ -3,7 +3,7 @@ import { Card } from '../../interfaces/card.interface';
 export const republicDemocratiqueDuCongoCitiesData: Card[] = [
   {
     type: "Ville",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/city/kinshasa.jpg",
     nom: "Kinshasa",
     localisation: "République démocratique du Congo",
     continent: "Afrique",

@@ -3,7 +3,7 @@ import { Card } from '../../interfaces/card.interface';
 export const soudanCitiesData: Card[] = [
   {
     type: "Ville",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/city/khartoum.webp",
     nom: "Khartoum",
     localisation: "Soudan",
     continent: "Afrique",

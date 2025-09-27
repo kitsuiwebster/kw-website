@@ -3,7 +3,7 @@ import { Card } from '../../interfaces/card.interface';
 export const marocCitiesData: Card[] = [
   {
     type: "Ville",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/city/casablanca.jpg",
     nom: "Casablanca",
     localisation: "Maroc",
     continent: "Afrique",
@@ -12,7 +12,7 @@ export const marocCitiesData: Card[] = [
   },
   {
     type: "Ville",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/city/rabat.jpg",
     nom: "Rabat",
     localisation: "Maroc",
     continent: "Afrique",
