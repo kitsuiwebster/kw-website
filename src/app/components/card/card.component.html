@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="card-content">
-    <h3 class="card-name">
+    <h3 class="card-name" [class.long-name]="card.nom === 'St-Christophe-et-Niévès' || card.nom === 'St-Vincent-et-les-Grenadines' || card.nom === 'République centrafricaine'">
       <span>{{ card.nom }}</span>
       <div class="card-flag-inline" *ngIf="getFlagUrl() && imageLoaded">
         <img [src]="getFlagUrl()" [alt]="card.nom + ' flag'" class="flag-image">
@@ -37,7 +37,7 @@
       <img [src]="getFullImageUrl()" [alt]="card.nom" class="modal-card-image">
     </div>
     <div class="modal-card-content">
-      <h3 class="modal-card-name">
+      <h3 class="modal-card-name" [class.long-name]="card.nom === 'St-Christophe-et-Niévès' || card.nom === 'St-Vincent-et-les-Grenadines' || card.nom === 'République centrafricaine'">
         <span>{{ card.nom }}</span>
         <div class="modal-card-flag-inline" *ngIf="getFlagUrl()">
           <img [src]="getFlagUrl()" [alt]="card.nom + ' flag'" class="flag-image">

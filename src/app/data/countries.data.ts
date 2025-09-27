@@ -716,7 +716,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "Cuba",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "11.3 M",
     superficie: "109,884 km²"
@@ -725,7 +725,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "Haïti",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "11.5 M",
     superficie: "27,750 km²"
@@ -734,7 +734,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "République Dominicaine",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "11.0 M",
     superficie: "48,671 km²"
@@ -743,7 +743,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "Jamaïque",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "2.8 M",
     superficie: "10,991 km²"
@@ -752,7 +752,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "Porto Rico",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "3.2 M",
     superficie: "9,104 km²"
@@ -761,7 +761,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "Trinité-et-Tobago",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "1.4 M",
     superficie: "5,131 km²"
@@ -770,7 +770,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "Barbade",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "0.3 M",
     superficie: "439 km²"
@@ -779,7 +779,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "Bahamas",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "0.4 M",
     superficie: "13,943 km²"
@@ -788,7 +788,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "Sainte-Lucie",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "0.2 M",
     superficie: "617 km²"
@@ -797,7 +797,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "Grenade",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "0.1 M",
     superficie: "344 km²"
@@ -806,7 +806,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "Antigua-et-Barbuda",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "0.1 M",
     superficie: "443 km²"
@@ -815,7 +815,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/default.jpg",
     nom: "Dominique",
-    localisation: "Amérique centrale",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "0.07 M",
     superficie: "751 km²"
@@ -823,8 +823,8 @@ export const countriesData: Card[] = [
   {
     type: "Pays",
     image: "assets/images/cards/default.jpg",
-    nom: "Saint-Christophe-et-Niévès",
-    localisation: "Amérique centrale",
+    nom: "St-Christophe-et-Niévès",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "0.05 M",
     superficie: "261 km²"
@@ -832,8 +832,8 @@ export const countriesData: Card[] = [
   {
     type: "Pays",
     image: "assets/images/cards/default.jpg",
-    nom: "Saint-Vincent-et-les-Grenadines",
-    localisation: "Amérique centrale",
+    nom: "St-Vincent-et-les-Grenadines",
+    localisation: "Caraïbes",
     continent: "Amérique centrale",
     population: "0.1 M",
     superficie: "389 km²"
@@ -913,7 +913,7 @@ export const countriesData: Card[] = [
   {
     type: "Pays",
     image: "assets/images/cards/country/centrafrique.webp",
-    nom: "Centrafrique",
+    nom: "République centrafricaine",
     localisation: "Afrique centrale",
     continent: "Afrique",
     population: "5.5 M",
