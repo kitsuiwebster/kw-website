@@ -71,6 +71,9 @@ export class CardComponent implements OnInit, OnDestroy {
 
   getCardInfoLabel(): string {
     if (this.card.hauteur) return 'Hauteur:';
+    if (this.card.surface && this.card.profondeur) {
+      return 'Surface:\nProfondeur:';
+    }
     if (this.card.surface) return 'Surface:';
     if (this.card.population && this.card.agglomeration) {
       return 'Population:\nAgglomération:';
@@ -87,6 +90,10 @@ export class CardComponent implements OnInit, OnDestroy {
 
   getCardInfoValue(): string {
     if (this.card.hauteur) return this.card.hauteur;
+    if (this.card.surface && this.card.profondeur) {
+      const surface = this.formatArea(this.card.surface);
+      return `${surface}\n${this.card.profondeur}`;
+    }
     if (this.card.surface) return this.formatArea(this.card.surface);
     if (this.card.population && this.card.agglomeration) {
       const pop = this.formatNumber(this.card.population);

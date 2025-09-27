@@ -7,7 +7,8 @@ export const lakesData: Card[] = [
     nom: "Lac Baïkal",
     localisation: "Russie",
     continent: "Asie",
-    surface: "31,500 km²"
+    surface: "31,500 km²",
+    profondeur: "1,642 m"
   },
   {
     type: "Lac",
@@ -15,7 +16,8 @@ export const lakesData: Card[] = [
     nom: "Lac Supérieur",
     localisation: "États-Unis et Canada",
     continent: "Amérique du Nord",
-    surface: "82,100 km²"
+    surface: "82,100 km²",
+    profondeur: "406 m"
   },
   {
     type: "Lac",
@@ -23,7 +25,8 @@ export const lakesData: Card[] = [
     nom: "Lac Victoria",
     localisation: "Tanzanie, Ouganda et Kenya",
     continent: "Afrique",
-    surface: "68,800 km²"
+    surface: "68,800 km²",
+    profondeur: "84 m"
   },
   {
     type: "Lac",
@@ -31,7 +34,8 @@ export const lakesData: Card[] = [
     nom: "Lac Huron",
     localisation: "États-Unis et Canada",
     continent: "Amérique du Nord",
-    surface: "59,600 km²"
+    surface: "59,600 km²",
+    profondeur: "229 m"
   },
   {
     type: "Lac",
@@ -39,7 +43,8 @@ export const lakesData: Card[] = [
     nom: "Lac Michigan",
     localisation: "États-Unis",
     continent: "Amérique du Nord",
-    surface: "58,000 km²"
+    surface: "58,000 km²",
+    profondeur: "281 m"
   },
   {
     type: "Lac",
@@ -47,7 +52,8 @@ export const lakesData: Card[] = [
     nom: "Lac Tanganyika",
     localisation: "Burundi, R.D.C, Tanzanie et Zambie",
     continent: "Afrique",
-    surface: "32,900 km²"
+    surface: "32,900 km²",
+    profondeur: "1,470 m"
   },
   {
     type: "Lac",
@@ -55,7 +61,8 @@ export const lakesData: Card[] = [
     nom: "Lac Titicaca",
     localisation: "Pérou et Bolivie",
     continent: "Amérique du Sud",
-    surface: "8,372 km²"
+    surface: "8,372 km²",
+    profondeur: "281 m"
   },
   {
     type: "Lac",
@@ -63,7 +70,8 @@ export const lakesData: Card[] = [
     nom: "Lac Malawi",
     localisation: "Malawi, Mozambique et Tanzanie",
     continent: "Afrique",
-    surface: "29,600 km²"
+    surface: "29,600 km²",
+    profondeur: "706 m"
   },
   {
     type: "Lac",
@@ -71,7 +79,8 @@ export const lakesData: Card[] = [
     nom: "Grand Lac des Esclaves",
     localisation: "Canada",
     continent: "Amérique du Nord",
-    surface: "27,200 km²"
+    surface: "27,200 km²",
+    profondeur: "614 m"
   },
   {
     type: "Lac",
@@ -79,7 +88,8 @@ export const lakesData: Card[] = [
     nom: "Lac Léman",
     localisation: "Suisse et France",
     continent: "Europe",
-    surface: "580 km²"
+    surface: "580 km²",
+    profondeur: "310 m"
   },
   {
     type: "Lac",
@@ -87,7 +97,8 @@ export const lakesData: Card[] = [
     nom: "Lac Natron",
     localisation: "Tanzanie",
     continent: "Afrique",
-    surface: "1,040 km²"
+    surface: "1,040 km²",
+    profondeur: "3 m"
   },
   {
     type: "Lac",
@@ -95,7 +106,8 @@ export const lakesData: Card[] = [
     nom: "Lac d'Almaty",
     localisation: "Kazakhstan",
     continent: "Asie",
-    surface: "1.82 km²"
+    surface: "1.82 km²",
+    profondeur: "40 m"
   },
   {
     type: "Lac",
@@ -103,7 +115,8 @@ export const lakesData: Card[] = [
     nom: "Lac Érié",
     localisation: "États-Unis et Canada",
     continent: "Amérique du Nord",
-    surface: "25,700 km²"
+    surface: "25,700 km²",
+    profondeur: "64 m"
   },
   {
     type: "Lac",
@@ -111,7 +124,8 @@ export const lakesData: Card[] = [
     nom: "Lac Ontario",
     localisation: "États-Unis et Canada",
     continent: "Amérique du Nord",
-    surface: "18,960 km²"
+    surface: "18,960 km²",
+    profondeur: "244 m"
   },
   {
     type: "Lac",
@@ -119,7 +133,8 @@ export const lakesData: Card[] = [
     nom: "Grand Lac de l'Ours",
     localisation: "Canada",
     continent: "Amérique du Nord",
-    surface: "31,080 km²"
+    surface: "31,080 km²",
+    profondeur: "446 m"
   },
   {
     type: "Lac",
@@ -127,7 +142,8 @@ export const lakesData: Card[] = [
     nom: "Lac Kariba",
     localisation: "Zimbabwe et Zambie",
     continent: "Afrique",
-    surface: "5,580 km²"
+    surface: "5,580 km²",
+    profondeur: "97 m"
   },
   {
     type: "Lac",
@@ -135,7 +151,8 @@ export const lakesData: Card[] = [
     nom: "Lac Issyk-Koul",
     localisation: "Kirghizistan",
     continent: "Asie",
-    surface: "6,236 km²"
+    surface: "6,236 km²",
+    profondeur: "668 m"
   },
   {
     type: "Lac",
@@ -143,6 +160,7 @@ export const lakesData: Card[] = [
     nom: "Mer Caspienne",
     localisation: "Iran, Russie, Kazakhstan, Turkménistan et Azerbaïdjan",
     continent: "Asie",
-    surface: "371,000 km²"
+    surface: "371,000 km²",
+    profondeur: "1,025 m"
   }
 ];
