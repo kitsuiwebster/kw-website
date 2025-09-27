@@ -131,7 +131,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/albania.jpg",
     nom: "Albanie",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "2.8 M",
     superficie: "28,748 km²"
@@ -140,7 +140,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/germany.jpg",
     nom: "Allemagne",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "83 M",
     superficie: "357,022 km²"
@@ -149,7 +149,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/andorra.jpg",
     nom: "Andorre",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "77 K",
     superficie: "468 km²"
@@ -158,7 +158,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/austria.jpg",
     nom: "Autriche",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "8.9 M",
     superficie: "83,879 km²"
@@ -167,7 +167,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/belarus.jpg",
     nom: "Biélorussie",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "9.4 M",
     superficie: "207,600 km²"
@@ -176,7 +176,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/belgium.jpg",
     nom: "Belgique",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "11.5 M",
     superficie: "30,689 km²"
@@ -185,7 +185,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/bosnia.jpg",
     nom: "Bosnie-Herzégovine",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "3.3 M",
     superficie: "51,197 km²"
@@ -194,7 +194,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/bulgaria.jpg",
     nom: "Bulgarie",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "7 M",
     superficie: "110,879 km²"
@@ -203,7 +203,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/croatia.jpg",
     nom: "Croatie",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "4.1 M",
     superficie: "56,594 km²"
@@ -212,7 +212,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/cyprus.jpg",
     nom: "Chypre",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "1.2 M",
     superficie: "9,251 km²"
@@ -221,7 +221,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/czech-republic.jpg",
     nom: "République Tchèque",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "10.7 M",
     superficie: "78,867 km²"
@@ -230,7 +230,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/denmark.jpeg",
     nom: "Danemark",
-    localisation: "Europe",
+    localisation: "Scandinavie",
     continent: "Europe",
     population: "5.8 M",
     superficie: "42,933 km²"
@@ -239,7 +239,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/estonia.jpg",
     nom: "Estonie",
-    localisation: "Europe",
+    localisation: "Pays Baltes",
     continent: "Europe",
     population: "1.3 M",
     superficie: "45,227 km²"
@@ -248,7 +248,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/finland.jpg",
     nom: "Finlande",
-    localisation: "Europe",
+    localisation: "Scandinavie",
     continent: "Europe",
     population: "5.5 M",
     superficie: "338,424 km²"
@@ -257,7 +257,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/france.jpg",
     nom: "France",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "67 M",
     superficie: "643,801 km²"
@@ -275,7 +275,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/greece.jpg",
     nom: "Grèce",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "10.4 M",
     superficie: "131,957 km²"
@@ -284,7 +284,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/hungary.jpg",
     nom: "Hongrie",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "9.6 M",
     superficie: "93,028 km²"
@@ -293,7 +293,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/iceland.jpg",
     nom: "Islande",
-    localisation: "Europe",
+    localisation: "Scandinavie",
     continent: "Europe",
     population: "364 K",
     superficie: "103,000 km²"
@@ -302,7 +302,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/ireland.jpg",
     nom: "Irlande",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "4.9 M",
     superficie: "70,273 km²"
@@ -311,7 +311,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/italy.jpg",
     nom: "Italie",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "60.4 M",
     superficie: "301,340 km²"
@@ -320,7 +320,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/latvia.jpg",
     nom: "Lettonie",
-    localisation: "Europe",
+    localisation: "Pays Baltes",
     continent: "Europe",
     population: "1.9 M",
     superficie: "64,589 km²"
@@ -329,7 +329,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/lithuania.jpg",
     nom: "Lituanie",
-    localisation: "Europe",
+    localisation: "Pays Baltes",
     continent: "Europe",
     population: "2.8 M",
     superficie: "65,300 km²"
@@ -338,7 +338,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/luxembourg.jpg",
     nom: "Luxembourg",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "626 K",
     superficie: "2,586 km²"
@@ -347,7 +347,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/malta.jpeg",
     nom: "Malte",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "514 K",
     superficie: "316 km²"
@@ -356,7 +356,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/moldova.jpg",
     nom: "Moldavie",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "2.6 M",
     superficie: "33,846 km²"
@@ -365,7 +365,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/montenegro.jpeg",
     nom: "Monténégro",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "622 K",
     superficie: "13,812 km²"
@@ -374,7 +374,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/netherlands.jpg",
     nom: "Pays-Bas",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "17.3 M",
     superficie: "41,543 km²"
@@ -383,7 +383,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/norway.jpg",
     nom: "Norvège",
-    localisation: "Europe",
+    localisation: "Scandinavie",
     continent: "Europe",
     population: "5.4 M",
     superficie: "385,207 km²"
@@ -392,7 +392,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/poland.jpg",
     nom: "Pologne",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "38 M",
     superficie: "312,696 km²"
@@ -401,7 +401,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/portugal.jpg",
     nom: "Portugal",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "10.3 M",
     superficie: "92,090 km²"
@@ -410,7 +410,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/romania.jpg",
     nom: "Roumanie",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "19.3 M",
     superficie: "238,397 km²"
@@ -428,7 +428,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/san-marino.jpg",
     nom: "Saint-Marin",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "34 K",
     superficie: "61 km²"
@@ -437,7 +437,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/serbia.jpg",
     nom: "Serbie",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "7 M",
     superficie: "88,361 km²"
@@ -446,7 +446,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/slovakia.jpg",
     nom: "Slovaquie",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "5.4 M",
     superficie: "49,035 km²"
@@ -455,7 +455,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/slovenia.jpg",
     nom: "Slovénie",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "2.1 M",
     superficie: "20,273 km²"
@@ -464,7 +464,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/spain.jpg",
     nom: "Espagne",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "47 M",
     superficie: "505,990 km²"
@@ -473,7 +473,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/sweden.jpg",
     nom: "Suède",
-    localisation: "Europe",
+    localisation: "Scandinavie",
     continent: "Europe",
     population: "10.3 M",
     superficie: "450,295 km²"
@@ -482,7 +482,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/switzerland.jpeg",
     nom: "Suisse",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "8.6 M",
     superficie: "41,290 km²"
@@ -491,7 +491,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/ukraine.jpg",
     nom: "Ukraine",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "41 M",
     superficie: "603,500 km²"
@@ -500,7 +500,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/united-kingdom.jpg",
     nom: "Royaume-Uni",
-    localisation: "Europe",
+    localisation: "Europe de l'Ouest",
     continent: "Europe",
     population: "67 M",
     superficie: "242,495 km²"
@@ -509,7 +509,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/macedonia.jpeg",
     nom: "Macédoine du Nord",
-    localisation: "Europe",
+    localisation: "Europe de l'Est",
     continent: "Europe",
     population: "2.1 M",
     superficie: "25,713 km²"
@@ -624,7 +624,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/canada.jpg",
     nom: "Canada",
     localisation: "Amérique du Nord",
     continent: "Amérique du Nord",
@@ -633,7 +633,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/usa.jpeg",
     nom: "États-Unis",
     localisation: "Amérique du Nord",
     continent: "Amérique du Nord",
@@ -642,7 +642,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/mexique.jpg",
     nom: "Mexique",
     localisation: "Amérique du Nord",
     continent: "Amérique du Nord",
@@ -651,7 +651,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/guatemala.webp",
     nom: "Guatemala",
     localisation: "Amérique centrale",
     continent: "Amérique centrale",
@@ -660,7 +660,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/belize.jpeg",
     nom: "Belize",
     localisation: "Amérique centrale",
     continent: "Amérique centrale",
@@ -669,7 +669,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/honduras.jpg",
     nom: "Honduras",
     localisation: "Amérique centrale",
     continent: "Amérique centrale",
@@ -678,7 +678,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/salvador.jpg",
     nom: "Salvador",
     localisation: "Amérique centrale",
     continent: "Amérique centrale",
@@ -687,7 +687,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/nicaragua.webp",
     nom: "Nicaragua",
     localisation: "Amérique centrale",
     continent: "Amérique centrale",
@@ -696,7 +696,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/costa-rica.jpg",
     nom: "Costa Rica",
     localisation: "Amérique centrale",
     continent: "Amérique centrale",
@@ -705,7 +705,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/panama.png",
     nom: "Panama",
     localisation: "Amérique centrale",
     continent: "Amérique centrale",
@@ -714,7 +714,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/cuba.jpg",
     nom: "Cuba",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -723,7 +723,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/haiti.jpg",
     nom: "Haïti",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -732,7 +732,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/republique-dominicaine.jpg",
     nom: "République Dominicaine",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -741,7 +741,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/jamaique.jpeg",
     nom: "Jamaïque",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -749,17 +749,16 @@ export const countriesData: Card[] = [
     superficie: "10,991 km²"
   },
   {
-    type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    type: "Île",
+    image: "assets/images/cards/country/porto-rico.jpg",
     nom: "Porto Rico",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
-    population: "3.2 M",
     superficie: "9,104 km²"
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/trinite-et-tobago.webp",
     nom: "Trinité-et-Tobago",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -768,7 +767,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/barbade.jpg",
     nom: "Barbade",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -777,7 +776,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/bahamas.webp",
     nom: "Bahamas",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -786,7 +785,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/sainte-lucie.jpg",
     nom: "Sainte-Lucie",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -795,7 +794,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/grenade.jpg",
     nom: "Grenade",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -804,7 +803,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/antigua-et-barbuda.jpg",
     nom: "Antigua-et-Barbuda",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -813,7 +812,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/dominique.jpg",
     nom: "Dominique",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -822,7 +821,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/st-christophe-et-nieves.jpeg",
     nom: "St-Christophe-et-Niévès",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
@@ -831,7 +830,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/st-vincent-et-les-grenadines.webp",
     nom: "St-Vincent-et-les-Grenadines",
     localisation: "Caraïbes",
     continent: "Amérique centrale",
