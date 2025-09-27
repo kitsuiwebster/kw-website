@@ -1326,7 +1326,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/afghanistan.jpg",
     nom: "Afghanistan",
     localisation: "Asie centrale",
     continent: "Asie",
@@ -1335,7 +1335,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/armenie.jpg",
     nom: "Arménie",
     localisation: "Caucase",
     continent: "Asie",
@@ -1344,7 +1344,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/azerbaidjan.webp",
     nom: "Azerbaïdjan",
     localisation: "Caucase",
     continent: "Asie",
@@ -1353,7 +1353,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/bahrein.jpg",
     nom: "Bahreïn",
     localisation: "Golfe Persique",
     continent: "Asie",
@@ -1362,7 +1362,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/bangladesh.jpg",
     nom: "Bangladesh",
     localisation: "Asie du Sud",
     continent: "Asie",
@@ -1371,7 +1371,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/bhoutan.jpg",
     nom: "Bhoutan",
     localisation: "Himalaya",
     continent: "Asie",
@@ -1380,7 +1380,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/brunei.jpg",
     nom: "Brunei",
     localisation: "Asie du Sud-Est",
     continent: "Asie",
@@ -1389,7 +1389,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/cambodge.jpg",
     nom: "Cambodge",
     localisation: "Asie du Sud-Est",
     continent: "Asie",
@@ -1398,7 +1398,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/chine.jpg",
     nom: "Chine",
     localisation: "Asie de l'Est",
     continent: "Asie",
@@ -1407,7 +1407,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/coree-du-nord.jpeg",
     nom: "Corée du Nord",
     localisation: "Asie de l'Est",
     continent: "Asie",
@@ -1416,7 +1416,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/coree-du-sud.webp",
     nom: "Corée du Sud",
     localisation: "Asie de l'Est",
     continent: "Asie",
@@ -1425,7 +1425,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/uae.webp",
     nom: "Émirats arabes unis",
     localisation: "Golfe Persique",
     continent: "Asie",
@@ -1434,7 +1434,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/inde.jpg",
     nom: "Inde",
     localisation: "Asie du Sud",
     continent: "Asie",
@@ -1443,7 +1443,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/indonesie.jpeg",
     nom: "Indonésie",
     localisation: "Asie du Sud-Est",
     continent: "Asie",
@@ -1452,7 +1452,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/irak.jpg",
     nom: "Irak",
     localisation: "Moyen-Orient",
     continent: "Asie",
@@ -1461,7 +1461,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/iran.jpg",
     nom: "Iran",
     localisation: "Moyen-Orient",
     continent: "Asie",
@@ -1470,7 +1470,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/israel.jpg",
     nom: "Israël",
     localisation: "Moyen-Orient",
     continent: "Asie",
@@ -1479,7 +1479,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/japon.jpg",
     nom: "Japon",
     localisation: "Asie de l'Est",
     continent: "Asie",
@@ -1488,7 +1488,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/jordanie.jpg",
     nom: "Jordanie",
     localisation: "Moyen-Orient",
     continent: "Asie",
@@ -1497,7 +1497,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/kazakhstan.jpg",
     nom: "Kazakhstan",
     localisation: "Asie centrale",
     continent: "Asie",
@@ -1506,7 +1506,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/kirghizistan.jpg",
     nom: "Kirghizistan",
     localisation: "Asie centrale",
     continent: "Asie",
@@ -1515,7 +1515,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/koweit.webp",
     nom: "Koweït",
     localisation: "Golfe Persique",
     continent: "Asie",
@@ -1524,7 +1524,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/laos.webp",
     nom: "Laos",
     localisation: "Asie du Sud-Est",
     continent: "Asie",
@@ -1533,7 +1533,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/liban.jpg",
     nom: "Liban",
     localisation: "Moyen-Orient",
     continent: "Asie",
@@ -1542,7 +1542,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/malaisie.jpg",
     nom: "Malaisie",
     localisation: "Asie du Sud-Est",
     continent: "Asie",
@@ -1551,7 +1551,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/maldives.jpg",
     nom: "Maldives",
     localisation: "Océan Indien",
     continent: "Asie",
@@ -1560,7 +1560,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/mongolie.jpg",
     nom: "Mongolie",
     localisation: "Asie de l'Est",
     continent: "Asie",
@@ -1569,7 +1569,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/myanmar.webp",
     nom: "Myanmar",
     localisation: "Asie du Sud-Est",
     continent: "Asie",
@@ -1578,7 +1578,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/nepal.jpg",
     nom: "Népal",
     localisation: "Himalaya",
     continent: "Asie",
@@ -1587,7 +1587,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/oman.jpg",
     nom: "Oman",
     localisation: "Péninsule arabique",
     continent: "Asie",
@@ -1596,7 +1596,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/ouzbekistan.jpg",
     nom: "Ouzbékistan",
     localisation: "Asie centrale",
     continent: "Asie",
@@ -1605,7 +1605,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/pakistan.avif",
     nom: "Pakistan",
     localisation: "Asie du Sud",
     continent: "Asie",
@@ -1614,7 +1614,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/palestine.webp",
     nom: "Palestine",
     localisation: "Moyen-Orient",
     continent: "Asie",
@@ -1623,7 +1623,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/philippines.webp",
     nom: "Philippines",
     localisation: "Asie du Sud-Est",
     continent: "Asie",
@@ -1632,7 +1632,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/qatar.jpg",
     nom: "Qatar",
     localisation: "Golfe Persique",
     continent: "Asie",
@@ -1641,7 +1641,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/arabie-saoudite.jpg",
     nom: "Arabie saoudite",
     localisation: "Péninsule arabique",
     continent: "Asie",
@@ -1650,7 +1650,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/singapour.jpg",
     nom: "Singapour",
     localisation: "Asie du Sud-Est",
     continent: "Asie",
@@ -1659,7 +1659,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/sri-lanka.jpg",
     nom: "Sri Lanka",
     localisation: "Asie du Sud",
     continent: "Asie",
@@ -1668,7 +1668,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/syrie.jpg",
     nom: "Syrie",
     localisation: "Moyen-Orient",
     continent: "Asie",
@@ -1677,7 +1677,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/tadjikistan.jpg",
     nom: "Tadjikistan",
     localisation: "Asie centrale",
     continent: "Asie",
@@ -1686,7 +1686,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/thailande.webp",
     nom: "Thaïlande",
     localisation: "Asie du Sud-Est",
     continent: "Asie",
@@ -1695,7 +1695,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/timor-oriental.webp",
     nom: "Timor oriental",
     localisation: "Asie du Sud-Est",
     continent: "Asie",
@@ -1704,7 +1704,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/turkmenistan.jpg",
     nom: "Turkménistan",
     localisation: "Asie centrale",
     continent: "Asie",
@@ -1713,7 +1713,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/turquie.jpg",
     nom: "Turquie",
     localisation: "Europe et Asie",
     continent: "Asie",
@@ -1722,7 +1722,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/viet-nam.jpg",
     nom: "Viêt Nam",
     localisation: "Asie du Sud-Est",
     continent: "Asie",
@@ -1731,7 +1731,7 @@ export const countriesData: Card[] = [
   },
   {
     type: "Pays",
-    image: "assets/images/cards/default.jpg",
+    image: "assets/images/cards/country/yemen.webp",
     nom: "Yémen",
     localisation: "Péninsule arabique",
     continent: "Asie",
