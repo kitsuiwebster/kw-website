@@ -251,10 +251,19 @@ export class CardsComponent implements OnInit, AfterViewInit {
           continue;
         }
         
+        // S'assurer que l'image est chargée avant le screenshot
+        const imgElement = cardElement.querySelector('img.card-image') as HTMLImageElement;
+        if (imgElement && !imgElement.complete) {
+          await new Promise((resolve) => {
+            imgElement.onload = resolve;
+            imgElement.onerror = resolve;
+          });
+        }
+        
         // Attendre que le DOM soit prêt
         await new Promise(resolve => requestAnimationFrame(resolve));
         
-        const scale = 1920 / 175; // Échelle pour une haute résolution
+        const scale = 1920 / 190; // Échelle pour une haute résolution
         const canvas = await html2canvas(cardElement, {
           scale: scale,
           useCORS: true,
