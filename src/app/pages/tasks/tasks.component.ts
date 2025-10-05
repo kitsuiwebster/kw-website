@@ -45,7 +45,11 @@ export class TasksComponent implements OnInit {
   constructor(private googleSheetsService: GoogleSheetsService) {}
 
   ngOnInit(): void {
-    this.loadTasks();
+    console.log('TasksComponent ngOnInit called');
+    // Small delay to ensure page is fully loaded
+    setTimeout(() => {
+      this.loadTasks();
+    }, 100);
   }
 
   get sortedTasks(): Task[] {
@@ -74,10 +78,14 @@ export class TasksComponent implements OnInit {
     this.googleSheetsService.getTasks().subscribe({
       next: (tasks) => {
         console.log('Loaded tasks from Google Sheets:', tasks);
-        this.tasks = tasks;
+        console.log('Tasks array length:', tasks ? tasks.length : 'null/undefined');
+        console.log('Tasks type:', typeof tasks);
         
-        if (tasks.length > 0) {
-          this.nextId = Math.max(...tasks.map(t => t.id)) + 1;
+        // Ensure tasks is an array
+        this.tasks = Array.isArray(tasks) ? tasks : [];
+        
+        if (this.tasks.length > 0) {
+          this.nextId = Math.max(...this.tasks.map(t => t.id)) + 1;
         } else {
           this.nextId = 1;
         }
@@ -89,22 +97,31 @@ export class TasksComponent implements OnInit {
       error: (error) => {
         console.warn('Google Sheets failed, using localStorage:', error);
         this.loadFromLocalStorage();
-        this.error = 'Using offline mode';
         this.isLoading = false;
       }
     });
   }
 
   private loadFromLocalStorage(): void {
+    console.log('Loading from localStorage...');
     try {
       const saved = localStorage.getItem('tasks-app-data');
+      console.log('localStorage data:', saved);
       if (saved) {
         const data = JSON.parse(saved);
+        console.log('Parsed localStorage data:', data);
         this.tasks = data.tasks || [];
         this.nextId = data.nextId || 1;
+        console.log('Loaded tasks from localStorage:', this.tasks);
+      } else {
+        console.log('No data in localStorage');
+        this.tasks = [];
+        this.nextId = 1;
       }
     } catch (error) {
       console.warn('Could not load tasks from localStorage:', error);
+      this.tasks = [];
+      this.nextId = 1;
     }
   }
 

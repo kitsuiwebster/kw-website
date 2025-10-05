@@ -5,13 +5,15 @@ export interface GoogleSheetsTask {
   id: number;
   text: string;
   completed: boolean;
+  isToday?: boolean;
+  label?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleSheetsService {
-  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbysemKrmIhgZCCiYvNTpS0-7nYvQHPAt2sKBKoeRqrq32c6dOLRy0KcGNMsVQ44_gOV/exec';
+  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2a5_rwuCt1rTLSODodsWu32IrVspv0azoPLknab3Ck_vCYJkIBW7C9mrC8pgwGfhs/exec';
 
   constructor() {}
 
@@ -41,24 +43,39 @@ export class GoogleSheetsService {
       };
       
       // Error handling
-      script.onerror = () => {
-        observer.error('JSONP request failed');
+      script.onerror = (error) => {
+        console.error('JSONP script error:', error);
+        observer.error('JSONP request failed: ' + error);
         document.head.removeChild(script);
         delete (window as any)[callbackName];
       };
+      
+      // Timeout handling
+      setTimeout(() => {
+        if ((window as any)[callbackName]) {
+          console.error('JSONP timeout - callback still exists');
+          observer.error('JSONP request timeout');
+          document.head.removeChild(script);
+          delete (window as any)[callbackName];
+        }
+      }, 10000);
       
       document.head.appendChild(script);
     });
   }
 
   getTasks(): Observable<any[]> {
+    console.log('GoogleSheetsService.getTasks() called');
     return new Observable(observer => {
       this.makeJSONPRequest({ action: 'getTasks' }).subscribe({
         next: (response) => {
-          if (response.success) {
+          console.log('getTasks response:', response);
+          if (response && response.success) {
+            console.log('Tasks received:', response.tasks);
             observer.next(response.tasks || []);
           } else {
-            observer.error('Failed to get tasks: ' + response.error);
+            console.error('getTasks failed:', response);
+            observer.error('Failed to get tasks: ' + (response?.error || 'Unknown error'));
           }
           observer.complete();
         },
@@ -70,21 +87,25 @@ export class GoogleSheetsService {
     });
   }
 
-  addTask(task: { id: number, text: string, completed: boolean }): Observable<any> {
+  addTask(task: { id: number, text: string, completed: boolean, isToday?: boolean, label?: string }): Observable<any> {
     return this.makeJSONPRequest({
       action: 'addTask',
       id: task.id.toString(),
       text: task.text,
-      completed: task.completed.toString()
+      completed: task.completed.toString(),
+      isToday: (task.isToday || false).toString(),
+      label: task.label || 'other'
     });
   }
 
-  updateTask(task: { id: number, text: string, completed: boolean }): Observable<any> {
+  updateTask(task: { id: number, text: string, completed: boolean, isToday?: boolean, label?: string }): Observable<any> {
     return this.makeJSONPRequest({
       action: 'updateTask',
       id: task.id.toString(),
       text: task.text,
-      completed: task.completed.toString()
+      completed: task.completed.toString(),
+      isToday: (task.isToday || false).toString(),
+      label: task.label || 'other'
     });
   }
 

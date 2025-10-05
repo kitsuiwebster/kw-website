@@ -2,10 +2,6 @@
   <div class="tasks-container">
     <header class="tasks-header">
       <h1 class="tasks-title">Task Manager</h1>
-      <div class="tasks-status" *ngIf="isLoading || error">
-        <span *ngIf="isLoading" class="tasks-loading">Loading...</span>
-        <span *ngIf="error" class="tasks-error">{{ error }}</span>
-      </div>
     </header>
 
     <div class="tasks-input-section">
@@ -49,8 +45,14 @@
     </div>
 
     <div class="tasks-columns">
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Loading tasks...</p>
+      </div>
+
       <!-- Left Column: All Tasks -->
-      <div class="tasks-column">
+      <div class="tasks-column" *ngIf="!isLoading">
         <h2 class="column-title">All Tasks</h2>
         <div 
           class="tasks-list drop-zone"
@@ -101,7 +103,7 @@
       </div>
 
       <!-- Right Column: Today Tasks -->
-      <div class="tasks-column">
+      <div class="tasks-column" *ngIf="!isLoading">
         <h2 class="column-title">Today</h2>
         <div 
           class="tasks-list drop-zone today-zone"
