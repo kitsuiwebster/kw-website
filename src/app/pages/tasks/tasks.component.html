@@ -1,0 +1,115 @@
+<div class="tasks">
+  <div class="tasks-container">
+    <header class="tasks-header">
+      <h1 class="tasks-title">Task Manager</h1>
+      <div class="tasks-status" *ngIf="isLoading || error">
+        <span *ngIf="isLoading" class="tasks-loading">Loading...</span>
+        <span *ngIf="error" class="tasks-error">{{ error }}</span>
+      </div>
+    </header>
+
+    <div class="tasks-input-section">
+      <input 
+        type="text" 
+        [(ngModel)]="newTaskText"
+        (keypress)="onKeyPress($event)"
+        placeholder="Add a new task..."
+        class="tasks-input"
+        maxlength="200"
+      >
+      <button 
+        (click)="addTask()" 
+        class="tasks-add-btn"
+        [disabled]="!newTaskText.trim()"
+      >
+        +
+      </button>
+    </div>
+
+    <div class="tasks-columns">
+      <!-- Left Column: All Tasks -->
+      <div class="tasks-column">
+        <h2 class="column-title">All Tasks</h2>
+        <div 
+          class="tasks-list drop-zone"
+          (dragover)="onDragOver($event)"
+          (drop)="onDropToTasks($event)"
+        >
+          <div 
+            *ngFor="let task of sortedTasks" 
+            class="task-item"
+            [class.completed]="task.completed"
+            draggable="true"
+            (dragstart)="onDragStart($event, task)"
+          >
+            <label class="task-checkbox-container">
+              <input 
+                type="checkbox" 
+                [checked]="task.completed"
+                (change)="toggleTask(task)"
+                class="task-checkbox"
+              >
+              <span class="task-checkmark"></span>
+            </label>
+            
+            <span class="task-text">{{ task.text }}</span>
+            
+            <button 
+              (click)="deleteTask(task.id)" 
+              class="task-delete-btn"
+              title="Delete task"
+            >
+              ×
+            </button>
+          </div>
+          
+          <div class="tasks-empty" *ngIf="sortedTasks.length === 0">
+            <p class="tasks-empty-text">No tasks yet. Add one above!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Today Tasks -->
+      <div class="tasks-column">
+        <h2 class="column-title">Today</h2>
+        <div 
+          class="tasks-list drop-zone today-zone"
+          (dragover)="onDragOver($event)"
+          (drop)="onDropToToday($event)"
+        >
+          <div 
+            *ngFor="let task of todayTasks" 
+            class="task-item today-task"
+            [class.completed]="task.completed"
+            draggable="true"
+            (dragstart)="onDragStart($event, task)"
+          >
+            <label class="task-checkbox-container">
+              <input 
+                type="checkbox" 
+                [checked]="task.completed"
+                (change)="toggleTask(task)"
+                class="task-checkbox"
+              >
+              <span class="task-checkmark"></span>
+            </label>
+            
+            <span class="task-text">{{ task.text }}</span>
+            
+            <button 
+              (click)="deleteTask(task.id)" 
+              class="task-delete-btn"
+              title="Delete task"
+            >
+              ×
+            </button>
+          </div>
+          
+          <div class="tasks-empty" *ngIf="todayTasks.length === 0">
+            <p class="tasks-empty-text">Drag tasks here for today!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

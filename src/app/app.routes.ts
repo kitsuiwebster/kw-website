@@ -10,6 +10,7 @@ import { ShisuiComponent } from './pages/shisui/shisui.component';
 import { DecoderComponent } from './pages/decode/decoder.component';
 import { HtmlToPdfComponent } from './pages/html-to-pdf/html-to-pdf.component';
 import { CardsComponent } from './pages/cards/cards.component';
+import { TasksComponent } from './pages/tasks/tasks.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'hackaprompt', component: HackapromptComponent },
   { path: 'midjourney', component: MidjourneyComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'tasks', component: TasksComponent },
   { path: 'shisui', component: ShisuiComponent },
   { path: 'decoder', component: DecoderComponent },
   { path: 'html-to-pdf', component: HtmlToPdfComponent },
