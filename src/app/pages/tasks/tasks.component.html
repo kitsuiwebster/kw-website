@@ -17,6 +17,14 @@
         class="tasks-input"
         maxlength="200"
       >
+      <select 
+        [(ngModel)]="selectedLabel" 
+        class="tasks-label-select"
+      >
+        <option *ngFor="let label of labels" [value]="label.id">
+          {{ label.name }}
+        </option>
+      </select>
       <button 
         (click)="addTask()" 
         class="tasks-add-btn"
@@ -24,6 +32,20 @@
       >
         +
       </button>
+    </div>
+
+    <!-- Labels Legend -->
+    <div class="labels-legend">
+      <span class="legend-title">Labels:</span>
+      <div class="legend-items">
+        <div *ngFor="let label of labels" class="legend-item">
+          <span 
+            class="legend-dot" 
+            [style.background-color]="label.color"
+          ></span>
+          <span class="legend-name">{{ label.name }}</span>
+        </div>
+      </div>
     </div>
 
     <div class="tasks-columns">
@@ -53,6 +75,15 @@
             </label>
             
             <span class="task-text">{{ task.text }}</span>
+            
+            <span 
+              *ngIf="task.label" 
+              class="task-label"
+              [style.background-color]="getLabelColor(task.label)"
+              [title]="getLabelName(task.label)"
+            >
+              {{ getLabelName(task.label) }}
+            </span>
             
             <button 
               (click)="deleteTask(task.id)" 
@@ -95,6 +126,15 @@
             </label>
             
             <span class="task-text">{{ task.text }}</span>
+            
+            <span 
+              *ngIf="task.label" 
+              class="task-label"
+              [style.background-color]="getLabelColor(task.label)"
+              [title]="getLabelName(task.label)"
+            >
+              {{ getLabelName(task.label) }}
+            </span>
             
             <button 
               (click)="deleteTask(task.id)" 

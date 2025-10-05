@@ -58,7 +58,24 @@
   &-input-section {
     display: flex;
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  &-label-select {
+    padding: 0.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    font-family: "Courier New", monospace;
+    font-size: 0.85rem;
+    background-color: #f9f9f9;
+    color: #000000;
+    min-width: 100px;
+
+    &:focus {
+      outline: none;
+      border-color: #000000;
+      background-color: #ffffff;
+    }
   }
 
   &-input {
@@ -289,6 +306,60 @@
   &.dragging {
     opacity: 0.5;
   }
+}
+
+.labels-legend {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  flex-wrap: wrap;
+
+  .legend-title {
+    font-family: "Courier New", monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #666666;
+  }
+
+  .legend-items {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .legend-dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .legend-name {
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
+    color: #666666;
+  }
+}
+
+.task-label {
+  font-family: "Courier New", monospace;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 650px) {

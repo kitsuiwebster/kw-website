@@ -8,6 +8,13 @@ export interface Task {
   text: string;
   completed: boolean;
   isToday?: boolean;
+  label?: string;
+}
+
+export interface Label {
+  id: string;
+  name: string;
+  color: string;
 }
 
 @Component({
@@ -20,9 +27,20 @@ export interface Task {
 export class TasksComponent implements OnInit {
   tasks: Task[] = [];
   newTaskText: string = '';
+  selectedLabel: string = 'other';
   nextId: number = 1;
   isLoading: boolean = false;
   error: string = '';
+
+  labels: Label[] = [
+    { id: 'madpoof', name: 'madpoof', color: '#cc0000' },
+    { id: 'vcg', name: 'vcg', color: '#4444ff' },
+    { id: 'pikapi', name: 'pikapi', color: '#ff8800' },
+    { id: 'palma', name: 'palma', color: '#44ff44' },
+    { id: 'bashroom', name: 'bashroom', color: '#00cccc' },
+    { id: 'life', name: 'life', color: '#8844ff' },
+    { id: 'other', name: 'other', color: '#888888' }
+  ];
 
   constructor(private googleSheetsService: GoogleSheetsService) {}
 
@@ -108,12 +126,14 @@ export class TasksComponent implements OnInit {
         id: this.nextId++,
         text: this.newTaskText.trim(),
         completed: false,
-        isToday: false
+        isToday: false,
+        label: this.selectedLabel
       };
       
       // Add to local array and save to localStorage
       this.tasks.push(newTask);
       this.newTaskText = '';
+      this.selectedLabel = 'other'; // Reset to default
       this.saveToLocalStorage();
       
       // Try to sync to Google Sheets (best effort)
@@ -221,5 +241,15 @@ export class TasksComponent implements OnInit {
         }
       });
     }
+  }
+
+  getLabelColor(labelId: string): string {
+    const label = this.labels.find(l => l.id === labelId);
+    return label ? label.color : '#888888';
+  }
+
+  getLabelName(labelId: string): string {
+    const label = this.labels.find(l => l.id === labelId);
+    return label ? label.name : 'other';
   }
 }
