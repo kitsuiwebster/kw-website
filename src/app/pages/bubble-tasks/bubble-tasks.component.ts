@@ -177,6 +177,14 @@ export class BubbleTasksComponent implements OnInit {
       task.isToday = false;
     }
     
+    console.log('toggleTask - Bubble task before sync:', {
+      id: task.id,
+      text: task.text,
+      completed: task.completed,
+      isToday: task.isToday,
+      label: task.label
+    });
+    
     this.saveToLocalStorage();
     
     // Try to sync to Google Sheets (best effort)

@@ -13,7 +13,7 @@ export interface GoogleSheetsTask {
   providedIn: 'root'
 })
 export class GoogleSheetsService {
-  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxeCpQokq27JdRvEkg6X6AtRQn76hGYlDegdF-vIjuFLD-OXnUpao9vh1UvFztFNIut/exec';
+  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzujl3lNhOzUBsRMwa9uXOXRRiwAXr-7-f2pnCFNyZCb-O-6nuD35SIDue6dhYWN5tv/exec';
 
   constructor() {}
 
@@ -103,14 +103,16 @@ export class GoogleSheetsService {
   }
 
   updateTask(task: { id: number, text: string, completed: boolean, isToday?: boolean, label?: string }): Observable<any> {
-    return this.makeJSONPRequest({
+    const params = {
       action: 'updateTask',
       id: task.id.toString(),
       text: task.text,
       completed: task.completed.toString(),
       isToday: (task.isToday || false).toString(),
       label: task.label || 'other'
-    });
+    };
+    console.log('Updating task with params:', params);
+    return this.makeJSONPRequest(params);
   }
 
   deleteTask(id: number): Observable<any> {

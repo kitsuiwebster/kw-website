@@ -13,7 +13,7 @@ export interface BubbleGoogleSheetsTask {
   providedIn: 'root'
 })
 export class BubbleGoogleSheetsService {
-  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyJxYLldMWIDyFObE2M2JiYbfBOmuJmVvdFJGqOU5Y9aBknsBQwzDA1JTBV7xt_YQb4mw/exec';
+  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxgnK_7SYdUitJYbM7d98_6UtmS4Q4rdajEgo5qYaETAd9AOMOMaWCGQntEixq83HaD/exec';
 
   constructor() {}
 
@@ -103,14 +103,16 @@ export class BubbleGoogleSheetsService {
   }
 
   updateTask(task: { id: number, text: string, completed: boolean, isToday?: boolean, label?: string }): Observable<any> {
-    return this.makeJSONPRequest({
+    const params = {
       action: 'updateTask',
       id: task.id.toString(),
       text: task.text,
       completed: task.completed.toString(),
       isToday: (task.isToday || false).toString(),
       label: task.label || 'random'
-    });
+    };
+    console.log('Updating bubble task with params:', params);
+    return this.makeJSONPRequest(params);
   }
 
   deleteTask(id: number): Observable<any> {
