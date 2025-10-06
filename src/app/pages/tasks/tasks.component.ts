@@ -36,9 +36,9 @@ export class TasksComponent implements OnInit {
     { id: 'madpoof', name: 'madpoof', color: '#cc0000' },
     { id: 'vcg', name: 'vcg', color: '#4444ff' },
     { id: 'pikapi', name: 'pikapi', color: '#ff8800' },
-    { id: 'palma', name: 'palma', color: '#44ff44' },
-    { id: 'bashroom', name: 'bashroom', color: '#00cccc' },
-    { id: 'life', name: 'life', color: '#8844ff' },
+    { id: 'palma', name: 'palma', color: '#18a860' },
+    { id: 'bashroom', name: 'bashroom', color: '#00acc1' },
+    { id: 'life', name: 'life', color: '#8e24aa' },
     { id: 'other', name: 'other', color: '#888888' }
   ];
 
