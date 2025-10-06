@@ -185,9 +185,15 @@ export class TasksComponent implements OnInit {
     this.googleSheetsService.updateTask(task).subscribe({
       next: (response) => {
         console.log('Task synced to Google Sheets:', response);
+        if (response && !response.success) {
+          this.error = 'Erreur Google Sheets: ' + (response.error || 'Mise à jour échouée');
+          setTimeout(() => this.error = '', 5000);
+        }
       },
       error: (error) => {
         console.warn('Could not sync to Google Sheets:', error);
+        this.error = 'Google Sheets non disponible - sauvegarde locale uniquement';
+        setTimeout(() => this.error = '', 5000);
       }
     });
   }
@@ -237,9 +243,15 @@ export class TasksComponent implements OnInit {
       this.googleSheetsService.updateTask(task).subscribe({
         next: (response) => {
           console.log('Task moved to today synced to Google Sheets:', response);
+          if (response && !response.success) {
+            this.error = 'Erreur Google Sheets: ' + (response.error || 'Déplacement échoué');
+            setTimeout(() => this.error = '', 5000);
+          }
         },
         error: (error) => {
           console.warn('Could not sync to Google Sheets:', error);
+          this.error = 'Google Sheets non disponible - sauvegarde locale uniquement';
+          setTimeout(() => this.error = '', 5000);
         }
       });
     }
@@ -258,9 +270,15 @@ export class TasksComponent implements OnInit {
       this.googleSheetsService.updateTask(task).subscribe({
         next: (response) => {
           console.log('Task moved back to tasks synced to Google Sheets:', response);
+          if (response && !response.success) {
+            this.error = 'Erreur Google Sheets: ' + (response.error || 'Déplacement échoué');
+            setTimeout(() => this.error = '', 5000);
+          }
         },
         error: (error) => {
           console.warn('Could not sync to Google Sheets:', error);
+          this.error = 'Google Sheets non disponible - sauvegarde locale uniquement';
+          setTimeout(() => this.error = '', 5000);
         }
       });
     }
