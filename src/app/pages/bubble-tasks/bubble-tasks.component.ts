@@ -33,8 +33,8 @@ export class BubbleTasksComponent implements OnInit {
   error: string = '';
 
   labels: Label[] = [
-    { id: 'solnor', name: 'solnor', color: '#ff6b35' },
-    { id: 'philmar', name: 'philmar', color: '#1e88e5' },
+    { id: 'solnor', name: 'solnor', color: '#18a860' },
+    { id: 'philmar', name: 'philmar', color: '#ff8a15' },
     { id: 'maïa', name: 'maïa', color: '#8e24aa' },
     { id: 'bubble', name: 'bubble', color: '#00acc1' },
     { id: 'random', name: 'random', color: '#888888' }
