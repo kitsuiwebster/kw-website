@@ -157,9 +157,15 @@ export class TasksComponent implements OnInit {
       this.googleSheetsService.addTask(newTask).subscribe({
         next: (response) => {
           console.log('Task synced to Google Sheets:', response);
+          if (response && !response.success) {
+            this.error = 'Erreur Google Sheets: ' + (response.error || 'Fonction non définie');
+            setTimeout(() => this.error = '', 5000);
+          }
         },
         error: (error) => {
           console.warn('Could not sync to Google Sheets:', error);
+          this.error = 'Google Sheets non disponible - sauvegarde locale uniquement';
+          setTimeout(() => this.error = '', 5000);
         }
       });
     }

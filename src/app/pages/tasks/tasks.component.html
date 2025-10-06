@@ -5,44 +5,49 @@
     </header>
 
     <div class="tasks-input-section">
-      <input 
-        type="text" 
-        [(ngModel)]="newTaskText"
-        (keypress)="onKeyPress($event)"
-        placeholder="Add a new task..."
-        class="tasks-input"
-        maxlength="200"
-      >
-      <select 
-        [(ngModel)]="selectedLabel" 
-        class="tasks-label-select"
-      >
-        <option *ngFor="let label of labels" [value]="label.id">
-          {{ label.name }}
-        </option>
-      </select>
-      <button 
-        (click)="addTask()" 
-        class="tasks-add-btn"
-        [disabled]="!newTaskText.trim()"
-      >
-        +
-      </button>
-    </div>
-
-    <!-- Labels Legend -->
-    <div class="labels-legend">
-      <span class="legend-title">Labels:</span>
-      <div class="legend-items">
-        <div *ngFor="let label of labels" class="legend-item">
-          <span 
-            class="legend-dot" 
-            [style.background-color]="label.color"
-          ></span>
-          <span class="legend-name">{{ label.name }}</span>
+      <div class="label-radio-group">
+        <div class="label-radio-item" *ngFor="let label of labels">
+          <input 
+            type="radio" 
+            [id]="'label-' + label.id"
+            [value]="label.id" 
+            [(ngModel)]="selectedLabel"
+            name="taskLabel"
+            class="label-radio-input"
+          >
+          <label 
+            [for]="'label-' + label.id"
+            class="label-radio-label"
+            [style.border-color]="label.color"
+            [style.--label-color]="label.color"
+          >
+            <span 
+              class="label-color-dot" 
+              [style.background-color]="label.color"
+            ></span>
+            {{ label.name }}
+          </label>
         </div>
       </div>
+      <div class="input-and-button">
+        <input 
+          type="text" 
+          [(ngModel)]="newTaskText"
+          (keypress)="onKeyPress($event)"
+          placeholder="Add a new task..."
+          class="tasks-input"
+          maxlength="200"
+        >
+        <button 
+          (click)="addTask()" 
+          class="tasks-add-btn"
+          [disabled]="!newTaskText.trim()"
+        >
+          +
+        </button>
+      </div>
     </div>
+
 
     <div class="tasks-columns">
       <!-- Loading State -->

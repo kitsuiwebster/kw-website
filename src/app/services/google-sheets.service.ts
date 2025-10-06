@@ -13,11 +13,11 @@ export interface GoogleSheetsTask {
   providedIn: 'root'
 })
 export class GoogleSheetsService {
-  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby2a5_rwuCt1rTLSODodsWu32IrVspv0azoPLknab3Ck_vCYJkIBW7C9mrC8pgwGfhs/exec';
+  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxeCpQokq27JdRvEkg6X6AtRQn76hGYlDegdF-vIjuFLD-OXnUpao9vh1UvFztFNIut/exec';
 
   constructor() {}
 
-  // JSONP approach to bypass CORS
+  // JSONP approach using direct URL
   private makeJSONPRequest(params: any): Observable<any> {
     return new Observable(observer => {
       const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
@@ -46,7 +46,9 @@ export class GoogleSheetsService {
       script.onerror = (error) => {
         console.error('JSONP script error:', error);
         observer.error('JSONP request failed: ' + error);
-        document.head.removeChild(script);
+        if (document.head.contains(script)) {
+          document.head.removeChild(script);
+        }
         delete (window as any)[callbackName];
       };
       
@@ -55,7 +57,9 @@ export class GoogleSheetsService {
         if ((window as any)[callbackName]) {
           console.error('JSONP timeout - callback still exists');
           observer.error('JSONP request timeout');
-          document.head.removeChild(script);
+          if (document.head.contains(script)) {
+            document.head.removeChild(script);
+          }
           delete (window as any)[callbackName];
         }
       }, 10000);
