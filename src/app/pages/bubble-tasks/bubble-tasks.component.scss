@@ -1,0 +1,487 @@
+.tasks {
+  width: 100%;
+  min-height: 100vh;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  &-container {
+    width: 100%;
+    max-width: 100%;
+    background-color: transparent;
+    border-radius: 0;
+    padding: 1rem;
+    box-shadow: none;
+  }
+
+  &-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  &-status {
+    font-size: 0.75rem;
+    font-family: "Courier New", monospace;
+    position: absolute;
+    right: 0;
+  }
+
+  &-loading {
+    color: #666666;
+  }
+
+  &-error {
+    color: #ff6600;
+  }
+
+  &-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+    min-height: 60vh;
+  }
+
+  &-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000000;
+    margin: 0 0 1rem 0;
+    font-family: "Courier New", monospace;
+  }
+
+  &-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+
+  &-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    font-family: "Courier New", monospace;
+    font-size: 0.85rem;
+    background-color: #f9f9f9;
+    color: #000000;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #000000;
+      background-color: #ffffff;
+    }
+
+    &::placeholder {
+      color: #888888;
+    }
+  }
+
+  &-add-btn {
+    padding: 0.5rem 1rem;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    font-family: "Courier New", monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover:not(:disabled) {
+      background-color: #333333;
+    }
+
+    &:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+  }
+
+  &-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 300px;
+    flex: 1;
+  }
+
+  &-empty {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #888888;
+
+    &-text {
+      font-family: "Courier New", monospace;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+  }
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: #cccccc;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  &.completed {
+    background-color: #f0f0f0;
+    opacity: 0.6;
+
+    .task-text {
+      text-decoration: line-through;
+      color: #888888;
+    }
+  }
+}
+
+.task-checkbox-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.task-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+
+  &:checked ~ .task-checkmark {
+    background-color: #000000;
+    border-color: #000000;
+
+    &::after {
+      display: block;
+    }
+  }
+}
+
+.task-checkmark {
+  height: 1rem;
+  width: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    content: "";
+    position: absolute;
+    display: none;
+    width: 0.25rem;
+    height: 0.5rem;
+    border: solid white;
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+  }
+}
+
+.task-text {
+  flex: 1;
+  font-family: "Courier New", monospace;
+  font-size: 0.85rem;
+  color: #000000;
+  word-wrap: break-word;
+  line-height: 1.3;
+}
+
+.task-delete-btn {
+  background: none;
+  border: none;
+  color: #888888;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: 2px;
+  transition: all 0.2s;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #ff4444;
+    color: #ffffff;
+  }
+}
+
+.column-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000000;
+  margin: 0 0 1rem 0;
+  font-family: "Courier New", monospace;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.drop-zone {
+  border: 2px dashed transparent;
+  border-radius: 4px;
+  transition: all 0.2s;
+  padding: 0.5rem;
+
+  &.dragover {
+    border-color: #000000;
+    background-color: #f0f0f0;
+  }
+}
+
+.today-zone {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+}
+
+.today-task {
+  background-color: #fff8dc;
+  border-left: 3px solid #ffa500;
+
+  &:hover {
+    border-color: #ff8c00;
+    box-shadow: 0 1px 3px rgba(255, 140, 0, 0.2);
+  }
+
+  &.completed {
+    background-color: #f5f5f5;
+    border-left-color: #cccccc;
+  }
+}
+
+.task-item {
+  cursor: move;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &.dragging {
+    opacity: 0.5;
+  }
+}
+
+.labels-legend {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  flex-wrap: wrap;
+
+  .legend-title {
+    font-family: "Courier New", monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #666666;
+  }
+
+  .legend-items {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .legend-dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .legend-name {
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
+    color: #666666;
+  }
+}
+
+.task-label {
+  font-family: "Courier New", monospace;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 650px) {
+  .tasks {
+    padding: 0.5rem;
+
+    &-container {
+      padding: 0.5rem;
+    }
+
+    &-title {
+      font-size: 1.25rem;
+    }
+
+    &-input {
+      font-size: 0.8rem;
+    }
+
+    &-add-btn {
+      font-size: 0.9rem;
+    }
+
+    &-columns {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  .task-item {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .task-text {
+    font-size: 0.8rem;
+  }
+
+  .task-delete-btn {
+    font-size: 1.1rem;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .column-title {
+    font-size: 1rem;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  grid-column: 1 / -1;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e0e0e0;
+  border-top: 3px solid #000000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+  color: #666666;
+  margin: 0;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.label-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.label-radio-item {
+  position: relative;
+}
+
+.label-radio-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+
+  &:checked + .label-radio-label {
+    background-color: var(--label-color);
+    color: white;
+    border-color: var(--label-color);
+    font-weight: 600;
+    
+    .label-color-dot {
+      background-color: white !important;
+      border: 1px solid rgba(255,255,255,0.8);
+    }
+  }
+}
+
+.label-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  background-color: #f9f9f9;
+  font-family: "Courier New", monospace;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.label-color-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.input-and-button {
+  display: flex;
+  gap: 0.5rem;
+}
