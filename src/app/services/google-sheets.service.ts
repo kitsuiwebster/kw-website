@@ -13,7 +13,7 @@ export interface GoogleSheetsTask {
   providedIn: 'root'
 })
 export class GoogleSheetsService {
-  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzujl3lNhOzUBsRMwa9uXOXRRiwAXr-7-f2pnCFNyZCb-O-6nuD35SIDue6dhYWN5tv/exec';
+  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzDpd5UaX-SdCCGfb-mD7-RUmo449wwtO-IHidV-bRjscgvLtEGkAfQUZuTTh7wbbvp/exec';
 
   constructor() {}
 

@@ -13,7 +13,7 @@ export interface BubbleGoogleSheetsTask {
   providedIn: 'root'
 })
 export class BubbleGoogleSheetsService {
-  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxgnK_7SYdUitJYbM7d98_6UtmS4Q4rdajEgo5qYaETAd9AOMOMaWCGQntEixq83HaD/exec';
+  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyms6aM7XCdAzB0SUS6R8wJ2VhfvmOPsIA1NH9zNtU982SNZ4L32NOPEen5xZzE_r4nmw/exec';
 
   constructor() {}
 
