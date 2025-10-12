@@ -1,0 +1,11 @@
+HTTP/2 500 
+date: Tue, 07 Oct 2025 08:18:53 GMT
+content-type: application/json;charset=UTF-8
+set-cookie: AWSALB=9gGaeluvLNCknlkHSjDlyjJiFwrPgeYahnaCRNMoXFY538sWBbN99Y6+u3j2BEnNsYwMA7SmLYi1gNoRGEkXH3HxA/9yGaTdXicllcn2vaM2THFyjPXEkOKjAr5E; Expires=Tue, 14 Oct 2025 08:18:53 GMT; Path=/
+set-cookie: AWSALBCORS=9gGaeluvLNCknlkHSjDlyjJiFwrPgeYahnaCRNMoXFY538sWBbN99Y6+u3j2BEnNsYwMA7SmLYi1gNoRGEkXH3HxA/9yGaTdXicllcn2vaM2THFyjPXEkOKjAr5E; Expires=Tue, 14 Oct 2025 08:18:53 GMT; Path=/; SameSite=None; Secure
+access-control-allow-origin: https://ticktick.com
+access-control-allow-credentials: true
+ticktick-via: ticktick
+set-cookie: t=""; Domain=.ticktick.com; Expires=Thu, 01 Jan 1970 00:00:10 GMT; Path=/; Secure; HttpOnly
+vary: accept-encoding
+

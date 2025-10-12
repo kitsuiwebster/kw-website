@@ -82,8 +82,18 @@ export class TasksComponent implements OnInit {
         console.log('Tasks array length:', tasks ? tasks.length : 'null/undefined');
         console.log('Tasks type:', typeof tasks);
         
-        // Ensure tasks is an array
-        this.tasks = Array.isArray(tasks) ? tasks : [];
+        // Ensure tasks is an array and remove duplicates
+        const rawTasks = Array.isArray(tasks) ? tasks : [];
+        
+        // Remove duplicates - keep only the last occurrence of each task ID
+        const taskMap = new Map();
+        rawTasks.forEach(task => {
+          taskMap.set(task.id, task);
+        });
+        this.tasks = Array.from(taskMap.values());
+        
+        console.log('Raw tasks count:', rawTasks.length);
+        console.log('Deduplicated tasks count:', this.tasks.length);
         
         if (this.tasks.length > 0) {
           this.nextId = Math.max(...this.tasks.map(t => t.id)) + 1;
