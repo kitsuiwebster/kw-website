@@ -11,6 +11,7 @@ import { DecoderComponent } from './pages/decode/decoder.component';
 import { HtmlToPdfComponent } from './pages/html-to-pdf/html-to-pdf.component';
 import { CardsComponent } from './pages/cards/cards.component';
 import { UnifiedTasksComponent } from './pages/unified-tasks/unified-tasks.component';
+import { MenuComponent } from './pages/menu/menu.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,11 +19,14 @@ export const routes: Routes = [
   { path: 'hackaprompt', component: HackapromptComponent },
   { path: 'midjourney', component: MidjourneyComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'menu', component: MenuComponent },
   { path: 'tasks', component: UnifiedTasksComponent },
   // Redirect old routes
   { path: 'tasks/kitsui', redirectTo: 'tasks' },
   { path: 'tasks/bubble', redirectTo: 'tasks' },
-  { path: 'shisui', component: ShisuiComponent },
+  { path: 'life', component: ShisuiComponent },
+  // Redirect old shisui route
+  { path: 'shisui', redirectTo: 'life' },
   { path: 'decoder', component: DecoderComponent },
   { path: 'html-to-pdf', component: HtmlToPdfComponent },
   { path: 'cards', component: CardsComponent },

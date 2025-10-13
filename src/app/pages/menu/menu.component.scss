@@ -1,0 +1,104 @@
+.menu-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #3498db;
+}
+
+.menu-grid {
+  columns: 4;
+  column-gap: 2rem;
+  column-fill: balance;
+}
+
+.menu-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.8rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.8rem;
+  break-inside: avoid;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:nth-child(2n) {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  }
+  
+  &:nth-child(3n) {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  }
+  
+  &:nth-child(4n) {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  }
+  
+  &:nth-child(5n) {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  }
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.card-path {
+  font-size: 0.8rem;
+  font-family: 'Courier New', monospace;
+  opacity: 0.95;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  align-self: flex-end;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 968px) {
+  .menu-grid {
+    columns: 3;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .menu-container {
+    padding: 1rem;
+  }
+  
+  .menu-grid {
+    columns: 2;
+    column-gap: 1rem;
+  }
+  
+  .card-title {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .menu-grid {
+    columns: 1;
+  }
+}

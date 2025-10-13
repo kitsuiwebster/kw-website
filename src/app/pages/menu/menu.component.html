@@ -1,0 +1,27 @@
+<div class="menu-container">
+  <div class="section">
+    <div class="menu-grid">
+      <a 
+        *ngFor="let item of publicItems"
+        [routerLink]="item.path"
+        class="menu-card"
+      >
+        <span class="card-title">{{ item.title }}</span>
+        <span class="card-path">{{ item.path }}</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="menu-grid">
+      <a 
+        *ngFor="let item of privateItems"
+        [routerLink]="item.path"
+        class="menu-card"
+      >
+        <span class="card-title">{{ item.title }}</span>
+        <span class="card-path">{{ item.path }}</span>
+      </a>
+    </div>
+  </div>
+</div>
