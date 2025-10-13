@@ -1,18 +1,36 @@
 <div class="tasks">
   <div class="tasks-container">
     <header class="tasks-header">
-      <h1 class="tasks-title">Kitsui Task Manager</h1>
+      <h1 class="tasks-title">Task Manager</h1>
+      
+      <!-- Tab Navigation -->
+      <div class="tab-navigation">
+        <button 
+          class="tab-btn" 
+          [class.active]="activeTab === 'kitsui'"
+          (click)="switchTab('kitsui')"
+        >
+          Kitsui
+        </button>
+        <button 
+          class="tab-btn" 
+          [class.active]="activeTab === 'bubble'"
+          (click)="switchTab('bubble')"
+        >
+          Bubble
+        </button>
+      </div>
     </header>
 
     <div class="tasks-input-section">
       <div class="label-radio-group">
-        <div class="label-radio-item" *ngFor="let label of labels">
+        <div class="label-radio-item" *ngFor="let label of currentLabels">
           <input 
             type="radio" 
             [id]="'label-' + label.id"
             [value]="label.id" 
             [(ngModel)]="selectedLabel"
-            name="taskLabel"
+            [name]="activeTab + 'TaskLabel'"
             class="label-radio-input"
           >
           <label 
@@ -48,12 +66,11 @@
       </div>
     </div>
 
-
     <div class="tasks-columns">
       <!-- Loading State -->
       <div *ngIf="isLoading" class="loading-container">
         <div class="loading-spinner"></div>
-        <p class="loading-text">Loading tasks...</p>
+        <p class="loading-text">Loading {{ activeTab }} tasks...</p>
       </div>
 
       <!-- Left Column: All Tasks -->
@@ -68,6 +85,7 @@
             *ngFor="let task of sortedTasks" 
             class="task-item"
             [class.completed]="task.completed"
+            [class.priority-task]="task.isPriority"
             draggable="true"
             (dragstart)="onDragStart($event, task)"
           >
@@ -93,11 +111,11 @@
             </span>
             
             <button 
-              (click)="deleteTask(task.id)" 
-              class="task-delete-btn"
-              title="Delete task"
+              (click)="openTaskModal(task)" 
+              class="task-menu-btn"
+              title="Options"
             >
-              ×
+              ⋯
             </button>
           </div>
           
@@ -119,6 +137,7 @@
             *ngFor="let task of todayTasks" 
             class="task-item today-task"
             [class.completed]="task.completed"
+            [class.priority-task]="task.isPriority"
             draggable="true"
             (dragstart)="onDragStart($event, task)"
           >
@@ -144,17 +163,77 @@
             </span>
             
             <button 
-              (click)="deleteTask(task.id)" 
-              class="task-delete-btn"
-              title="Delete task"
+              (click)="openTaskModal(task)" 
+              class="task-menu-btn"
+              title="Options"
             >
-              ×
+              ⋯
             </button>
           </div>
           
           <div class="tasks-empty" *ngIf="todayTasks.length === 0">
             <p class="tasks-empty-text">Drag tasks here for today!</p>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Affichage des erreurs -->
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+  </div>
+
+  <!-- Modal des actions -->
+  <div 
+    *ngIf="showTaskModal" 
+    class="modal-overlay"
+    (click)="closeTaskModal()"
+  >
+    <div class="task-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Task Actions</h3>
+        <button (click)="closeTaskModal()" class="close-btn">×</button>
+      </div>
+      
+      <div class="modal-content" *ngIf="selectedTask">
+        <div class="task-preview">
+          <strong>{{ selectedTask.text }}</strong>
+          <span class="task-info">
+            {{ getLabelName(selectedTask.label || '') }}
+            <span *ngIf="selectedTask.isPriority" class="priority-badge">Pinned</span>
+          </span>
+        </div>
+        
+        <div class="modal-actions">
+          <div class="action-btn rename-btn" [class.renaming]="isRenaming">
+            <div *ngIf="!isRenaming" (click)="startRename()" class="rename-trigger">
+              ✏️ Rename
+            </div>
+            <div *ngIf="isRenaming" class="rename-input-container">
+              <input 
+                [(ngModel)]="renameText"
+                (keydown)="onRenameKeyPress($event)"
+                (blur)="saveRename()"
+                class="rename-input"
+                #renameInput
+                maxlength="200"
+              >
+              <div class="rename-actions">
+                <button (click)="saveRename()" class="save-btn">✓</button>
+                <button (click)="cancelRename()" class="cancel-btn">×</button>
+              </div>
+            </div>
+          </div>
+          
+          <button (click)="toggleTaskPriority()" class="action-btn priority-btn">
+            <span *ngIf="!selectedTask.isPriority">📌 Pin this task</span>
+            <span *ngIf="selectedTask.isPriority">📌 Unpin task</span>
+          </button>
+          
+          <button (click)="deleteTaskFromModal()" class="action-btn delete-btn">
+            🗑️ Delete
+          </button>
         </div>
       </div>
     </div>

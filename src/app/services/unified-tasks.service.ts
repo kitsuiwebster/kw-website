@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
-export interface GoogleSheetsTask {
+export interface Task {
   id: number;
   text: string;
   completed: boolean;
   isToday?: boolean;
   label?: string;
+  isPriority?: boolean;
+  createdAt?: string;
+  modifiedAt?: string;
 }
+
+export type TaskType = 'kitsui' | 'bubble';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GoogleSheetsService {
-  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzDpd5UaX-SdCCGfb-mD7-RUmo449wwtO-IHidV-bRjscgvLtEGkAfQUZuTTh7wbbvp/exec';
+export class UnifiedTasksService {
+  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxhX69NdfbZ9-2KoI_G5n9jHvfuK_3mna8fITeuIjpBey8REQeyecKGCNrLBh_XQY7X/exec';
 
   constructor() {}
 
@@ -68,10 +73,13 @@ export class GoogleSheetsService {
     });
   }
 
-  getTasks(): Observable<any[]> {
-    console.log('GoogleSheetsService.getTasks() called');
+  getTasks(taskType: TaskType): Observable<Task[]> {
+    console.log(`UnifiedTasksService.getTasks(${taskType}) called`);
     return new Observable(observer => {
-      this.makeJSONPRequest({ action: 'getTasks' }).subscribe({
+      this.makeJSONPRequest({ 
+        action: 'getTasks', 
+        sheetType: taskType 
+      }).subscribe({
         next: (response) => {
           console.log('getTasks response:', response);
           if (response && response.success) {
@@ -91,33 +99,42 @@ export class GoogleSheetsService {
     });
   }
 
-  addTask(task: { id: number, text: string, completed: boolean, isToday?: boolean, label?: string }): Observable<any> {
+  addTask(task: Task, taskType: TaskType): Observable<any> {
     return this.makeJSONPRequest({
       action: 'addTask',
+      sheetType: taskType,
       id: task.id.toString(),
       text: task.text,
       completed: task.completed.toString(),
       isToday: (task.isToday || false).toString(),
-      label: task.label || 'other'
+      label: task.label || (taskType === 'bubble' ? 'random' : 'other'),
+      isPriority: (task.isPriority || false).toString(),
+      createdAt: task.createdAt || new Date().toISOString(),
+      modifiedAt: task.modifiedAt || new Date().toISOString()
     });
   }
 
-  updateTask(task: { id: number, text: string, completed: boolean, isToday?: boolean, label?: string }): Observable<any> {
+  updateTask(task: Task, taskType: TaskType): Observable<any> {
     const params = {
       action: 'updateTask',
+      sheetType: taskType,
       id: task.id.toString(),
       text: task.text,
       completed: task.completed.toString(),
       isToday: (task.isToday || false).toString(),
-      label: task.label || 'other'
+      label: task.label || (taskType === 'bubble' ? 'random' : 'other'),
+      isPriority: (task.isPriority || false).toString(),
+      createdAt: task.createdAt || new Date().toISOString(),
+      modifiedAt: task.modifiedAt || new Date().toISOString()
     };
     console.log('Updating task with params:', params);
     return this.makeJSONPRequest(params);
   }
 
-  deleteTask(id: number): Observable<any> {
+  deleteTask(id: number, taskType: TaskType): Observable<any> {
     return this.makeJSONPRequest({
       action: 'deleteTask',
+      sheetType: taskType,
       id: id.toString()
     });
   }
