@@ -17,7 +17,7 @@ export class LayoutComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isCardsPage = event.url === '/cards';
-        this.isTasksPage = event.url === '/tasks';
+        this.isTasksPage = event.url === '/tasks' || event.url.startsWith('/tasks#');
       }
     });
   }
