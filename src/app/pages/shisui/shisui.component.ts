@@ -7,6 +7,10 @@ import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 
 interface Entry {
   date: string;
+  day: string;
+  cn: string;
+  cityNight: string;
+  peopleNight: string[];
   c1: string;
   city1: string;
   people1: string[];
@@ -16,7 +20,6 @@ interface Entry {
   c3: string;
   city3: string;
   people3: string[];
-  day: string;
 }
 
 interface DateSearchResult {
@@ -77,6 +80,11 @@ export class ShisuiComponent implements OnInit {
   peopleByCountryStats: { [country: string]: { name: string; value: number }[] } = {};
   consecutiveDaysStats: { name: string; value: number }[] = [];
   
+  // Statistiques par jour de la semaine
+  peopleByDayStats: {
+    [day: string]: { name: string; value: number }[]
+  } = {};
+  
   // Map pour stocker la correspondance ville -> drapeau (plus utilisé avec la nouvelle structure)
   cityFlagMap: Map<string, string> = new Map();
   
@@ -87,6 +95,11 @@ export class ShisuiComponent implements OnInit {
       countries: { name: string; value: number }[];
       people: { name: string; value: number }[];
     }
+  } = {};
+  
+  // Statistiques des weekends par année
+  weekendStatsByYear: {
+    [year: string]: { name: string; value: number }[]
   } = {};
   
   // Nouvelle propriété pour la recherche par date
@@ -165,16 +178,19 @@ export class ShisuiComponent implements OnInit {
 
       this.entries = data.map((row: string[]) => ({
         date: row[0]?.trim() || '',
-        c1: row[1]?.trim() || '',
-        city1: row[2]?.trim() || '',
-        people1: row[3] ? row[3].split(' ').map((p) => p.trim()).filter(p => p) : [],
-        c2: row[4]?.trim() || '',
-        city2: row[5]?.trim() || '',
-        people2: row[6] ? row[6].split(' ').map((p) => p.trim()).filter(p => p) : [],
-        c3: row[7]?.trim() || '',
-        city3: row[8]?.trim() || '',
-        people3: row[9] ? row[9].split(' ').map((p) => p.trim()).filter(p => p) : [],
-        day: row[10]?.trim() || '',
+        day: row[1]?.trim() || '',
+        cn: row[2]?.trim() || '',
+        cityNight: row[3]?.trim() || '',
+        peopleNight: row[4] ? row[4].split(' ').map((p) => p.trim()).filter(p => p) : [],
+        c1: row[5]?.trim() || '',
+        city1: row[6]?.trim() || '',
+        people1: row[7] ? row[7].split(' ').map((p) => p.trim()).filter(p => p) : [],
+        c2: row[8]?.trim() || '',
+        city2: row[9]?.trim() || '',
+        people2: row[10] ? row[10].split(' ').map((p) => p.trim()).filter(p => p) : [],
+        c3: row[11]?.trim() || '',
+        city3: row[12]?.trim() || '',
+        people3: row[13] ? row[13].split(' ').map((p) => p.trim()).filter(p => p) : [],
       }));
 
       this.computeAllStats();
@@ -201,11 +217,17 @@ export class ShisuiComponent implements OnInit {
       const cities: string[] = [];
       const people: string[] = [];
       
+      if (entry.cn) countries.push(entry.cn);
       if (entry.c1) countries.push(entry.c1);
       if (entry.c2) countries.push(entry.c2);
       if (entry.c3) countries.push(entry.c3);
       
       // Séparer les villes si plusieurs dans une même cellule
+      if (entry.cityNight) {
+        entry.cityNight.split(' ').forEach(city => {
+          if (city.trim()) cities.push(city.trim());
+        });
+      }
       if (entry.city1) {
         entry.city1.split(' ').forEach(city => {
           if (city.trim()) cities.push(city.trim());
@@ -222,7 +244,7 @@ export class ShisuiComponent implements OnInit {
         });
       }
       
-      people.push(...entry.people1, ...entry.people2, ...entry.people3);
+      people.push(...entry.peopleNight, ...entry.people1, ...entry.people2, ...entry.people3);
       
       this.dateSearchResult = {
         date: formattedDate,
@@ -254,7 +276,9 @@ export class ShisuiComponent implements OnInit {
     this.computeFlagStats();
     this.computePeopleByCountryStats();
     this.computeConsecutiveDaysStats();
+    this.computePeopleByDayStats();
     this.computeYearlyStats();
+    this.computeWeekendStatsByYear();
   }
 
   computeCityStats(): void {
@@ -264,6 +288,11 @@ export class ShisuiComponent implements OnInit {
       const cities = new Set<string>();
       
       // Séparer les villes si plusieurs dans une même cellule
+      if (entry.cityNight) {
+        entry.cityNight.split(' ').forEach(city => {
+          if (city.trim()) cities.add(city.trim());
+        });
+      }
       if (entry.city1) {
         entry.city1.split(' ').forEach(city => {
           if (city.trim()) cities.add(city.trim());
@@ -294,6 +323,7 @@ export class ShisuiComponent implements OnInit {
     for (const entry of this.entries) {
       // Ne compter qu'une seule fois par personne par jour
       const people = new Set<string>();
+      entry.peopleNight.forEach(p => people.add(p));
       entry.people1.forEach(p => people.add(p));
       entry.people2.forEach(p => people.add(p));
       entry.people3.forEach(p => people.add(p));
@@ -312,6 +342,7 @@ export class ShisuiComponent implements OnInit {
     for (const entry of this.entries) {
       // Ne compter qu'une seule fois par pays par jour
       const flags = new Set<string>();
+      if (entry.cn) flags.add(entry.cn);
       if (entry.c1) flags.add(entry.c1);
       if (entry.c2) flags.add(entry.c2);
       if (entry.c3) flags.add(entry.c3);
@@ -331,6 +362,7 @@ export class ShisuiComponent implements OnInit {
     // Collecter tous les pays uniques
     const allCountries = new Set<string>();
     for (const entry of this.entries) {
+      if (entry.cn) allCountries.add(entry.cn);
       if (entry.c1) allCountries.add(entry.c1);
       if (entry.c2) allCountries.add(entry.c2);
       if (entry.c3) allCountries.add(entry.c3);
@@ -341,6 +373,13 @@ export class ShisuiComponent implements OnInit {
       
       for (const entry of this.entries) {
         // Associer les personnes au bon pays
+        if (entry.cn === country) {
+          entry.peopleNight.forEach(person => {
+            if (person) {
+              countForCountry[person] = (countForCountry[person] || 0) + 1;
+            }
+          });
+        }
         if (entry.c1 === country) {
           entry.people1.forEach(person => {
             if (person) {
@@ -389,6 +428,7 @@ export class ShisuiComponent implements OnInit {
     // Collecter toutes les personnes uniques
     const allPeople = new Set<string>();
     this.entries.forEach(entry => {
+      entry.peopleNight.forEach(p => allPeople.add(p));
       entry.people1.forEach(p => allPeople.add(p));
       entry.people2.forEach(p => allPeople.add(p));
       entry.people3.forEach(p => allPeople.add(p));
@@ -406,7 +446,8 @@ export class ShisuiComponent implements OnInit {
         };
         
         const currentDate = parseDate(entry.date);
-        const personIsPresent = entry.people1.includes(person) || 
+        const personIsPresent = entry.peopleNight.includes(person) ||
+                               entry.people1.includes(person) || 
                                entry.people2.includes(person) || 
                                entry.people3.includes(person);
         
@@ -440,6 +481,72 @@ export class ShisuiComponent implements OnInit {
       .sort((a, b) => b.value - a.value);
   }
 
+  computePeopleByDayStats(): void {
+    this.peopleByDayStats = {};
+    
+    // Mapping entre jours anglais et français
+    const dayMapping: { [englishDay: string]: string } = {
+      'Mon': 'Lundi',
+      'Tue': 'Mardi', 
+      'Wed': 'Mercredi',
+      'Thu': 'Jeudi',
+      'Fri': 'Vendredi',
+      'Sat': 'Samedi',
+      'Sun': 'Dimanche',
+      'Monday': 'Lundi',
+      'Tuesday': 'Mardi',
+      'Wednesday': 'Mercredi', 
+      'Thursday': 'Jeudi',
+      'Friday': 'Vendredi',
+      'Saturday': 'Samedi',
+      'Sunday': 'Dimanche'
+    };
+    
+    // Jours de la semaine en français pour l'affichage
+    const daysOfWeek = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+    
+    // Initialiser les statistiques pour chaque jour
+    for (const frenchDay of daysOfWeek) {
+      const countForDay: { [person: string]: number } = {};
+      
+      for (const entry of this.entries) {
+        // Convertir le jour anglais en français
+        const frenchDayFromData = dayMapping[entry.day?.trim()] || '';
+        
+        if (frenchDayFromData === frenchDay) {
+          // Collecter toutes les personnes de cette entrée
+          const people = new Set<string>();
+          entry.peopleNight.forEach(p => {
+            if (p && p.trim()) people.add(p.trim());
+          });
+          entry.people1.forEach(p => {
+            if (p && p.trim()) people.add(p.trim());
+          });
+          entry.people2.forEach(p => {
+            if (p && p.trim()) people.add(p.trim());
+          });
+          entry.people3.forEach(p => {
+            if (p && p.trim()) people.add(p.trim());
+          });
+          
+          for (const person of people) {
+            if (person) {
+              countForDay[person] = (countForDay[person] || 0) + 1;
+            }
+          }
+        }
+      }
+      
+      if (Object.keys(countForDay).length > 0) {
+        this.peopleByDayStats[frenchDay] = Object.entries(countForDay)
+          .map(([name, value]) => ({ name, value }))
+          .sort((a, b) => b.value - a.value);
+      } else {
+        this.peopleByDayStats[frenchDay] = [];
+      }
+    }
+  }
+
   computeYearlyStats(): void {
     this.yearlyStats = {};
     
@@ -466,6 +573,11 @@ export class ShisuiComponent implements OnInit {
         const cities = new Set<string>();
         
         // Séparer les villes si plusieurs dans une même cellule
+        if (entry.cityNight) {
+          entry.cityNight.split(' ').forEach(city => {
+            if (city.trim()) cities.add(city.trim());
+          });
+        }
         if (entry.city1) {
           entry.city1.split(' ').forEach(city => {
             if (city.trim()) cities.add(city.trim());
@@ -491,6 +603,7 @@ export class ShisuiComponent implements OnInit {
       const countryCount: { [country: string]: number } = {};
       for (const entry of yearEntries) {
         const countries = new Set<string>();
+        if (entry.cn) countries.add(entry.cn);
         if (entry.c1) countries.add(entry.c1);
         if (entry.c2) countries.add(entry.c2);
         if (entry.c3) countries.add(entry.c3);
@@ -504,6 +617,7 @@ export class ShisuiComponent implements OnInit {
       const peopleCount: { [person: string]: number } = {};
       for (const entry of yearEntries) {
         const people = new Set<string>();
+        entry.peopleNight.forEach(p => people.add(p));
         entry.people1.forEach(p => people.add(p));
         entry.people2.forEach(p => people.add(p));
         entry.people3.forEach(p => people.add(p));
@@ -527,6 +641,85 @@ export class ShisuiComponent implements OnInit {
     }
   }
 
+  computeWeekendStatsByYear(): void {
+    this.weekendStatsByYear = {};
+    
+    // Mapping entre jours anglais et français pour identifier les weekends
+    const dayMapping: { [englishDay: string]: string } = {
+      'Mon': 'Lundi',
+      'Tue': 'Mardi', 
+      'Wed': 'Mercredi',
+      'Thu': 'Jeudi',
+      'Fri': 'Vendredi',
+      'Sat': 'Samedi',
+      'Sun': 'Dimanche',
+      'Monday': 'Lundi',
+      'Tuesday': 'Mardi',
+      'Wednesday': 'Mercredi', 
+      'Thursday': 'Jeudi',
+      'Friday': 'Vendredi',
+      'Saturday': 'Samedi',
+      'Sunday': 'Dimanche'
+    };
+    
+    // Grouper les entrées par année
+    const entriesByYear: { [year: string]: Entry[] } = {};
+    
+    for (const entry of this.entries) {
+      // Extraire l'année de la date (format DD/MM/YYYY)
+      const parts = entry.date.split('/');
+      if (parts.length === 3) {
+        const year = parts[2];
+        if (!entriesByYear[year]) {
+          entriesByYear[year] = [];
+        }
+        entriesByYear[year].push(entry);
+      }
+    }
+    
+    // Calculer les statistiques weekend pour chaque année
+    for (const [year, yearEntries] of Object.entries(entriesByYear)) {
+      const weekendCount: { [person: string]: number } = {};
+      
+      for (const entry of yearEntries) {
+        // Convertir le jour anglais en français
+        const frenchDay = dayMapping[entry.day?.trim()] || '';
+        
+        // Vérifier si c'est un weekend (Samedi ou Dimanche)
+        if (frenchDay === 'Samedi' || frenchDay === 'Dimanche') {
+          // Collecter toutes les personnes de cette entrée
+          const people = new Set<string>();
+          entry.peopleNight.forEach(p => {
+            if (p && p.trim()) people.add(p.trim());
+          });
+          entry.people1.forEach(p => {
+            if (p && p.trim()) people.add(p.trim());
+          });
+          entry.people2.forEach(p => {
+            if (p && p.trim()) people.add(p.trim());
+          });
+          entry.people3.forEach(p => {
+            if (p && p.trim()) people.add(p.trim());
+          });
+          
+          for (const person of people) {
+            if (person) {
+              weekendCount[person] = (weekendCount[person] || 0) + 1;
+            }
+          }
+        }
+      }
+      
+      if (Object.keys(weekendCount).length > 0) {
+        this.weekendStatsByYear[year] = Object.entries(weekendCount)
+          .map(([name, value]) => ({ name, value }))
+          .sort((a, b) => b.value - a.value);
+      } else {
+        this.weekendStatsByYear[year] = [];
+      }
+    }
+  }
+
   getCountriesWithPeople(): string[] {
     return Object.keys(this.peopleByCountryStats);
   }
@@ -535,10 +728,19 @@ export class ShisuiComponent implements OnInit {
     return Object.keys(this.yearlyStats).sort((a, b) => b.localeCompare(a)); // Tri décroissant
   }
 
+  getDaysOfWeek(): string[] {
+    return ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+  }
+
   getAllUniqueCities(): string[] {
     const allCities = new Set<string>();
     for (const entry of this.entries) {
       // Séparer les villes si plusieurs dans une même cellule
+      if (entry.cityNight && entry.cityNight.trim()) {
+        entry.cityNight.split(' ').forEach(city => {
+          if (city.trim()) allCities.add(city.trim());
+        });
+      }
       if (entry.city1 && entry.city1.trim()) {
         entry.city1.split(' ').forEach(city => {
           if (city.trim()) allCities.add(city.trim());
@@ -561,6 +763,10 @@ export class ShisuiComponent implements OnInit {
   getCityWithFlag(cityName: string): string {
     // Chercher dans quelle colonne se trouve cette ville pour récupérer le bon drapeau
     for (const entry of this.entries) {
+      // Vérifier si la ville est dans cityNight
+      if (entry.cityNight && entry.cityNight.includes(cityName) && entry.cn) {
+        return `${entry.cn} ${cityName}`;
+      }
       // Vérifier si la ville est dans city1 (peut être avec d'autres villes)
       if (entry.city1 && entry.city1.includes(cityName) && entry.c1) {
         return `${entry.c1} ${cityName}`;

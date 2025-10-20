@@ -174,6 +174,35 @@
       </div>
     </div>
 
+    <!-- Nouveaux tableaux : Top Personnes par Jour de la Semaine -->
+    <div class="day-tables">
+      <h2 class="section-title">📅 Top Personnes par Jour de la Semaine</h2>
+      <div class="day-tables-grid">
+        <div class="table-container" *ngFor="let day of getDaysOfWeek()">
+          <h3>{{ day }} - Top Personnes</h3>
+          <table class="stats-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Personne</th>
+                <th>Jours</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let person of peopleByDayStats[day]; let i = index">
+                <td class="rank">{{ i + 1 }}</td>
+                <td class="name">{{ person.name }}</td>
+                <td class="value">{{ person.value }}</td>
+              </tr>
+              <tr *ngIf="!peopleByDayStats[day] || peopleByDayStats[day].length === 0">
+                <td colspan="3" class="no-data-cell">Aucune donnée</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
     <!-- Nouveaux tableaux : Personnes par pays -->
     <div class="country-tables" *ngIf="getCountriesWithPeople().length > 0">
       <h2 class="section-title">👥 Top Personnes par Pays</h2>
@@ -205,7 +234,7 @@
       <h2 class="section-title">📅 Statistiques par Année</h2>
       <div *ngFor="let year of getYears()" class="year-section">
         <h3 class="year-title">Année {{ year }}</h3>
-        <div class="year-tables-grid">
+        <div class="year-tables-grid-with-weekend">
           <!-- Top Villes de l'année -->
           <div class="table-container">
             <h4>🏆 Top Villes {{ year }}</h4>
@@ -264,6 +293,30 @@
                   <td class="rank">{{ i + 1 }}</td>
                   <td class="name">{{ person.name }}</td>
                   <td class="value">{{ person.value }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Top Personnes Weekend de l'année -->
+          <div class="table-container">
+            <h4>🎉 Top Personnes Weekend {{ year }}</h4>
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Personne</th>
+                  <th>Weekends</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let person of weekendStatsByYear[year]; let i = index">
+                  <td class="rank">{{ i + 1 }}</td>
+                  <td class="name">{{ person.name }}</td>
+                  <td class="value">{{ person.value }}</td>
+                </tr>
+                <tr *ngIf="!weekendStatsByYear[year] || weekendStatsByYear[year].length === 0">
+                  <td colspan="3" class="no-data-cell">Aucune donnée weekend</td>
                 </tr>
               </tbody>
             </table>
