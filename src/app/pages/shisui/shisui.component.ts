@@ -102,6 +102,14 @@ export class ShisuiComponent implements OnInit {
     [year: string]: { name: string; value: number }[]
   } = {};
   
+  // Statistiques des nuits
+  nightCityStats: { name: string; value: number }[] = [];
+  nightCountryStats: { name: string; value: number }[] = [];
+  nightPeopleStats: { name: string; value: number }[] = [];
+  
+  // Statistiques weekend générales
+  weekendStats: { name: string; value: number }[] = [];
+  
   // Nouvelle propriété pour la recherche par date
   searchDate: string = '';
   dateSearchResult: DateSearchResult | null = null;
@@ -279,6 +287,8 @@ export class ShisuiComponent implements OnInit {
     this.computePeopleByDayStats();
     this.computeYearlyStats();
     this.computeWeekendStatsByYear();
+    this.computeNightStats();
+    this.computeWeekendStats();
   }
 
   computeCityStats(): void {
@@ -781,6 +791,101 @@ export class ShisuiComponent implements OnInit {
     return cityName; // Si pas trouvé, retourner juste le nom
   }
 
+
+  computeNightStats(): void {
+    // Statistiques des villes de nuit (colonne D)
+    const nightCityCount: { [city: string]: number } = {};
+    for (const entry of this.entries) {
+      if (entry.cityNight && entry.cityNight.trim()) {
+        // Séparer les villes si plusieurs dans une même cellule
+        entry.cityNight.split(' ').forEach(city => {
+          const trimmedCity = city.trim();
+          if (trimmedCity) {
+            nightCityCount[trimmedCity] = (nightCityCount[trimmedCity] || 0) + 1;
+          }
+        });
+      }
+    }
+    this.nightCityStats = Object.entries(nightCityCount)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value);
+
+    // Statistiques des pays de nuit (colonne C)
+    const nightCountryCount: { [country: string]: number } = {};
+    for (const entry of this.entries) {
+      if (entry.cn && entry.cn.trim()) {
+        nightCountryCount[entry.cn] = (nightCountryCount[entry.cn] || 0) + 1;
+      }
+    }
+    this.nightCountryStats = Object.entries(nightCountryCount)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value);
+
+    // Statistiques des personnes de nuit (colonne E)
+    const nightPeopleCount: { [person: string]: number } = {};
+    for (const entry of this.entries) {
+      entry.peopleNight.forEach(person => {
+        if (person && person.trim()) {
+          nightPeopleCount[person] = (nightPeopleCount[person] || 0) + 1;
+        }
+      });
+    }
+    this.nightPeopleStats = Object.entries(nightPeopleCount)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value);
+  }
+
+  computeWeekendStats(): void {
+    // Mapping entre jours anglais et français pour identifier les weekends
+    const dayMapping: { [englishDay: string]: string } = {
+      'Mon': 'Lundi',
+      'Tue': 'Mardi', 
+      'Wed': 'Mercredi',
+      'Thu': 'Jeudi',
+      'Fri': 'Vendredi',
+      'Sat': 'Samedi',
+      'Sun': 'Dimanche',
+      'Monday': 'Lundi',
+      'Tuesday': 'Mardi',
+      'Wednesday': 'Mercredi', 
+      'Thursday': 'Jeudi',
+      'Friday': 'Vendredi',
+      'Saturday': 'Samedi',
+      'Sunday': 'Dimanche'
+    };
+    
+    const weekendCount: { [person: string]: number } = {};
+    
+    for (const entry of this.entries) {
+      // Convertir le jour anglais en français
+      const frenchDay = dayMapping[entry.day?.trim()] || '';
+      
+      // Vérifier si c'est un weekend (Samedi ou Dimanche)
+      if (frenchDay === 'Samedi' || frenchDay === 'Dimanche') {
+        // Collecter toutes les personnes de cette entrée (jours seulement, pas les nuits)
+        const people = new Set<string>();
+        entry.people1.forEach(p => {
+          if (p && p.trim()) people.add(p.trim());
+        });
+        entry.people2.forEach(p => {
+          if (p && p.trim()) people.add(p.trim());
+        });
+        entry.people3.forEach(p => {
+          if (p && p.trim()) people.add(p.trim());
+        });
+        
+        for (const person of people) {
+          if (person) {
+            weekendCount[person] = (weekendCount[person] || 0) + 1;
+          }
+        }
+      }
+    }
+    
+    this.weekendStats = Object.entries(weekendCount)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value);
+  }
 
   formatLabel(label: string): string {
     const width = window.innerWidth;

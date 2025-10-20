@@ -91,26 +91,6 @@
     <!-- Tableaux des tops généraux -->
     <div class="top-tables">
       <div class="table-container">
-        <h3>🏆 Top Villes</h3>
-        <table class="stats-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Ville</th>
-              <th>Jours</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let city of cityStats; let i = index">
-              <td class="rank">{{ i + 1 }}</td>
-              <td class="name">{{ getCityWithFlag(city.name) }}</td>
-              <td class="value">{{ city.value }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="table-container">
         <h3>🏆 Top Pays</h3>
         <table class="stats-table">
           <thead>
@@ -125,6 +105,26 @@
               <td class="rank">{{ i + 1 }}</td>
               <td class="name">{{ flag.name }}</td>
               <td class="value">{{ flag.value }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <h3>🏆 Top Villes</h3>
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Ville</th>
+              <th>Jours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let city of cityStats; let i = index">
+              <td class="rank">{{ i + 1 }}</td>
+              <td class="name">{{ getCityWithFlag(city.name) }}</td>
+              <td class="value">{{ city.value }}</td>
             </tr>
           </tbody>
         </table>
@@ -148,6 +148,95 @@
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div class="table-container">
+        <h3>🎉 Top Personnes Weekend</h3>
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Personne</th>
+              <th>Weekends</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let person of weekendStats; let i = index">
+              <td class="rank">{{ i + 1 }}</td>
+              <td class="name">{{ person.name }}</td>
+              <td class="value">{{ person.value }}</td>
+            </tr>
+            <tr *ngIf="weekendStats.length === 0">
+              <td colspan="3" class="no-data-cell">Aucune donnée weekend</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Nouveaux tableaux : Statistiques des nuits -->
+    <div class="night-tables">
+      <h2 class="section-title">🌙 Statistiques des Nuits</h2>
+      <div class="night-tables-grid">
+        <div class="table-container">
+          <h3>🏆 Top Pays Nuits</h3>
+          <table class="stats-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Pays</th>
+                <th>Nuits</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let country of nightCountryStats; let i = index">
+                <td class="rank">{{ i + 1 }}</td>
+                <td class="name">{{ country.name }}</td>
+                <td class="value">{{ country.value }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-container">
+          <h3>🏆 Top Villes Nuits</h3>
+          <table class="stats-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Ville</th>
+                <th>Nuits</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let city of nightCityStats; let i = index">
+                <td class="rank">{{ i + 1 }}</td>
+                <td class="name">{{ city.name }}</td>
+                <td class="value">{{ city.value }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-container">
+          <h3>🏆 Top Personnes Nuits</h3>
+          <table class="stats-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Personne</th>
+                <th>Nuits</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let person of nightPeopleStats; let i = index">
+                <td class="rank">{{ i + 1 }}</td>
+                <td class="name">{{ person.name }}</td>
+                <td class="value">{{ person.value }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
