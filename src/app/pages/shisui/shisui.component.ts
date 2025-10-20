@@ -223,45 +223,57 @@ export class ShisuiComponent implements OnInit {
     const entry = this.entries.find(e => e.date === formattedDate);
 
     if (entry) {
-      // Collecter tous les pays, villes et personnes
-      const countries: string[] = [];
-      const cities: string[] = [];
-      const people: string[] = [];
+      // Utiliser des Sets pour éviter les doublons
+      const countriesSet = new Set<string>();
+      const citiesSet = new Set<string>();
+      const peopleSet = new Set<string>();
       
-      if (entry.cn) countries.push(entry.cn);
-      if (entry.c1) countries.push(entry.c1);
-      if (entry.c2) countries.push(entry.c2);
-      if (entry.c3) countries.push(entry.c3);
+      if (entry.cn) countriesSet.add(entry.cn);
+      if (entry.c1) countriesSet.add(entry.c1);
+      if (entry.c2) countriesSet.add(entry.c2);
+      if (entry.c3) countriesSet.add(entry.c3);
       
       // Séparer les villes si plusieurs dans une même cellule
       if (entry.cityNight) {
         entry.cityNight.split(' ').forEach(city => {
-          if (city.trim()) cities.push(city.trim());
+          if (city.trim()) citiesSet.add(city.trim());
         });
       }
       if (entry.city1) {
         entry.city1.split(' ').forEach(city => {
-          if (city.trim()) cities.push(city.trim());
+          if (city.trim()) citiesSet.add(city.trim());
         });
       }
       if (entry.city2) {
         entry.city2.split(' ').forEach(city => {
-          if (city.trim()) cities.push(city.trim());
+          if (city.trim()) citiesSet.add(city.trim());
         });
       }
       if (entry.city3) {
         entry.city3.split(' ').forEach(city => {
-          if (city.trim()) cities.push(city.trim());
+          if (city.trim()) citiesSet.add(city.trim());
         });
       }
       
-      people.push(...entry.peopleNight, ...entry.people1, ...entry.people2, ...entry.people3);
+      // Ajouter les personnes en évitant les doublons
+      entry.peopleNight.forEach(person => {
+        if (person && person.trim()) peopleSet.add(person.trim());
+      });
+      entry.people1.forEach(person => {
+        if (person && person.trim()) peopleSet.add(person.trim());
+      });
+      entry.people2.forEach(person => {
+        if (person && person.trim()) peopleSet.add(person.trim());
+      });
+      entry.people3.forEach(person => {
+        if (person && person.trim()) peopleSet.add(person.trim());
+      });
       
       this.dateSearchResult = {
         date: formattedDate,
-        countries: countries,
-        cities: cities,
-        people: people,
+        countries: Array.from(countriesSet),
+        cities: Array.from(citiesSet),
+        people: Array.from(peopleSet),
         found: true
       };
     } else {
