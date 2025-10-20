@@ -1,6 +1,22 @@
 <div class="container">
   <h2 class="title">From 1st July 2018 to now</h2>
 
+  <!-- Filtre de type de tableaux -->
+  <div class="table-filter-section">
+    <div class="filter-container">
+      <label for="tableTypeSelect" class="filter-label">Afficher les tableaux :</label>
+      <select id="tableTypeSelect" [(ngModel)]="selectedTableType" class="table-type-select">
+        <option value="all">Tous les tableaux</option>
+        <option value="general">Stats générales</option>
+        <option value="nights">Stats des nuits</option>
+        <option value="consecutive">Jours consécutifs</option>
+        <option value="byDay">Par jour de la semaine</option>
+        <option value="byCountry">Par pays</option>
+        <option value="byYear">Par année</option>
+      </select>
+    </div>
+  </div>
+
   <div *ngIf="loading" class="loading-container">
     <p>Chargement des données...</p>
     <div class="loading-spinner"></div>
@@ -89,7 +105,7 @@
     </div>
 
     <!-- Tableaux des tops généraux -->
-    <div class="top-tables">
+    <div class="top-tables" *ngIf="selectedTableType === 'all' || selectedTableType === 'general'">
       <div class="table-container">
         <h3>🏆 Top Pays</h3>
         <table class="stats-table">
@@ -175,7 +191,7 @@
     </div>
 
     <!-- Nouveaux tableaux : Statistiques des nuits -->
-    <div class="night-tables">
+    <div class="night-tables" *ngIf="selectedTableType === 'all' || selectedTableType === 'nights'">
       <h2 class="section-title">🌙 Statistiques des Nuits</h2>
       <div class="night-tables-grid">
         <div class="table-container">
@@ -211,7 +227,7 @@
             <tbody>
               <tr *ngFor="let city of nightCityStats; let i = index">
                 <td class="rank">{{ i + 1 }}</td>
-                <td class="name">{{ city.name }}</td>
+                <td class="name">{{ getNightCityWithFlag(city.name) }}</td>
                 <td class="value">{{ city.value }}</td>
               </tr>
             </tbody>
@@ -241,7 +257,7 @@
     </div>
 
     <!-- Nouveau tableau : Jours consécutifs -->
-    <div class="special-tables">
+    <div class="special-tables" *ngIf="selectedTableType === 'all' || selectedTableType === 'consecutive'">
       <div class="table-container full-width">
         <h3>🔥 Top Jours Consécutifs par Personne</h3>
         <table class="stats-table">
@@ -264,7 +280,7 @@
     </div>
 
     <!-- Nouveaux tableaux : Top Personnes par Jour de la Semaine -->
-    <div class="day-tables">
+    <div class="day-tables" *ngIf="selectedTableType === 'all' || selectedTableType === 'byDay'">
       <h2 class="section-title">📅 Top Personnes par Jour de la Semaine</h2>
       <div class="day-tables-grid">
         <div class="table-container" *ngFor="let day of getDaysOfWeek()">
@@ -293,7 +309,7 @@
     </div>
 
     <!-- Nouveaux tableaux : Personnes par pays -->
-    <div class="country-tables" *ngIf="getCountriesWithPeople().length > 0">
+    <div class="country-tables" *ngIf="(selectedTableType === 'all' || selectedTableType === 'byCountry') && getCountriesWithPeople().length > 0">
       <h2 class="section-title">👥 Top Personnes par Pays</h2>
       <div class="country-tables-grid">
         <div class="table-container" *ngFor="let country of getCountriesWithPeople()">
@@ -319,7 +335,7 @@
     </div>
 
     <!-- Nouveaux tableaux : Statistiques par année -->
-    <div class="yearly-tables" *ngIf="getYears().length > 0">
+    <div class="yearly-tables" *ngIf="(selectedTableType === 'all' || selectedTableType === 'byYear') && getYears().length > 0">
       <h2 class="section-title">📅 Statistiques par Année</h2>
       <div *ngFor="let year of getYears()" class="year-section">
         <h3 class="year-title">Année {{ year }}</h3>

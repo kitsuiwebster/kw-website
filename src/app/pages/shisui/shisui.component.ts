@@ -114,6 +114,9 @@ export class ShisuiComponent implements OnInit {
   searchDate: string = '';
   dateSearchResult: DateSearchResult | null = null;
   
+  // Propriété pour le filtre de type de table
+  selectedTableType: string = 'all';
+  
   loading = true;
 
   constructor(private http: HttpClient) {
@@ -382,34 +385,42 @@ export class ShisuiComponent implements OnInit {
       const countForCountry: { [person: string]: number } = {};
       
       for (const entry of this.entries) {
+        // Collecter toutes les personnes pour ce pays dans cette entrée (éviter les doublons)
+        const peopleInCountryThisDay = new Set<string>();
+        
         // Associer les personnes au bon pays
         if (entry.cn === country) {
           entry.peopleNight.forEach(person => {
-            if (person) {
-              countForCountry[person] = (countForCountry[person] || 0) + 1;
+            if (person && person.trim()) {
+              peopleInCountryThisDay.add(person.trim());
             }
           });
         }
         if (entry.c1 === country) {
           entry.people1.forEach(person => {
-            if (person) {
-              countForCountry[person] = (countForCountry[person] || 0) + 1;
+            if (person && person.trim()) {
+              peopleInCountryThisDay.add(person.trim());
             }
           });
         }
         if (entry.c2 === country) {
           entry.people2.forEach(person => {
-            if (person) {
-              countForCountry[person] = (countForCountry[person] || 0) + 1;
+            if (person && person.trim()) {
+              peopleInCountryThisDay.add(person.trim());
             }
           });
         }
         if (entry.c3 === country) {
           entry.people3.forEach(person => {
-            if (person) {
-              countForCountry[person] = (countForCountry[person] || 0) + 1;
+            if (person && person.trim()) {
+              peopleInCountryThisDay.add(person.trim());
             }
           });
+        }
+        
+        // Compter chaque personne une seule fois par jour pour ce pays
+        for (const person of peopleInCountryThisDay) {
+          countForCountry[person] = (countForCountry[person] || 0) + 1;
         }
       }
       
@@ -786,6 +797,16 @@ export class ShisuiComponent implements OnInit {
       }
       if (entry.city3 && entry.city3.includes(cityName) && entry.c3) {
         return `${entry.c3} ${cityName}`;
+      }
+    }
+    return cityName; // Si pas trouvé, retourner juste le nom
+  }
+
+  getNightCityWithFlag(cityName: string): string {
+    // Chercher spécifiquement dans la colonne cityNight pour récupérer le drapeau cn
+    for (const entry of this.entries) {
+      if (entry.cityNight && entry.cityNight.includes(cityName) && entry.cn) {
+        return `${entry.cn} ${cityName}`;
       }
     }
     return cityName; // Si pas trouvé, retourner juste le nom
