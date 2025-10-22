@@ -45,6 +45,7 @@ export class UnifiedTasksComponent implements OnInit {
     { id: 'bashroom', name: 'bashroom', color: '#00acc1' },
     { id: 'life', name: 'life', color: '#8e24aa' },
     { id: 'ynov', name: 'ynov', color: '#2d5016' },
+    { id: 'sites', name: 'sites', color: '#e91e63' },
     { id: 'other', name: 'other', color: '#888888' }
   ];
 
