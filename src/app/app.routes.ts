@@ -12,6 +12,7 @@ import { HtmlToPdfComponent } from './pages/html-to-pdf/html-to-pdf.component';
 import { CardsComponent } from './pages/cards/cards.component';
 import { UnifiedTasksComponent } from './pages/unified-tasks/unified-tasks.component';
 import { MenuComponent } from './pages/menu/menu.component';
+import { DouzeComponent } from './pages/douze/douze.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,6 +31,7 @@ export const routes: Routes = [
   { path: 'decoder', component: DecoderComponent },
   { path: 'html-to-pdf', component: HtmlToPdfComponent },
   { path: 'cards', component: CardsComponent },
+  { path: 'douze', component: DouzeComponent },
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'notfound' } 
 ];

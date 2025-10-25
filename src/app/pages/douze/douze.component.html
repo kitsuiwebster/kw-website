@@ -1,0 +1,24 @@
+<div class="pixel-container">
+  <div class="pixel-content">
+    <h1 class="pixel-title">I have a little gift for you</h1>
+    
+    <div class="gift-area">
+      <div class="gift-box" [class.opened]="isGiftOpened" (click)="openGift()" *ngIf="!isGiftOpened">
+        <div class="gift-top"></div>
+        <div class="gift-bottom"></div>
+        <div class="gift-ribbon-vertical"></div>
+        <div class="gift-ribbon-horizontal"></div>
+        <div class="gift-bow"></div>
+      </div>
+
+      <div class="app-reveal" *ngIf="isGiftOpened">
+        <div class="app-icon">
+          <img src="assets/images/douze/ic_launcher.png" alt="Hello Bubble App Icon" class="app-icon-img">
+        </div>
+        <h2 class="app-name">Hello Bubble</h2>
+        <button class="download-btn" (click)="downloadApk()">Download APK</button>
+        <p class="mobile-note">only usable on mobile</p>
+      </div>
+    </div>
+  </div>
+</div>
