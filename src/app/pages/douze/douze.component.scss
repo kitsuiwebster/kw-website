@@ -24,8 +24,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .pixel-title {
@@ -188,7 +189,24 @@
   color: #BDC3C7;
   text-shadow: 1px 1px 0 #2C3E50;
   font-style: italic;
+  margin: 0 0 15px 0;
+}
+
+.info-panel {
+  background: rgba(52, 73, 94, 0.8);
+  border: 2px solid #34495E;
+  padding: 10px 15px;
+  margin-top: 10px;
+  max-width: 280px;
+}
+
+.info-text {
+  font-size: 12px;
+  color: #F39C12;
+  text-shadow: 1px 1px 0 #2C3E50;
   margin: 0;
+  line-height: 1.4;
+  text-align: center;
 }
 
 // Animations
