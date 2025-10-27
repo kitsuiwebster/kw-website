@@ -13,6 +13,7 @@ export class LayoutComponent {
   isCardsPage = false;
   isTasksPage = false;
   isDouzePage = false;
+  isVitrinePage = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
@@ -20,6 +21,7 @@ export class LayoutComponent {
         this.isCardsPage = event.url === '/cards';
         this.isTasksPage = event.url === '/tasks' || event.url.startsWith('/tasks#');
         this.isDouzePage = event.url === '/douze';
+        this.isVitrinePage = event.url === '/vitrine';
       }
     });
   }

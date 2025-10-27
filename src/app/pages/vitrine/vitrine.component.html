@@ -1,0 +1,45 @@
+<div class="vitrine-container">
+  <div class="pricing-grid">
+    <div 
+      *ngFor="let plan of plans" 
+      class="pricing-card"
+    >
+      <div class="card-header">
+        <h3 class="plan-name">{{ plan.name }}</h3>
+        <p class="plan-subtitle" *ngIf="plan.subtitle">{{ plan.subtitle }}</p>
+        <div class="price-wrapper">
+          <span class="price">{{ plan.price }}€</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <ul class="features-list">
+          <li *ngFor="let feature of plan.features" class="feature-item" [class.bold-feature]="feature.includes('Tous les avantages')">
+            <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            {{ feature }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="card-footer">
+        <div class="plan-icon">
+          <div *ngIf="plan.name === 'Starter'" class="stars">
+            <span class="star">⭐</span>
+          </div>
+          <div *ngIf="plan.name === 'Standard'" class="stars">
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+          </div>
+          <div *ngIf="plan.name === 'Premium'" class="stars">
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+            <span class="star">⭐</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 <div class="layout">
-  <header class="layout-header" *ngIf="!isCardsPage && !isTasksPage && !isDouzePage">
+  <header class="layout-header" *ngIf="!isCardsPage && !isTasksPage && !isDouzePage && !isVitrinePage">
     <div class="layout-header-title-container">
       <img
         class="layout-header-logo"
@@ -65,7 +65,7 @@
   <main class="layout-main">
     <router-outlet></router-outlet>
   </main>
-  <footer class="layout-footer" *ngIf="!isCardsPage && !isTasksPage && !isDouzePage">
+  <footer class="layout-footer" *ngIf="!isCardsPage && !isTasksPage && !isDouzePage && !isVitrinePage">
     <nav class="layout-footer-links">
       <a
         href="https://gitlab.com/kitsuiwebster"
