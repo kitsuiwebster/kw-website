@@ -14,6 +14,7 @@ import { UnifiedTasksComponent } from './pages/unified-tasks/unified-tasks.compo
 import { MenuComponent } from './pages/menu/menu.component';
 import { DouzeComponent } from './pages/douze/douze.component';
 import { VitrineComponent } from './pages/vitrine/vitrine.component';
+import { AffaireComponent } from './pages/affaire/affaire.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -34,6 +35,7 @@ export const routes: Routes = [
   { path: 'cards', component: CardsComponent },
   { path: 'douze', component: DouzeComponent },
   { path: 'vitrine', component: VitrineComponent },
+  { path: 'affaire', component: AffaireComponent },
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'notfound' } 
 ];
