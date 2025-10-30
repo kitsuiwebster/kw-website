@@ -7,8 +7,8 @@ export const afriqueDuSudCitiesData: Card[] = [
     nom: "Le Cap",
     localisation: "Afrique du Sud",
     continent: "Afrique",
-    population: "433,000 M",
-    agglomeration: "4,004,000 M"
+    population: "0.43 M",
+    agglomeration: "4.00 M"
   },
   {
     type: "Ville",
@@ -16,7 +16,7 @@ export const afriqueDuSudCitiesData: Card[] = [
     nom: "Johannesburg",
     localisation: "Afrique du Sud",
     continent: "Afrique",
-    population: "957,000 M",
-    agglomeration: "5,926,000 M"
+    population: "0.96 M",
+    agglomeration: "5.93 M"
   }
 ];

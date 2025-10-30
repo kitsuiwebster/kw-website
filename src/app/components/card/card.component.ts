@@ -152,7 +152,7 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   getFlagUrl(): string | null {
-    if (this.card.type === 'Pays' || this.card.type === 'Ville') {
+    if (this.card.type === 'Pays' || this.card.type === 'Ville' || this.card.type === 'Territoire') {
       // Mapping des noms vers les codes pays pour les drapeaux
       const countryMapping: { [key: string]: string } = {
         // Pays africains
@@ -332,6 +332,26 @@ export class CardComponent implements OnInit, OnDestroy {
         'Panama': 'pa',
         'Paraguay': 'py',
         'Porto Rico': 'pr',
+        'Gibraltar': 'gi',
+        'Bermudes': 'bm',
+        'Îles Vierges américaines': 'vi',
+        'Guam': 'gu',
+        'Nouvelle-Calédonie': 'nc',
+        'Polynésie française': 'pf',
+        'Aruba': 'aw',
+        'Curaçao': 'cw',
+        'Saint-Martin': 'mf',
+        'Saint-Barthélemy': 'bl',
+        'Îles Malouines': 'fk',
+        'Îles Vierges britanniques': 'vg',
+        'Samoa américaines': 'as',
+        'Saint-Pierre-et-Miquelon': 'pm',
+        'Wallis-et-Futuna': 'wf',
+        'Îles Caïmans': 'ky',
+        'Sint Maarten': 'sx',
+        'Îles Turques-et-Caïques': 'tc',
+        'Anguilla': 'ai',
+        'Montserrat': 'ms',
         'Pérou': 'pe',
         'République Dominicaine': 'do',
         'Saint-Christophe-et-Niévès': 'kn',

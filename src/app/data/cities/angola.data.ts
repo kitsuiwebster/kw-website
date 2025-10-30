@@ -7,7 +7,7 @@ export const angolaCitiesData: Card[] = [
     nom: "Luanda",
     localisation: "Angola",
     continent: "Afrique",
-    population: "2,571,000 M",
-    agglomeration: "8,952,000 M"
+    population: "2.57 M",
+    agglomeration: "8.95 M"
   }
 ];

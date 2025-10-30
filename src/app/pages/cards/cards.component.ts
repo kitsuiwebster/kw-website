@@ -39,6 +39,7 @@ export class CardsComponent implements OnInit, AfterViewInit {
     { value: 'Lac', label: 'Lacs', checked: false },
     { value: 'Ville', label: 'Villes', checked: false },
     { value: 'Pays', label: 'Pays', checked: false },
+    { value: 'Territoire', label: 'Territoires', checked: false },
     { value: 'Mer', label: 'Mers', checked: false },
     { value: 'Océan', label: 'Océans', checked: false },
     { value: 'Fleuve', label: 'Fleuves', checked: false },

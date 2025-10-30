@@ -7,7 +7,7 @@ export const soudanCitiesData: Card[] = [
     nom: "Khartoum",
     localisation: "Soudan",
     continent: "Afrique",
-    population: "1,410,000 M",
-    agglomeration: "6,344,000 M"
+    population: "1.41 M",
+    agglomeration: "6.34 M"
   }
 ];

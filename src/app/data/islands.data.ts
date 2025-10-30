@@ -103,7 +103,7 @@ export const islandsData: Card[] = [
     nom: "Phuket",
     localisation: "Thaïlande",
     continent: "Asie",
-    superficie: "543 km²"
+    superficie: "576 km²"
   },
   {
     type: "Île",

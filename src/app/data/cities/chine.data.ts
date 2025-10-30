@@ -7,7 +7,7 @@ export const chineCitiesData: Card[] = [
     nom: "Pékin",
     localisation: "Chine",
     continent: "Asie",
-    population: "11,106,000 M",
-    agglomeration: "21,893,000 M"
+    population: "11.11 M",
+    agglomeration: "21.89 M"
   }
 ];

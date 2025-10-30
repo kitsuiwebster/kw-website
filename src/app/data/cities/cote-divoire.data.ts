@@ -7,7 +7,7 @@ export const coteDivoireCitiesData: Card[] = [
     nom: "Abidjan",
     localisation: "Côte d'Ivoire",
     continent: "Afrique",
-    population: "4,707,000 M",
-    agglomeration: "5,616,000 M"
+    population: "4.71 M",
+    agglomeration: "5.62 M"
   }
 ];

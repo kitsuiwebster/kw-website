@@ -7,7 +7,7 @@ export const republicDemocratiqueDuCongoCitiesData: Card[] = [
     nom: "Kinshasa",
     localisation: "République démocratique du Congo",
     continent: "Afrique",
-    population: "11,855,000 M",
-    agglomeration: "17,071,000 M"
+    population: "11.86 M",
+    agglomeration: "17.07 M"
   }
 ];

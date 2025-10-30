@@ -7,7 +7,7 @@ export const senegalCitiesData: Card[] = [
     nom: "Dakar",
     localisation: "Sénégal",
     continent: "Afrique",
-    population: "1,030,000 M",
-    agglomeration: "3,326,000 M"
+    population: "1.03 M",
+    agglomeration: "3.33 M"
   }
 ];

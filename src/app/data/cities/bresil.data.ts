@@ -7,7 +7,7 @@ export const bresilCitiesData: Card[] = [
     nom: "Rio de Janeiro",
     localisation: "Brésil",
     continent: "Amérique du Sud",
-    population: "6,748,000 M",
-    agglomeration: "13,458,000 M"
+    population: "6.75 M",
+    agglomeration: "13.46 M"
   }
 ];

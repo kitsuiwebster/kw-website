@@ -7,8 +7,8 @@ export const marocCitiesData: Card[] = [
     nom: "Casablanca",
     localisation: "Maroc",
     continent: "Afrique",
-    population: "3,360,000 M",
-    agglomeration: "4,270,000 M"
+    population: "3.36 M",
+    agglomeration: "4.27 M"
   },
   {
     type: "Ville",
@@ -16,7 +16,7 @@ export const marocCitiesData: Card[] = [
     nom: "Rabat",
     localisation: "Maroc",
     continent: "Afrique",
-    population: "577,000 M",
-    agglomeration: "1,967,000 M"
+    population: "0.58 M",
+    agglomeration: "1.97 M"
   }
 ];

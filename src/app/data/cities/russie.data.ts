@@ -7,7 +7,7 @@ export const russieCitiesData: Card[] = [
     nom: "Moscou",
     localisation: "Russie",
     continent: "Europe",
-    population: "12,506,000 M",
-    agglomeration: "17,125,000 M"
+    population: "12.51 M",
+    agglomeration: "17.13 M"
   }
 ];

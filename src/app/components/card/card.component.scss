@@ -176,6 +176,23 @@
     }
   }
   
+  &[data-type="Territoire"] {
+    box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
+    &:hover {
+      box-shadow: 0 8px 20px rgba(138, 43, 226, 0.5);
+    }
+    .card-type-indicator {
+      background-color: #8A2BE2;
+    }
+    .card-type {
+      color: #8A2BE2 !important;
+      font-weight: bold !important;
+    }
+    .card-info-value {
+      color: #8A2BE2 !important;
+    }
+  }
+  
   &:hover {
     transform: translateY(-5px);
   }
@@ -676,6 +693,20 @@
     }
     .modal-card-info-value {
       color: #3CB371 !important;
+    }
+  }
+
+  &[data-type="Territoire"] {
+    box-shadow: 0 20px 60px rgba(138, 43, 226, 0.3);
+    .modal-card-type-indicator {
+      background-color: #8A2BE2;
+    }
+    .modal-card-type {
+      color: #8A2BE2 !important;
+      font-weight: bold !important;
+    }
+    .modal-card-info-value {
+      color: #8A2BE2 !important;
     }
   }
 }

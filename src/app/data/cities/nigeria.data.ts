@@ -7,7 +7,7 @@ export const nigeriaCitiesData: Card[] = [
     nom: "Lagos",
     localisation: "Nigeria",
     continent: "Afrique",
-    population: "8,048,000 M",
-    agglomeration: "15,388,000 M"
+    population: "8.05 M",
+    agglomeration: "15.39 M"
   }
 ];

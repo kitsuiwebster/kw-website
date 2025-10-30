@@ -7,7 +7,7 @@ export const royaumeUniCitiesData: Card[] = [
     nom: "Londres",
     localisation: "Royaume-Uni",
     continent: "Europe",
-    population: "8,982,000 M",
-    agglomeration: "15,800,000 M"
+    population: "8.98 M",
+    agglomeration: "15.80 M"
   }
 ];

@@ -7,7 +7,7 @@ export const kenyaCitiesData: Card[] = [
     nom: "Nairobi",
     localisation: "Kenya",
     continent: "Afrique",
-    population: "4,397,000 M",
-    agglomeration: "5,325,000 M"
+    population: "4.40 M",
+    agglomeration: "5.33 M"
   }
 ];

@@ -7,7 +7,7 @@ export const franceCitiesData: Card[] = [
     nom: "Paris",
     localisation: "France",
     continent: "Europe",
-    population: "2,161,000 M",
-    agglomeration: "12,271,000 M"
+    population: "2.16 M",
+    agglomeration: "12.27 M"
   }
 ];

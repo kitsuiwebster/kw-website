@@ -7,7 +7,7 @@ export const indeCitiesData: Card[] = [
     nom: "Mumbai",
     localisation: "Inde",
     continent: "Asie",
-    population: "12,478,000 M",
-    agglomeration: "20,411,000 M"
+    population: "12.48 M",
+    agglomeration: "20.41 M"
   }
 ];

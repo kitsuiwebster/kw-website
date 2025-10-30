@@ -7,7 +7,7 @@ export const allemagneCitiesData: Card[] = [
     nom: "Berlin",
     localisation: "Allemagne",
     continent: "Europe",
-    population: "3,748,000 M",
-    agglomeration: "4,473,000 M"
+    population: "3.75 M",
+    agglomeration: "4.47 M"
   }
 ];

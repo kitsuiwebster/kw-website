@@ -7,7 +7,7 @@ export const japonCitiesData: Card[] = [
     nom: "Tokyo",
     localisation: "Japon",
     continent: "Asie",
-    population: "13,960,000 M",
-    agglomeration: "37,400,000 M"
+    population: "13.96 M",
+    agglomeration: "37.40 M"
   }
 ];

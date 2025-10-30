@@ -7,7 +7,7 @@ export const ethiopieCitiesData: Card[] = [
     nom: "Addis-Abeba",
     localisation: "Éthiopie",
     continent: "Afrique",
-    population: "3,040,000 M",
-    agglomeration: "5,228,000 M"
+    population: "3.04 M",
+    agglomeration: "5.23 M"
   }
 ];

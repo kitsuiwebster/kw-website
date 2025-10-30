@@ -212,7 +212,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/cyprus.jpg",
     nom: "Chypre",
-    localisation: "Europe de l'Ouest",
+    localisation: "Europe du Sud",
     continent: "Europe",
     population: "1.2 M",
     superficie: "9,251 km²"
@@ -275,7 +275,7 @@ export const countriesData: Card[] = [
     type: "Pays",
     image: "assets/images/cards/country/greece.jpg",
     nom: "Grèce",
-    localisation: "Europe de l'Ouest",
+    localisation: "Europe du Sud",
     continent: "Europe",
     population: "10.4 M",
     superficie: "131,957 km²"
@@ -747,14 +747,6 @@ export const countriesData: Card[] = [
     continent: "Amérique centrale",
     population: "2.8 M",
     superficie: "10,991 km²"
-  },
-  {
-    type: "Île",
-    image: "assets/images/cards/country/porto-rico.jpg",
-    nom: "Porto Rico",
-    localisation: "Caraïbes",
-    continent: "Amérique centrale",
-    superficie: "9,104 km²"
   },
   {
     type: "Pays",

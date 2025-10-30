@@ -7,8 +7,8 @@ export const egypteCitiesData: Card[] = [
     nom: "Le Caire",
     localisation: "Égypte",
     continent: "Afrique",
-    population: "10,100,000 M",
-    agglomeration: "21,322,000 M"
+    population: "10.10 M",
+    agglomeration: "21.32 M"
   },
   {
     type: "Ville",
@@ -16,7 +16,7 @@ export const egypteCitiesData: Card[] = [
     nom: "Alexandrie",
     localisation: "Égypte",
     continent: "Afrique",
-    population: "5,200,000 M",
-    agglomeration: "5,484,000 M"
+    population: "5.20 M",
+    agglomeration: "5.48 M"
   }
 ];

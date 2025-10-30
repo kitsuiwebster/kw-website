@@ -7,7 +7,7 @@ export const australieCitiesData: Card[] = [
     nom: "Sydney",
     localisation: "Australie",
     continent: "Océanie",
-    population: "4,627,000 M",
-    agglomeration: "5,312,000 M"
+    population: "4.63 M",
+    agglomeration: "5.31 M"
   }
 ];

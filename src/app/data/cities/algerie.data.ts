@@ -7,8 +7,8 @@ export const algerieCitiesData: Card[] = [
     nom: "Alger",
     localisation: "Algérie",
     continent: "Afrique",
-    population: "2,364,000 M",
-    agglomeration: "5,000,000 M"
+    population: "2.36 M",
+    agglomeration: "5.00 M"
   },
   {
     type: "Ville",
@@ -16,7 +16,7 @@ export const algerieCitiesData: Card[] = [
     nom: "Oran",
     localisation: "Algérie",
     continent: "Afrique",
-    population: "803,000 M",
-    agglomeration: "1,454,000 M"
+    population: "0.80 M",
+    agglomeration: "1.45 M"
   }
 ];

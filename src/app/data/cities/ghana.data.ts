@@ -7,7 +7,7 @@ export const ghanaCitiesData: Card[] = [
     nom: "Accra",
     localisation: "Ghana",
     continent: "Afrique",
-    population: "2,557,000 M",
-    agglomeration: "4,010,000 M"
+    population: "2.56 M",
+    agglomeration: "4.01 M"
   }
 ];
