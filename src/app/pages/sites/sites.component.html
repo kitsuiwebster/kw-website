@@ -6,7 +6,11 @@
     >
       <!-- Image Slider -->
       <div class="image-slider">
-        <div class="slider-container">
+        <div 
+          class="slider-container"
+          (touchstart)="onTouchStart($event, i)"
+          (touchend)="onTouchEnd($event, i)"
+        >
           <img 
             [src]="project.images[currentImageIndex[i]]" 
             [alt]="project.title"

@@ -130,4 +130,36 @@ export class SitesComponent {
         ? project.images.length - 1 
         : this.currentImageIndex[projectIndex] - 1;
   }
+
+  // Touch/Swipe handling
+  onTouchStart(event: TouchEvent, projectIndex: number): void {
+    const touch = event.touches[0];
+    this.touchStartX = touch.clientX;
+    this.touchStartY = touch.clientY;
+  }
+
+  onTouchEnd(event: TouchEvent, projectIndex: number): void {
+    if (!this.touchStartX || !this.touchStartY) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - this.touchStartX;
+    const deltaY = touch.clientY - this.touchStartY;
+
+    // Only trigger swipe if horizontal movement is greater than vertical
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+      if (deltaX > 0) {
+        // Swipe right - previous image
+        this.prevImage(projectIndex);
+      } else {
+        // Swipe left - next image
+        this.nextImage(projectIndex);
+      }
+    }
+
+    this.touchStartX = 0;
+    this.touchStartY = 0;
+  }
+
+  private touchStartX: number = 0;
+  private touchStartY: number = 0;
 }
