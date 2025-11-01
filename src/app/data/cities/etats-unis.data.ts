@@ -3,11 +3,11 @@ import { Card } from '../../interfaces/card.interface';
 export const etatsUnisCitiesData: Card[] = [
   {
     type: "Ville",
-    image: "assets/images/cards/city/new-york.jpg",
-    nom: "New York",
+    image: "assets/images/cards/city/washington-dc.jpg",
+    nom: "Washington D.C.",
     localisation: "États-Unis",
     continent: "Amérique du Nord",
-    population: "8.34 M",
-    agglomeration: "20.14 M"
+    population: "689 K",
+    agglomeration: "6.3 M"
   }
 ];

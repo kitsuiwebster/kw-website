@@ -3,11 +3,11 @@ import { Card } from '../../interfaces/card.interface';
 export const bresilCitiesData: Card[] = [
   {
     type: "Ville",
-    image: "assets/images/cards/city/rio.jpg",
-    nom: "Rio de Janeiro",
+    image: "assets/images/cards/city/brasília.jpg",
+    nom: "Brasília",
     localisation: "Brésil",
     continent: "Amérique du Sud",
-    population: "6.75 M",
-    agglomeration: "13.46 M"
+    population: "2.8 M",
+    agglomeration: "4.8 M"
   }
 ];

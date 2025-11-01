@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { CardComponent } from '../../components/card/card.component';
 import html2canvas from 'html2canvas';
 import JSZip from 'jszip';
@@ -10,7 +11,7 @@ import { allCardsData } from '../../data';
 @Component({
   selector: 'app-cards',
   standalone: true,
-  imports: [CommonModule, FormsModule, CardComponent],
+  imports: [CommonModule, FormsModule, RouterModule, CardComponent],
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.scss']
 })
@@ -59,9 +60,24 @@ export class CardsComponent implements OnInit, AfterViewInit {
     { value: 'Antarctique', label: 'Antarctique', checked: false }
   ];
 
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
+
   ngOnInit() {
     this.loadCards();
-    this.shuffleAndFilter();
+    // Charger les filtres depuis l'URL, puis appliquer les filtres
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.loadFiltersFromParams(params);
+      this.shuffleAndFilter();
+      this.resetAndLoadCards();
+    });
+  }
+
+  resetAndLoadCards() {
+    this.currentIndex = 0;
+    this.displayedCards = [];
     this.loadInitialCards();
   }
 
@@ -161,13 +177,74 @@ export class CardsComponent implements OnInit, AfterViewInit {
   }
 
   applyFilters() {
+    this.updateUrl();
     this.shuffleAndFilter();
+    this.resetAndLoadCards();
   }
 
   clearAllFilters() {
     this.typeFilters.forEach(filter => filter.checked = false);
     this.continentFilters.forEach(filter => filter.checked = false);
+    this.searchTerm = '';
+    this.updateUrl();
     this.shuffleAndFilter();
+    this.resetAndLoadCards();
+  }
+
+  loadFiltersFromParams(params: any) {
+    // Réinitialiser les filtres
+    this.typeFilters.forEach(filter => filter.checked = false);
+    this.continentFilters.forEach(filter => filter.checked = false);
+    this.searchTerm = '';
+    
+    // Charger les types sélectionnés
+    if (params['types']) {
+      const selectedTypes = params['types'].split(',');
+      this.typeFilters.forEach(filter => {
+        filter.checked = selectedTypes.includes(filter.value);
+      });
+    }
+    
+    // Charger les continents sélectionnés
+    if (params['continents']) {
+      const selectedContinents = params['continents'].split(',');
+      this.continentFilters.forEach(filter => {
+        filter.checked = selectedContinents.includes(filter.value);
+      });
+    }
+    
+    // Charger le terme de recherche
+    if (params['search']) {
+      this.searchTerm = params['search'];
+    }
+  }
+
+  updateUrl() {
+    const queryParams: any = {};
+    
+    // Ajouter les types sélectionnés
+    const selectedTypes = this.typeFilters.filter(f => f.checked).map(f => f.value);
+    if (selectedTypes.length > 0) {
+      queryParams['types'] = selectedTypes.join(',');
+    }
+    
+    // Ajouter les continents sélectionnés
+    const selectedContinents = this.continentFilters.filter(f => f.checked).map(f => f.value);
+    if (selectedContinents.length > 0) {
+      queryParams['continents'] = selectedContinents.join(',');
+    }
+    
+    // Ajouter le terme de recherche
+    if (this.searchTerm && this.searchTerm.trim() !== '') {
+      queryParams['search'] = this.searchTerm.trim();
+    }
+    
+    // Mettre à jour l'URL sans recharger la page
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams,
+      replaceUrl: true
+    });
   }
 
   shuffleAndFilter() {

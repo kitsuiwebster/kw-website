@@ -18,7 +18,7 @@ export class LayoutComponent {
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.isCardsPage = event.url === '/cards';
+        this.isCardsPage = event.url.startsWith('/cards');
         this.isTasksPage = event.url === '/tasks' || event.url.startsWith('/tasks#');
         this.isDouzePage = event.url === '/douze';
         this.isVitrinePage = event.url === '/vitrine';
