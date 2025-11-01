@@ -15,6 +15,7 @@ import { MenuComponent } from './pages/menu/menu.component';
 import { DouzeComponent } from './pages/douze/douze.component';
 import { VitrineComponent } from './pages/vitrine/vitrine.component';
 import { AffaireComponent } from './pages/affaire/affaire.component';
+import { SitesComponent } from './pages/sites/sites.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,6 +37,7 @@ export const routes: Routes = [
   { path: 'douze', component: DouzeComponent },
   { path: 'vitrine', component: VitrineComponent },
   { path: 'affaire', component: AffaireComponent },
+  { path: 'sites', component: SitesComponent },
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'notfound' } 
 ];

@@ -68,6 +68,12 @@ export class MenuComponent {
       path: '/cards',
       description: 'Cards page',
       category: 'Tools'
+    },
+    {
+      title: 'Sites',
+      path: '/sites',
+      description: 'Portfolio de mes réalisations',
+      category: 'Tools'
     }
   ];
 

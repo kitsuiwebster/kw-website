@@ -1,0 +1,77 @@
+<div class="sites-container">
+  <div class="projects-section">
+    <div 
+      *ngFor="let project of projects; let i = index"
+      class="project-showcase"
+    >
+      <!-- Image Slider -->
+      <div class="image-slider">
+        <div class="slider-container">
+          <img 
+            [src]="project.images[currentImageIndex[i]]" 
+            [alt]="project.title"
+            class="project-image"
+            loading="lazy"
+          >
+          
+          <!-- Navigation buttons -->
+          <button 
+            *ngIf="project.images.length > 1"
+            class="slider-btn prev-btn" 
+            (click)="prevImage(i)"
+            aria-label="Image précédente"
+          >
+            ‹
+          </button>
+          <button 
+            *ngIf="project.images.length > 1"
+            class="slider-btn next-btn" 
+            (click)="nextImage(i)"
+            aria-label="Image suivante"
+          >
+            ›
+          </button>
+          
+          <!-- Dots indicator -->
+          <div *ngIf="project.images.length > 1" class="dots-container">
+            <span 
+              *ngFor="let img of project.images; let dotIndex = index"
+              class="dot"
+              [class.active]="dotIndex === currentImageIndex[i]"
+              (click)="currentImageIndex[i] = dotIndex"
+            ></span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Project Info -->
+      <div class="project-info">
+        <div class="info-header">
+          <h2 class="project-title">{{ project.title }}</h2>
+          <div class="badges">
+            <span 
+              class="status-badge"
+              [class.online]="project.status === 'En ligne'"
+              [class.development]="project.status === 'En développement'"
+            >
+              {{ project.status }}
+            </span>
+            <span class="category-badge">{{ project.category }}</span>
+          </div>
+        </div>
+        
+        <p class="project-description">{{ project.description }}</p>
+        
+        <div class="project-actions" *ngIf="project.url">
+          <a 
+            [href]="project.url"
+            [target]="project.url.startsWith('http') ? '_blank' : '_self'"
+            class="access-button"
+          >
+            Accéder au site
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
