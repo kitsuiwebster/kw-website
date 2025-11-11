@@ -89,6 +89,20 @@ export class SitesComponent {
       status: 'En ligne'
     },
     {
+      title: 'GeoTrade Cards',
+      description: 'Plateforme de trading de cartes géographiques',
+      url: 'https://geotrade.cards',
+      images: [
+        'assets/images/sites/geotrade/00.png',
+        'assets/images/sites/geotrade/01.png',
+        'assets/images/sites/geotrade/02.png',
+        'assets/images/sites/geotrade/03.png',
+        'assets/images/sites/geotrade/04.png'
+      ],
+      category: 'Web App',
+      status: 'En développement'
+    },
+    {
       title: 'FlappyPoof',
       description: 'Jeu en ligne avec système de scores et classements',
       url: 'https://flappypoof.com',
