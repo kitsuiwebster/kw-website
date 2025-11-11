@@ -64,12 +64,6 @@ export class MenuComponent {
       category: 'Tools'
     },
     {
-      title: 'Geo Cards',
-      path: '/cards',
-      description: 'Cards page',
-      category: 'Tools'
-    },
-    {
       title: 'Sites',
       path: '/sites',
       description: 'Portfolio de mes réalisations',

@@ -9,7 +9,6 @@ import { MidjourneyComponent } from './pages/articles/midjourney/midjourney.comp
 import { ShisuiComponent } from './pages/shisui/shisui.component';
 import { DecoderComponent } from './pages/decode/decoder.component';
 import { HtmlToPdfComponent } from './pages/html-to-pdf/html-to-pdf.component';
-import { CardsComponent } from './pages/cards/cards.component';
 import { UnifiedTasksComponent } from './pages/unified-tasks/unified-tasks.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { DouzeComponent } from './pages/douze/douze.component';
@@ -33,7 +32,6 @@ export const routes: Routes = [
   { path: 'shisui', redirectTo: 'life' },
   { path: 'decoder', component: DecoderComponent },
   { path: 'html-to-pdf', component: HtmlToPdfComponent },
-  { path: 'cards', component: CardsComponent },
   { path: 'douze', component: DouzeComponent },
   { path: 'vitrine', component: VitrineComponent },
   { path: 'affaire', component: AffaireComponent },
