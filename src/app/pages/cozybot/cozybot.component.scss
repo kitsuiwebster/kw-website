@@ -414,11 +414,11 @@
 
   .leaderboard-item {
     display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: 16px;
+    grid-template-columns: 1fr auto 60px;
+    gap: 8px;
     align-items: center;
-    padding: 20px 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     transition: all 0.2s ease;
 
     &:last-child {
@@ -514,6 +514,17 @@
         margin-top: 2px;
       }
     }
+
+    .streak-section {
+      text-align: center;
+      width: 60px;
+      
+      .streak {
+        color: #f59e0b;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+    }
   }
 }
 
@@ -562,7 +573,7 @@
   }
 
   .leaderboard-list .leaderboard-item {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto 50px;
     gap: 12px;
     padding: 16px 20px;
 

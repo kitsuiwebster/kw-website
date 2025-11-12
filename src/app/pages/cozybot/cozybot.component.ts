@@ -30,7 +30,6 @@ export class CozybotComponent implements OnInit, OnDestroy {
   animatingTime = false;
   
   private statsSubscription: Subscription | null = null;
-  private leaderboardSubscription: Subscription | null = null;
   private headerStatsSubscription: Subscription | null = null;
 
   constructor(private cozybotService: CozybotService) {}
@@ -38,23 +37,13 @@ export class CozybotComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadLeaderboard();
     this.startLiveStats();
-    this.startLeaderboardRefresh();
     this.startHeaderStatsRefresh();
   }
 
-  private startLeaderboardRefresh(): void {
-    // Refresh leaderboard toutes les 1 minute
-    this.leaderboardSubscription = interval(60000).subscribe(() => {
-      this.loadLeaderboard();
-    });
-  }
 
   ngOnDestroy(): void {
     if (this.statsSubscription) {
       this.statsSubscription.unsubscribe();
-    }
-    if (this.leaderboardSubscription) {
-      this.leaderboardSubscription.unsubscribe();
     }
     if (this.headerStatsSubscription) {
       this.headerStatsSubscription.unsubscribe();
