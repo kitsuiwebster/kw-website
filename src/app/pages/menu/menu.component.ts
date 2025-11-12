@@ -25,9 +25,9 @@ export class MenuComponent {
       category: 'Public'
     },
     {
-      title: 'Articles',
-      path: '/articles',
-      description: 'All articles list',
+      title: 'Projets',
+      path: '/projets',
+      description: 'All projects list',
       category: 'Public'
     },
     {

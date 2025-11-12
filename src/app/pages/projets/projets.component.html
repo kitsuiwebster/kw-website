@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="grid">
+    <a
+      *ngFor="let projet of projets"
+      [routerLink]="projet.link"
+      class="projet-card"
+    >
+      <div class="card-header">
+        <h2>{{ projet.title }}</h2>
+      </div>
+      
+      <div class="card-body">
+        <p class="description">{{ projet.description }}</p>
+      </div>
+      
+      <div class="card-footer">
+        <p class="date">{{ projet.date }}</p>
+      </div>
+    </a>
+  </div>
+</div>

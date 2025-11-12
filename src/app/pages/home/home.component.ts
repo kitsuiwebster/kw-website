@@ -69,16 +69,6 @@ export class HomeComponent {
       star4: 'assets/images/stars/half.webp',
       star5: 'assets/images/stars/clear.webp',
     },
-    {
-      src: 'assets/images/technos/midjourney.webp',
-      alt: 'Midjourney',
-      name: 'Midjourney❤️',
-      star1: 'assets/images/stars/yellow.webp',
-      star2: 'assets/images/stars/yellow.webp',
-      star3: 'assets/images/stars/yellow.webp',
-      star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/yellow.webp',
-    },
   ];
 
   languages: Technology[] = [

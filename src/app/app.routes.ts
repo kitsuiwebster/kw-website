@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/notfound/notfound.component';
-import { ArticlesComponent } from './pages/articles/articles.component';
+import { ProjetsComponent } from './pages/projets/projets.component';
 import { ContactComponent } from './pages/contact/contact.component';
-import { HackapromptComponent } from './pages/articles/hackaprompt/hackaprompt.component';
-import { MidjourneyComponent } from './pages/articles/midjourney/midjourney.component';
+import { HackapromptComponent } from './pages/projets/hackaprompt/hackaprompt.component';
 import { ShisuiComponent } from './pages/shisui/shisui.component';
 import { DecoderComponent } from './pages/decode/decoder.component';
 import { HtmlToPdfComponent } from './pages/html-to-pdf/html-to-pdf.component';
@@ -18,13 +17,13 @@ import { SitesComponent } from './pages/sites/sites.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'articles', component: ArticlesComponent },
+  { path: 'projets', component: ProjetsComponent },
   { path: 'hackaprompt', component: HackapromptComponent },
-  { path: 'midjourney', component: MidjourneyComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'tasks', component: UnifiedTasksComponent },
   // Redirect old routes
+  { path: 'articles', redirectTo: 'projets' },
   { path: 'tasks/kitsui', redirectTo: 'tasks' },
   { path: 'tasks/bubble', redirectTo: 'tasks' },
   { path: 'life', component: ShisuiComponent },

@@ -40,7 +40,8 @@ export class UnifiedTasksComponent implements OnInit {
   kitsuiLabels: Label[] = [
     { id: 'madpoof', name: 'madpoof', color: '#cc0000' },
     { id: 'vcg', name: 'vcg', color: '#4444ff' },
-    { id: 'pikapi', name: 'pikapi', color: '#ff8800' },
+    { id: 'geotrade', name: 'geotrade', color: '#40E0D0' },
+    { id: 'cozybot', name: 'cozybot', color: '#FFD700' },
     { id: 'palma', name: 'palma', color: '#18a860' },
     { id: 'bashroom', name: 'bashroom', color: '#00acc1' },
     { id: 'life', name: 'life', color: '#8e24aa' },
