@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="header">
+    <div class="header-content">
+      <div class="bot-info">
+        <div class="bot-avatar">
+          <img src="assets/images/cozybot/cozybot-logo3.png" alt="CozyBot Logo" />
+        </div>
+        <div class="bot-details">
+          <h1>CozyBot</h1>
+          <p class="bot-description">Discord Bot • Leaderboard</p>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat-card">
+          <span class="stat-number" [class.animating]="animatingUsers">{{ getTotalUsers() }}</span>
+          <span class="stat-label">Total Users</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" [class.animating]="animatingTotalServers">{{ liveStats.total_servers }}</span>
+          <span class="stat-label">Total Servers</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" [class.animating]="animatingPoints">{{ getTotalPoints() | number }}</span>
+          <span class="stat-label">Total Points</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" [class.animating]="animatingTime">{{ getTotalTimeDays() }}</span>
+          <span class="stat-label">Total Time</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Stats en haut au centre en gros -->
+  <div class="live-stats-section">
+    <div class="live-stats">
+      <div class="live-stat-card" [class.loading]="statsLoading">
+        <span class="live-stat-number" [class.animating]="animatingListeners">{{ liveStats.current_listeners }}</span>
+        <span class="live-stat-label">🎧 Listening Now</span>
+      </div>
+      <div class="live-stat-card" [class.loading]="statsLoading">
+        <span class="live-stat-number" [class.animating]="animatingServers">{{ liveStats.servers_with_bot }}</span>
+        <span class="live-stat-label">🌐 Active Servers</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="leaderboard-section">
+    <div class="section-header">
+      <h2>🏆 Top CozyBot users by CozyPoints</h2>
+      <p>Ranking based on Discord activity</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Loading leaderboard...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="error">
+      <span class="error-icon">⚠️</span>
+      <p>{{ error }}</p>
+    </div>
+
+    <!-- Leaderboard -->
+    <div *ngIf="!loading && !error" class="leaderboard">
+      <!-- Top 3 Podium -->
+      <div class="podium">
+        <div *ngFor="let user of getTopThree(); let i = index" 
+             class="podium-item" 
+             [class.first]="i === 0" 
+             [class.second]="i === 1" 
+             [class.third]="i === 2">
+          <div class="podium-rank">{{ getRankEmoji(user.rank) }}</div>
+          <div class="podium-user">
+            <div class="user-avatar">{{ user.rank }}</div>
+            <div class="user-name">{{ getDisplayName(user) }}</div>
+            <div class="user-stats">
+              <div class="user-points">{{ formatPoints(user.total_points) }} pts</div>
+              <div class="user-level">Level {{ user.level }} ({{ user.level_progress }}%)</div>
+              <div class="user-time">{{ getListeningTimeDays(user.listening_time_seconds) }} listening</div>
+              <div class="user-streak" *ngIf="user.daily_streak && user.daily_streak > 0">🔥 {{ user.daily_streak }} day streak</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rest of leaderboard -->
+      <div class="leaderboard-list">
+        <div *ngFor="let user of getRemainingUsers(); trackBy: trackByUserId" 
+             class="leaderboard-item">
+          <div class="user-info">
+            <div class="user-avatar-small">{{ user.rank }}</div>
+            <div class="user-details">
+              <span class="username">{{ getDisplayName(user) }}</span>
+              <div class="user-meta">
+                <span class="level-badge">Lvl {{ user.level }}</span>
+                <span class="time-spent">{{ getListeningTimeDays(user.listening_time_seconds) }} listening</span>
+              </div>
+            </div>
+          </div>
+          <div class="points-section">
+            <div class="points">{{ formatPoints(user.total_points) }}</div>
+            <div class="points-label">points</div>
+          </div>
+          <div class="streak-section">
+            <span class="streak" *ngIf="user.daily_streak && user.daily_streak > 0">🔥<small>{{ user.daily_streak }}</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

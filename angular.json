@@ -72,7 +72,8 @@
               "buildTarget": "kitsuiwebster:build:production"
             },
             "development": {
-              "buildTarget": "kitsuiwebster:build:development"
+              "buildTarget": "kitsuiwebster:build:development",
+              "port": 3000
             }
           },
           "defaultConfiguration": "development"
