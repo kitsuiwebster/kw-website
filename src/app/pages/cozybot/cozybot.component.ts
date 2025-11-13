@@ -16,6 +16,7 @@ export class CozybotComponent implements OnInit, OnDestroy {
   servers: CozyServer[] = [];
   sounds: CozySound[] = [];
   totalCount = 0;
+  totalUsersCount = 0;
   loading = true;
   error = '';
   selectedView: 'users' | 'servers' | 'sounds' = 'users';
@@ -43,12 +44,28 @@ export class CozybotComponent implements OnInit, OnDestroy {
   constructor(private cozybotService: CozybotService) {}
 
   ngOnInit(): void {
-    this.loadData();
+    // Check URL parameter for view
+    const urlParams = new URLSearchParams(window.location.search);
+    const viewParam = urlParams.get('view');
+    if (viewParam && ['users', 'servers', 'sounds'].includes(viewParam)) {
+      this.selectedView = viewParam as 'users' | 'servers' | 'sounds';
+    }
+    
+    // Always load users data for header stats
+    this.loadUsers();
+    // Then load selected view data
+    if (this.selectedView !== 'users') {
+      this.loadData();
+    }
     this.startLiveStats();
     this.startHeaderStatsRefresh();
   }
 
   onViewChange(): void {
+    // Update URL parameter without navigation
+    const currentUrl = window.location.pathname;
+    const newUrl = `${currentUrl}?view=${this.selectedView}`;
+    window.history.replaceState({}, '', newUrl);
     this.loadData();
   }
 
@@ -76,10 +93,14 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   private loadUsers(): void {
+    this.loading = this.selectedView === 'users';
     this.cozybotService.getTopUsers().subscribe({
       next: (response: LeaderboardResponse) => {
         this.leaderboard = response.users;
-        this.totalCount = response.total_count;
+        this.totalUsersCount = response.total_count;
+        if (this.selectedView === 'users') {
+          this.totalCount = response.total_count;
+        }
         this.loading = false;
         
         // Animer les stats du header au premier chargement
@@ -89,7 +110,9 @@ export class CozybotComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error loading users:', error);
-        this.error = 'Failed to load users data';
+        if (this.selectedView === 'users') {
+          this.error = 'Failed to load users data';
+        }
         this.loading = false;
       }
     });
@@ -167,7 +190,7 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   getTotalUsers(): number {
-    return this.totalCount;
+    return this.totalUsersCount;
   }
 
   getTotalTimeDays(): string {
@@ -212,7 +235,7 @@ export class CozybotComponent implements OnInit, OnDestroy {
     this.cozybotService.getTopUsers().subscribe({
       next: (response: LeaderboardResponse) => {
         // Comparer avec l'ancienne valeur AVANT de mettre à jour
-        const currentUsers = this.totalCount;
+        const currentUsers = this.totalUsersCount;
         const newUsers = response.total_count;
         
         if (currentUsers !== newUsers) {
@@ -221,7 +244,10 @@ export class CozybotComponent implements OnInit, OnDestroy {
         }
         
         this.leaderboard = response.users;
-        this.totalCount = response.total_count;
+        this.totalUsersCount = response.total_count;
+        if (this.selectedView === 'users') {
+          this.totalCount = response.total_count;
+        }
       },
       error: (error) => {
         console.error('Error refreshing users stats:', error);
@@ -260,7 +286,10 @@ export class CozybotComponent implements OnInit, OnDestroy {
         }
         
         this.leaderboard = response.users;
-        this.totalCount = response.total_count;
+        this.totalUsersCount = response.total_count;
+        if (this.selectedView === 'users') {
+          this.totalCount = response.total_count;
+        }
       },
       error: (error) => {
         console.error('Error refreshing points stats:', error);
@@ -284,7 +313,10 @@ export class CozybotComponent implements OnInit, OnDestroy {
         }
         
         this.leaderboard = response.users;
-        this.totalCount = response.total_count;
+        this.totalUsersCount = response.total_count;
+        if (this.selectedView === 'users') {
+          this.totalCount = response.total_count;
+        }
       },
       error: (error) => {
         console.error('Error refreshing time stats:', error);
