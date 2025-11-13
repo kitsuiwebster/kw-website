@@ -33,7 +33,7 @@ export interface LiveStats {
   providedIn: 'root'
 })
 export class CozybotService {
-  private apiUrl = 'http://90.60.191.159:8000/api';
+  private apiUrl = '/cozybot';
 
   constructor(private http: HttpClient) {}
 
