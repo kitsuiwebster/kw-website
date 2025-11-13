@@ -1,20 +1,24 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CozybotService, CozyUser, LeaderboardResponse, LiveStats } from '../../services/cozybot.service';
+import { FormsModule } from '@angular/forms';
+import { CozybotService, CozyUser, LeaderboardResponse, LiveStats, CozyServer, CozySound, ServersResponse, SoundsResponse } from '../../services/cozybot.service';
 import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cozybot',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './cozybot.component.html',
   styleUrls: ['./cozybot.component.scss']
 })
 export class CozybotComponent implements OnInit, OnDestroy {
   leaderboard: CozyUser[] = [];
+  servers: CozyServer[] = [];
+  sounds: CozySound[] = [];
   totalCount = 0;
   loading = true;
   error = '';
+  selectedView: 'users' | 'servers' | 'sounds' = 'users';
   
   // Live stats
   liveStats: LiveStats = { current_listeners: 0, message: '', servers_with_bot: 0, total_servers: 0 };
@@ -30,15 +34,22 @@ export class CozybotComponent implements OnInit, OnDestroy {
   animatingTime = false;
   animatingTitle = false;
   
+  // Track previous values for animations
+  previousTotalServers = 0;
+  
   private statsSubscription: Subscription | null = null;
   private headerStatsSubscription: Subscription | null = null;
 
   constructor(private cozybotService: CozybotService) {}
 
   ngOnInit(): void {
-    this.loadLeaderboard();
+    this.loadData();
     this.startLiveStats();
     this.startHeaderStatsRefresh();
+  }
+
+  onViewChange(): void {
+    this.loadData();
   }
 
 
@@ -51,10 +62,20 @@ export class CozybotComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadLeaderboard(): void {
+  loadData(): void {
     this.loading = true;
     this.error = '';
     
+    if (this.selectedView === 'users') {
+      this.loadUsers();
+    } else if (this.selectedView === 'servers') {
+      this.loadServers();
+    } else if (this.selectedView === 'sounds') {
+      this.loadSounds();
+    }
+  }
+
+  private loadUsers(): void {
     this.cozybotService.getTopUsers().subscribe({
       next: (response: LeaderboardResponse) => {
         this.leaderboard = response.users;
@@ -62,11 +83,43 @@ export class CozybotComponent implements OnInit, OnDestroy {
         this.loading = false;
         
         // Animer les stats du header au premier chargement
-        this.triggerInitialAnimations();
+        if (this.leaderboard.length > 0) {
+          this.triggerInitialAnimations();
+        }
       },
       error: (error) => {
-        console.error('Error loading leaderboard:', error);
-        this.error = 'Failed to load leaderboard data';
+        console.error('Error loading users:', error);
+        this.error = 'Failed to load users data';
+        this.loading = false;
+      }
+    });
+  }
+
+  private loadServers(): void {
+    this.cozybotService.getTopServers().subscribe({
+      next: (response: ServersResponse) => {
+        this.servers = response.servers;
+        this.totalCount = response.total_count;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error loading servers:', error);
+        this.error = 'Failed to load servers data';
+        this.loading = false;
+      }
+    });
+  }
+
+  private loadSounds(): void {
+    this.cozybotService.getTopSounds().subscribe({
+      next: (response: SoundsResponse) => {
+        this.sounds = response.sounds;
+        this.totalCount = response.total_sounds;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error loading sounds:', error);
+        this.error = 'Failed to load sounds data';
         this.loading = false;
       }
     });
@@ -108,10 +161,6 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   // Header stats with animation tracking
-  private previousTotalUsers = 0;
-  private previousTotalServers = 0;
-  private previousTotalPoints = 0;
-  private previousTotalTime = '';
 
   getTotalPoints(): number {
     return this.leaderboard.reduce((total, user) => total + user.total_points, 0);
@@ -160,22 +209,19 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   private refreshUsersStats(): void {
-    // Recharger les données du leaderboard pour avoir les nouvelles valeurs
     this.cozybotService.getTopUsers().subscribe({
       next: (response: LeaderboardResponse) => {
-        const previousLeaderboard = [...this.leaderboard];
-        const previousCount = this.totalCount;
+        // Comparer avec l'ancienne valeur AVANT de mettre à jour
+        const currentUsers = this.totalCount;
+        const newUsers = response.total_count;
+        
+        if (currentUsers !== newUsers) {
+          this.animatingUsers = true;
+          setTimeout(() => this.animatingUsers = false, 500);
+        }
         
         this.leaderboard = response.users;
         this.totalCount = response.total_count;
-        
-        // Animer uniquement si la valeur a changé
-        const currentUsers = this.getTotalUsers();
-        if (this.previousTotalUsers !== currentUsers) {
-          this.animatingUsers = true;
-          setTimeout(() => this.animatingUsers = false, 500);
-          this.previousTotalUsers = currentUsers;
-        }
       },
       error: (error) => {
         console.error('Error refreshing users stats:', error);
@@ -202,19 +248,19 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   private refreshPointsStats(): void {
-    // Recharger les données du leaderboard pour recalculer les points
     this.cozybotService.getTopUsers().subscribe({
       next: (response: LeaderboardResponse) => {
-        const previousLeaderboard = [...this.leaderboard];
-        this.leaderboard = response.users;
-        this.totalCount = response.total_count;
-        
+        // Comparer avec l'ancienne valeur AVANT de mettre à jour
         const currentPoints = this.getTotalPoints();
-        if (this.previousTotalPoints !== currentPoints) {
+        const newPoints = response.users.reduce((total, user) => total + user.total_points, 0);
+        
+        if (currentPoints !== newPoints) {
           this.animatingPoints = true;
           setTimeout(() => this.animatingPoints = false, 500);
-          this.previousTotalPoints = currentPoints;
         }
+        
+        this.leaderboard = response.users;
+        this.totalCount = response.total_count;
       },
       error: (error) => {
         console.error('Error refreshing points stats:', error);
@@ -223,19 +269,22 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   private refreshTimeStats(): void {
-    // Recharger les données du leaderboard pour recalculer le temps total
     this.cozybotService.getTopUsers().subscribe({
       next: (response: LeaderboardResponse) => {
-        const previousLeaderboard = [...this.leaderboard];
-        this.leaderboard = response.users;
-        this.totalCount = response.total_count;
-        
+        // Comparer avec l'ancienne valeur AVANT de mettre à jour
         const currentTime = this.getTotalTimeDays();
-        if (this.previousTotalTime !== currentTime) {
+        const totalSeconds = response.users.reduce((total, user) => total + user.listening_time_seconds, 0);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const newTime = `${days}d ${hours}h`;
+        
+        if (currentTime !== newTime) {
           this.animatingTime = true;
           setTimeout(() => this.animatingTime = false, 500);
-          this.previousTotalTime = currentTime;
         }
+        
+        this.leaderboard = response.users;
+        this.totalCount = response.total_count;
       },
       error: (error) => {
         console.error('Error refreshing time stats:', error);
@@ -295,6 +344,7 @@ export class CozybotComponent implements OnInit, OnDestroy {
         
         // Animer Total Servers au premier chargement
         if (this.previousTotalServers === 0) {
+          this.previousTotalServers = stats.total_servers;
           setTimeout(() => {
             this.animatingTotalServers = true;
             setTimeout(() => this.animatingTotalServers = false, 500);
@@ -314,5 +364,27 @@ export class CozybotComponent implements OnInit, OnDestroy {
 
   trackByUserId(index: number, user: CozyUser): string {
     return user.user_id;
+  }
+
+  trackByServerId(index: number, server: CozyServer): string {
+    return server.server_id;
+  }
+
+  trackBySoundName(index: number, sound: CozySound): string {
+    return sound.sound_name;
+  }
+
+  formatTime(seconds: number): string {
+    const days = Math.floor(seconds / 86400);
+    const hours = Math.floor((seconds % 86400) / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    
+    if (days > 0) {
+      return `${days}d ${hours}h`;
+    } else if (hours > 0) {
+      return `${hours}h ${minutes}m`;
+    } else {
+      return `${minutes}m`;
+    }
   }
 }

@@ -29,6 +29,33 @@ export interface LiveStats {
   total_servers: number;
 }
 
+export interface CozyServer {
+  server_id: string;
+  server_name: string;
+  total_time_seconds: number;
+  formatted_time: string;
+  rank: number;
+}
+
+export interface CozySound {
+  sound_name: string;
+  display_name: string;
+  total_time: number;
+  formatted_time: string;
+  total_sessions: number;
+  unique_listeners: number;
+}
+
+export interface ServersResponse {
+  servers: CozyServer[];
+  total_count: number;
+}
+
+export interface SoundsResponse {
+  sounds: CozySound[];
+  total_sounds: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -43,5 +70,13 @@ export class CozybotService {
 
   getLiveStats(): Observable<LiveStats> {
     return this.http.get<LiveStats>(`${this.apiUrl}/total`);
+  }
+
+  getTopServers(): Observable<ServersResponse> {
+    return this.http.get<ServersResponse>(`${this.apiUrl}/top-servers`);
+  }
+
+  getTopSounds(): Observable<SoundsResponse> {
+    return this.http.get<SoundsResponse>(`${this.apiUrl}/top-sounds`);
   }
 }

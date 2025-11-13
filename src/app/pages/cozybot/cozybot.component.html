@@ -8,6 +8,13 @@
         <div class="bot-details">
           <h1 [class.animating]="animatingTitle">CozyBot</h1>
           <p class="bot-description">Discord Bot • Leaderboard</p>
+          <div class="view-selector">
+            <select [(ngModel)]="selectedView" (change)="onViewChange()" class="view-select">
+              <option value="users">Top Users</option>
+              <option value="servers">Top Servers</option>
+              <option value="sounds">Top Sounds</option>
+            </select>
+          </div>
         </div>
       </div>
       <div class="stats">
@@ -47,8 +54,12 @@
 
   <div class="leaderboard-section">
     <div class="section-header">
-      <h2>🏆 Top CozyBot users by CozyPoints</h2>
-      <p>Ranking based on Discord activity</p>
+      <h2 *ngIf="selectedView === 'users'">🏆 Top CozyBot users by CozyPoints</h2>
+      <h2 *ngIf="selectedView === 'servers'">🏆 Top CozyBot servers by listening time</h2>
+      <h2 *ngIf="selectedView === 'sounds'">🏆 Top CozyBot sounds by listening time</h2>
+      <p *ngIf="selectedView === 'users'">Ranking based on Discord activity</p>
+      <p *ngIf="selectedView === 'servers'">Ranking based on total listening time</p>
+      <p *ngIf="selectedView === 'sounds'">Ranking based on total listening time</p>
     </div>
 
     <!-- Loading State -->
@@ -63,8 +74,8 @@
       <p>{{ error }}</p>
     </div>
 
-    <!-- Leaderboard -->
-    <div *ngIf="!loading && !error" class="leaderboard">
+    <!-- Users Leaderboard -->
+    <div *ngIf="!loading && !error && selectedView === 'users'" class="leaderboard">
       <!-- Top 3 Podium -->
       <div class="podium">
         <div *ngFor="let user of getTopThree(); let i = index" 
@@ -106,6 +117,52 @@
           </div>
           <div class="streak-section">
             <span class="streak" *ngIf="user.daily_streak && user.daily_streak > 0">🔥<small>{{ user.daily_streak }}</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Servers Leaderboard -->
+    <div *ngIf="!loading && !error && selectedView === 'servers'" class="leaderboard">
+      <div class="leaderboard-list">
+        <div *ngFor="let server of servers; trackBy: trackByServerId" 
+             class="leaderboard-item">
+          <div class="user-info">
+            <div class="user-avatar-small">{{ server.rank }}</div>
+            <div class="user-details">
+              <span class="username server-name">{{ server.server_name }}</span>
+            </div>
+          </div>
+          <div class="points-section">
+            <div class="points">{{ formatTime(server.total_time_seconds) }}</div>
+            <div class="points-label">Total Time</div>
+          </div>
+          <div class="streak-section">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sounds Leaderboard -->
+    <div *ngIf="!loading && !error && selectedView === 'sounds'" class="leaderboard">
+      <div class="leaderboard-list">
+        <div *ngFor="let sound of sounds; let i = index; trackBy: trackBySoundName" 
+             class="leaderboard-item">
+          <div class="user-info">
+            <div class="user-avatar-small">{{ i + 1 }}</div>
+            <div class="user-details">
+              <span class="username">{{ sound.display_name }}</span>
+              <div class="user-meta">
+                <span class="level-badge">{{ sound.total_sessions }} sessions</span>
+                <span class="time-spent">{{ sound.unique_listeners }} unique listeners</span>
+              </div>
+            </div>
+          </div>
+          <div class="points-section">
+            <div class="points">{{ formatTime(sound.total_time) }}</div>
+            <div class="points-label">Total Time</div>
+          </div>
+          <div class="streak-section">
           </div>
         </div>
       </div>
