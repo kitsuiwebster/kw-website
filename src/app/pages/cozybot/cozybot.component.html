@@ -21,7 +21,7 @@
         </div>
         <div class="stat-card">
           <span class="stat-number" [class.animating]="animatingPoints">{{ getTotalPoints() | number }}</span>
-          <span class="stat-label">Total Points</span>
+          <span class="stat-label">Total CozyPoints</span>
         </div>
         <div class="stat-card">
           <span class="stat-number" [class.animating]="animatingTime">{{ getTotalTimeDays() }}</span>
@@ -78,7 +78,7 @@
             <div class="user-name">{{ getDisplayName(user) }}</div>
             <div class="user-stats">
               <div class="user-points">{{ formatPoints(user.total_points) }} pts</div>
-              <div class="user-level">Level {{ user.level }} ({{ user.level_progress }}%)</div>
+              <div class="user-level">Level {{ user.level }}</div>
               <div class="user-time">{{ getListeningTimeDays(user.listening_time_seconds) }} listening</div>
               <div class="user-streak" *ngIf="user.daily_streak && user.daily_streak > 0">🔥 {{ user.daily_streak }} day streak</div>
             </div>
@@ -102,7 +102,7 @@
           </div>
           <div class="points-section">
             <div class="points">{{ formatPoints(user.total_points) }}</div>
-            <div class="points-label">points</div>
+            <div class="points-label">CozyPoints</div>
           </div>
           <div class="streak-section">
             <span class="streak" *ngIf="user.daily_streak && user.daily_streak > 0">🔥<small>{{ user.daily_streak }}</small></span>
@@ -112,3 +112,28 @@
     </div>
   </div>
 </div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-main">
+      <p class="developed-by">
+        Developed with <span class="heart">❤️</span> by 
+        <a href="https://github.com/BubbleXGum" target="_blank" class="dev-link">&#64;BubbleXGum</a> & 
+        <a href="https://github.com/kitsuiwebster" target="_blank" class="dev-link">&#64;kitsuiwebster</a>
+      </p>
+      <p class="version">v1.0.8</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://discord.com/discovery/applications/1156917047284994178" target="_blank" class="footer-link">
+        Add to Discord
+      </a>
+      <a href="https://discord.gg/Rxeh64Y73U" target="_blank" class="footer-link">
+        Support Discord
+      </a>
+      <a href="https://github.com/kitsuiwebster/cozy-bot" target="_blank" class="footer-link">
+        GitHub
+      </a>
+    </div>
+  </div>
+</footer>
