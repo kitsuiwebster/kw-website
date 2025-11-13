@@ -28,6 +28,7 @@ export class CozybotComponent implements OnInit, OnDestroy {
   animatingTotalServers = false;
   animatingPoints = false;
   animatingTime = false;
+  animatingTitle = false;
   
   private statsSubscription: Subscription | null = null;
   private headerStatsSubscription: Subscription | null = null;
@@ -59,6 +60,9 @@ export class CozybotComponent implements OnInit, OnDestroy {
         this.leaderboard = response.users;
         this.totalCount = response.total_count;
         this.loading = false;
+        
+        // Animer les stats du header au premier chargement
+        this.triggerInitialAnimations();
       },
       error: (error) => {
         console.error('Error loading leaderboard:', error);
@@ -66,6 +70,28 @@ export class CozybotComponent implements OnInit, OnDestroy {
         this.loading = false;
       }
     });
+  }
+
+  private triggerInitialAnimations(): void {
+    // Délai pour laisser le DOM se mettre à jour
+    setTimeout(() => {
+      // Animer le titre en premier
+      this.animatingTitle = true;
+      setTimeout(() => this.animatingTitle = false, 800);
+      
+      this.animatingUsers = true;
+      setTimeout(() => this.animatingUsers = false, 500);
+      
+      setTimeout(() => {
+        this.animatingPoints = true;
+        setTimeout(() => this.animatingPoints = false, 500);
+      }, 200);
+      
+      setTimeout(() => {
+        this.animatingTime = true;
+        setTimeout(() => this.animatingTime = false, 500);
+      }, 400);
+    }, 100);
   }
 
   formatPoints(points: number): string {
@@ -106,18 +132,21 @@ export class CozybotComponent implements OnInit, OnDestroy {
     // Refresh header stats en quinconce toutes les 15 secondes
     let counter = 0;
     this.headerStatsSubscription = interval(15000).subscribe(() => {
-      const refreshType = counter % 4;
+      const refreshType = counter % 5;
       switch (refreshType) {
         case 0:
-          this.refreshUsersStats();
+          this.refreshTitleAnimation();
           break;
         case 1:
-          this.refreshServersStats();
+          this.refreshUsersStats();
           break;
         case 2:
-          this.refreshPointsStats();
+          this.refreshServersStats();
           break;
         case 3:
+          this.refreshPointsStats();
+          break;
+        case 4:
           this.refreshTimeStats();
           break;
       }
@@ -125,40 +154,93 @@ export class CozybotComponent implements OnInit, OnDestroy {
     });
   }
 
+  private refreshTitleAnimation(): void {
+    this.animatingTitle = true;
+    setTimeout(() => this.animatingTitle = false, 800);
+  }
+
   private refreshUsersStats(): void {
-    const currentUsers = this.getTotalUsers();
-    if (this.previousTotalUsers !== currentUsers) {
-      this.animatingUsers = true;
-      setTimeout(() => this.animatingUsers = false, 500);
-      this.previousTotalUsers = currentUsers;
-    }
+    // Recharger les données du leaderboard pour avoir les nouvelles valeurs
+    this.cozybotService.getTopUsers().subscribe({
+      next: (response: LeaderboardResponse) => {
+        const previousLeaderboard = [...this.leaderboard];
+        const previousCount = this.totalCount;
+        
+        this.leaderboard = response.users;
+        this.totalCount = response.total_count;
+        
+        // Animer uniquement si la valeur a changé
+        const currentUsers = this.getTotalUsers();
+        if (this.previousTotalUsers !== currentUsers) {
+          this.animatingUsers = true;
+          setTimeout(() => this.animatingUsers = false, 500);
+          this.previousTotalUsers = currentUsers;
+        }
+      },
+      error: (error) => {
+        console.error('Error refreshing users stats:', error);
+      }
+    });
   }
 
   private refreshServersStats(): void {
-    const currentServers = this.liveStats.total_servers;
-    if (this.previousTotalServers !== currentServers) {
-      this.animatingTotalServers = true;
-      setTimeout(() => this.animatingTotalServers = false, 500);
-      this.previousTotalServers = currentServers;
-    }
+    // Recharger les live stats
+    this.cozybotService.getLiveStats().subscribe({
+      next: (stats: LiveStats) => {
+        const currentServers = stats.total_servers;
+        if (this.previousTotalServers !== currentServers) {
+          this.animatingTotalServers = true;
+          setTimeout(() => this.animatingTotalServers = false, 500);
+          this.previousTotalServers = currentServers;
+        }
+        this.liveStats = stats;
+      },
+      error: (error) => {
+        console.error('Error refreshing servers stats:', error);
+      }
+    });
   }
 
   private refreshPointsStats(): void {
-    const currentPoints = this.getTotalPoints();
-    if (this.previousTotalPoints !== currentPoints) {
-      this.animatingPoints = true;
-      setTimeout(() => this.animatingPoints = false, 500);
-      this.previousTotalPoints = currentPoints;
-    }
+    // Recharger les données du leaderboard pour recalculer les points
+    this.cozybotService.getTopUsers().subscribe({
+      next: (response: LeaderboardResponse) => {
+        const previousLeaderboard = [...this.leaderboard];
+        this.leaderboard = response.users;
+        this.totalCount = response.total_count;
+        
+        const currentPoints = this.getTotalPoints();
+        if (this.previousTotalPoints !== currentPoints) {
+          this.animatingPoints = true;
+          setTimeout(() => this.animatingPoints = false, 500);
+          this.previousTotalPoints = currentPoints;
+        }
+      },
+      error: (error) => {
+        console.error('Error refreshing points stats:', error);
+      }
+    });
   }
 
   private refreshTimeStats(): void {
-    const currentTime = this.getTotalTimeDays();
-    if (this.previousTotalTime !== currentTime) {
-      this.animatingTime = true;
-      setTimeout(() => this.animatingTime = false, 500);
-      this.previousTotalTime = currentTime;
-    }
+    // Recharger les données du leaderboard pour recalculer le temps total
+    this.cozybotService.getTopUsers().subscribe({
+      next: (response: LeaderboardResponse) => {
+        const previousLeaderboard = [...this.leaderboard];
+        this.leaderboard = response.users;
+        this.totalCount = response.total_count;
+        
+        const currentTime = this.getTotalTimeDays();
+        if (this.previousTotalTime !== currentTime) {
+          this.animatingTime = true;
+          setTimeout(() => this.animatingTime = false, 500);
+          this.previousTotalTime = currentTime;
+        }
+      },
+      error: (error) => {
+        console.error('Error refreshing time stats:', error);
+      }
+    });
   }
 
   getListeningTimeDays(seconds: number): string {
@@ -210,6 +292,14 @@ export class CozybotComponent implements OnInit, OnDestroy {
         
         this.liveStats = stats;
         this.statsLoading = false;
+        
+        // Animer Total Servers au premier chargement
+        if (this.previousTotalServers === 0) {
+          setTimeout(() => {
+            this.animatingTotalServers = true;
+            setTimeout(() => this.animatingTotalServers = false, 500);
+          }, 600);
+        }
       },
       error: (error) => {
         console.error('Error loading live stats:', error);
