@@ -1,0 +1,199 @@
+<div class="container">
+  <div class="header">
+    <div class="header-content">
+      <div class="bot-info">
+        <div class="bot-avatar">
+          <img src="assets/images/cozybot/cozybot-logo3.png" alt="CozyPoints Logo" />
+        </div>
+        <div class="bot-details">
+          <h1 [class.animating]="animatingTitle">CozyBot</h1>
+          <p class="bot-description">Discord Bot • CozyPoints System</p>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat-card">
+          <span class="stat-number" [class.animating]="animatingUsers">{{ getTotalUsers() }}</span>
+          <span class="stat-label">Total Users</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" [class.animating]="animatingTotalServers">{{ liveStats.total_servers }}</span>
+          <span class="stat-label">Total Servers</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" [class.animating]="animatingPoints">{{ getTotalPoints() | number }}</span>
+          <span class="stat-label">Total CozyPoints</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" [class.animating]="animatingTime">{{ getTotalTimeDays() }}</span>
+          <span class="stat-label">Total Time</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Stats en haut au centre en gros -->
+  <div class="live-stats-section">
+    <div class="live-stats">
+      <div class="live-stat-card" [class.loading]="statsLoading">
+        <span class="live-stat-number" 
+              [class.animating]="animatingListeners"
+              [class.pulse-glow]="liveStats.current_listeners > 0">{{ liveStats.current_listeners }}</span>
+        <span class="live-stat-label">🎧 Listening Now</span>
+      </div>
+      <div class="live-stat-card" [class.loading]="statsLoading">
+        <span class="live-stat-number" 
+              [class.animating]="animatingServers"
+              [class.pulse-glow]="liveStats.servers_with_bot > 0">{{ liveStats.servers_with_bot }}</span>
+        <span class="live-stat-label">🌐 Active Servers</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to leaderboard button -->
+  <div class="back-section">
+    <div class="back-info">
+      <a href="/cozybot" class="back-link">← Back to CozyBot Leaderboard</a>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="section-header">
+      <h2>💎 CozyPoints</h2>
+      <p>How to earn points?</p>
+    </div>
+
+    <div class="cozypoints-content">
+      <div class="content-card">
+        <h3>Base Points</h3>
+        <div class="subsection">
+          <h4>Active Listening</h4>
+          <ul>
+            <li><strong>+1 point per minute</strong> listening in voice with the bot</li>
+            <li><strong>+5 points</strong> for joining a session (connection bonus)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <h3>Loyalty Bonuses</h3>
+        <div class="subsection">
+          <h4>Continuous Listening to the Same Sound</h4>
+          <ul>
+            <li><strong>+50 points</strong> after 30 minutes on the same sound</li>
+            <li><strong>+100 points</strong> after 1 hour on the same sound</li>
+            <li><strong>+500 points</strong> after 12 hours on the same sound</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <h3>Streak Bonuses</h3>
+        <div class="subsection">
+          <h4>Daily Activity</h4>
+          <ul>
+            <li><strong>+[streak days] points every 10 minutes</strong> in voice</li>
+            <li>Example: 7-day streak = +7 points every 10min of listening</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <h3>Exploration Bonuses</h3>
+        <div class="subsection">
+          <h4>Complete Categories</h4>
+          <p><strong>+50 points</strong> for listening to all sounds in a category:</p>
+          <ul>
+            <li>🌧️ Rain</li>
+            <li>🌊 Sea</li>
+            <li>✨ Sparkles</li>
+            <li>🎶 Music</li>
+          </ul>
+          <p>Bonus granted <strong>only once</strong> per category</p>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <h3>Level System</h3>
+        <div class="subsection">
+          <h4>Level Bonus</h4>
+          <ul>
+            <li><strong>Level 2</strong>: +20 points</li>
+            <li><strong>Level 3</strong>: +30 points</li>
+            <li><strong>Level 4</strong>: +40 points</li>
+            <li><strong>Level 5</strong>: +50 points</li>
+            <li><strong>Level 6</strong>: +60 points</li>
+            <li><strong>Level 10</strong>: +100 points</li>
+          </ul>
+          <p>When you reach level X, you get +X×10 bonus points</p>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <h3>Achievement System</h3>
+        <div class="subsection">
+          <h4>Achievement Bonus</h4>
+          <p><strong>Each achievement gives +100 points automatically</strong></p>
+          
+          <h4>Level Achievements</h4>
+          <ul>
+            <li>🥉 <strong>Bronze</strong> (level 5)</li>
+            <li>🥈 <strong>Silver</strong> (level 10)</li>
+            <li>🥇 <strong>Gold</strong> (level 15)</li>
+            <li>💎 <strong>Diamond</strong> (level 25)</li>
+            <li>👑 <strong>Master</strong> (level 50)</li>
+          </ul>
+          
+          <h4>Time Achievements</h4>
+          <ul>
+            <li>⏰ <strong>First Hour</strong> (1h listening)</li>
+            <li>🕐 <strong>Dedicated Listener</strong> (10h)</li>
+            <li>⏰ <strong>Time Master</strong> (50h)</li>
+            <li>🕰️ <strong>Eternal Listener</strong> (100h)</li>
+            <li>♾️ <strong>Time Lord</strong> (1000h)</li>
+          </ul>
+          
+          <h4>Streak Achievements</h4>
+          <ul>
+            <li>🔥 <strong>Week Warrior</strong> (7 days)</li>
+            <li>📅 <strong>Monthly Master</strong> (30 days)</li>
+            <li>💯 <strong>Streak Legend</strong> (100 days)</li>
+            <li>🗓️ <strong>Year Champion</strong> (365 days)</li>
+          </ul>
+
+          <h4>Sound Achievements (Legacy)</h4>
+          <ul>
+            <li>🌧️ <strong>Rain Master</strong> (50+ rain sessions)</li>
+            <li>🌊 <strong>Sea Master</strong> (50+ sea sessions)</li>
+            <li>✨ <strong>Sparkles Master</strong> (50+ sparkles sessions)</li>
+            <li>🎵 <strong>Music Master</strong> (50+ music sessions)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-main">
+      <p class="developed-by">
+        Developed with <span class="heart">❤️</span> by 
+        <a href="https://github.com/imenemedjaoui" target="_blank" class="dev-link">&#64;BubbleXGum</a> & 
+        <a href="https://github.com/kitsuiwebster" target="_blank" class="dev-link">&#64;kitsuiwebster</a>
+      </p>
+      <p class="version">v1.0.10</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://discord.com/discovery/applications/1156917047284994178" target="_blank" class="footer-link">
+        Add to Discord
+      </a>
+      <a href="https://discord.gg/Rxeh64Y73U" target="_blank" class="footer-link">
+        Support Discord
+      </a>
+      <a href="https://github.com/kitsuiwebster/cozy-bot" target="_blank" class="footer-link">
+        GitHub
+      </a>
+    </div>
+  </div>
+</footer>

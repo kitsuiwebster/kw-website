@@ -42,13 +42,24 @@
   <div class="live-stats-section">
     <div class="live-stats">
       <div class="live-stat-card" [class.loading]="statsLoading">
-        <span class="live-stat-number" [class.animating]="animatingListeners">{{ liveStats.current_listeners }}</span>
+        <span class="live-stat-number" 
+              [class.animating]="animatingListeners"
+              [class.pulse-glow]="liveStats.current_listeners > 0">{{ liveStats.current_listeners }}</span>
         <span class="live-stat-label">🎧 Listening Now</span>
       </div>
       <div class="live-stat-card" [class.loading]="statsLoading">
-        <span class="live-stat-number" [class.animating]="animatingServers">{{ liveStats.servers_with_bot }}</span>
+        <span class="live-stat-number" 
+              [class.animating]="animatingServers"
+              [class.pulse-glow]="liveStats.servers_with_bot > 0">{{ liveStats.servers_with_bot }}</span>
         <span class="live-stat-label">🌐 Active Servers</span>
       </div>
+    </div>
+  </div>
+
+  <!-- How to earn points link -->
+  <div class="points-info-section">
+    <div class="points-info">
+      <a href="/cozypoints" class="points-link">How to earn points? →</a>
     </div>
   </div>
 
@@ -179,7 +190,7 @@
         <a href="https://github.com/imenemedjaoui" target="_blank" class="dev-link">&#64;BubbleXGum</a> & 
         <a href="https://github.com/kitsuiwebster" target="_blank" class="dev-link">&#64;kitsuiwebster</a>
       </p>
-      <p class="version">v1.0.9</p>
+      <p class="version">v1.0.10</p>
     </div>
     <div class="footer-links">
       <a href="https://discord.com/discovery/applications/1156917047284994178" target="_blank" class="footer-link">

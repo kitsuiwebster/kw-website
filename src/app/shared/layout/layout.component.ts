@@ -14,6 +14,7 @@ export class LayoutComponent {
   isDouzePage = false;
   isVitrinePage = false;
   isCozybotPage = false;
+  isCozypointsPage = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
@@ -22,6 +23,7 @@ export class LayoutComponent {
         this.isDouzePage = event.url === '/douze';
         this.isVitrinePage = event.url === '/vitrine';
         this.isCozybotPage = event.url === '/cozybot' || event.url.startsWith('/cozybot?');
+        this.isCozypointsPage = event.url === '/cozypoints' || event.url.startsWith('/cozypoints?');
       }
     });
   }
