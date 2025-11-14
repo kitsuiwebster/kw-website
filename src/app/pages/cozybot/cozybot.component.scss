@@ -600,6 +600,22 @@
     .stats {
       flex-direction: row;
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      
+      .stat-card {
+        min-width: 70px;
+        flex: 1;
+        max-width: 100px;
+        
+        .stat-number {
+          font-size: 1.3rem;
+        }
+        
+        .stat-label {
+          font-size: 0.6rem;
+        }
+      }
     }
   }
 
