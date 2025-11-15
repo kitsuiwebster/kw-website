@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Title, Meta } from '@angular/platform-browser';
 import { CozybotService, CozyUser, LeaderboardResponse, LiveStats, CozyServer, CozySound, ServersResponse, SoundsResponse } from '../../services/cozybot.service';
 import { interval, Subscription } from 'rxjs';
 
@@ -41,9 +42,18 @@ export class CozybotComponent implements OnInit, OnDestroy {
   private statsSubscription: Subscription | null = null;
   private headerStatsSubscription: Subscription | null = null;
 
-  constructor(private cozybotService: CozybotService) {}
+  constructor(
+    private cozybotService: CozybotService,
+    private titleService: Title,
+    private metaService: Meta
+  ) {}
 
   ngOnInit(): void {
+    // Set page title and favicon
+    this.titleService.setTitle('CozyBot - Discord Bot Leaderboard');
+    this.setFavicon('assets/images/cozybot/cozybot-logo3.png');
+    this.metaService.updateTag({ name: 'description', content: 'CozyBot Discord Bot leaderboard with real-time stats and CozyPoints system.' });
+    
     // Check URL parameter for view
     const urlParams = new URLSearchParams(window.location.search);
     const viewParam = urlParams.get('view');
@@ -417,6 +427,18 @@ export class CozybotComponent implements OnInit, OnDestroy {
       return `${hours}h ${minutes}m`;
     } else {
       return `${minutes}m`;
+    }
+  }
+
+  private setFavicon(iconPath: string): void {
+    const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+    if (link) {
+      link.href = iconPath;
+    } else {
+      const newLink = document.createElement('link');
+      newLink.rel = 'icon';
+      newLink.href = iconPath;
+      document.getElementsByTagName('head')[0].appendChild(newLink);
     }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Title, Meta } from '@angular/platform-browser';
 import { CozybotService, CozyUser, LeaderboardResponse, LiveStats } from '../../services/cozybot.service';
 import { interval, Subscription } from 'rxjs';
 
@@ -34,9 +35,18 @@ export class CozypointsComponent implements OnInit, OnDestroy {
   private statsSubscription: Subscription | null = null;
   private headerStatsSubscription: Subscription | null = null;
 
-  constructor(private cozybotService: CozybotService) {}
+  constructor(
+    private cozybotService: CozybotService,
+    private titleService: Title,
+    private metaService: Meta
+  ) {}
 
   ngOnInit(): void {
+    // Set page title and favicon
+    this.titleService.setTitle('CozyPoints - CozyBot Discord Bot Points System');
+    this.setFavicon('assets/images/cozybot/cozybot-logo3.png');
+    this.metaService.updateTag({ name: 'description', content: 'Learn how to earn CozyPoints with CozyBot Discord Bot. Complete guide to the points and achievement system.' });
+    
     // Always load users data for header stats
     this.loadUsers();
     this.startLiveStats();
@@ -268,5 +278,17 @@ export class CozypointsComponent implements OnInit, OnDestroy {
         this.statsLoading = false;
       }
     });
+  }
+
+  private setFavicon(iconPath: string): void {
+    const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+    if (link) {
+      link.href = iconPath;
+    } else {
+      const newLink = document.createElement('link');
+      newLink.rel = 'icon';
+      newLink.href = iconPath;
+      document.getElementsByTagName('head')[0].appendChild(newLink);
+    }
   }
 }
