@@ -189,9 +189,8 @@
   .live-stats {
     display: flex;
     justify-content: center;
-    gap: 80px;
 
-    .live-stat-card {
+    .live-stat-combined {
       text-align: center;
       transition: opacity 0.3s ease;
 
@@ -199,22 +198,32 @@
         opacity: 0.6;
       }
 
-      .live-stat-number {
+      .live-stat-text {
         display: block;
-        font-size: 4.5rem;
-        font-weight: 800;
-        line-height: 1;
-        color: #f8fafc;
-        text-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
         margin-bottom: 12px;
-        transition: all 0.3s ease;
         
-        &.animating {
-          animation: numberChange 0.5s ease-in-out;
+        .live-stat-number {
+          font-size: 4.5rem;
+          font-weight: 800;
+          color: #f8fafc;
+          text-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+          transition: all 0.3s ease;
+          
+          &.animating {
+            animation: numberChange 0.5s ease-in-out;
+          }
+          
+          &.pulse-glow {
+            animation: pulseGlow 3s ease-in-out infinite;
+          }
         }
         
-        &.pulse-glow {
-          animation: pulseGlow 3s ease-in-out infinite;
+        .live-stat-word {
+          font-size: 2.2rem;
+          font-weight: 500;
+          color: #94a3b8;
+          margin: 0 16px;
+          vertical-align: baseline;
         }
       }
 
@@ -714,11 +723,14 @@
   .live-stats-section {
     margin: 40px 0;
 
-    .live-stats {
-      gap: 40px;
-
-      .live-stat-card .live-stat-number {
+    .live-stats .live-stat-combined .live-stat-text {
+      .live-stat-number {
         font-size: 3.5rem;
+      }
+      
+      .live-stat-word {
+        font-size: 1.8rem;
+        margin: 0 8px;
       }
     }
   }

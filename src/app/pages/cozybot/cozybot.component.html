@@ -46,17 +46,18 @@
   <!-- Live Stats en haut au centre en gros -->
   <div class="live-stats-section">
     <div class="live-stats">
-      <div class="live-stat-card" [class.loading]="statsLoading">
-        <span class="live-stat-number" 
-              [class.animating]="animatingListeners"
-              [class.pulse-glow]="liveStats.current_listeners > 0">{{ liveStats.current_listeners }}</span>
-        <span class="live-stat-label">🎧 Listening Now</span>
-      </div>
-      <div class="live-stat-card" [class.loading]="statsLoading">
-        <span class="live-stat-number" 
-              [class.animating]="animatingServers"
-              [class.pulse-glow]="liveStats.servers_with_bot > 0">{{ liveStats.servers_with_bot }}</span>
-        <span class="live-stat-label">🌐 Active Servers</span>
+      <div class="live-stat-combined" [class.loading]="statsLoading">
+        <span class="live-stat-text">
+          <span class="live-stat-number" 
+                [class.animating]="animatingListeners"
+                [class.pulse-glow]="liveStats.current_listeners > 0">{{ liveStats.current_listeners }}</span>
+          <span class="live-stat-word">{{ liveStats.current_listeners === 1 ? 'person' : 'people' }} in</span>
+          <span class="live-stat-number" 
+                [class.animating]="animatingServers"
+                [class.pulse-glow]="liveStats.servers_with_bot > 0">{{ liveStats.servers_with_bot }}</span>
+          <span class="live-stat-word">{{ liveStats.servers_with_bot === 1 ? 'server' : 'servers' }}</span>
+        </span>
+        <span class="live-stat-label">🎧 listening now</span>
       </div>
     </div>
   </div>
