@@ -82,6 +82,10 @@
 
         .view-selector {
           margin-top: 12px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          justify-content: center;
 
           .view-select {
             background: rgba(168, 85, 247, 0.1);
@@ -114,6 +118,30 @@
             option {
               background: #1f2937;
               color: #f8fafc;
+            }
+          }
+
+          .add-to-server-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 6px;
+            color: #a855f7;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+
+            &:hover {
+              background: rgba(168, 85, 247, 0.2);
+              border-color: rgba(168, 85, 247, 0.5);
+              color: #06b6d4;
+              transform: translateY(-1px);
+              box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
             }
           }
         }
@@ -629,6 +657,35 @@
     flex-direction: column;
     gap: 24px;
     text-align: center;
+
+    .bot-info {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      
+      .bot-details {
+        text-align: center;
+        
+        .view-selector {
+          flex-direction: column;
+          gap: 8px;
+          align-items: center;
+          justify-content: center;
+
+          .view-select {
+            width: 100%;
+            max-width: 200px;
+          }
+
+          .add-to-server-btn {
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            width: 100%;
+            max-width: 200px;
+          }
+        }
+      }
+    }
 
     .stats {
       display: grid;
