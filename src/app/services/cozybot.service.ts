@@ -15,6 +15,7 @@ export interface CozyUser {
   level_progress: number;
   sessions_joined: number;
   achievements_count: number;
+  favorite_sound?: string;
 }
 
 export interface LeaderboardResponse {

@@ -107,7 +107,10 @@
             <div class="user-stats">
               <div class="user-points">{{ formatPoints(user.total_points) }} pts</div>
               <div class="user-level">Level {{ user.level }}</div>
-              <div class="user-time">{{ getListeningTimeDays(user.listening_time_seconds) }} listening</div>
+              <div class="user-time">
+                <span class="desktop-text">{{ getListeningTimeDays(user.listening_time_seconds) }} listening | favourite sound: <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
+                <span class="mobile-text">{{ getListeningTimeDays(user.listening_time_seconds) }} <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
+              </div>
               <div class="user-streak" *ngIf="user.daily_streak && user.daily_streak > 0">🔥 {{ user.daily_streak }} day streak</div>
             </div>
           </div>
@@ -124,7 +127,10 @@
               <span class="username">{{ getDisplayName(user) }}</span>
               <div class="user-meta">
                 <span class="level-badge">Lvl {{ user.level }}</span>
-                <span class="time-spent">{{ getListeningTimeDays(user.listening_time_seconds) }} listening</span>
+                <span class="time-spent">
+                  <span class="desktop-text">{{ getListeningTimeDays(user.listening_time_seconds) }} listening | favourite sound: <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
+                  <span class="mobile-text">{{ getListeningTimeDays(user.listening_time_seconds) }} <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
+                </span>
               </div>
             </div>
           </div>
@@ -196,7 +202,7 @@
         <a href="https://github.com/imenemedjaoui" target="_blank" class="dev-link">&#64;BubbleXGum</a> & 
         <a href="https://github.com/kitsuiwebster" target="_blank" class="dev-link">&#64;kitsuiwebster</a>
       </p>
-      <p class="version">v1.0.12</p>
+      <p class="version">v1.0.13</p>
     </div>
     <div class="footer-links">
       <a href="https://discord.com/discovery/applications/1156917047284994178" target="_blank" class="footer-link">

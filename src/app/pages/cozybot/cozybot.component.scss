@@ -521,6 +521,19 @@
           font-weight: 500;
           color: #94a3b8;
           margin-bottom: 2px;
+          
+          .favorite-sound {
+            font-size: 0.8rem;
+            margin-left: 4px;
+          }
+          
+          .mobile-text {
+            display: none;
+          }
+          
+          .desktop-text {
+            display: inline;
+          }
         }
         
         .user-streak {
@@ -612,6 +625,19 @@
             color: #94a3b8;
             font-size: 0.75rem;
             font-weight: 500;
+            
+            .favorite-sound {
+              font-size: 0.8rem;
+              margin-left: 4px;
+            }
+            
+            .mobile-text {
+              display: none;
+            }
+            
+            .desktop-text {
+              display: inline;
+            }
           }
           
           .streak {
@@ -652,6 +678,33 @@
         color: #f59e0b;
         font-size: 1rem;
         font-weight: 500;
+      }
+    }
+  }
+}
+
+// Tablet breakpoint
+@media (max-width: 1024px) and (min-width: 769px) {
+  .header .header-content {
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      justify-content: center;
+      max-width: 500px;
+      margin: 0 auto;
+      
+      .stat-card {
+        min-width: unset;
+        text-align: center;
+        
+        .stat-number {
+          font-size: 1.7rem;
+        }
+        
+        .stat-label {
+          font-size: 0.75rem;
+        }
       }
     }
   }
@@ -748,6 +801,16 @@
       &.first {
         transform: none !important;
       }
+      
+      .podium-user .user-stats .user-time {
+        .desktop-text {
+          display: none;
+        }
+        
+        .mobile-text {
+          display: inline;
+        }
+      }
     }
   }
 
@@ -766,6 +829,20 @@
       
       .time-spent, .streak {
         font-size: 0.65rem;
+      }
+      
+      .time-spent {
+        .favorite-sound {
+          font-size: 0.7rem;
+        }
+        
+        .desktop-text {
+          display: none;
+        }
+        
+        .mobile-text {
+          display: inline;
+        }
       }
     }
 

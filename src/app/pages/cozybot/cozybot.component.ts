@@ -128,6 +128,7 @@ export class CozybotComponent implements OnInit, OnDestroy {
     });
   }
 
+
   private loadServers(): void {
     this.cozybotService.getTopServers().subscribe({
       next: (response: ServersResponse) => {
@@ -428,6 +429,10 @@ export class CozybotComponent implements OnInit, OnDestroy {
     } else {
       return `${minutes}m`;
     }
+  }
+
+  getFavoriteSound(user: CozyUser): string {
+    return user.favorite_sound || '🎵';
   }
 
   private setFavicon(iconPath: string): void {
