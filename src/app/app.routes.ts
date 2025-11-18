@@ -7,6 +7,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { HackapromptComponent } from './pages/projets/hackaprompt/hackaprompt.component';
 import { CozybotComponent } from './pages/cozybot/cozybot.component';
 import { CozypointsComponent } from './pages/cozypoints/cozypoints.component';
+import { CreditsComponent } from './pages/credits/credits.component';
 import { ShisuiComponent } from './pages/shisui/shisui.component';
 import { DecoderComponent } from './pages/decode/decoder.component';
 import { HtmlToPdfComponent } from './pages/html-to-pdf/html-to-pdf.component';
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: 'hackaprompt', component: HackapromptComponent },
   { path: 'cozybot', component: CozybotComponent },
   { path: 'cozypoints', component: CozypointsComponent },
+  { path: 'cozybot/credits', component: CreditsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'tasks', component: UnifiedTasksComponent },

@@ -1,5 +1,5 @@
 <div class="layout">
-  <header class="layout-header" *ngIf="!isTasksPage && !isDouzePage && !isVitrinePage && !isCozybotPage && !isCozypointsPage">
+  <header class="layout-header" *ngIf="!isTasksPage && !isDouzePage && !isVitrinePage && !isCozybotPage && !isCozypointsPage && !isCreditsPage">
     <div class="layout-header-title-container">
       <img
         class="layout-header-logo"
@@ -73,7 +73,7 @@
   <main class="layout-main">
     <router-outlet></router-outlet>
   </main>
-  <footer class="layout-footer" *ngIf="!isTasksPage && !isDouzePage && !isVitrinePage && !isCozybotPage && !isCozypointsPage">
+  <footer class="layout-footer" *ngIf="!isTasksPage && !isDouzePage && !isVitrinePage && !isCozybotPage && !isCozypointsPage && !isCreditsPage">
     <nav class="layout-footer-links">
       <a
         href="https://gitlab.com/kitsuiwebster"
