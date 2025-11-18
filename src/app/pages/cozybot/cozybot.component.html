@@ -94,7 +94,7 @@
     <!-- Users Leaderboard -->
     <div *ngIf="!loading && !error && selectedView === 'users'" class="leaderboard">
       <!-- Top 3 Podium -->
-      <div class="podium">
+      <div class="podium users-podium">
         <div *ngFor="let user of getTopThree(); let i = index" 
              class="podium-item" 
              [class.first]="i === 0" 
@@ -102,7 +102,7 @@
              [class.third]="i === 2">
           <div class="podium-rank">{{ getRankEmoji(user.rank) }}</div>
           <div class="podium-user">
-            <div class="user-avatar">{{ user.rank }}</div>
+            <div class="user-avatar">{{ getFavoriteSoundEmoji(user) }}</div>
             <div class="user-name">{{ getDisplayName(user) }}</div>
             <div class="user-stats">
               <div class="user-points">{{ formatPoints(user.total_points) }} pts</div>
@@ -118,11 +118,12 @@
       </div>
 
       <!-- Rest of leaderboard -->
-      <div class="leaderboard-list">
+      <div class="leaderboard-list users-list">
         <div *ngFor="let user of getRemainingUsers(); trackBy: trackByUserId" 
              class="leaderboard-item">
+          <div class="rank-number">{{ user.rank }}</div>
           <div class="user-info">
-            <div class="user-avatar-small">{{ user.rank }}</div>
+            <div class="user-avatar-small">{{ getFavoriteSoundEmoji(user) }}</div>
             <div class="user-details">
               <span class="username">{{ getDisplayName(user) }}</span>
               <div class="user-meta">
