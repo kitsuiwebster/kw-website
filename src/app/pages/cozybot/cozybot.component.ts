@@ -432,6 +432,8 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   getFavoriteSound(user: CozyUser): string {
+    console.log(`[DEBUG] User ${user.username} favorite_sound:`, user.favorite_sound);
+    console.log(`[DEBUG] User ${user.username} full data:`, JSON.stringify(user, null, 2));
     return user.favorite_sound || '🎵';
   }
 

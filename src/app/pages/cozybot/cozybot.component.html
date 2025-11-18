@@ -108,7 +108,7 @@
               <div class="user-points">{{ formatPoints(user.total_points) }} pts</div>
               <div class="user-level">Level {{ user.level }}</div>
               <div class="user-time">
-                <span class="desktop-text">{{ getListeningTimeDays(user.listening_time_seconds) }} listening | favourite sound: <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
+                <span class="desktop-text">{{ getListeningTimeDays(user.listening_time_seconds) }} <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
                 <span class="mobile-text">{{ getListeningTimeDays(user.listening_time_seconds) }} <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
               </div>
               <div class="user-streak" *ngIf="user.daily_streak && user.daily_streak > 0">🔥 {{ user.daily_streak }} day streak</div>
@@ -128,7 +128,7 @@
               <div class="user-meta">
                 <span class="level-badge">Lvl {{ user.level }}</span>
                 <span class="time-spent">
-                  <span class="desktop-text">{{ getListeningTimeDays(user.listening_time_seconds) }} listening | favourite sound: <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
+                  <span class="desktop-text">{{ getListeningTimeDays(user.listening_time_seconds) }} <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
                   <span class="mobile-text">{{ getListeningTimeDays(user.listening_time_seconds) }} <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
                 </span>
               </div>
