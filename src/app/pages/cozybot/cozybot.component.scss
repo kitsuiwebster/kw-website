@@ -489,8 +489,6 @@
         margin: 0 auto 12px;
         box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
         transition: all 0.2s ease;
-        font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-        font-variant-emoji: emoji;
       }
 
       .user-name {
@@ -603,8 +601,6 @@
           font-weight: 500;
           color: #f8fafc;
           margin-bottom: 4px;
-          font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-          font-variant-emoji: emoji;
           
           &.server-name {
             font-size: 1.1rem;
@@ -706,8 +702,6 @@
     .user-info .user-avatar-small {
       background: #000000;
       font-size: 1.2rem;
-      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-      font-variant-emoji: emoji;
     }
   }
 }
@@ -899,6 +893,19 @@
     p {
       font-size: 1rem;
     }
+  }
+}
+
+// Classes spécifiques pour les emojis
+.emoji-only {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-variant-emoji: emoji;
+}
+
+.user-avatar, .user-avatar-small {
+  .emoji-only {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    font-variant-emoji: emoji;
   }
 }
 

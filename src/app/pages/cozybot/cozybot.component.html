@@ -102,7 +102,7 @@
              [class.third]="i === 2">
           <div class="podium-rank">{{ getRankEmoji(user.rank) }}</div>
           <div class="podium-user">
-            <div class="user-avatar">{{ getFavoriteSoundEmoji(user) }}</div>
+            <div class="user-avatar"><span class="emoji-only">{{ getFavoriteSoundEmoji(user) }}</span></div>
             <div class="user-name">{{ getDisplayName(user) }}</div>
             <div class="user-stats">
               <div class="user-points">{{ formatPoints(user.total_points) }} pts</div>
@@ -111,7 +111,7 @@
                 <span class="desktop-text">{{ getListeningTimeDays(user.listening_time_seconds) }} <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
                 <span class="mobile-text">{{ getListeningTimeDays(user.listening_time_seconds) }} <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
               </div>
-              <div class="user-streak" *ngIf="user.daily_streak && user.daily_streak > 0">🔥 {{ user.daily_streak }} day streak</div>
+              <div class="user-streak" *ngIf="user.daily_streak && user.daily_streak > 0"><span class="emoji-only">🔥</span> {{ user.daily_streak }} day streak</div>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@
              class="leaderboard-item">
           <div class="rank-number">{{ user.rank }}</div>
           <div class="user-info">
-            <div class="user-avatar-small">{{ getFavoriteSoundEmoji(user) }}</div>
+            <div class="user-avatar-small"><span class="emoji-only">{{ getFavoriteSoundEmoji(user) }}</span></div>
             <div class="user-details">
               <span class="username">{{ getDisplayName(user) }}</span>
               <div class="user-meta">
@@ -140,7 +140,7 @@
             <div class="points-label">CozyPoints</div>
           </div>
           <div class="streak-section">
-            <span class="streak" *ngIf="user.daily_streak && user.daily_streak > 0">🔥<small>{{ user.daily_streak }}</small></span>
+            <span class="streak" *ngIf="user.daily_streak && user.daily_streak > 0"><span class="emoji-only">🔥</span><small>{{ user.daily_streak }}</small></span>
           </div>
         </div>
       </div>
