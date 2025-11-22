@@ -346,12 +346,10 @@ export class ShisuiComponent implements OnInit {
   computePeopleStats(): void {
     const count: { [person: string]: number } = {};
     for (const entry of this.entries) {
-      // Ne compter qu'une seule fois par personne par jour
+      // Ne compter qu'une seule fois par personne par jour (colonnes H et K seulement)
       const people = new Set<string>();
-      entry.peopleNight.forEach(p => people.add(p));
-      entry.people1.forEach(p => people.add(p));
-      entry.people2.forEach(p => people.add(p));
-      entry.people3.forEach(p => people.add(p));
+      entry.people1.forEach(p => people.add(p)); // Colonne H
+      entry.people3.forEach(p => people.add(p)); // Colonne K
       
       for (const person of people) {
         count[person] = (count[person] || 0) + 1;
@@ -458,13 +456,11 @@ export class ShisuiComponent implements OnInit {
 
     const maxConsecutive: { [person: string]: number } = {};
     
-    // Collecter toutes les personnes uniques
+    // Collecter toutes les personnes uniques (colonnes H et K seulement)
     const allPeople = new Set<string>();
     this.entries.forEach(entry => {
-      entry.peopleNight.forEach(p => allPeople.add(p));
-      entry.people1.forEach(p => allPeople.add(p));
-      entry.people2.forEach(p => allPeople.add(p));
-      entry.people3.forEach(p => allPeople.add(p));
+      entry.people1.forEach(p => allPeople.add(p)); // Colonne H
+      entry.people3.forEach(p => allPeople.add(p)); // Colonne K
     });
     
     for (const person of allPeople) {
@@ -479,10 +475,8 @@ export class ShisuiComponent implements OnInit {
         };
         
         const currentDate = parseDate(entry.date);
-        const personIsPresent = entry.peopleNight.includes(person) ||
-                               entry.people1.includes(person) || 
-                               entry.people2.includes(person) || 
-                               entry.people3.includes(person);
+        const personIsPresent = entry.people1.includes(person) || // Colonne H
+                               entry.people3.includes(person);   // Colonne K
         
         if (personIsPresent) {
           if (previousDate) {

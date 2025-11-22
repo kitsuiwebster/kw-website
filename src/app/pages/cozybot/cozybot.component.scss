@@ -926,15 +926,21 @@
 
 // Classes spécifiques pour les emojis
 .emoji-only {
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-  font-variant-emoji: emoji;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+  font-variant-emoji: emoji !important;
 }
 
 .user-avatar, .user-avatar-small {
   .emoji-only {
-    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-    font-variant-emoji: emoji;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+    font-variant-emoji: emoji !important;
   }
+}
+
+// Forcer la police emoji dans les noms de sons
+.username.sound-name {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+  font-variant-emoji: emoji !important;
 }
 
 // Footer
