@@ -133,6 +133,24 @@
   z-index: 10;
 }
 
+.clear-search-btn {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 10px;
+  color: #e53e3e;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.clear-search-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
 .date-input {
   padding: 15px 20px;
   border: none;
@@ -219,6 +237,7 @@
   transform: translateY(-2px);
 }
 
+
 /* Styles pour les résultats de recherche fancy */
 .search-results-fancy {
   margin-top: 30px;
@@ -240,18 +259,174 @@
 
 .date-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .date-label {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
-  padding: 12px 30px;
-  border-radius: 30px;
-  font-size: 1.3rem;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 1.1rem;
   font-weight: 700;
   display: inline-block;
   box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+}
+
+.primary-date {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Simple Result Lists */
+.simple-result-lists {
+  margin-bottom: 20px;
+}
+
+.result-list-container {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.result-list {
+  margin-bottom: 20px;
+}
+
+.result-list:last-child {
+  margin-bottom: 0;
+}
+
+.list-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 10px 0;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.simple-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  padding: 6px 0;
+  color: #4a5568;
+  font-weight: 500;
+  border-bottom: 1px solid #f7fafc;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item:hover {
+  color: #2d3748;
+  background-color: #f7fafc;
+  margin: 0 -10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 4px;
+}
+
+/* All Years Results */
+.all-years-results {
+  margin-top: 30px;
+  animation: slideIn 0.6s ease-out 0.2s both;
+}
+
+.all-years-title {
+  text-align: center;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.years-list {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.year-entry {
+  padding: 15px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.year-entry:last-child {
+  border-bottom: none;
+}
+
+.year-entry.no-data {
+  opacity: 0.5;
+}
+
+.year-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 10px 0;
+}
+
+.year-data {
+  margin-left: 20px;
+}
+
+.data-section {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.data-section strong {
+  color: #4a5568;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.inline-list {
+  display: inline;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.inline-list li {
+  display: inline;
+  color: #2d3748;
+  font-weight: 500;
+}
+
+.no-data-text {
+  color: #a0aec0;
+  font-style: italic;
+  margin-left: 20px;
+}
+
+.night-section {
+  background: rgba(45, 55, 72, 0.05);
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-top: 5px;
+  border-left: 3px solid #4a5568;
+}
+
+.night-info {
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.night-people {
+  color: #4a5568;
+  font-style: italic;
 }
 
 .result-grid {
@@ -732,12 +907,44 @@
   .search-input-group {
     flex-direction: column;
     align-items: stretch;
+    gap: 15px;
   }
   
   .date-input, .search-button, .clear-button, .export-button {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+  }
+  
+  
+  .years-list {
+    padding: 15px;
+  }
+  
+  .year-entry {
+    padding: 12px 0;
+  }
+  
+  .year-title {
+    font-size: 1.1rem;
+  }
+  
+  .year-data {
+    margin-left: 15px;
+  }
+  
+  .result-list-container {
+    padding: 15px;
+    margin: 0 5px;
+  }
+  
+  .list-title {
+    font-size: 0.95rem;
+  }
+  
+  .list-item {
+    padding: 5px 0;
+    font-size: 0.9rem;
   }
   
   .filter-container {
@@ -807,4 +1014,68 @@
     font-size: 1.1rem;
     padding: 10px 20px;
   }
+  
+  .result-list-container {
+    padding: 12px;
+    margin: 0 5px;
+  }
+  
+  .list-title {
+    font-size: 0.9rem;
+  }
+  
+  .list-item {
+    padding: 4px 0;
+    font-size: 0.85rem;
+  }
+  
+  .years-list {
+    padding: 12px;
+  }
+  
+  .year-entry {
+    padding: 10px 0;
+  }
+  
+  .year-title {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  .year-data {
+    margin-left: 10px;
+  }
+  
+  .data-section {
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+  }
+  
+  .data-section strong {
+    font-size: 0.9rem;
+  }
+  
+  .inline-list li {
+    font-size: 0.9rem;
+  }
+  
+  .all-years-title {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  .year-result-card {
+    padding: 12px;
+  }
+  
+  .year-badge {
+    font-size: 1rem;
+    padding: 4px 8px;
+  }
+  
+  .mini-summary {
+    font-size: 0.8rem;
+    padding: 3px 6px;
+  }
+  
 }

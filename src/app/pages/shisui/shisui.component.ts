@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Ajouté pour ngModel
 import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface Entry {
   date: string;
@@ -27,6 +28,20 @@ interface DateSearchResult {
   countries: string[];
   cities: string[];
   people: string[];
+  nightCity?: string;
+  nightPeople?: string[];
+  found: boolean;
+  allYearsResults?: DateSearchResultByYear[];
+}
+
+interface DateSearchResultByYear {
+  year: string;
+  date: string;
+  countries: string[];
+  cities: string[];
+  people: string[];
+  nightCity: string;
+  nightPeople: string[];
   found: boolean;
 }
 
@@ -110,7 +125,7 @@ export class ShisuiComponent implements OnInit {
   // Statistiques weekend générales
   weekendStats: { name: string; value: number }[] = [];
   
-  // Nouvelle propriété pour la recherche par date
+  // Propriétés pour la recherche par date
   searchDate: string = '';
   dateSearchResult: DateSearchResult | null = null;
   
@@ -119,13 +134,28 @@ export class ShisuiComponent implements OnInit {
   
   loading = true;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient, 
+    private route: ActivatedRoute, 
+    private router: Router
+  ) {
     this.updateChartSize();
   }
 
   ngOnInit(): void {
     this.fetchData();
     this.updateChartSize();
+    
+    // Lire les paramètres d'URL
+    this.route.queryParams.subscribe(params => {
+      if (params['filter']) {
+        this.selectedTableType = params['filter'];
+      }
+      if (params['date']) {
+        this.searchDate = params['date'];
+        this.searchByDate();
+      }
+    });
   }
 
   @HostListener('window:resize')
@@ -208,37 +238,110 @@ export class ShisuiComponent implements OnInit {
     }
   }
 
-  // Nouvelle méthode pour rechercher par date
+  // Méthode pour formater automatiquement l'input
+  onDateInput(): void {
+    // Supprimer tous les caractères non numériques
+    let value = this.searchDate.replace(/\D/g, '');
+    
+    // Formater automatiquement avec /
+    if (value.length >= 2) {
+      value = value.substring(0, 2) + '/' + value.substring(2, 4);
+    }
+    
+    this.searchDate = value;
+    this.updateUrlWithDate();
+    this.searchByDate();
+  }
+
+  // Mettre à jour l'URL avec le filtre
+  updateUrlWithFilter(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { 
+        filter: this.selectedTableType === 'all' ? null : this.selectedTableType,
+        date: this.searchDate || null
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  // Mettre à jour l'URL avec la date
+  updateUrlWithDate(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { 
+        filter: this.selectedTableType === 'all' ? null : this.selectedTableType,
+        date: this.searchDate || null
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  // Méthode pour rechercher par jour/mois
   searchByDate(): void {
-    if (!this.searchDate) {
+    if (!this.searchDate || !this.searchDate.includes('/')) {
       this.dateSearchResult = null;
       return;
     }
 
-    // Convertir la date du format YYYY-MM-DD vers DD/MM/YYYY
-    const [year, month, day] = this.searchDate.split('-');
-    const formattedDate = `${day}/${month}/${year}`;
+    // Parser le format DD/MM
+    const parts = this.searchDate.split('/');
+    if (parts.length !== 2 || !parts[1]) {
+      this.dateSearchResult = null;
+      return;
+    }
 
-    // Chercher l'entrée correspondante
-    const entry = this.entries.find(e => e.date === formattedDate);
+    const day = parts[0].padStart(2, '0');
+    const month = parts[1].padStart(2, '0');
+    const dayMonth = `${day}/${month}`;
 
+    // Rechercher pour toutes les années
+    const allYearsResults: DateSearchResultByYear[] = [];
+    const availableYears = this.getAvailableYears();
+    
+    for (const year of availableYears) {
+      const dateForYear = `${dayMonth}/${year}`;
+      const entryForYear = this.entries.find(e => e.date === dateForYear);
+      const resultForYear = this.processDateEntry(entryForYear, dateForYear);
+      
+      allYearsResults.push({
+        year: year,
+        date: dateForYear,
+        countries: resultForYear.countries,
+        cities: resultForYear.cities,
+        people: resultForYear.people,
+        nightCity: resultForYear.nightCity || '',
+        nightPeople: resultForYear.nightPeople || [],
+        found: resultForYear.found
+      });
+    }
+
+    // Trier par année décroissante
+    allYearsResults.sort((a, b) => b.year.localeCompare(a.year));
+
+    this.dateSearchResult = {
+      date: dayMonth,
+      countries: [],
+      cities: [],
+      people: [],
+      found: allYearsResults.some(r => r.found),
+      allYearsResults: allYearsResults
+    };
+  }
+
+  private processDateEntry(entry: Entry | undefined, formattedDate: string): DateSearchResult {
     if (entry) {
       // Utiliser des Sets pour éviter les doublons
       const countriesSet = new Set<string>();
       const citiesSet = new Set<string>();
       const peopleSet = new Set<string>();
       
-      if (entry.cn) countriesSet.add(entry.cn);
+      // Données de jour UNIQUEMENT (colonnes F, G, H et I, J, K et L, M, N)
       if (entry.c1) countriesSet.add(entry.c1);
       if (entry.c2) countriesSet.add(entry.c2);
       if (entry.c3) countriesSet.add(entry.c3);
       
-      // Séparer les villes si plusieurs dans une même cellule
-      if (entry.cityNight) {
-        entry.cityNight.split(' ').forEach(city => {
-          if (city.trim()) citiesSet.add(city.trim());
-        });
-      }
+      // Séparer les villes de jour UNIQUEMENT
       if (entry.city1) {
         entry.city1.split(' ').forEach(city => {
           if (city.trim()) citiesSet.add(city.trim());
@@ -255,10 +358,7 @@ export class ShisuiComponent implements OnInit {
         });
       }
       
-      // Ajouter les personnes en évitant les doublons
-      entry.peopleNight.forEach(person => {
-        if (person && person.trim()) peopleSet.add(person.trim());
-      });
+      // Ajouter les personnes de jour UNIQUEMENT (colonnes H, K, N)
       entry.people1.forEach(person => {
         if (person && person.trim()) peopleSet.add(person.trim());
       });
@@ -269,28 +369,62 @@ export class ShisuiComponent implements OnInit {
         if (person && person.trim()) peopleSet.add(person.trim());
       });
       
-      this.dateSearchResult = {
+      // Données de nuit (séparées)
+      let nightCity = '';
+      if (entry.cityNight && entry.cityNight.trim()) {
+        nightCity = entry.cityNight.trim();
+        // Ajouter le drapeau de nuit si disponible
+        if (entry.cn && entry.cn.trim()) {
+          nightCity = `${entry.cn} ${nightCity}`;
+        }
+      }
+      
+      const nightPeople = entry.peopleNight.filter(person => person && person.trim());
+      
+      return {
         date: formattedDate,
         countries: Array.from(countriesSet),
         cities: Array.from(citiesSet),
         people: Array.from(peopleSet),
+        nightCity: nightCity,
+        nightPeople: nightPeople,
         found: true
       };
     } else {
-      this.dateSearchResult = {
+      return {
         date: formattedDate,
         countries: [],
         cities: [],
         people: [],
+        nightCity: '',
+        nightPeople: [],
         found: false
       };
     }
   }
 
+  private getAvailableYears(): string[] {
+    const years = new Set<string>();
+    this.entries.forEach(entry => {
+      const parts = entry.date.split('/');
+      if (parts.length === 3) {
+        years.add(parts[2]);
+      }
+    });
+    return Array.from(years).sort();
+  }
+
+
   // Méthode pour effacer la recherche
   clearSearch(): void {
     this.searchDate = '';
     this.dateSearchResult = null;
+    this.updateUrlWithDate();
+  }
+
+  // Getter pour savoir si on est en mode recherche
+  get isSearching(): boolean {
+    return !!(this.searchDate && this.dateSearchResult);
   }
 
   computeAllStats(): void {

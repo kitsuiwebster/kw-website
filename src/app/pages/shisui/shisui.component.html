@@ -5,7 +5,7 @@
   <div class="table-filter-section">
     <div class="filter-container">
       <label for="tableTypeSelect" class="filter-label">Afficher les tableaux :</label>
-      <select id="tableTypeSelect" [(ngModel)]="selectedTableType" class="table-type-select">
+      <select id="tableTypeSelect" [(ngModel)]="selectedTableType" (change)="updateUrlWithFilter()" class="table-type-select">
         <option value="all">Tous les tableaux</option>
         <option value="general">Stats générales</option>
         <option value="nights">Stats des nuits</option>
@@ -29,83 +29,87 @@
       <div class="search-container">
         <div class="search-input-group">
           <input 
-            type="date" 
+            type="text" 
             [(ngModel)]="searchDate" 
             class="date-input"
-            placeholder="Sélectionnez une date"
-            (change)="searchByDate()"
+            placeholder="Jour/Mois (ex: 2211)"
+            (input)="onDateInput()"
+            maxlength="5"
           />
+          <button *ngIf="searchDate" (click)="clearSearch()" class="clear-search-btn">
+            ✕ Effacer
+          </button>
         </div>
         
         <!-- Résultats de la recherche -->
-        <div *ngIf="dateSearchResult" class="search-results-fancy">
-          <div *ngIf="dateSearchResult.found" class="result-cards">
-            <div class="date-header">
-              <span class="date-label">{{ dateSearchResult.date }}</span>
-            </div>
-            
-            <div class="result-grid">
-              <!-- Carte Pays -->
-              <div class="result-card countries-card">
-                <div class="card-icon">🌍</div>
-                <h5 class="card-title">Pays</h5>
-                <div class="card-content">
-                  <div *ngIf="dateSearchResult.countries.length > 0" class="items-grid">
-                    <div *ngFor="let country of dateSearchResult.countries" class="fancy-item country-tag">
-                      {{ country }}
-                    </div>
+        <div *ngIf="dateSearchResult && dateSearchResult.allYearsResults && dateSearchResult.allYearsResults.length > 0" class="search-results-fancy">
+          <div class="all-years-results">
+            <h4 class="all-years-title">📅 Résultats pour {{ searchDate }}</h4>
+            <div class="years-list">
+              <div *ngFor="let yearResult of dateSearchResult.allYearsResults" class="year-entry" [class.no-data]="!yearResult.found">
+                <h5 class="year-title">{{ yearResult.year }}</h5>
+                
+                <div *ngIf="yearResult.found" class="year-data">
+                  
+                  <div *ngIf="yearResult.countries.length > 0" class="data-section">
+                    <strong>🌍 Pays:</strong>
+                    <ul class="inline-list">
+                      <li *ngFor="let country of yearResult.countries; let last = last">
+                        {{ country }}<span *ngIf="!last"> </span>
+                      </li>
+                    </ul>
                   </div>
-                  <div *ngIf="dateSearchResult.countries.length === 0" class="empty-state">
-                    <span>Aucun pays</span>
+                  
+                  <div *ngIf="yearResult.cities.length > 0" class="data-section">
+                    <strong>🏙️ Villes:</strong>
+                    <ul class="inline-list">
+                      <li *ngFor="let city of yearResult.cities; let last = last">
+                        {{ city }}<span *ngIf="!last">,</span>
+                      </li>
+                    </ul>
                   </div>
+                  
+                  <div *ngIf="yearResult.people.length > 0" class="data-section">
+                    <strong>👥 Personnes:</strong>
+                    <ul class="inline-list">
+                      <li *ngFor="let person of yearResult.people; let last = last">
+                        {{ person }}<span *ngIf="!last">,</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div *ngIf="yearResult.nightCity || (yearResult.nightPeople && yearResult.nightPeople.length > 0)" class="data-section night-section">
+                    <strong>🌙 Nuit:</strong>
+                    <span *ngIf="yearResult.nightCity" class="night-info">{{ yearResult.nightCity }}</span>
+                    <span *ngIf="yearResult.nightPeople && yearResult.nightPeople.length > 0" class="night-people">
+                      <span *ngIf="yearResult.nightCity"> avec </span>
+                      <span *ngFor="let person of yearResult.nightPeople; let last = last">
+                        {{ person }}<span *ngIf="!last">, </span>
+                      </span>
+                    </span>
+                  </div>
+                  
                 </div>
-              </div>
-
-              <!-- Carte Villes -->
-              <div class="result-card cities-card">
-                <div class="card-icon">🏙️</div>
-                <h5 class="card-title">Ville(s)</h5>
-                <div class="card-content">
-                  <div *ngIf="dateSearchResult.cities.length > 0" class="items-grid">
-                    <div *ngFor="let city of dateSearchResult.cities" class="fancy-item city-tag">
-                      {{ getCityWithFlag(city) }}
-                    </div>
-                  </div>
-                  <div *ngIf="dateSearchResult.cities.length === 0" class="empty-state">
-                    <span>Aucune ville</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Carte Personnes -->
-              <div class="result-card people-card">
-                <div class="card-icon">👥</div>
-                <h5 class="card-title">Personne(s)</h5>
-                <div class="card-content">
-                  <div *ngIf="dateSearchResult.people.length > 0" class="items-grid">
-                    <div *ngFor="let person of dateSearchResult.people" class="fancy-item person-tag">
-                      {{ person }}
-                    </div>
-                  </div>
-                  <div *ngIf="dateSearchResult.people.length === 0" class="empty-state">
-                    <span>Aucune personne</span>
-                  </div>
+                
+                <div *ngIf="!yearResult.found" class="no-data-text">
+                  Pas de données
                 </div>
               </div>
             </div>
           </div>
           
-          <div *ngIf="!dateSearchResult.found" class="no-data-fancy">
-            <div class="no-data-icon">📅</div>
-            <h4>Aucune donnée disponible</h4>
-            <p>Il n'y a pas d'informations enregistrées pour le {{ dateSearchResult.date }}</p>
-          </div>
+        </div>
+        
+        <div *ngIf="searchDate && (!dateSearchResult || !dateSearchResult.allYearsResults || dateSearchResult.allYearsResults.length === 0)" class="no-data-fancy">
+          <div class="no-data-icon">📅</div>
+          <h4>Aucune donnée disponible</h4>
+          <p>Il n'y a pas d'informations pour {{ searchDate }}</p>
         </div>
       </div>
     </div>
 
     <!-- Tableaux des tops généraux -->
-    <div class="top-tables" *ngIf="selectedTableType === 'all' || selectedTableType === 'general'">
+    <div class="top-tables" *ngIf="!isSearching && (selectedTableType === 'all' || selectedTableType === 'general')">
       <div class="table-container">
         <h3>🏆 Top Pays</h3>
         <table class="stats-table">
@@ -191,7 +195,7 @@
     </div>
 
     <!-- Nouveaux tableaux : Statistiques des nuits -->
-    <div class="night-tables" *ngIf="selectedTableType === 'all' || selectedTableType === 'nights'">
+    <div class="night-tables" *ngIf="!isSearching && (selectedTableType === 'all' || selectedTableType === 'nights')">
       <h2 class="section-title">🌙 Statistiques des Nuits</h2>
       <div class="night-tables-grid">
         <div class="table-container">
@@ -257,7 +261,7 @@
     </div>
 
     <!-- Nouveau tableau : Jours consécutifs -->
-    <div class="special-tables" *ngIf="selectedTableType === 'all' || selectedTableType === 'consecutive'">
+    <div class="special-tables" *ngIf="!isSearching && (selectedTableType === 'all' || selectedTableType === 'consecutive')">
       <div class="table-container full-width">
         <h3>🔥 Top Jours Consécutifs par Personne</h3>
         <table class="stats-table">
@@ -280,7 +284,7 @@
     </div>
 
     <!-- Nouveaux tableaux : Top Personnes par Jour de la Semaine -->
-    <div class="day-tables" *ngIf="selectedTableType === 'all' || selectedTableType === 'byDay'">
+    <div class="day-tables" *ngIf="!isSearching && (selectedTableType === 'all' || selectedTableType === 'byDay')">
       <h2 class="section-title">📅 Top Personnes par Jour de la Semaine</h2>
       <div class="day-tables-grid">
         <div class="table-container" *ngFor="let day of getDaysOfWeek()">
@@ -309,7 +313,7 @@
     </div>
 
     <!-- Nouveaux tableaux : Personnes par pays -->
-    <div class="country-tables" *ngIf="(selectedTableType === 'all' || selectedTableType === 'byCountry') && getCountriesWithPeople().length > 0">
+    <div class="country-tables" *ngIf="!isSearching && (selectedTableType === 'all' || selectedTableType === 'byCountry') && getCountriesWithPeople().length > 0">
       <h2 class="section-title">👥 Top Personnes par Pays</h2>
       <div class="country-tables-grid">
         <div class="table-container" *ngFor="let country of getCountriesWithPeople()">
@@ -335,7 +339,7 @@
     </div>
 
     <!-- Nouveaux tableaux : Statistiques par année -->
-    <div class="yearly-tables" *ngIf="(selectedTableType === 'all' || selectedTableType === 'byYear') && getYears().length > 0">
+    <div class="yearly-tables" *ngIf="!isSearching && (selectedTableType === 'all' || selectedTableType === 'byYear') && getYears().length > 0">
       <h2 class="section-title">📅 Statistiques par Année</h2>
       <div *ngFor="let year of getYears()" class="year-section">
         <h3 class="year-title">Année {{ year }}</h3>
@@ -431,7 +435,7 @@
     </div>
 
     <!-- Graphiques existants -->
-    <div class="chart-section">
+    <div class="chart-section" *ngIf="!isSearching">
       <h3>📍 Par ville</h3>
       <div *ngIf="cityStats.length > 0" class="chart-container">
         <ngx-charts-pie-chart
@@ -452,7 +456,7 @@
       <p *ngIf="cityStats.length === 0" class="no-data">Aucune donnée disponible</p>
     </div>
 
-    <div class="chart-section">
+    <div class="chart-section" *ngIf="!isSearching">
       <h3>👥 Par personne</h3>
       <div *ngIf="peopleStats.length > 0" class="chart-container">
         <ngx-charts-pie-chart
@@ -473,7 +477,7 @@
       <p *ngIf="peopleStats.length === 0" class="no-data">Aucune donnée disponible</p>
     </div>
 
-    <div class="chart-section">
+    <div class="chart-section" *ngIf="!isSearching">
       <h3>🌍 Par pays</h3>
       <div *ngIf="flagStats.length > 0" class="chart-container">
         <ngx-charts-pie-chart
