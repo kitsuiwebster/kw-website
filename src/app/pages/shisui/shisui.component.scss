@@ -750,6 +750,11 @@
   line-height: 1.2;
 }
 
+/* En-têtes spécifiques pour les tableaux annuels */
+.yearly-tables .stats-table th {
+  top: 42px;
+}
+
 .stats-table th:last-child {
   text-align: right;
 }
@@ -1018,6 +1023,10 @@
     top: 51px !important;
     line-height: 1.2 !important;
   }
+  
+  .yearly-tables .stats-table th {
+    top: 41px !important;
+  }
 
   .chart-container {
     height: 350px;
@@ -1166,6 +1175,10 @@
     backdrop-filter: blur(15px);
     top: 43px !important;
     line-height: 1.2 !important;
+  }
+  
+  .yearly-tables .stats-table th {
+    top: 33px !important;
   }
   
   .stats-table th,
