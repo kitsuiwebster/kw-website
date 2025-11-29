@@ -743,6 +743,10 @@
   z-index: 5;
 }
 
+.stats-table th:last-child {
+  text-align: right;
+}
+
 .stats-table td {
   padding: 12px 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
