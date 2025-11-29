@@ -16,6 +16,7 @@ export class LayoutComponent {
   isCozybotPage = false;
   isCozypointsPage = false;
   isCreditsPage = false;
+  isLifePage = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
@@ -26,6 +27,7 @@ export class LayoutComponent {
         this.isCozybotPage = event.url === '/cozybot' || event.url.startsWith('/cozybot?');
         this.isCozypointsPage = event.url === '/cozypoints' || event.url.startsWith('/cozypoints?');
         this.isCreditsPage = event.url === '/cozybot/credits' || event.url.startsWith('/cozybot/credits?');
+        this.isLifePage = event.url === '/life' || event.url === '/shisui' || event.url.startsWith('/life?') || event.url.startsWith('/shisui?');
       }
     });
   }
