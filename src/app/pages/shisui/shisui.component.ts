@@ -363,9 +363,8 @@ export class ShisuiComponent implements OnInit {
   computeFlagStats(): void {
     const count: { [flag: string]: number } = {};
     for (const entry of this.entries) {
-      // Ne compter qu'une seule fois par pays par jour
+      // Ne compter que les drapeaux de jour (c1, c2, c3), pas les drapeaux de nuit (cn)
       const flags = new Set<string>();
-      if (entry.cn) flags.add(entry.cn);
       if (entry.c1) flags.add(entry.c1);
       if (entry.c2) flags.add(entry.c2);
       if (entry.c3) flags.add(entry.c3);
