@@ -285,29 +285,6 @@
                   </div>
                 </div>
               </div>
-
-
-              <!-- Top personnes jours -->
-              <div class="city-stat-card" *ngIf="getCitySearchStats().topDayPeople.length > 0">
-                <h5 class="city-stat-title">🏆 Top Personnes Jours</h5>
-                <div class="city-stat-content">
-                  <div class="city-stat-item" *ngFor="let person of getCitySearchStats().topDayPeople">
-                    <span class="city-stat-label">{{ person[0] }}:</span>
-                    <span class="city-stat-value">{{ person[1] }}</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Top personnes nuits -->
-              <div class="city-stat-card" *ngIf="getCitySearchStats().topNightPeople.length > 0">
-                <h5 class="city-stat-title">🏆 Top Personnes Nuits</h5>
-                <div class="city-stat-content">
-                  <div class="city-stat-item" *ngFor="let person of getCitySearchStats().topNightPeople">
-                    <span class="city-stat-label">{{ person[0] }}:</span>
-                    <span class="city-stat-value">{{ person[1] }}</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           
@@ -339,11 +316,6 @@
                           <span class="city-date-flags">
                             <span *ngFor="let country of dateEntry.countries" class="city-date-flag">{{ country }}</span>
                           </span>
-                          <span class="city-date-people">
-                            <span *ngFor="let person of dateEntry.people; let last = last" class="city-date-person">
-                              {{ person }}<span *ngIf="!last">, </span>
-                            </span>
-                          </span>
                         </div>
                       </div>
                     </div>
@@ -366,11 +338,6 @@
                           <span class="city-date-text">{{ nightEntry.date }}</span>
                           <span class="city-date-flags">
                             <span class="city-date-flag">{{ nightEntry.country }}</span>
-                          </span>
-                          <span class="city-date-people">
-                            <span *ngFor="let person of nightEntry.people; let last = last" class="city-date-person">
-                              {{ person }}<span *ngIf="!last">, </span>
-                            </span>
                           </span>
                         </div>
                       </div>

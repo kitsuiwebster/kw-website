@@ -946,46 +946,9 @@ export class ShisuiComponent implements OnInit {
       nightCountries[nightEntry.country] = (nightCountries[nightEntry.country] || 0) + 1;
     });
 
-    // Stats des personnes (jours)
-    const dayPeople: { [person: string]: number } = {};
-    this.citySearchResult.dates.forEach(dateEntry => {
-      dateEntry.people.forEach(person => {
-        dayPeople[person] = (dayPeople[person] || 0) + 1;
-      });
-    });
-
-    // Stats des personnes (nuits)
-    const nightPeople: { [person: string]: number } = {};
-    this.citySearchResult.nights.forEach(nightEntry => {
-      nightEntry.people.forEach(person => {
-        nightPeople[person] = (nightPeople[person] || 0) + 1;
-      });
-    });
-
-    // Convertir en arrays triées
-    const topDayCountries = Object.entries(dayCountries)
-      .sort(([,a], [,b]) => b - a)
-      .slice(0, 5);
-    
-    const topNightCountries = Object.entries(nightCountries)
-      .sort(([,a], [,b]) => b - a)
-      .slice(0, 5);
-
-    const topDayPeople = Object.entries(dayPeople)
-      .sort(([,a], [,b]) => b - a)
-      .slice(0, 5);
-
-    const topNightPeople = Object.entries(nightPeople)
-      .sort(([,a], [,b]) => b - a)
-      .slice(0, 5);
-
     return {
       totalDays,
-      totalNights,
-      topDayCountries,
-      topNightCountries,
-      topDayPeople,
-      topNightPeople
+      totalNights
     };
   }
 
