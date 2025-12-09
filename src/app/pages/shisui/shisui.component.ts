@@ -65,6 +65,28 @@ interface PersonNightEntry {
   year: string;
 }
 
+interface CitySearchResult {
+  city: string;
+  dates: CityDateEntry[];
+  nights: CityNightEntry[];
+  found: boolean;
+}
+
+interface CityDateEntry {
+  date: string;
+  countries: string[];
+  people: string[];
+  year: string;
+  column: string; // c1, c2, ou c3
+}
+
+interface CityNightEntry {
+  date: string;
+  country: string;
+  people: string[];
+  year: string;
+}
+
 interface CityWithFlag {
   city: string;
   flag: string;
@@ -154,6 +176,11 @@ export class ShisuiComponent implements OnInit {
   personSearchResult: PersonSearchResult | null = null;
   personSearchLoading: boolean = false;
   
+  // Propriétés pour la recherche par ville
+  searchCity: string = '';
+  citySearchResult: CitySearchResult | null = null;
+  citySearchLoading: boolean = false;
+  
   // Propriété pour le filtre de type de table
   selectedTableType: string = 'all';
   
@@ -168,18 +195,25 @@ export class ShisuiComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchData();
     this.updateChartSize();
     
-    // Lire les paramètres d'URL
+    // Lire les paramètres d'URL d'abord
     this.route.queryParams.subscribe(params => {
       if (params['filter']) {
         this.selectedTableType = params['filter'];
       }
       if (params['date']) {
         this.searchDate = params['date'];
-        this.searchByDate();
       }
+      if (params['person']) {
+        this.searchPerson = params['person'];
+      }
+      if (params['city']) {
+        this.searchCity = params['city'];
+      }
+      
+      // Charger les données puis déclencher les recherches
+      this.fetchData();
     });
   }
 
@@ -227,12 +261,28 @@ export class ShisuiComponent implements OnInit {
       next: (csvText: string) => {
         this.parseData(csvText);
         this.loading = false;
+        
+        // Déclencher les recherches après le chargement des données
+        this.executeSearchesFromUrl();
       },
       error: (error) => {
         console.error('Erreur lors du chargement des données:', error);
         this.loading = false;
       }
     });
+  }
+
+  // Méthode pour déclencher les recherches après le chargement des données
+  private executeSearchesFromUrl(): void {
+    if (this.searchDate) {
+      this.searchByDate();
+    }
+    if (this.searchPerson) {
+      this.searchByPerson();
+    }
+    if (this.searchCity) {
+      this.searchByCity();
+    }
   }
 
   parseData(csvText: string): void {
@@ -265,9 +315,11 @@ export class ShisuiComponent implements OnInit {
 
   // Méthode pour formater automatiquement l'input
   onDateInput(): void {
-    // Effacer les résultats de recherche par personne
+    // Effacer les résultats de recherche par personne et ville
     this.personSearchResult = null;
     this.searchPerson = '';
+    this.citySearchResult = null;
+    this.searchCity = '';
 
     // Supprimer tous les caractères non numériques
     let value = this.searchDate.replace(/\D/g, '');
@@ -288,7 +340,9 @@ export class ShisuiComponent implements OnInit {
       relativeTo: this.route,
       queryParams: { 
         filter: this.selectedTableType === 'all' ? null : this.selectedTableType,
-        date: this.searchDate || null
+        date: this.searchDate || null,
+        person: this.searchPerson || null,
+        city: this.searchCity || null
       },
       queryParamsHandling: 'merge'
     });
@@ -300,7 +354,37 @@ export class ShisuiComponent implements OnInit {
       relativeTo: this.route,
       queryParams: { 
         filter: this.selectedTableType === 'all' ? null : this.selectedTableType,
-        date: this.searchDate || null
+        date: this.searchDate || null,
+        person: null,
+        city: null
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  // Mettre à jour l'URL avec la personne
+  updateUrlWithPerson(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { 
+        filter: this.selectedTableType === 'all' ? null : this.selectedTableType,
+        person: this.searchPerson || null,
+        date: null,
+        city: null
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  // Mettre à jour l'URL avec la ville
+  updateUrlWithCity(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { 
+        filter: this.selectedTableType === 'all' ? null : this.selectedTableType,
+        city: this.searchCity || null,
+        date: null,
+        person: null
       },
       queryParamsHandling: 'merge'
     });
@@ -453,16 +537,20 @@ export class ShisuiComponent implements OnInit {
 
   // Méthode pour la recherche par personne
   onPersonInput(): void {
-    // Effacer les résultats de recherche par date
+    // Effacer les résultats de recherche par date et ville
     this.dateSearchResult = null;
     this.searchDate = '';
+    this.citySearchResult = null;
+    this.searchCity = '';
 
     if (!this.searchPerson || this.searchPerson.trim().length < 2) {
       this.personSearchResult = null;
+      this.updateUrlWithPerson();
       return;
     }
     
     this.personSearchLoading = true;
+    this.updateUrlWithPerson();
     
     // Simule un délai de chargement pour l'UX
     setTimeout(() => {
@@ -556,6 +644,130 @@ export class ShisuiComponent implements OnInit {
     this.searchPerson = '';
     this.personSearchResult = null;
     this.personSearchLoading = false;
+    this.updateUrlWithPerson();
+  }
+
+  // Méthode pour la recherche par ville
+  onCityInput(): void {
+    // Effacer les résultats de recherche par date et personne
+    this.dateSearchResult = null;
+    this.searchDate = '';
+    this.personSearchResult = null;
+    this.searchPerson = '';
+
+    if (!this.searchCity || this.searchCity.trim().length < 2) {
+      this.citySearchResult = null;
+      this.updateUrlWithCity();
+      return;
+    }
+    
+    this.citySearchLoading = true;
+    this.updateUrlWithCity();
+    
+    // Simule un délai de chargement pour l'UX
+    setTimeout(() => {
+      this.searchByCity();
+      this.citySearchLoading = false;
+    }, 300);
+  }
+
+  // Méthode pour rechercher par ville
+  searchByCity(): void {
+    if (!this.searchCity || this.searchCity.trim().length < 2) {
+      this.citySearchResult = null;
+      return;
+    }
+
+    const searchCityName = this.searchCity.trim().toLowerCase();
+    const cityDates: CityDateEntry[] = [];
+    const cityNights: CityNightEntry[] = [];
+
+    // Parcourir toutes les entrées pour trouver celles qui contiennent cette ville
+    for (const entry of this.entries) {
+      const parts = entry.date.split('/');
+      const year = parts.length === 3 ? parts[2] : '';
+
+      // Gérer les nuits séparément
+      if (entry.cityNight && entry.cityNight.trim().toLowerCase().includes(searchCityName)) {
+        cityNights.push({
+          date: entry.date,
+          country: entry.cn || '',
+          people: entry.peopleNight.filter(p => p && p.trim()),
+          year: year
+        });
+      }
+
+      // Gérer les jours (city1, city2, city3)
+      const foundEntries: {countries: string[], people: string[], column: string}[] = [];
+      
+      // Vérifier dans city1 -> drapeau c1 + personnes people1
+      if (entry.city1 && entry.city1.trim().toLowerCase().includes(searchCityName)) {
+        foundEntries.push({
+          countries: entry.c1 ? [entry.c1] : [],
+          people: entry.people1.filter(p => p && p.trim()),
+          column: 'c1'
+        });
+      }
+      // Vérifier dans city2 -> drapeau c2 + personnes people2
+      if (entry.city2 && entry.city2.trim().toLowerCase().includes(searchCityName)) {
+        foundEntries.push({
+          countries: entry.c2 ? [entry.c2] : [],
+          people: entry.people2.filter(p => p && p.trim()),
+          column: 'c2'
+        });
+      }
+      // Vérifier dans city3 -> drapeau c3 + personnes people3
+      if (entry.city3 && entry.city3.trim().toLowerCase().includes(searchCityName)) {
+        foundEntries.push({
+          countries: entry.c3 ? [entry.c3] : [],
+          people: entry.people3.filter(p => p && p.trim()),
+          column: 'c3'
+        });
+      }
+
+      // Combiner les résultats pour cette date
+      foundEntries.forEach(foundEntry => {
+        if (foundEntry.countries.length > 0 || foundEntry.people.length > 0) {
+          cityDates.push({
+            date: entry.date,
+            countries: foundEntry.countries,
+            people: foundEntry.people,
+            year: year,
+            column: foundEntry.column
+          });
+        }
+      });
+    }
+
+    // Trier les dates par ordre décroissant
+    const sortByDate = (a: any, b: any) => {
+      const parseDate = (dateStr: string): Date => {
+        const [day, month, year] = dateStr.split('/').map(num => parseInt(num, 10));
+        return new Date(year, month - 1, day);
+      };
+      
+      const dateA = parseDate(a.date);
+      const dateB = parseDate(b.date);
+      return dateB.getTime() - dateA.getTime();
+    };
+
+    cityDates.sort(sortByDate);
+    cityNights.sort(sortByDate);
+
+    this.citySearchResult = {
+      city: this.searchCity,
+      dates: cityDates,
+      nights: cityNights,
+      found: cityDates.length > 0 || cityNights.length > 0
+    };
+  }
+
+  // Méthode pour effacer la recherche par ville
+  clearCitySearch(): void {
+    this.searchCity = '';
+    this.citySearchResult = null;
+    this.citySearchLoading = false;
+    this.updateUrlWithCity();
   }
 
   // Méthode pour scroll vers la section nuits
@@ -698,7 +910,153 @@ export class ShisuiComponent implements OnInit {
 
   // Getter pour savoir si on est en mode recherche
   get isSearching(): boolean {
-    return !!(this.searchDate && this.dateSearchResult) || !!(this.searchPerson && this.personSearchResult);
+    return !!(this.searchDate && this.dateSearchResult) || 
+           !!(this.searchPerson && this.personSearchResult) || 
+           !!(this.searchCity && this.citySearchResult);
+  }
+
+  // Méthode pour calculer les statistiques de la recherche par ville
+  getCitySearchStats(): any {
+    if (!this.citySearchResult) {
+      return null;
+    }
+
+    const totalDays = this.citySearchResult.dates.length;
+    const totalNights = this.citySearchResult.nights.length;
+
+    // Stats des pays (jours uniquement)
+    const dayCountries: { [country: string]: number } = {};
+    this.citySearchResult.dates.forEach(dateEntry => {
+      dateEntry.countries.forEach(country => {
+        dayCountries[country] = (dayCountries[country] || 0) + 1;
+      });
+    });
+
+    // Stats des pays (nuits)
+    const nightCountries: { [country: string]: number } = {};
+    this.citySearchResult.nights.forEach(nightEntry => {
+      nightCountries[nightEntry.country] = (nightCountries[nightEntry.country] || 0) + 1;
+    });
+
+    // Stats des personnes (jours)
+    const dayPeople: { [person: string]: number } = {};
+    this.citySearchResult.dates.forEach(dateEntry => {
+      dateEntry.people.forEach(person => {
+        dayPeople[person] = (dayPeople[person] || 0) + 1;
+      });
+    });
+
+    // Stats des personnes (nuits)
+    const nightPeople: { [person: string]: number } = {};
+    this.citySearchResult.nights.forEach(nightEntry => {
+      nightEntry.people.forEach(person => {
+        nightPeople[person] = (nightPeople[person] || 0) + 1;
+      });
+    });
+
+    // Convertir en arrays triées
+    const topDayCountries = Object.entries(dayCountries)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 5);
+    
+    const topNightCountries = Object.entries(nightCountries)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 5);
+
+    const topDayPeople = Object.entries(dayPeople)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 5);
+
+    const topNightPeople = Object.entries(nightPeople)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 5);
+
+    return {
+      totalDays,
+      totalNights,
+      topDayCountries,
+      topNightCountries,
+      topDayPeople,
+      topNightPeople
+    };
+  }
+
+  // Méthode pour grouper les résultats de ville par année puis par mois
+  getCityResultsByYear(): { year: string; months: { month: string; monthName: string; dates: CityDateEntry[] }[] }[] {
+    if (!this.citySearchResult || !this.citySearchResult.dates) {
+      return [];
+    }
+
+    const yearGroups: { [year: string]: { [month: string]: CityDateEntry[] } } = {};
+    
+    this.citySearchResult.dates.forEach(dateEntry => {
+      const parts = dateEntry.date.split('/');
+      const month = parts.length >= 2 ? parts[1] : '01';
+      
+      if (!yearGroups[dateEntry.year]) {
+        yearGroups[dateEntry.year] = {};
+      }
+      if (!yearGroups[dateEntry.year][month]) {
+        yearGroups[dateEntry.year][month] = [];
+      }
+      yearGroups[dateEntry.year][month].push(dateEntry);
+    });
+
+    const monthNames = ['', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
+                       'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+    // Convertir en array et trier par année décroissante, puis par mois décroissant
+    return Object.entries(yearGroups)
+      .map(([year, months]) => ({
+        year,
+        months: Object.entries(months)
+          .map(([month, dates]) => ({
+            month,
+            monthName: monthNames[parseInt(month)] || 'Mois ' + month,
+            dates
+          }))
+          .sort((a, b) => parseInt(b.month) - parseInt(a.month))
+      }))
+      .sort((a, b) => b.year.localeCompare(a.year));
+  }
+
+  // Méthode pour grouper les nuits de ville par année puis par mois
+  getCityNightsByYear(): { year: string; months: { month: string; monthName: string; nights: CityNightEntry[] }[] }[] {
+    if (!this.citySearchResult || !this.citySearchResult.nights) {
+      return [];
+    }
+
+    const yearGroups: { [year: string]: { [month: string]: CityNightEntry[] } } = {};
+    
+    this.citySearchResult.nights.forEach(nightEntry => {
+      const parts = nightEntry.date.split('/');
+      const month = parts.length >= 2 ? parts[1] : '01';
+      
+      if (!yearGroups[nightEntry.year]) {
+        yearGroups[nightEntry.year] = {};
+      }
+      if (!yearGroups[nightEntry.year][month]) {
+        yearGroups[nightEntry.year][month] = [];
+      }
+      yearGroups[nightEntry.year][month].push(nightEntry);
+    });
+
+    const monthNames = ['', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
+                       'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+    // Convertir en array et trier par année décroissante, puis par mois décroissant
+    return Object.entries(yearGroups)
+      .map(([year, months]) => ({
+        year,
+        months: Object.entries(months)
+          .map(([month, nights]) => ({
+            month,
+            monthName: monthNames[parseInt(month)] || 'Mois ' + month,
+            nights
+          }))
+          .sort((a, b) => parseInt(b.month) - parseInt(a.month))
+      }))
+      .sort((a, b) => b.year.localeCompare(a.year));
   }
 
   computeAllStats(): void {
