@@ -576,7 +576,7 @@ export class ShisuiComponent implements OnInit {
       const year = parts.length === 3 ? parts[2] : '';
 
       // Gérer les nuits séparément
-      if (entry.peopleNight.some(p => p && p.trim().toLowerCase().includes(searchName))) {
+      if (entry.peopleNight.some(p => p && p.trim().toLowerCase() === searchName)) {
         if (entry.cn && entry.cityNight) {
           personNights.push({
             date: entry.date,
@@ -591,15 +591,15 @@ export class ShisuiComponent implements OnInit {
       const foundCountries: string[] = [];
       
       // Vérifier dans people1 (colonne H) -> drapeau c1 (colonne F)
-      if (entry.people1.some(p => p && p.trim().toLowerCase().includes(searchName))) {
+      if (entry.people1.some(p => p && p.trim().toLowerCase() === searchName)) {
         if (entry.c1) foundCountries.push(entry.c1);
       }
       // Vérifier dans people2 (colonne K) -> drapeau c2 (colonne I)
-      if (entry.people2.some(p => p && p.trim().toLowerCase().includes(searchName))) {
+      if (entry.people2.some(p => p && p.trim().toLowerCase() === searchName)) {
         if (entry.c2) foundCountries.push(entry.c2);
       }
       // Vérifier dans people3 (colonne N) -> drapeau c3 (colonne L)
-      if (entry.people3.some(p => p && p.trim().toLowerCase().includes(searchName))) {
+      if (entry.people3.some(p => p && p.trim().toLowerCase() === searchName)) {
         if (entry.c3) foundCountries.push(entry.c3);
       }
 
@@ -671,6 +671,14 @@ export class ShisuiComponent implements OnInit {
     }, 300);
   }
 
+  // Méthode helper pour vérifier si une ville correspond exactement
+  private cityMatchesExactly(cityString: string, searchCity: string): boolean {
+    // Diviser la chaîne par des espaces pour obtenir toutes les villes
+    const cities = cityString.trim().split(' ').map(city => city.trim().toLowerCase()).filter(city => city);
+    // Vérifier si la ville recherchée correspond exactement à l'une des villes
+    return cities.includes(searchCity.toLowerCase());
+  }
+
   // Méthode pour rechercher par ville
   searchByCity(): void {
     if (!this.searchCity || this.searchCity.trim().length < 2) {
@@ -688,7 +696,7 @@ export class ShisuiComponent implements OnInit {
       const year = parts.length === 3 ? parts[2] : '';
 
       // Gérer les nuits séparément
-      if (entry.cityNight && entry.cityNight.trim().toLowerCase().includes(searchCityName)) {
+      if (entry.cityNight && entry.cityNight.trim().toLowerCase() === searchCityName) {
         cityNights.push({
           date: entry.date,
           country: entry.cn || '',
@@ -701,7 +709,7 @@ export class ShisuiComponent implements OnInit {
       const foundEntries: {countries: string[], people: string[], column: string}[] = [];
       
       // Vérifier dans city1 -> drapeau c1 + personnes people1
-      if (entry.city1 && entry.city1.trim().toLowerCase().includes(searchCityName)) {
+      if (entry.city1 && this.cityMatchesExactly(entry.city1, searchCityName)) {
         foundEntries.push({
           countries: entry.c1 ? [entry.c1] : [],
           people: entry.people1.filter(p => p && p.trim()),
@@ -709,7 +717,7 @@ export class ShisuiComponent implements OnInit {
         });
       }
       // Vérifier dans city2 -> drapeau c2 + personnes people2
-      if (entry.city2 && entry.city2.trim().toLowerCase().includes(searchCityName)) {
+      if (entry.city2 && this.cityMatchesExactly(entry.city2, searchCityName)) {
         foundEntries.push({
           countries: entry.c2 ? [entry.c2] : [],
           people: entry.people2.filter(p => p && p.trim()),
@@ -717,7 +725,7 @@ export class ShisuiComponent implements OnInit {
         });
       }
       // Vérifier dans city3 -> drapeau c3 + personnes people3
-      if (entry.city3 && entry.city3.trim().toLowerCase().includes(searchCityName)) {
+      if (entry.city3 && this.cityMatchesExactly(entry.city3, searchCityName)) {
         foundEntries.push({
           countries: entry.c3 ? [entry.c3] : [],
           people: entry.people3.filter(p => p && p.trim()),

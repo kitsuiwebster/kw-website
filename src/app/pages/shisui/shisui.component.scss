@@ -98,14 +98,6 @@
 
 /* Section de recherche globale */
 .search-section {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-  margin-bottom: 60px;
-}
-
-/* Section de recherche par date - Dark Luxe */
-.date-search-section, .person-search-section, .city-search-section {
   background: linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(25, 25, 25, 0.9) 100%);
   backdrop-filter: blur(30px);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -119,17 +111,7 @@
   overflow: hidden;
 }
 
-.person-search-section {
-  background: linear-gradient(135deg, rgba(25, 15, 25, 0.95) 0%, rgba(35, 25, 35, 0.9) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.city-search-section {
-  background: linear-gradient(135deg, rgba(15, 25, 25, 0.95) 0%, rgba(25, 35, 35, 0.9) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.date-search-section::before, .person-search-section::before, .city-search-section::before {
+.search-section::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -141,46 +123,36 @@
   pointer-events: none;
 }
 
-@keyframes shimmer {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.person-search-section h3 {
-  background: linear-gradient(135deg, #e879f9 0%, #a855f7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.city-search-section h3 {
-  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.date-search-section h3, .person-search-section h3, .city-search-section h3 {
+.search-main-title {
   color: #ffffff;
-  margin-top: 0;
-  margin-bottom: 30px;
   text-align: center;
-  font-size: 1.6rem;
+  margin: 0 0 30px 0;
+  font-size: 2.2rem;
   font-weight: 300;
   letter-spacing: -0.01em;
   background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  position: relative;
+  z-index: 10;
 }
 
-.search-container {
-  display: flex;
-  flex-direction: column;
+.search-inputs-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
   position: relative;
   z-index: 10;
 }
+
+/* Nouveaux conteneurs d'inputs */
+.search-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styles pour les groupes d'inputs */
 
 .search-input-group {
   display: flex;
@@ -1277,8 +1249,14 @@
   }
 
   /* Search Section Responsive - Tablet */
-  .search-section {
-    gap: 20px;
+  .search-inputs-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .search-main-title {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
   }
   
   .day-tables-grid {
@@ -1764,17 +1742,17 @@
 
   /* Search Section Responsive - Mobile */
   .search-section {
-    gap: 15px;
+    padding: 25px;
     margin-bottom: 40px;
   }
   
-  .date-search-section, .person-search-section, .city-search-section {
-    padding: 25px;
-    margin-bottom: 0;
+  .search-inputs-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
   
-  .date-search-section h3, .person-search-section h3, .city-search-section h3 {
-    font-size: 1.3rem;
+  .search-main-title {
+    font-size: 1.5rem;
     margin-bottom: 20px;
   }
 }

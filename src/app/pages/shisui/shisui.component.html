@@ -25,10 +25,10 @@
   <div *ngIf="!loading" class="stats-container">
     <!-- Section de recherche -->
     <div class="search-section">
-      <!-- Recherche par date -->
-      <div class="date-search-section">
-        <h3>🔍 Recherche par Date</h3>
-        <div class="search-container">
+      <h2 class="search-main-title">🔍 Recherche</h2>
+      <div class="search-inputs-row">
+        <!-- Recherche par date -->
+        <div class="search-input-container">
           <div class="search-input-group">
             <input 
               type="text" 
@@ -43,12 +43,9 @@
             </button>
           </div>
         </div>
-      </div>
 
-      <!-- Recherche par personne -->
-      <div class="person-search-section">
-        <h3>🔍 Recherche par Personne</h3>
-        <div class="search-container">
+        <!-- Recherche par personne -->
+        <div class="search-input-container">
           <div class="search-input-group">
             <input 
               type="text" 
@@ -62,12 +59,9 @@
             </button>
           </div>
         </div>
-      </div>
 
-      <!-- Recherche par ville -->
-      <div class="city-search-section">
-        <h3>🔍 Recherche par Ville</h3>
-        <div class="search-container">
+        <!-- Recherche par ville -->
+        <div class="search-input-container">
           <div class="search-input-group">
             <input 
               type="text" 
