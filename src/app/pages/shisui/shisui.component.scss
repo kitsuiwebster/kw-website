@@ -352,11 +352,7 @@
   margin-bottom: 60px;
 }
 
-/* Styles pour les résultats de recherche de personne */
-.person-results {
-  margin-top: 30px;
-  animation: slideIn 0.6s ease-out 0.2s both;
-}
+/* Les styles .person-results sont maintenant mutualisés avec .city-results */
 
 .person-results-title {
   text-align: center;
@@ -371,13 +367,7 @@
   background-clip: text;
 }
 
-.person-section {
-  margin-bottom: 40px;
-}
-
-.person-section:last-child {
-  margin-bottom: 0;
-}
+/* .person-section maintenant mutualisé avec .city-section */
 
 .person-section-title {
   font-size: 1.5rem;
@@ -392,11 +382,7 @@
   background-clip: text;
 }
 
-.person-navigation {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}
+/* .person-navigation maintenant mutualisé avec .city-navigation */
 
 .nav-to-nights-btn {
   padding: 12px 20px;
@@ -555,341 +541,143 @@
   animation: slideIn 0.6s ease-out;
 }
 
-.person-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-  margin-top: 20px;
+/* Stats pour personnes maintenant mutualisées - styles spécifiques uniquement */
+.person-stat-card { background: rgba(232,121,249,0.08); border: 1px solid rgba(232,121,249,0.2); }
+.person-stat-card:hover { 
+  background: rgba(232,121,249,0.15); border-color: rgba(232,121,249,0.4); 
+  transform: translateY(-2px); box-shadow: 0 12px 35px rgba(232,121,249,0.2); 
 }
-
-.person-stat-card {
-  background: rgba(232, 121, 249, 0.08);
-  border: 1px solid rgba(232, 121, 249, 0.2);
-  border-radius: 16px;
-  padding: 20px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+.person-stat-title { 
+  color: #e879f9; background: linear-gradient(135deg, #e879f9, #a855f7); 
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
 }
-
-.person-stat-card:hover {
-  background: rgba(232, 121, 249, 0.15);
-  border-color: rgba(232, 121, 249, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(232, 121, 249, 0.2);
-}
-
-.person-stat-title {
-  color: #e879f9;
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0 15px 0;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  background: linear-gradient(135deg, #e879f9 0%, #a855f7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.person-stat-content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.person-stat-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(232, 121, 249, 0.1);
-}
-
-.person-stat-item:last-child {
-  border-bottom: none;
-}
-
-.person-stat-label {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-  font-weight: 400;
-  flex: 1;
-}
-
+.person-stat-item { border-bottom: 1px solid rgba(232,121,249,0.1); }
 .person-stat-value {
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #ffffff 0%, #e879f9 100%);
-  -webkit-background-clip: text;
+  color: #fff; font: 600 1rem/1; text-align: right; min-width: 40px;
+  background: linear-gradient(135deg, #fff, #e879f9); -webkit-background-clip: text; 
   -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-align: right;
-  min-width: 40px;
 }
 
-/* Styles pour les résultats de recherche par ville */
-.city-results {
-  margin-top: 30px;
-  animation: slideIn 0.6s ease-out 0.2s both;
-}
+/* Styles mutualisés pour les résultats ville/personne */
+.city-results, .person-results { margin-top: 30px; animation: slideIn 0.6s ease-out 0.2s both; }
+.city-navigation, .person-navigation { display: flex; justify-content: center; margin-bottom: 30px; }
+.city-section, .person-section { margin-bottom: 50px; }
 
-.city-results-title {
-  color: #06b6d4;
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 1.8rem;
-  font-weight: bold;
-  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-transform: capitalize;
-  letter-spacing: -0.01em;
-}
-
-.city-navigation {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-.city-section {
-  margin-bottom: 50px;
+.city-results-title { 
+  color: #06b6d4; text-align: center; margin-bottom: 30px; font: bold 1.8rem/1;
+  background: linear-gradient(135deg, #06b6d4, #0891b2); -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; text-transform: capitalize; letter-spacing: -0.01em; 
 }
 
 .city-section-title {
-  color: #06b6d4;
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 25px;
-  text-align: center;
-  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: #06b6d4; font: 600 1.4rem/1; margin-bottom: 25px; text-align: center;
+  background: linear-gradient(135deg, #06b6d4, #0891b2); -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px;
 }
 
 .city-years-list {
-  background: rgba(20, 30, 30, 0.7);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(6, 182, 212, 0.15);
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(6, 182, 212, 0.1);
+  background: rgba(20,30,30,0.7); backdrop-filter: blur(20px); border: 1px solid rgba(6,182,212,0.15);
+  border-radius: 20px; padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(6,182,212,0.1);
 }
 
-.city-year-section {
-  margin-bottom: 40px;
-}
-
-.city-year-section:last-child {
-  margin-bottom: 0;
-}
+.city-year-section { margin-bottom: 40px; }
+.city-year-section:last-child { margin-bottom: 0; }
 
 .city-year-title {
-  color: #0891b2;
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-align: center;
-  background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  border-bottom: 2px solid rgba(6, 182, 212, 0.2);
-  padding-bottom: 10px;
+  color: #0891b2; font: 700 1.3rem/1; margin-bottom: 20px; text-align: center;
+  background: linear-gradient(135deg, #0891b2, #06b6d4); -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; border-bottom: 2px solid rgba(6,182,212,0.2); padding-bottom: 10px;
 }
 
-.city-months-in-year {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
+.city-months-in-year { display: flex; flex-direction: column; gap: 25px; }
 
 .city-month-section {
-  border-left: 3px solid rgba(6, 182, 212, 0.3);
-  padding-left: 20px;
-  margin-left: 10px;
+  border-left: 3px solid rgba(6,182,212,0.3); padding-left: 20px; margin-left: 10px;
 }
 
 .city-month-title {
-  color: rgba(6, 182, 212, 0.9);
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  opacity: 0.8;
+  color: rgba(6,182,212,0.9); font: 600 0.95rem/1; margin-bottom: 15px; 
+  text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8;
 }
 
-.city-dates-in-month {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.city-dates-in-month { display: flex; flex-direction: column; gap: 12px; }
 
 .city-date-entry {
-  background: rgba(6, 182, 212, 0.08);
-  border: 1px solid rgba(6, 182, 212, 0.2);
-  border-radius: 12px;
-  padding: 16px 20px;
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #ffffff;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.2); border-radius: 12px;
+  padding: 16px 20px; font: 500 1.1rem/1; color: #fff; transition: all 0.3s ease; 
+  display: flex; align-items: center; gap: 15px; backdrop-filter: blur(10px); 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .city-date-entry:hover {
-  background: rgba(6, 182, 212, 0.15);
-  border-color: rgba(6, 182, 212, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(6, 182, 212, 0.1);
+  background: rgba(6,182,212,0.15); border-color: rgba(6,182,212,0.4); 
+  transform: translateY(-2px); box-shadow: 0 8px 25px rgba(6,182,212,0.1);
 }
 
-.city-date-entry.night-entry {
-  background: rgba(8, 145, 178, 0.15);
-  border-color: rgba(8, 145, 178, 0.5);
-}
+.city-date-entry.night-entry { background: rgba(8,145,178,0.15); border-color: rgba(8,145,178,0.5); }
+.city-date-entry.night-entry:hover { background: rgba(8,145,178,0.25); border-color: rgba(8,145,178,0.7); }
 
-.city-date-entry.night-entry:hover {
-  background: rgba(8, 145, 178, 0.25);
-  border-color: rgba(8, 145, 178, 0.7);
-}
-
-.city-date-text {
-  font-weight: 700;
-  color: #ffffff;
-  font-size: 1.05rem;
-  min-width: 80px;
-}
-
-.city-date-flags {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
+.city-date-text { font-weight: 700; color: #fff; font-size: 1.05rem; min-width: 80px; }
+.city-date-flags { display: flex; gap: 8px; align-items: center; }
 
 .city-date-flag {
-  font-size: 1.2rem;
-  padding: 4px 8px;
-  background: rgba(6, 182, 212, 0.15);
-  border-radius: 8px;
-  border: 1px solid rgba(6, 182, 212, 0.3);
-  font-weight: 600;
+  font-size: 1.2rem; padding: 4px 8px; background: rgba(6,182,212,0.15); 
+  border-radius: 8px; border: 1px solid rgba(6,182,212,0.3); font-weight: 600;
 }
 
-.city-date-people {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-style: italic;
-  margin-left: auto;
-  text-align: right;
+.city-date-people { 
+  font: italic 0.95rem/1; color: rgba(255,255,255,0.8); margin-left: auto; text-align: right; 
+}
+.city-date-person { font-weight: 500; color: rgba(6,182,212,0.9); }
+
+/* Stats mutualisées */
+.city-stats-section, .person-stats-section {
+  backdrop-filter: blur(20px); border-radius: 20px; padding: 30px; margin-bottom: 40px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5); animation: slideIn 0.6s ease-out;
 }
 
-.city-date-person {
-  font-weight: 500;
-  color: rgba(6, 182, 212, 0.9);
+.city-stats-section { background: rgba(20,30,30,0.7); border: 1px solid rgba(6,182,212,0.15); }
+.city-stats-grid, .person-stats-grid { 
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 20px; 
 }
 
-/* Styles pour les statistiques de recherche par ville */
-.city-stats-section {
-  background: rgba(20, 30, 30, 0.7);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(6, 182, 212, 0.15);
-  border-radius: 20px;
-  padding: 30px;
-  margin-bottom: 40px;
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(6, 182, 212, 0.1);
-  animation: slideIn 0.6s ease-out;
+.city-stat-card, .person-stat-card {
+  border-radius: 16px; padding: 20px; transition: all 0.3s ease; backdrop-filter: blur(10px); 
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
 
-.city-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-  margin-top: 20px;
+.city-stat-card { background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.2); }
+.city-stat-card:hover { 
+  background: rgba(6,182,212,0.15); border-color: rgba(6,182,212,0.4); 
+  transform: translateY(-2px); box-shadow: 0 12px 35px rgba(6,182,212,0.2); 
 }
 
-.city-stat-card {
-  background: rgba(6, 182, 212, 0.08);
-  border: 1px solid rgba(6, 182, 212, 0.2);
-  border-radius: 16px;
-  padding: 20px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+.city-stat-title, .person-stat-title {
+  font: 600 1rem/1; margin: 0 0 15px 0; text-align: center; text-transform: uppercase; letter-spacing: 0.5px;
 }
 
-.city-stat-card:hover {
-  background: rgba(6, 182, 212, 0.15);
-  border-color: rgba(6, 182, 212, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(6, 182, 212, 0.2);
+.city-stat-title { 
+  color: #06b6d4; background: linear-gradient(135deg, #06b6d4, #0891b2); 
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
 }
 
-.city-stat-title {
-  color: #06b6d4;
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0 15px 0;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.city-stat-content, .person-stat-content { display: flex; flex-direction: column; gap: 8px; }
+
+.city-stat-item, .person-stat-item {
+  display: flex; justify-content: space-between; align-items: center; 
+  padding: 8px 0; border-bottom: 1px solid rgba(6,182,212,0.1);
 }
 
-.city-stat-content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.city-stat-item:last-child, .person-stat-item:last-child { border-bottom: none; }
 
-.city-stat-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
-}
-
-.city-stat-item:last-child {
-  border-bottom: none;
-}
-
-.city-stat-label {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-  font-weight: 400;
-  flex: 1;
+.city-stat-label, .person-stat-label { 
+  color: rgba(255,255,255,0.8); font: 400 0.9rem/1; flex: 1; 
 }
 
 .city-stat-value {
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #ffffff 0%, #06b6d4 100%);
-  -webkit-background-clip: text;
+  color: #fff; font: 600 1rem/1; text-align: right; min-width: 40px;
+  background: linear-gradient(135deg, #fff, #06b6d4); -webkit-background-clip: text; 
   -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-align: right;
-  min-width: 40px;
 }
 
 /* Anciens styles pour compatibilité */
@@ -1018,230 +806,40 @@
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-/* Simple Result Lists */
-.simple-result-lists {
-  margin-bottom: 20px;
-}
+/* Styles supprimés pour optimisation */
 
-.result-list-container {
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+/* Styles d'affichage pour recherche par date - compacts */
+.all-years-results { margin-top: 30px; animation: slideIn 0.6s ease-out 0.2s both; }
+.all-years-title { 
+  text-align: center; color: #fff; font: 300 1.5rem/1; margin-bottom: 30px; letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #fff, #ccc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
 }
-
-.result-list {
-  margin-bottom: 20px;
-}
-
-.result-list:last-child {
-  margin-bottom: 0;
-}
-
-.list-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #333;
-  margin: 0 0 10px 0;
-  padding-bottom: 5px;
-  border-bottom: 2px solid #e2e8f0;
-}
-
-.simple-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.list-item {
-  padding: 6px 0;
-  color: #4a5568;
-  font-weight: 500;
-  border-bottom: 1px solid #f7fafc;
-}
-
-.list-item:last-child {
-  border-bottom: none;
-}
-
-.list-item:hover {
-  color: #2d3748;
-  background-color: #f7fafc;
-  margin: 0 -10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 4px;
-}
-
-/* All Years Results */
-.all-years-results {
-  margin-top: 30px;
-  animation: slideIn 0.6s ease-out 0.2s both;
-}
-
-.all-years-title {
-  text-align: center;
-  color: #ffffff;
-  font-size: 1.5rem;
-  font-weight: 300;
-  margin-bottom: 30px;
-  letter-spacing: -0.01em;
-  background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 .years-list {
-  background: rgba(20, 20, 20, 0.7);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: rgba(20,20,20,0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px; padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
 }
-
-.year-entry {
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
+.year-entry { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; }
+.year-entry:last-child { border-bottom: none; }
+.year-entry.no-data { opacity: 0.3; }
+.year-entry:hover:not(.no-data) { 
+  background: rgba(255,255,255,0.02); border-radius: 12px; margin: 0 -20px; 
+  padding: 20px; border-bottom-color: transparent; 
 }
+.year-title { font: 300 1.4rem/1; color: #fff; margin: 0 0 15px 0; letter-spacing: -0.02em; }
+.year-data { margin-left: 25px; }
+.data-section { margin-bottom: 12px; line-height: 1.6; }
 
-.year-entry:last-child {
-  border-bottom: none;
-}
-
-.year-entry.no-data {
-  opacity: 0.3;
-}
-
-.year-entry:hover:not(.no-data) {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 12px;
-  margin: 0 -20px;
-  padding: 20px;
-  border-bottom-color: transparent;
-}
-
-.year-title {
-  font-size: 1.4rem;
-  font-weight: 300;
-  color: #ffffff;
-  margin: 0 0 15px 0;
-  letter-spacing: -0.02em;
-}
-
-.year-data {
-  margin-left: 25px;
-}
-
-.data-section {
-  margin-bottom: 12px;
-  line-height: 1.6;
-}
-
-.data-section strong {
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
-  margin-right: 12px;
-}
-
-.inline-list {
-  display: inline;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.inline-list li {
-  display: inline;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 400;
-  font-size: 0.95rem;
-}
-
-.no-data-text {
-  color: rgba(255, 255, 255, 0.3);
-  font-style: italic;
-  margin-left: 25px;
-}
-
+/* Styles essentiels pour recherche par date */
+.data-section strong { color: rgba(255,255,255,0.9); font-weight: 500; margin-right: 12px; }
+.inline-list { display: inline; list-style: none; padding: 0; margin: 0; }
+.inline-list li { display: inline; color: rgba(255,255,255,0.8); font: 400 0.95rem/1; }
+.no-data-text { color: rgba(255,255,255,0.3); font-style: italic; margin-left: 25px; }
 .night-section {
-  background: rgba(15, 15, 30, 0.4);
-  backdrop-filter: blur(10px);
-  padding: 12px 16px;
-  border-radius: 10px;
-  margin-top: 8px;
-  border-left: 3px solid rgba(138, 43, 226, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15,15,30,0.4); backdrop-filter: blur(10px); padding: 12px 16px; border-radius: 10px;
+  margin-top: 8px; border-left: 3px solid rgba(138,43,226,0.6); border: 1px solid rgba(255,255,255,0.05);
 }
-
-.night-info {
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.night-people {
-  color: rgba(255, 255, 255, 0.7);
-  font-style: italic;
-}
-
-.result-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
-  margin-top: 20px;
-}
-
-.result-card {
-  background: white;
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.result-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--card-color-1) 0%, var(--card-color-2) 100%);
-}
-
-.countries-card {
-  --card-color-1: #4facfe;
-  --card-color-2: #00f2fe;
-}
-
-.cities-card {
-  --card-color-1: #43e97b;
-  --card-color-2: #38f9d7;
-}
-
-.people-card {
-  --card-color-1: #fa709a;
-  --card-color-2: #fee140;
-}
-
-.result-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-}
-
-.card-icon {
-  font-size: 3rem;
-  text-align: center;
-  margin-bottom: 15px;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-}
+.night-info { font-weight: 400; color: rgba(255,255,255,0.9); }
+.night-people { color: rgba(255,255,255,0.7); font-style: italic; }
 
 .card-title {
   font-size: 1.3rem;
