@@ -45,6 +45,26 @@ interface DateSearchResultByYear {
   found: boolean;
 }
 
+interface PersonSearchResult {
+  person: string;
+  dates: PersonDateEntry[];
+  nights: PersonNightEntry[];
+  found: boolean;
+}
+
+interface PersonDateEntry {
+  date: string;
+  countries: string[];
+  year: string;
+}
+
+interface PersonNightEntry {
+  date: string;
+  country: string;
+  city: string;
+  year: string;
+}
+
 interface CityWithFlag {
   city: string;
   flag: string;
@@ -128,6 +148,11 @@ export class ShisuiComponent implements OnInit {
   // Propriétés pour la recherche par date
   searchDate: string = '';
   dateSearchResult: DateSearchResult | null = null;
+
+  // Propriétés pour la recherche par personne
+  searchPerson: string = '';
+  personSearchResult: PersonSearchResult | null = null;
+  personSearchLoading: boolean = false;
   
   // Propriété pour le filtre de type de table
   selectedTableType: string = 'all';
@@ -240,6 +265,10 @@ export class ShisuiComponent implements OnInit {
 
   // Méthode pour formater automatiquement l'input
   onDateInput(): void {
+    // Effacer les résultats de recherche par personne
+    this.personSearchResult = null;
+    this.searchPerson = '';
+
     // Supprimer tous les caractères non numériques
     let value = this.searchDate.replace(/\D/g, '');
     
@@ -422,9 +451,254 @@ export class ShisuiComponent implements OnInit {
     this.updateUrlWithDate();
   }
 
+  // Méthode pour la recherche par personne
+  onPersonInput(): void {
+    // Effacer les résultats de recherche par date
+    this.dateSearchResult = null;
+    this.searchDate = '';
+
+    if (!this.searchPerson || this.searchPerson.trim().length < 2) {
+      this.personSearchResult = null;
+      return;
+    }
+    
+    this.personSearchLoading = true;
+    
+    // Simule un délai de chargement pour l'UX
+    setTimeout(() => {
+      this.searchByPerson();
+      this.personSearchLoading = false;
+    }, 300);
+  }
+
+  // Méthode pour rechercher par personne
+  searchByPerson(): void {
+    if (!this.searchPerson || this.searchPerson.trim().length < 2) {
+      this.personSearchResult = null;
+      return;
+    }
+
+    const searchName = this.searchPerson.trim().toLowerCase();
+    const personDates: PersonDateEntry[] = [];
+    const personNights: PersonNightEntry[] = [];
+
+    // Parcourir toutes les entrées pour trouver celles qui contiennent cette personne
+    for (const entry of this.entries) {
+      const parts = entry.date.split('/');
+      const year = parts.length === 3 ? parts[2] : '';
+
+      // Gérer les nuits séparément
+      if (entry.peopleNight.some(p => p && p.trim().toLowerCase().includes(searchName))) {
+        if (entry.cn && entry.cityNight) {
+          personNights.push({
+            date: entry.date,
+            country: entry.cn,
+            city: entry.cityNight,
+            year: year
+          });
+        }
+      }
+
+      // Gérer les jours (seulement c1, c2, c3 - pas cn)
+      const foundCountries: string[] = [];
+      
+      // Vérifier dans people1 (colonne H) -> drapeau c1 (colonne F)
+      if (entry.people1.some(p => p && p.trim().toLowerCase().includes(searchName))) {
+        if (entry.c1) foundCountries.push(entry.c1);
+      }
+      // Vérifier dans people2 (colonne K) -> drapeau c2 (colonne I)
+      if (entry.people2.some(p => p && p.trim().toLowerCase().includes(searchName))) {
+        if (entry.c2) foundCountries.push(entry.c2);
+      }
+      // Vérifier dans people3 (colonne N) -> drapeau c3 (colonne L)
+      if (entry.people3.some(p => p && p.trim().toLowerCase().includes(searchName))) {
+        if (entry.c3) foundCountries.push(entry.c3);
+      }
+
+      // Dédoublonner les pays identiques
+      const uniqueCountries = [...new Set(foundCountries)];
+
+      // Si la personne a été trouvée dans une ou plusieurs colonnes de jour
+      if (uniqueCountries.length > 0) {
+        personDates.push({
+          date: entry.date,
+          countries: uniqueCountries,
+          year: year
+        });
+      }
+    }
+
+    // Trier les dates par ordre décroissant
+    const sortByDate = (a: any, b: any) => {
+      const parseDate = (dateStr: string): Date => {
+        const [day, month, year] = dateStr.split('/').map(num => parseInt(num, 10));
+        return new Date(year, month - 1, day);
+      };
+      
+      const dateA = parseDate(a.date);
+      const dateB = parseDate(b.date);
+      return dateB.getTime() - dateA.getTime();
+    };
+
+    personDates.sort(sortByDate);
+    personNights.sort(sortByDate);
+
+    this.personSearchResult = {
+      person: this.searchPerson,
+      dates: personDates,
+      nights: personNights,
+      found: personDates.length > 0 || personNights.length > 0
+    };
+  }
+
+  // Méthode pour effacer la recherche par personne
+  clearPersonSearch(): void {
+    this.searchPerson = '';
+    this.personSearchResult = null;
+    this.personSearchLoading = false;
+  }
+
+  // Méthode pour scroll vers la section nuits
+  scrollToNights(): void {
+    const nightsSection = document.getElementById('nights-section');
+    if (nightsSection) {
+      nightsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // Méthode pour calculer les statistiques de la recherche par personne
+  getPersonSearchStats(): any {
+    if (!this.personSearchResult) {
+      return null;
+    }
+
+    const totalDays = this.personSearchResult.dates.length;
+    const totalNights = this.personSearchResult.nights.length;
+
+    // Stats des pays (jours uniquement)
+    const dayCountries: { [country: string]: number } = {};
+    this.personSearchResult.dates.forEach(dateEntry => {
+      dateEntry.countries.forEach(country => {
+        dayCountries[country] = (dayCountries[country] || 0) + 1;
+      });
+    });
+
+    // Stats des pays (nuits)
+    const nightCountries: { [country: string]: number } = {};
+    this.personSearchResult.nights.forEach(nightEntry => {
+      nightCountries[nightEntry.country] = (nightCountries[nightEntry.country] || 0) + 1;
+    });
+
+    // Stats des villes de nuit
+    const nightCities: { [city: string]: number } = {};
+    this.personSearchResult.nights.forEach(nightEntry => {
+      const cityKey = `${nightEntry.country} ${nightEntry.city}`;
+      nightCities[cityKey] = (nightCities[cityKey] || 0) + 1;
+    });
+
+    // Convertir en arrays triées
+    const topDayCountries = Object.entries(dayCountries)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 5);
+    
+    const topNightCountries = Object.entries(nightCountries)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 5);
+
+    const topNightCities = Object.entries(nightCities)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 5);
+
+    return {
+      totalDays,
+      totalNights,
+      topDayCountries,
+      topNightCountries,
+      topNightCities
+    };
+  }
+
+  // Méthode pour grouper les résultats par année puis par mois
+  getPersonResultsByYear(): { year: string; months: { month: string; monthName: string; dates: PersonDateEntry[] }[] }[] {
+    if (!this.personSearchResult || !this.personSearchResult.dates) {
+      return [];
+    }
+
+    const yearGroups: { [year: string]: { [month: string]: PersonDateEntry[] } } = {};
+    
+    this.personSearchResult.dates.forEach(dateEntry => {
+      const parts = dateEntry.date.split('/');
+      const month = parts.length >= 2 ? parts[1] : '01';
+      
+      if (!yearGroups[dateEntry.year]) {
+        yearGroups[dateEntry.year] = {};
+      }
+      if (!yearGroups[dateEntry.year][month]) {
+        yearGroups[dateEntry.year][month] = [];
+      }
+      yearGroups[dateEntry.year][month].push(dateEntry);
+    });
+
+    const monthNames = ['', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
+                       'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+    // Convertir en array et trier par année décroissante, puis par mois décroissant
+    return Object.entries(yearGroups)
+      .map(([year, months]) => ({
+        year,
+        months: Object.entries(months)
+          .map(([month, dates]) => ({
+            month,
+            monthName: monthNames[parseInt(month)] || 'Mois ' + month,
+            dates
+          }))
+          .sort((a, b) => parseInt(b.month) - parseInt(a.month))
+      }))
+      .sort((a, b) => b.year.localeCompare(a.year));
+  }
+
+  // Méthode pour grouper les nuits par année puis par mois
+  getPersonNightsByYear(): { year: string; months: { month: string; monthName: string; nights: PersonNightEntry[] }[] }[] {
+    if (!this.personSearchResult || !this.personSearchResult.nights) {
+      return [];
+    }
+
+    const yearGroups: { [year: string]: { [month: string]: PersonNightEntry[] } } = {};
+    
+    this.personSearchResult.nights.forEach(nightEntry => {
+      const parts = nightEntry.date.split('/');
+      const month = parts.length >= 2 ? parts[1] : '01';
+      
+      if (!yearGroups[nightEntry.year]) {
+        yearGroups[nightEntry.year] = {};
+      }
+      if (!yearGroups[nightEntry.year][month]) {
+        yearGroups[nightEntry.year][month] = [];
+      }
+      yearGroups[nightEntry.year][month].push(nightEntry);
+    });
+
+    const monthNames = ['', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
+                       'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+    // Convertir en array et trier par année décroissante, puis par mois décroissant
+    return Object.entries(yearGroups)
+      .map(([year, months]) => ({
+        year,
+        months: Object.entries(months)
+          .map(([month, nights]) => ({
+            month,
+            monthName: monthNames[parseInt(month)] || 'Mois ' + month,
+            nights
+          }))
+          .sort((a, b) => parseInt(b.month) - parseInt(a.month))
+      }))
+      .sort((a, b) => b.year.localeCompare(a.year));
+  }
+
   // Getter pour savoir si on est en mode recherche
   get isSearching(): boolean {
-    return !!(this.searchDate && this.dateSearchResult);
+    return !!(this.searchDate && this.dateSearchResult) || !!(this.searchPerson && this.personSearchResult);
   }
 
   computeAllStats(): void {

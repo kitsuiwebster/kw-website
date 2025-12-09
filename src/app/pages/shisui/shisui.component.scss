@@ -96,8 +96,16 @@
   gap: 40px;
 }
 
+/* Section de recherche globale */
+.search-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
 /* Section de recherche par date - Dark Luxe */
-.date-search-section {
+.date-search-section, .person-search-section {
   background: linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(25, 25, 25, 0.9) 100%);
   backdrop-filter: blur(30px);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -111,7 +119,12 @@
   overflow: hidden;
 }
 
-.date-search-section::before {
+.person-search-section {
+  background: linear-gradient(135deg, rgba(25, 15, 25, 0.95) 0%, rgba(35, 25, 35, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.date-search-section::before, .person-search-section::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -128,7 +141,14 @@
   100% { transform: rotate(360deg); }
 }
 
-.date-search-section h3 {
+.person-search-section h3 {
+  background: linear-gradient(135deg, #e879f9 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.date-search-section h3, .person-search-section h3 {
   color: #ffffff;
   margin-top: 0;
   margin-bottom: 30px;
@@ -181,7 +201,24 @@
   box-shadow: 0 12px 35px rgba(239, 68, 68, 0.2);
 }
 
-.date-input {
+.person-input {
+  background: rgba(50, 30, 50, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.person-input:focus {
+  background: rgba(55, 35, 55, 0.9);
+  border-color: rgba(232, 121, 249, 0.4);
+  box-shadow: 
+    0 12px 35px rgba(0, 0, 0, 0.4),
+    0 0 0 3px rgba(232, 121, 249, 0.1);
+}
+
+.person-input:hover {
+  border-color: rgba(232, 121, 249, 0.3);
+}
+
+.date-input, .person-input {
   padding: 18px 24px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
@@ -200,8 +237,12 @@
   letter-spacing: 0.02em;
 }
 
-.date-input::placeholder {
+.date-input::placeholder, .person-input::placeholder {
   color: rgba(255, 255, 255, 0.5);
+}
+
+.person-input::placeholder {
+  color: rgba(232, 121, 249, 0.5);
 }
 
 .date-input:focus {
@@ -270,6 +311,377 @@
   transform: translateY(-2px);
 }
 
+
+/* Container pour les résultats en pleine largeur */
+.search-results-full-width {
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+/* Styles pour les résultats de recherche de personne */
+.person-results {
+  margin-top: 30px;
+  animation: slideIn 0.6s ease-out 0.2s both;
+}
+
+.person-results-title {
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 40px;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #e879f9 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.person-section {
+  margin-bottom: 40px;
+}
+
+.person-section:last-child {
+  margin-bottom: 0;
+}
+
+.person-section-title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0 0 25px 0;
+  text-align: center;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.person-navigation {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.nav-to-nights-btn {
+  padding: 12px 20px;
+  background: rgba(138, 43, 226, 0.2);
+  border: 1px solid rgba(138, 43, 226, 0.4);
+  border-radius: 12px;
+  color: #e879f9;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  backdrop-filter: blur(10px);
+}
+
+.nav-to-nights-btn:hover {
+  background: rgba(138, 43, 226, 0.3);
+  border-color: rgba(138, 43, 226, 0.6);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Nouvelle structure verticale pour les résultats par personne */
+.person-years-list {
+  background: rgba(30, 20, 30, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(232, 121, 249, 0.15);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(232, 121, 249, 0.1);
+}
+
+.person-year-section {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(232, 121, 249, 0.1);
+  transition: all 0.3s ease;
+}
+
+.person-year-section:last-child {
+  border-bottom: none;
+}
+
+.person-year-title {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #e879f9;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.01em;
+  text-align: left;
+}
+
+.person-months-in-year {
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.person-month-section {
+  border-left: 2px solid rgba(232, 121, 249, 0.2);
+  padding-left: 15px;
+}
+
+.person-month-title {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 12px 0;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.person-dates-in-month {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Anciens styles pour compatibilité */
+.person-dates-in-year {
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.person-date-entry {
+  background: rgba(232, 121, 249, 0.08);
+  border: 1px solid rgba(232, 121, 249, 0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.person-date-entry:hover {
+  background: rgba(232, 121, 249, 0.15);
+  border-color: rgba(232, 121, 249, 0.4);
+  transform: translateX(5px);
+}
+
+.person-date-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.person-date-flags {
+  display: flex;
+  gap: 4px;
+}
+
+.person-date-flag {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #e879f9;
+  letter-spacing: 0.02em;
+}
+
+.night-entry {
+  background: rgba(20, 20, 40, 0.12);
+  border-color: rgba(138, 43, 226, 0.3);
+}
+
+.night-entry:hover {
+  background: rgba(138, 43, 226, 0.15);
+  border-color: rgba(138, 43, 226, 0.5);
+}
+
+.person-night-city {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  margin-left: 8px;
+}
+
+/* Styles pour les statistiques de recherche par personne */
+.person-stats-section {
+  background: rgba(30, 20, 30, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(232, 121, 249, 0.15);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(232, 121, 249, 0.1);
+  animation: slideIn 0.6s ease-out;
+}
+
+.person-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.person-stat-card {
+  background: rgba(232, 121, 249, 0.08);
+  border: 1px solid rgba(232, 121, 249, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.person-stat-card:hover {
+  background: rgba(232, 121, 249, 0.15);
+  border-color: rgba(232, 121, 249, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(232, 121, 249, 0.2);
+}
+
+.person-stat-title {
+  color: #e879f9;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #e879f9 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.person-stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.person-stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(232, 121, 249, 0.1);
+}
+
+.person-stat-item:last-child {
+  border-bottom: none;
+}
+
+.person-stat-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 400;
+  flex: 1;
+}
+
+.person-stat-value {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ffffff 0%, #e879f9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: right;
+  min-width: 40px;
+}
+
+/* Anciens styles pour compatibilité */
+.dates-simple-list {
+  background: rgba(30, 20, 30, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(232, 121, 249, 0.15);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(232, 121, 249, 0.1);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.date-simple-entry {
+  background: rgba(232, 121, 249, 0.08);
+  border: 1px solid rgba(232, 121, 249, 0.2);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.date-simple-entry:hover {
+  background: rgba(232, 121, 249, 0.15);
+  border-color: rgba(232, 121, 249, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(232, 121, 249, 0.1);
+}
+
+.date-countries {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #e879f9;
+  letter-spacing: 0.02em;
+}
+
+/* Anciens styles pour référence */
+.dates-list {
+  background: rgba(30, 20, 30, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(232, 121, 249, 0.15);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(232, 121, 249, 0.1);
+}
+
+.date-entry {
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(232, 121, 249, 0.1);
+  transition: all 0.3s ease;
+}
+
+.date-entry:last-child {
+  border-bottom: none;
+}
+
+.date-entry:hover {
+  background: rgba(232, 121, 249, 0.02);
+  border-radius: 12px;
+  margin: 0 -20px;
+  padding: 18px 20px;
+  border-bottom-color: transparent;
+}
+
+.date-title {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #e879f9;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.01em;
+}
+
+.date-data {
+  margin-left: 20px;
+}
 
 /* Styles pour les résultats de recherche fancy */
 .search-results-fancy {
@@ -1032,7 +1444,12 @@
     height: 350px;
   }
   
-  .date-search-section {
+  .search-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .date-search-section, .person-search-section {
     padding: 25px 20px;
   }
   
@@ -1046,7 +1463,7 @@
     gap: 15px;
   }
   
-  .date-input, .search-button, .clear-button, .export-button {
+  .date-input, .person-input, .search-button, .clear-button, .export-button, .clear-search-btn {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -1054,6 +1471,54 @@
   
   .years-list {
     padding: 15px;
+  }
+
+  .person-years-list {
+    padding: 20px;
+  }
+
+  .person-year-section {
+    padding: 15px 0;
+  }
+
+  .person-year-title {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  .person-dates-in-year {
+    margin-left: 15px;
+    gap: 10px;
+  }
+
+  .person-date-entry {
+    padding: 10px 14px;
+    font-size: 1rem;
+    flex-direction: row;
+    gap: 6px;
+  }
+
+  .person-date-text {
+    font-size: 1rem;
+  }
+
+  .person-date-flag {
+    font-size: 1.1rem;
+  }
+
+  .dates-simple-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .date-simple-entry {
+    padding: 12px 16px;
+    font-size: 1rem;
+  }
+
+  .date-countries {
+    font-size: 1.2rem;
   }
   
   .year-entry {
@@ -1091,6 +1556,16 @@
     width: 100%;
     min-width: auto;
   }
+  
+  /* Person Statistics Cards Responsive - Tablet */
+  .person-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .person-stat-card {
+    padding: 15px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -1103,12 +1578,18 @@
     margin-bottom: 30px;
   }
   
-  .date-search-section {
-    padding: 20px 15px;
+  .search-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
     margin-bottom: 30px;
   }
+
+  .date-search-section, .person-search-section {
+    padding: 20px 15px;
+    margin-bottom: 0;
+  }
   
-  .date-search-section h3 {
+  .date-search-section h3, .person-search-section h3 {
     font-size: 1.5rem;
     margin-bottom: 20px;
   }
@@ -1135,7 +1616,7 @@
     font-size: 1rem;
   }
   
-  .date-input {
+  .date-input, .person-input {
     padding: 15px 20px;
     font-size: 1rem;
     width: 100%;
@@ -1208,6 +1689,61 @@
   .years-list {
     padding: 20px 15px;
   }
+
+  .person-years-list {
+    padding: 15px;
+  }
+
+  .person-year-section {
+    padding: 12px 0;
+  }
+
+  .person-year-title {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+
+  .person-dates-in-year {
+    margin-left: 10px;
+    gap: 8px;
+  }
+
+  .person-date-entry {
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    flex-direction: row;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .person-date-text {
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+
+  .person-date-flags {
+    gap: 3px;
+  }
+
+  .person-date-flag {
+    font-size: 1rem;
+  }
+
+  .dates-simple-list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .date-simple-entry {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+
+  .date-countries {
+    font-size: 1.1rem;
+  }
   
   .year-entry {
     padding: 15px 0;
@@ -1258,5 +1794,34 @@
   .date-label {
     font-size: 1rem;
     padding: 8px 16px;
+  }
+  
+  /* Person Statistics Cards Responsive - Mobile */
+  .person-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  .person-stat-card {
+    padding: 12px;
+  }
+  
+  .person-stat-title {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+  }
+  
+  .person-stat-value {
+    font-size: 0.9rem;
+  }
+  
+  .person-stat-label {
+    font-size: 0.85rem;
+  }
+  
+  .person-stats-section {
+    padding: 20px;
+    margin-bottom: 30px;
   }
 }

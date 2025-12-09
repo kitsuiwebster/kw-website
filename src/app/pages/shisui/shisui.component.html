@@ -23,88 +23,246 @@
   </div>
 
   <div *ngIf="!loading" class="stats-container">
-    <!-- Nouvelle section de recherche par date -->
-    <div class="date-search-section">
-      <h3>🔍 Recherche par Date</h3>
-      <div class="search-container">
-        <div class="search-input-group">
-          <input 
-            type="text" 
-            [(ngModel)]="searchDate" 
-            class="date-input"
-            placeholder="Jour/Mois (ex: 2211)"
-            (input)="onDateInput()"
-            maxlength="5"
-          />
-          <button *ngIf="searchDate" (click)="clearSearch()" class="clear-search-btn">
-            ✕ Effacer
-          </button>
+    <!-- Section de recherche -->
+    <div class="search-section">
+      <!-- Recherche par date -->
+      <div class="date-search-section">
+        <h3>🔍 Recherche par Date</h3>
+        <div class="search-container">
+          <div class="search-input-group">
+            <input 
+              type="text" 
+              [(ngModel)]="searchDate" 
+              class="date-input"
+              placeholder="Jour/Mois (ex: 2211)"
+              (input)="onDateInput()"
+              maxlength="5"
+            />
+            <button *ngIf="searchDate" (click)="clearSearch()" class="clear-search-btn">
+              ✕ Effacer
+            </button>
+          </div>
         </div>
-        
-        <!-- Résultats de la recherche -->
-        <div *ngIf="dateSearchResult && dateSearchResult.allYearsResults && dateSearchResult.allYearsResults.length > 0" class="search-results-fancy">
-          <div class="all-years-results">
-            <h4 class="all-years-title">📅 Résultats pour {{ searchDate }}</h4>
-            <div class="years-list">
-              <div *ngFor="let yearResult of dateSearchResult.allYearsResults" class="year-entry" [class.no-data]="!yearResult.found">
-                <h5 class="year-title">{{ yearResult.year }}</h5>
+      </div>
+
+      <!-- Recherche par personne -->
+      <div class="person-search-section">
+        <h3>👥 Recherche par Personne</h3>
+        <div class="search-container">
+          <div class="search-input-group">
+            <input 
+              type="text" 
+              [(ngModel)]="searchPerson" 
+              class="person-input"
+              placeholder="Nom de la personne"
+              (input)="onPersonInput()"
+            />
+            <button *ngIf="searchPerson" (click)="clearPersonSearch()" class="clear-search-btn">
+              ✕ Effacer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Résultats de recherche par date - PLEINE LARGEUR -->
+    <div *ngIf="dateSearchResult && dateSearchResult.allYearsResults && dateSearchResult.allYearsResults.length > 0" class="search-results-full-width">
+      <div class="search-results-fancy">
+        <div class="all-years-results">
+          <h4 class="all-years-title">📅 Résultats pour {{ searchDate }}</h4>
+          <div class="years-list">
+            <div *ngFor="let yearResult of dateSearchResult.allYearsResults" class="year-entry" [class.no-data]="!yearResult.found">
+              <h5 class="year-title">{{ yearResult.year }}</h5>
+              
+              <div *ngIf="yearResult.found" class="year-data">
                 
-                <div *ngIf="yearResult.found" class="year-data">
-                  
-                  <div *ngIf="yearResult.countries.length > 0" class="data-section">
-                    <strong>🌍 Pays:</strong>
-                    <ul class="inline-list">
-                      <li *ngFor="let country of yearResult.countries; let last = last">
-                        {{ country }}<span *ngIf="!last"> </span>
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <div *ngIf="yearResult.cities.length > 0" class="data-section">
-                    <strong>🏙️ Villes:</strong>
-                    <ul class="inline-list">
-                      <li *ngFor="let city of yearResult.cities; let last = last">
-                        {{ city }}<span *ngIf="!last">,</span>
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <div *ngIf="yearResult.people.length > 0" class="data-section">
-                    <strong>👥 Personnes:</strong>
-                    <ul class="inline-list">
-                      <li *ngFor="let person of yearResult.people; let last = last">
-                        {{ person }}<span *ngIf="!last">,</span>
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <div *ngIf="yearResult.nightCity || (yearResult.nightPeople && yearResult.nightPeople.length > 0)" class="data-section night-section">
-                    <strong>🌙 Nuit:</strong>
-                    <span *ngIf="yearResult.nightCity" class="night-info">{{ yearResult.nightCity }}</span>
-                    <span *ngIf="yearResult.nightPeople && yearResult.nightPeople.length > 0" class="night-people">
-                      <span *ngIf="yearResult.nightCity"> avec </span>
-                      <span *ngFor="let person of yearResult.nightPeople; let last = last">
-                        {{ person }}<span *ngIf="!last">, </span>
-                      </span>
-                    </span>
-                  </div>
-                  
+                <div *ngIf="yearResult.countries.length > 0" class="data-section">
+                  <strong>🌍 Pays:</strong>
+                  <ul class="inline-list">
+                    <li *ngFor="let country of yearResult.countries; let last = last">
+                      {{ country }}<span *ngIf="!last"> </span>
+                    </li>
+                  </ul>
                 </div>
                 
-                <div *ngIf="!yearResult.found" class="no-data-text">
-                  Pas de données
+                <div *ngIf="yearResult.cities.length > 0" class="data-section">
+                  <strong>🏙️ Villes:</strong>
+                  <ul class="inline-list">
+                    <li *ngFor="let city of yearResult.cities; let last = last">
+                      {{ city }}<span *ngIf="!last">,</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div *ngIf="yearResult.people.length > 0" class="data-section">
+                  <strong>👥 Personnes:</strong>
+                  <ul class="inline-list">
+                    <li *ngFor="let person of yearResult.people; let last = last">
+                      {{ person }}<span *ngIf="!last">,</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div *ngIf="yearResult.nightCity || (yearResult.nightPeople && yearResult.nightPeople.length > 0)" class="data-section night-section">
+                  <strong>🌙 Nuit:</strong>
+                  <span *ngIf="yearResult.nightCity" class="night-info">{{ yearResult.nightCity }}</span>
+                  <span *ngIf="yearResult.nightPeople && yearResult.nightPeople.length > 0" class="night-people">
+                    <span *ngIf="yearResult.nightCity"> avec </span>
+                    <span *ngFor="let person of yearResult.nightPeople; let last = last">
+                      {{ person }}<span *ngIf="!last">, </span>
+                    </span>
+                  </span>
+                </div>
+                
+              </div>
+              
+              <div *ngIf="!yearResult.found" class="no-data-text">
+                Pas de données
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Résultats de recherche par personne - PLEINE LARGEUR ET SIMPLE -->
+    <div *ngIf="personSearchResult && (personSearchResult.dates.length > 0 || personSearchResult.nights.length > 0)" class="search-results-full-width">
+      <div class="search-results-fancy">
+        <div class="person-results">
+          <h4 class="person-results-title">📅 Toutes les dates avec {{ searchPerson }}</h4>
+          
+          <!-- Section Statistiques -->
+          <div *ngIf="!personSearchLoading && getPersonSearchStats()" class="person-stats-section">
+            <div class="person-stats-grid">
+              <!-- Stats globales -->
+              <div class="person-stat-card">
+                <h5 class="person-stat-title">📊 Totaux</h5>
+                <div class="person-stat-content">
+                  <div class="person-stat-item">
+                    <span class="person-stat-label">☀️ Jours:</span>
+                    <span class="person-stat-value">{{ getPersonSearchStats().totalDays }}</span>
+                  </div>
+                  <div class="person-stat-item">
+                    <span class="person-stat-label">🌙 Nuits:</span>
+                    <span class="person-stat-value">{{ getPersonSearchStats().totalNights }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Top pays jours -->
+              <div class="person-stat-card" *ngIf="getPersonSearchStats().topDayCountries.length > 0">
+                <h5 class="person-stat-title">🏆 Top Pays Jours</h5>
+                <div class="person-stat-content">
+                  <div class="person-stat-item" *ngFor="let country of getPersonSearchStats().topDayCountries">
+                    <span class="person-stat-label">{{ country[0] }}:</span>
+                    <span class="person-stat-value">{{ country[1] }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Top pays nuits -->
+              <div class="person-stat-card" *ngIf="getPersonSearchStats().topNightCountries.length > 0">
+                <h5 class="person-stat-title">🏆 Top Pays Nuits</h5>
+                <div class="person-stat-content">
+                  <div class="person-stat-item" *ngFor="let country of getPersonSearchStats().topNightCountries">
+                    <span class="person-stat-label">{{ country[0] }}:</span>
+                    <span class="person-stat-value">{{ country[1] }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Top villes nuits -->
+              <div class="person-stat-card" *ngIf="getPersonSearchStats().topNightCities.length > 0">
+                <h5 class="person-stat-title">🏆 Top Villes Nuits</h5>
+                <div class="person-stat-content">
+                  <div class="person-stat-item" *ngFor="let city of getPersonSearchStats().topNightCities">
+                    <span class="person-stat-label">{{ city[0] }}:</span>
+                    <span class="person-stat-value">{{ city[1] }}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           
+          <!-- Boutons de navigation -->
+          <div class="person-navigation" *ngIf="!personSearchLoading && personSearchResult.nights && personSearchResult.nights.length > 0">
+            <button class="nav-to-nights-btn" (click)="scrollToNights()">
+              🌙 Aller aux nuits
+            </button>
+          </div>
+
+          <div class="loading-container" *ngIf="personSearchLoading">
+            <p>Chargement des résultats...</p>
+            <div class="loading-spinner"></div>
+          </div>
+          <div *ngIf="!personSearchLoading">
+            
+            <!-- Section Jours -->
+            <div *ngIf="personSearchResult.dates && personSearchResult.dates.length > 0" class="person-section">
+              <h5 class="person-section-title">☀️ Jours</h5>
+              <div class="person-years-list">
+                <div *ngFor="let yearGroup of getPersonResultsByYear()" class="person-year-section">
+                  <h6 class="person-year-title">{{ yearGroup.year }}</h6>
+                  <div class="person-months-in-year">
+                    <div *ngFor="let monthGroup of yearGroup.months" class="person-month-section">
+                      <h6 class="person-month-title">{{ monthGroup.monthName }}</h6>
+                      <div class="person-dates-in-month">
+                        <div *ngFor="let dateEntry of monthGroup.dates" class="person-date-entry">
+                          <span class="person-date-text">{{ dateEntry.date }}</span>
+                          <span class="person-date-flags">
+                            <span *ngFor="let country of dateEntry.countries" class="person-date-flag">{{ country }}</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section Nuits -->
+            <div *ngIf="personSearchResult.nights && personSearchResult.nights.length > 0" class="person-section" id="nights-section">
+              <h5 class="person-section-title">🌙 Nuits</h5>
+              <div class="person-years-list">
+                <div *ngFor="let yearGroup of getPersonNightsByYear()" class="person-year-section">
+                  <h6 class="person-year-title">{{ yearGroup.year }}</h6>
+                  <div class="person-months-in-year">
+                    <div *ngFor="let monthGroup of yearGroup.months" class="person-month-section">
+                      <h6 class="person-month-title">{{ monthGroup.monthName }}</h6>
+                      <div class="person-dates-in-month">
+                        <div *ngFor="let nightEntry of monthGroup.nights" class="person-date-entry night-entry">
+                          <span class="person-date-text">{{ nightEntry.date }}</span>
+                          <span class="person-date-flags">
+                            <span class="person-date-flag">{{ nightEntry.country }}</span>
+                          </span>
+                          <span class="person-night-city">{{ nightEntry.city }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-        
-        <div *ngIf="searchDate && (!dateSearchResult || !dateSearchResult.allYearsResults || dateSearchResult.allYearsResults.length === 0)" class="no-data-fancy">
-          <div class="no-data-icon">📅</div>
-          <h4>Aucune donnée disponible</h4>
-          <p>Il n'y a pas d'informations pour {{ searchDate }}</p>
-        </div>
+      </div>
+    </div>
+
+    <!-- Messages d'absence de données - PLEINE LARGEUR -->
+    <div *ngIf="searchDate && (!dateSearchResult || !dateSearchResult.allYearsResults || dateSearchResult.allYearsResults.length === 0)" class="search-results-full-width">
+      <div class="no-data-fancy">
+        <div class="no-data-icon">📅</div>
+        <h4>Aucune donnée disponible</h4>
+        <p>Il n'y a pas d'informations pour {{ searchDate }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="searchPerson && (!personSearchResult || !personSearchResult.dates || personSearchResult.dates.length === 0) && !personSearchLoading" class="search-results-full-width">
+      <div class="no-data-fancy">
+        <div class="no-data-icon">👥</div>
+        <h4>Aucune donnée disponible</h4>
+        <p>Il n'y a pas d'informations pour {{ searchPerson }}</p>
       </div>
     </div>
 
