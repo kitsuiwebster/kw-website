@@ -556,9 +556,12 @@
 .city-year-section:last-child { margin-bottom: 0; }
 
 .city-year-title {
-  color: #0891b2; font: 700 1.3rem/1; margin-bottom: 20px; text-align: center;
-  background: linear-gradient(135deg, #0891b2, #06b6d4); -webkit-background-clip: text; 
-  -webkit-text-fill-color: transparent; border-bottom: 2px solid rgba(6,182,212,0.2); padding-bottom: 10px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #0891b2;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.01em;
+  text-align: left;
 }
 
 .city-months-in-year { display: flex; flex-direction: column; gap: 25px; }
