@@ -1076,8 +1076,12 @@ export class ShisuiComponent implements OnInit {
       }
     }
     this.cityStats = Object.entries(count)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
+      .map(([name, value], index) => ({ name, value, index }))
+      .sort((a, b) => {
+        if (b.value !== a.value) return b.value - a.value;
+        return b.index - a.index; // Plus récent en premier lors d'égalité
+      })
+      .map(({ name, value }) => ({ name, value }));
   }
 
   computePeopleStats(): void {
@@ -1093,8 +1097,12 @@ export class ShisuiComponent implements OnInit {
       }
     }
     this.peopleStats = Object.entries(count)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
+      .map(([name, value], index) => ({ name, value, index }))
+      .sort((a, b) => {
+        if (b.value !== a.value) return b.value - a.value;
+        return b.index - a.index; // Plus récent en premier lors d'égalité
+      })
+      .map(({ name, value }) => ({ name, value }));
   }
 
   computeFlagStats(): void {
@@ -1111,17 +1119,20 @@ export class ShisuiComponent implements OnInit {
       }
     }
     this.flagStats = Object.entries(count)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
+      .map(([name, value], index) => ({ name, value, index }))
+      .sort((a, b) => {
+        if (b.value !== a.value) return b.value - a.value;
+        return b.index - a.index; // Plus récent en premier lors d'égalité
+      })
+      .map(({ name, value }) => ({ name, value }));
   }
 
   computePeopleByCountryStats(): void {
     this.peopleByCountryStats = {};
     
-    // Collecter tous les pays uniques
+    // Collecter tous les pays uniques (seulement les jours, pas les nuits)
     const allCountries = new Set<string>();
     for (const entry of this.entries) {
-      if (entry.cn) allCountries.add(entry.cn);
       if (entry.c1) allCountries.add(entry.c1);
       if (entry.c2) allCountries.add(entry.c2);
       if (entry.c3) allCountries.add(entry.c3);
@@ -1134,14 +1145,8 @@ export class ShisuiComponent implements OnInit {
         // Collecter toutes les personnes pour ce pays dans cette entrée (éviter les doublons)
         const peopleInCountryThisDay = new Set<string>();
         
-        // Associer les personnes au bon pays
-        if (entry.cn === country) {
-          entry.peopleNight.forEach(person => {
-            if (person && person.trim()) {
-              peopleInCountryThisDay.add(person.trim());
-            }
-          });
-        }
+        // Associer les personnes au bon pays (seulement les jours, pas les nuits)
+        // Note: cn (nuits) supprimé pour cohérence avec le calcul du "Top Pays"
         if (entry.c1 === country) {
           entry.people1.forEach(person => {
             if (person && person.trim()) {
@@ -1172,8 +1177,12 @@ export class ShisuiComponent implements OnInit {
       
       if (Object.keys(countForCountry).length > 0) {
         this.peopleByCountryStats[country] = Object.entries(countForCountry)
-          .map(([name, value]) => ({ name, value }))
-          .sort((a, b) => b.value - a.value);
+          .map(([name, value], index) => ({ name, value, index }))
+          .sort((a, b) => {
+            if (b.value !== a.value) return b.value - a.value;
+            return b.index - a.index; // Plus récent en premier lors d'égalité
+          })
+          .map(({ name, value }) => ({ name, value }));
       }
     }
   }
@@ -1240,8 +1249,12 @@ export class ShisuiComponent implements OnInit {
     }
 
     this.consecutiveDaysStats = Object.entries(maxConsecutive)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
+      .map(([name, value], index) => ({ name, value, index }))
+      .sort((a, b) => {
+        if (b.value !== a.value) return b.value - a.value;
+        return b.index - a.index; // Plus récent en premier lors d'égalité
+      })
+      .map(({ name, value }) => ({ name, value }));
   }
 
   computePeopleByDayStats(): void {
@@ -1302,8 +1315,12 @@ export class ShisuiComponent implements OnInit {
       
       if (Object.keys(countForDay).length > 0) {
         this.peopleByDayStats[frenchDay] = Object.entries(countForDay)
-          .map(([name, value]) => ({ name, value }))
-          .sort((a, b) => b.value - a.value);
+          .map(([name, value], index) => ({ name, value, index }))
+          .sort((a, b) => {
+            if (b.value !== a.value) return b.value - a.value;
+            return b.index - a.index; // Plus récent en premier lors d'égalité
+          })
+          .map(({ name, value }) => ({ name, value }));
       } else {
         this.peopleByDayStats[frenchDay] = [];
       }
@@ -1392,14 +1409,26 @@ export class ShisuiComponent implements OnInit {
       
       this.yearlyStats[year] = {
         cities: Object.entries(cityCount)
-          .map(([name, value]) => ({ name, value }))
-          .sort((a, b) => b.value - a.value),
+          .map(([name, value], index) => ({ name, value, index }))
+          .sort((a, b) => {
+            if (b.value !== a.value) return b.value - a.value;
+            return b.index - a.index; // Plus récent en premier lors d'égalité
+          })
+          .map(({ name, value }) => ({ name, value })),
         countries: Object.entries(countryCount)
-          .map(([name, value]) => ({ name, value }))
-          .sort((a, b) => b.value - a.value),
+          .map(([name, value], index) => ({ name, value, index }))
+          .sort((a, b) => {
+            if (b.value !== a.value) return b.value - a.value;
+            return b.index - a.index; // Plus récent en premier lors d'égalité
+          })
+          .map(({ name, value }) => ({ name, value })),
         people: Object.entries(peopleCount)
-          .map(([name, value]) => ({ name, value }))
-          .sort((a, b) => b.value - a.value)
+          .map(([name, value], index) => ({ name, value, index }))
+          .sort((a, b) => {
+            if (b.value !== a.value) return b.value - a.value;
+            return b.index - a.index; // Plus récent en premier lors d'égalité
+          })
+          .map(({ name, value }) => ({ name, value }))
       };
     }
   }
@@ -1475,8 +1504,12 @@ export class ShisuiComponent implements OnInit {
       
       if (Object.keys(weekendCount).length > 0) {
         this.weekendStatsByYear[year] = Object.entries(weekendCount)
-          .map(([name, value]) => ({ name, value }))
-          .sort((a, b) => b.value - a.value);
+          .map(([name, value], index) => ({ name, value, index }))
+          .sort((a, b) => {
+            if (b.value !== a.value) return b.value - a.value;
+            return b.index - a.index; // Plus récent en premier lors d'égalité
+          })
+          .map(({ name, value }) => ({ name, value }));
       } else {
         this.weekendStatsByYear[year] = [];
       }
@@ -1570,8 +1603,12 @@ export class ShisuiComponent implements OnInit {
       }
     }
     this.nightCityStats = Object.entries(nightCityCount)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
+      .map(([name, value], index) => ({ name, value, index }))
+      .sort((a, b) => {
+        if (b.value !== a.value) return b.value - a.value;
+        return b.index - a.index; // Plus récent en premier lors d'égalité
+      })
+      .map(({ name, value }) => ({ name, value }));
 
     // Statistiques des pays de nuit (colonne C)
     const nightCountryCount: { [country: string]: number } = {};
@@ -1581,8 +1618,12 @@ export class ShisuiComponent implements OnInit {
       }
     }
     this.nightCountryStats = Object.entries(nightCountryCount)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
+      .map(([name, value], index) => ({ name, value, index }))
+      .sort((a, b) => {
+        if (b.value !== a.value) return b.value - a.value;
+        return b.index - a.index; // Plus récent en premier lors d'égalité
+      })
+      .map(({ name, value }) => ({ name, value }));
 
     // Statistiques des personnes de nuit (colonne E)
     const nightPeopleCount: { [person: string]: number } = {};
@@ -1594,8 +1635,12 @@ export class ShisuiComponent implements OnInit {
       });
     }
     this.nightPeopleStats = Object.entries(nightPeopleCount)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
+      .map(([name, value], index) => ({ name, value, index }))
+      .sort((a, b) => {
+        if (b.value !== a.value) return b.value - a.value;
+        return b.index - a.index; // Plus récent en premier lors d'égalité
+      })
+      .map(({ name, value }) => ({ name, value }));
   }
 
   computeWeekendStats(): void {
@@ -1646,8 +1691,12 @@ export class ShisuiComponent implements OnInit {
     }
     
     this.weekendStats = Object.entries(weekendCount)
-      .map(([name, value]) => ({ name, value }))
-      .sort((a, b) => b.value - a.value);
+      .map(([name, value], index) => ({ name, value, index }))
+      .sort((a, b) => {
+        if (b.value !== a.value) return b.value - a.value;
+        return b.index - a.index; // Plus récent en premier lors d'égalité
+      })
+      .map(({ name, value }) => ({ name, value }));
   }
 
   formatLabel(label: string): string {
