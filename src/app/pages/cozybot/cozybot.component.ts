@@ -77,8 +77,10 @@ export class CozybotComponent implements OnInit, OnDestroy {
     
     // Always load users data for header stats
     this.loadUsers();
+    // Always load sounds data for sessions stats
+    this.loadSounds();
     // Then load selected view data
-    if (this.selectedView !== 'users') {
+    if (this.selectedView !== 'users' && this.selectedView !== 'sounds') {
       this.loadData();
     }
     this.startLiveStats();
@@ -306,7 +308,8 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   getTotalSessions(): number {
-    return this.liveStats.total_sessions || 0;
+    // Calculer le total des sessions à partir des données des sons
+    return this.allSounds.reduce((total, sound) => total + sound.total_sessions, 0);
   }
 
   private startHeaderStatsRefresh(): void {
@@ -437,17 +440,22 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   private refreshSessionsStats(): void {
-    this.cozybotService.getLiveStats().subscribe({
-      next: (stats: LiveStats) => {
+    this.cozybotService.getTopSounds().subscribe({
+      next: (response: SoundsResponse) => {
         const currentSessions = this.getTotalSessions();
-        const newSessions = stats.total_sessions || 0;
+        
+        this.allSounds = response.sounds;
+        const newSessions = this.getTotalSessions();
         
         if (currentSessions !== newSessions) {
           this.animatingSessions = true;
           setTimeout(() => this.animatingSessions = false, 500);
         }
         
-        this.liveStats = stats;
+        // Mettre à jour l'affichage si on est sur la vue sounds
+        if (this.selectedView === 'sounds') {
+          this.updateDisplayedData();
+        }
       },
       error: (error) => {
         console.error('Error refreshing sessions stats:', error);
@@ -559,8 +567,6 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   getFavoriteSound(user: CozyUser): string {
-    console.log(`[DEBUG] User ${user.username} favorite_sound:`, user.favorite_sound);
-    console.log(`[DEBUG] User ${user.username} full data:`, JSON.stringify(user, null, 2));
     return user.favorite_sound || '🌧️🏠🔥';
   }
 
