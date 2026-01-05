@@ -39,6 +39,10 @@
           <span class="stat-number" [class.animating]="animatingTime">{{ getTotalTimeDays() }}</span>
           <span class="stat-label">Total Time</span>
         </div>
+        <div class="stat-card">
+          <span class="stat-number" [class.animating]="animatingSessions">{{ getTotalSessions() | number }}</span>
+          <span class="stat-label">Total Sessions</span>
+        </div>
       </div>
     </div>
   </div>
@@ -77,6 +81,7 @@
       <p *ngIf="selectedView === 'users'">Ranking based on Discord activity</p>
       <p *ngIf="selectedView === 'servers'">Ranking based on total listening time</p>
       <p *ngIf="selectedView === 'sounds'">Ranking based on total listening time</p>
+      
     </div>
 
     <!-- Loading State -->
@@ -93,8 +98,8 @@
 
     <!-- Users Leaderboard -->
     <div *ngIf="!loading && !error && selectedView === 'users'" class="leaderboard">
-      <!-- Top 3 Podium -->
-      <div class="podium users-podium">
+      <!-- Top 3 Podium - only on page 1 -->
+      <div *ngIf="currentPage === 1" class="podium users-podium">
         <div *ngFor="let user of getTopThree(); let i = index" 
              class="podium-item" 
              [class.first]="i === 0" 
@@ -144,6 +149,24 @@
           </div>
         </div>
       </div>
+
+      <!-- Pagination for Users -->
+      <div *ngIf="totalPages > 1" class="pagination">
+        <button class="pagination-btn" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+          ← Previous
+        </button>
+        <div class="page-numbers">
+          <button *ngFor="let page of getPageNumbers()" 
+                  class="page-number" 
+                  [class.active]="page === currentPage"
+                  (click)="goToPage(page)">
+            {{ page }}
+          </button>
+        </div>
+        <button class="pagination-btn" [disabled]="!hasNextPage" (click)="goToNextPage()">
+          Next →
+        </button>
+      </div>
     </div>
 
     <!-- Servers Leaderboard -->
@@ -164,6 +187,24 @@
           <div class="streak-section">
           </div>
         </div>
+      </div>
+
+      <!-- Pagination for Servers -->
+      <div *ngIf="totalPages > 1" class="pagination">
+        <button class="pagination-btn" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+          ← Previous
+        </button>
+        <div class="page-numbers">
+          <button *ngFor="let page of getPageNumbers()" 
+                  class="page-number" 
+                  [class.active]="page === currentPage"
+                  (click)="goToPage(page)">
+            {{ page }}
+          </button>
+        </div>
+        <button class="pagination-btn" [disabled]="!hasNextPage" (click)="goToNextPage()">
+          Next →
+        </button>
       </div>
     </div>
 
@@ -189,6 +230,24 @@
           <div class="streak-section">
           </div>
         </div>
+      </div>
+
+      <!-- Pagination for Sounds -->
+      <div *ngIf="totalPages > 1" class="pagination">
+        <button class="pagination-btn" [disabled]="!hasPreviousPage" (click)="goToPreviousPage()">
+          ← Previous
+        </button>
+        <div class="page-numbers">
+          <button *ngFor="let page of getPageNumbers()" 
+                  class="page-number" 
+                  [class.active]="page === currentPage"
+                  (click)="goToPage(page)">
+            {{ page }}
+          </button>
+        </div>
+        <button class="pagination-btn" [disabled]="!hasNextPage" (click)="goToNextPage()">
+          Next →
+        </button>
       </div>
     </div>
   </div>

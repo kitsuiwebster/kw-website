@@ -28,6 +28,7 @@ export interface LiveStats {
   message: string;
   servers_with_bot: number;
   total_servers: number;
+  total_sessions?: number;
 }
 
 export interface CozyServer {

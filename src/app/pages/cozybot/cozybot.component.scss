@@ -1105,3 +1105,103 @@
     }
   }
 }
+
+// Pagination styles
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  .pagination-btn {
+    background: rgba(24, 24, 27, 0.8);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    color: #e2e8f0;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+
+    &:hover:not(:disabled) {
+      background: rgba(168, 85, 247, 0.1);
+      border-color: rgba(168, 85, 247, 0.4);
+      color: #a855f7;
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: rgba(24, 24, 27, 0.3);
+      border-color: rgba(148, 163, 184, 0.1);
+    }
+  }
+
+  .page-info {
+    color: #cbd5e1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0 20px;
+  }
+
+  .page-numbers {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    .page-number {
+      background: rgba(24, 24, 27, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: #cbd5e1;
+      padding: 10px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 500;
+      min-width: 40px;
+      text-align: center;
+
+      &:hover {
+        background: rgba(168, 85, 247, 0.1);
+        border-color: rgba(168, 85, 247, 0.3);
+        color: #a855f7;
+      }
+
+      &.active {
+        background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);
+        border-color: transparent;
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+      }
+    }
+  }
+}
+
+// Mobile responsiveness for pagination
+@media (max-width: 768px) {
+  .pagination {
+    margin-top: 30px;
+    gap: 8px;
+
+    .pagination-btn {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+
+    .page-numbers .page-number {
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      min-width: 35px;
+    }
+  }
+}

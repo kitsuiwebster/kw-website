@@ -16,11 +16,24 @@ export class CozybotComponent implements OnInit, OnDestroy {
   leaderboard: CozyUser[] = [];
   servers: CozyServer[] = [];
   sounds: CozySound[] = [];
+  
+  // Données complètes récupérées de l'API
+  allUsers: CozyUser[] = [];
+  allServers: CozyServer[] = [];
+  allSounds: CozySound[] = [];
+  
   totalCount = 0;
   totalUsersCount = 0;
   loading = true;
   error = '';
   selectedView: 'users' | 'servers' | 'sounds' = 'users';
+  
+  // Pagination
+  currentPage = 1;
+  pageSize = 100;
+  hasNextPage = false;
+  hasPreviousPage = false;
+  totalPages = 1;
   
   // Live stats
   liveStats: LiveStats = { current_listeners: 0, message: '', servers_with_bot: 0, total_servers: 0 };
@@ -34,6 +47,7 @@ export class CozybotComponent implements OnInit, OnDestroy {
   animatingTotalServers = false;
   animatingPoints = false;
   animatingTime = false;
+  animatingSessions = false;
   animatingTitle = false;
   
   // Track previous values for animations
@@ -76,7 +90,81 @@ export class CozybotComponent implements OnInit, OnDestroy {
     const currentUrl = window.location.pathname;
     const newUrl = `${currentUrl}?view=${this.selectedView}`;
     window.history.replaceState({}, '', newUrl);
+    this.currentPage = 1; // Reset to first page when changing view
     this.loadData();
+  }
+
+  // Pagination methods
+  updatePagination(): void {
+    // Calcul simple basé sur les données complètes
+    const totalElements = this.selectedView === 'users' ? this.allUsers.length : 
+                         this.selectedView === 'servers' ? this.allServers.length : 
+                         this.allSounds.length;
+    
+    this.totalCount = totalElements;
+    this.totalPages = Math.ceil(totalElements / this.pageSize);
+    this.hasNextPage = this.currentPage < this.totalPages;
+    this.hasPreviousPage = this.currentPage > 1;
+    
+    // Mettre à jour les données affichées pour la page courante
+    this.updateDisplayedData();
+  }
+
+  updateDisplayedData(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    
+    if (this.selectedView === 'users') {
+      this.leaderboard = this.allUsers.slice(startIndex, endIndex);
+    } else if (this.selectedView === 'servers') {
+      this.servers = this.allServers.slice(startIndex, endIndex);
+    } else if (this.selectedView === 'sounds') {
+      this.sounds = this.allSounds.slice(startIndex, endIndex);
+    }
+  }
+
+  goToNextPage(): void {
+    if (this.hasNextPage) {
+      this.currentPage++;
+      this.updateDisplayedData();
+      this.scrollToTop();
+    }
+  }
+
+  goToPreviousPage(): void {
+    if (this.hasPreviousPage) {
+      this.currentPage--;
+      this.updateDisplayedData();
+      this.scrollToTop();
+    }
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updateDisplayedData();
+      this.scrollToTop();
+    }
+  }
+
+  private scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  getPageNumbers(): number[] {
+    const pages: number[] = [];
+    const maxPages = 5;
+    let startPage = Math.max(1, this.currentPage - Math.floor(maxPages / 2));
+    let endPage = Math.min(this.totalPages, startPage + maxPages - 1);
+    
+    if (endPage - startPage + 1 < maxPages) {
+      startPage = Math.max(1, endPage - maxPages + 1);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
   }
 
 
@@ -106,15 +194,16 @@ export class CozybotComponent implements OnInit, OnDestroy {
     this.loading = this.selectedView === 'users';
     this.cozybotService.getTopUsers().subscribe({
       next: (response: LeaderboardResponse) => {
-        this.leaderboard = response.users;
+        this.allUsers = response.users;
         this.totalUsersCount = response.total_count;
+        
         if (this.selectedView === 'users') {
-          this.totalCount = response.total_count;
+          this.updatePagination();
         }
         this.loading = false;
         
         // Animer les stats du header au premier chargement
-        if (this.leaderboard.length > 0) {
+        if (this.allUsers.length > 0) {
           this.triggerInitialAnimations();
         }
       },
@@ -132,8 +221,8 @@ export class CozybotComponent implements OnInit, OnDestroy {
   private loadServers(): void {
     this.cozybotService.getTopServers().subscribe({
       next: (response: ServersResponse) => {
-        this.servers = response.servers;
-        this.totalCount = response.total_count;
+        this.allServers = response.servers;
+        this.updatePagination();
         this.loading = false;
       },
       error: (error) => {
@@ -147,8 +236,8 @@ export class CozybotComponent implements OnInit, OnDestroy {
   private loadSounds(): void {
     this.cozybotService.getTopSounds().subscribe({
       next: (response: SoundsResponse) => {
-        this.sounds = response.sounds;
-        this.totalCount = response.total_sounds;
+        this.allSounds = response.sounds;
+        this.updatePagination();
         this.loading = false;
       },
       error: (error) => {
@@ -178,6 +267,11 @@ export class CozybotComponent implements OnInit, OnDestroy {
         this.animatingTime = true;
         setTimeout(() => this.animatingTime = false, 500);
       }, 400);
+      
+      setTimeout(() => {
+        this.animatingSessions = true;
+        setTimeout(() => this.animatingSessions = false, 500);
+      }, 600);
     }, 100);
   }
 
@@ -197,7 +291,7 @@ export class CozybotComponent implements OnInit, OnDestroy {
   // Header stats with animation tracking
 
   getTotalPoints(): number {
-    return this.leaderboard.reduce((total, user) => total + user.total_points, 0);
+    return this.allUsers.reduce((total, user) => total + user.total_points, 0);
   }
 
   getTotalUsers(): number {
@@ -205,17 +299,21 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   getTotalTimeDays(): string {
-    const totalSeconds = this.leaderboard.reduce((total, user) => total + user.listening_time_seconds, 0);
+    const totalSeconds = this.allUsers.reduce((total, user) => total + user.listening_time_seconds, 0);
     const days = Math.floor(totalSeconds / 86400);
     const hours = Math.floor((totalSeconds % 86400) / 3600);
     return `${days}d ${hours}h`;
+  }
+
+  getTotalSessions(): number {
+    return this.liveStats.total_sessions || 0;
   }
 
   private startHeaderStatsRefresh(): void {
     // Refresh header stats en quinconce toutes les 15 secondes
     let counter = 0;
     this.headerStatsSubscription = interval(15000).subscribe(() => {
-      const refreshType = counter % 5;
+      const refreshType = counter % 6;
       switch (refreshType) {
         case 0:
           this.refreshTitleAnimation();
@@ -232,6 +330,9 @@ export class CozybotComponent implements OnInit, OnDestroy {
         case 4:
           this.refreshTimeStats();
           break;
+        case 5:
+          this.refreshSessionsStats();
+          break;
       }
       counter++;
     });
@@ -245,7 +346,6 @@ export class CozybotComponent implements OnInit, OnDestroy {
   private refreshUsersStats(): void {
     this.cozybotService.getTopUsers().subscribe({
       next: (response: LeaderboardResponse) => {
-        // Comparer avec l'ancienne valeur AVANT de mettre à jour
         const currentUsers = this.totalUsersCount;
         const newUsers = response.total_count;
         
@@ -254,10 +354,11 @@ export class CozybotComponent implements OnInit, OnDestroy {
           setTimeout(() => this.animatingUsers = false, 500);
         }
         
-        this.leaderboard = response.users;
+        this.allUsers = response.users;
         this.totalUsersCount = response.total_count;
+        
         if (this.selectedView === 'users') {
-          this.totalCount = response.total_count;
+          this.updateDisplayedData();
         }
       },
       error: (error) => {
@@ -287,7 +388,6 @@ export class CozybotComponent implements OnInit, OnDestroy {
   private refreshPointsStats(): void {
     this.cozybotService.getTopUsers().subscribe({
       next: (response: LeaderboardResponse) => {
-        // Comparer avec l'ancienne valeur AVANT de mettre à jour
         const currentPoints = this.getTotalPoints();
         const newPoints = response.users.reduce((total, user) => total + user.total_points, 0);
         
@@ -296,10 +396,11 @@ export class CozybotComponent implements OnInit, OnDestroy {
           setTimeout(() => this.animatingPoints = false, 500);
         }
         
-        this.leaderboard = response.users;
+        this.allUsers = response.users;
         this.totalUsersCount = response.total_count;
+        
         if (this.selectedView === 'users') {
-          this.totalCount = response.total_count;
+          this.updateDisplayedData();
         }
       },
       error: (error) => {
@@ -311,7 +412,6 @@ export class CozybotComponent implements OnInit, OnDestroy {
   private refreshTimeStats(): void {
     this.cozybotService.getTopUsers().subscribe({
       next: (response: LeaderboardResponse) => {
-        // Comparer avec l'ancienne valeur AVANT de mettre à jour
         const currentTime = this.getTotalTimeDays();
         const totalSeconds = response.users.reduce((total, user) => total + user.listening_time_seconds, 0);
         const days = Math.floor(totalSeconds / 86400);
@@ -323,14 +423,34 @@ export class CozybotComponent implements OnInit, OnDestroy {
           setTimeout(() => this.animatingTime = false, 500);
         }
         
-        this.leaderboard = response.users;
+        this.allUsers = response.users;
         this.totalUsersCount = response.total_count;
+        
         if (this.selectedView === 'users') {
-          this.totalCount = response.total_count;
+          this.updateDisplayedData();
         }
       },
       error: (error) => {
         console.error('Error refreshing time stats:', error);
+      }
+    });
+  }
+
+  private refreshSessionsStats(): void {
+    this.cozybotService.getLiveStats().subscribe({
+      next: (stats: LiveStats) => {
+        const currentSessions = this.getTotalSessions();
+        const newSessions = stats.total_sessions || 0;
+        
+        if (currentSessions !== newSessions) {
+          this.animatingSessions = true;
+          setTimeout(() => this.animatingSessions = false, 500);
+        }
+        
+        this.liveStats = stats;
+      },
+      error: (error) => {
+        console.error('Error refreshing sessions stats:', error);
       }
     });
   }
@@ -348,11 +468,18 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   getTopThree(): CozyUser[] {
-    return this.leaderboard.slice(0, 3);
+    // Toujours retourner les 3 premiers du classement général (pas de la page courante)
+    return this.allUsers.slice(0, 3);
   }
 
   getRemainingUsers(): CozyUser[] {
-    return this.leaderboard.slice(3);
+    if (this.currentPage === 1) {
+      // Page 1 : Afficher du 4ème au 100ème
+      return this.leaderboard.slice(3);
+    } else {
+      // Page 2+ : Afficher tous les éléments de la page courante
+      return this.leaderboard;
+    }
   }
 
   startLiveStats(): void {
