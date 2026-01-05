@@ -30,9 +30,9 @@ jobs:
       - name: Deploy to Hostinger via SFTP
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.HOSTINGER_HOST }}
-          username: ${{ secrets.HOSTINGER_USER }}
-          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          host: ${{ secrets.fFTP_HOST }}
+          username: ${{ secrets.fFTP_USERNAME }}
+          password: ${{ secrets.fFTP_PASSWORD }}
           port: 22
           source: "dist/kitsuiwebster/browser/"
           target: "/home/USERNAME/domains/kitsuiwebster.com/public_html"
