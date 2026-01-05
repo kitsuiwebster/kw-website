@@ -164,6 +164,15 @@ export class ShisuiComponent implements OnInit {
   nightCountryStats: { name: string; value: number }[] = [];
   nightPeopleStats: { name: string; value: number }[] = [];
   
+  // Statistiques des nuits par année
+  nightStatsByYear: {
+    [year: string]: {
+      cities: { name: string; value: number }[];
+      countries: { name: string; value: number }[];
+      people: { name: string; value: number }[];
+    }
+  } = {};
+  
   // Statistiques weekend générales
   weekendStats: { name: string; value: number }[] = [];
   
@@ -1040,6 +1049,7 @@ export class ShisuiComponent implements OnInit {
     this.computeYearlyStats();
     this.computeWeekendStatsByYear();
     this.computeNightStats();
+    this.computeNightStatsByYear();
     this.computeWeekendStats();
   }
 
@@ -1520,8 +1530,21 @@ export class ShisuiComponent implements OnInit {
     return Object.keys(this.peopleByCountryStats);
   }
   
+  getYear(entry: Entry): string {
+    const parts = entry.date.split('/');
+    return parts.length === 3 ? parts[2] : '';
+  }
+
   getYears(): string[] {
-    return Object.keys(this.yearlyStats).sort((a, b) => b.localeCompare(a)); // Tri décroissant
+    const allYears = new Set<string>();
+    
+    // Ajouter les années de yearlyStats
+    Object.keys(this.yearlyStats).forEach(year => allYears.add(year));
+    
+    // Ajouter les années de nightStatsByYear
+    Object.keys(this.nightStatsByYear).forEach(year => allYears.add(year));
+    
+    return Array.from(allYears).sort((a, b) => b.localeCompare(a)); // Tri décroissant
   }
 
   getDaysOfWeek(): string[] {
@@ -1643,6 +1666,66 @@ export class ShisuiComponent implements OnInit {
       .map(({ name, value }) => ({ name, value }));
   }
 
+  computeNightStatsByYear(): void {
+    this.nightStatsByYear = {};
+    
+    for (const entry of this.entries) {
+      const year = this.getYear(entry);
+      
+      if (!this.nightStatsByYear[year]) {
+        this.nightStatsByYear[year] = {
+          cities: [],
+          countries: [],
+          people: []
+        };
+      }
+      
+      // Comptage des villes de nuit (colonne D)
+      if (entry.cityNight && entry.cityNight.trim()) {
+        entry.cityNight.split(' ').forEach(city => {
+          const trimmedCity = city.trim();
+          if (trimmedCity) {
+            const existing = this.nightStatsByYear[year].cities.find(c => c.name === trimmedCity);
+            if (existing) {
+              existing.value++;
+            } else {
+              this.nightStatsByYear[year].cities.push({ name: trimmedCity, value: 1 });
+            }
+          }
+        });
+      }
+      
+      // Comptage des pays de nuit (colonne C)
+      if (entry.cn && entry.cn.trim()) {
+        const existing = this.nightStatsByYear[year].countries.find(c => c.name === entry.cn);
+        if (existing) {
+          existing.value++;
+        } else {
+          this.nightStatsByYear[year].countries.push({ name: entry.cn, value: 1 });
+        }
+      }
+      
+      // Comptage des personnes de nuit (colonne E)
+      entry.peopleNight.forEach(person => {
+        if (person && person.trim()) {
+          const existing = this.nightStatsByYear[year].people.find(p => p.name === person);
+          if (existing) {
+            existing.value++;
+          } else {
+            this.nightStatsByYear[year].people.push({ name: person, value: 1 });
+          }
+        }
+      });
+    }
+    
+    // Trier chaque catégorie par valeur décroissante pour chaque année
+    for (const year in this.nightStatsByYear) {
+      this.nightStatsByYear[year].cities.sort((a, b) => b.value - a.value);
+      this.nightStatsByYear[year].countries.sort((a, b) => b.value - a.value);
+      this.nightStatsByYear[year].people.sort((a, b) => b.value - a.value);
+    }
+  }
+
   computeWeekendStats(): void {
     // Mapping entre jours anglais et français pour identifier les weekends
     const dayMapping: { [englishDay: string]: string } = {
@@ -1662,9 +1745,11 @@ export class ShisuiComponent implements OnInit {
       'Sunday': 'Dimanche'
     };
     
-    const weekendCount: { [person: string]: number } = {};
+    const weekendsPerPerson: { [person: string]: Set<string> } = {};
     
     for (const entry of this.entries) {
+      if (!entry.date) continue;
+      
       // Convertir le jour anglais en français
       const frenchDay = dayMapping[entry.day?.trim()] || '';
       
@@ -1682,12 +1767,41 @@ export class ShisuiComponent implements OnInit {
           if (p && p.trim()) people.add(p.trim());
         });
         
+        // Calculer la clé du week-end pour identifier le week-end unique
+        const date = new Date(entry.date);
+        if (isNaN(date.getTime())) {
+          continue; // Skip invalid dates
+        }
+        
+        // Créer une clé basée sur le samedi du week-end
+        const dayOfWeek = date.getDay(); // 0 = dimanche, 6 = samedi
+        let weekendStart = new Date(date);
+        
+        if (dayOfWeek === 0) {
+          // Si c'est dimanche, prendre le samedi précédent
+          weekendStart.setDate(date.getDate() - 1);
+        } else if (dayOfWeek === 6) {
+          // Si c'est samedi, garder cette date
+          // weekendStart reste la même
+        }
+        
+        const weekKey = weekendStart.toISOString().split('T')[0]; // Format YYYY-MM-DD du samedi
+        
         for (const person of people) {
           if (person) {
-            weekendCount[person] = (weekendCount[person] || 0) + 1;
+            if (!weekendsPerPerson[person]) {
+              weekendsPerPerson[person] = new Set<string>();
+            }
+            weekendsPerPerson[person].add(weekKey);
           }
         }
       }
+    }
+    
+    // Convertir en format final avec le nombre de week-ends uniques
+    const weekendCount: { [person: string]: number } = {};
+    for (const [person, weekSet] of Object.entries(weekendsPerPerson)) {
+      weekendCount[person] = weekSet.size;
     }
     
     this.weekendStats = Object.entries(weekendCount)

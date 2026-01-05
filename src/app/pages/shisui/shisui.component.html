@@ -446,7 +446,7 @@
             <tr>
               <th>#</th>
               <th>Personne</th>
-              <th>Jours</th>
+              <th>Week-ends</th>
             </tr>
           </thead>
           <tbody>
@@ -684,7 +684,7 @@
                 <tr>
                   <th>#</th>
                   <th>Personne</th>
-                  <th>Jours</th>
+                  <th>Week-ends</th>
                 </tr>
               </thead>
               <tbody>
@@ -695,6 +695,87 @@
                 </tr>
                 <tr *ngIf="!weekendStatsByYear[year] || weekendStatsByYear[year].length === 0">
                   <td colspan="3" class="no-data-cell">Aucune donnée weekend</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nouveaux tableaux : Statistiques de nuit par année -->
+    <div class="yearly-tables" *ngIf="!isSearching && (selectedTableType === 'all' || selectedTableType === 'byYear') && getYears().length > 0">
+      <h2 class="section-title">🌙 Statistiques de Nuit par Année</h2>
+      <div *ngFor="let year of getYears()" class="year-section">
+        <h3 class="year-title">Année {{ year }} (Nuits)</h3>
+        <div class="year-tables-grid">
+          <!-- Top Villes de nuit de l'année -->
+          <div class="table-container">
+            <h4>🌃 Top Villes Nuit {{ year }}</h4>
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Ville</th>
+                  <th>Nuits</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let city of nightStatsByYear[year]?.cities; let i = index">
+                  <td class="rank">{{ i + 1 }}</td>
+                  <td class="name">{{ getNightCityWithFlag(city.name) }}</td>
+                  <td class="value">{{ city.value }}</td>
+                </tr>
+                <tr *ngIf="!nightStatsByYear[year]?.cities || (nightStatsByYear[year]?.cities?.length || 0) === 0">
+                  <td colspan="3" class="no-data-cell">Aucune donnée ville de nuit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Top Pays de nuit de l'année -->
+          <div class="table-container">
+            <h4>🌃 Top Pays Nuit {{ year }}</h4>
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Pays</th>
+                  <th>Nuits</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let country of nightStatsByYear[year]?.countries; let i = index">
+                  <td class="rank">{{ i + 1 }}</td>
+                  <td class="name">{{ country.name }}</td>
+                  <td class="value">{{ country.value }}</td>
+                </tr>
+                <tr *ngIf="!nightStatsByYear[year]?.countries || (nightStatsByYear[year]?.countries?.length || 0) === 0">
+                  <td colspan="3" class="no-data-cell">Aucune donnée pays de nuit</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Top Personnes de nuit de l'année -->
+          <div class="table-container">
+            <h4>🌃 Top Personnes Nuit {{ year }}</h4>
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Personne</th>
+                  <th>Nuits</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let person of nightStatsByYear[year]?.people; let i = index">
+                  <td class="rank">{{ i + 1 }}</td>
+                  <td class="name">{{ person.name }}</td>
+                  <td class="value">{{ person.value }}</td>
+                </tr>
+                <tr *ngIf="!nightStatsByYear[year]?.people || (nightStatsByYear[year]?.people?.length || 0) === 0">
+                  <td colspan="3" class="no-data-cell">Aucune donnée personne de nuit</td>
                 </tr>
               </tbody>
             </table>
