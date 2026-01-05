@@ -27,15 +27,17 @@ jobs:
       - name: Build Angular app
         run: ng build --output-path=dist/kitsuiwebster/
         
-      - name: Deploy to Hostinger via SFTP
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          host: ${{ secrets.FTP_HOST }}
+          server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: 22
-          source: "dist/kitsuiwebster/browser/"
-          target: "/home/USERNAME/domains/kitsuiwebster.com/public_html"
-          strip_components: 4
+          protocol: ftp
+          port: 21
+          local-dir: dist/kitsuiwebster/browser/
+          server-dir: /public_html/
+          dangerous-clean-slate: true
+
 
 
