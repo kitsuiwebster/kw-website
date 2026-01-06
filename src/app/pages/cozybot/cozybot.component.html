@@ -32,16 +32,8 @@
           <span class="stat-label">Total Servers</span>
         </div>
         <div class="stat-card">
-          <span class="stat-number" [class.animating]="animatingPoints">{{ getTotalPoints() | number }}</span>
-          <span class="stat-label">Total CozyPoints</span>
-        </div>
-        <div class="stat-card">
           <span class="stat-number" [class.animating]="animatingTime">{{ getTotalTimeDays() }}</span>
           <span class="stat-label">Total Time</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number" [class.animating]="animatingSessions">{{ getTotalSessions() | number }}</span>
-          <span class="stat-label">Total Sessions</span>
         </div>
       </div>
     </div>
@@ -81,6 +73,14 @@
       <p *ngIf="selectedView === 'users'">Ranking based on Discord activity</p>
       <p *ngIf="selectedView === 'servers'">Ranking based on total listening time</p>
       <p *ngIf="selectedView === 'sounds'">Ranking based on total listening time</p>
+      <div *ngIf="selectedView === 'users'" class="total-points-display">
+        <span class="points-number" [class.animating]="animatingPoints">{{ getTotalPoints() | number }}</span>
+        <span class="points-label">Total CozyPoints earned by all users</span>
+      </div>
+      <div *ngIf="selectedView === 'sounds'" class="total-sessions-display">
+        <span class="sessions-number" [class.animating]="animatingSessions">{{ getTotalSessions() | number }}</span>
+        <span class="sessions-label">Total Sessions played by all users</span>
+      </div>
       
     </div>
 

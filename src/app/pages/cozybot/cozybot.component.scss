@@ -282,8 +282,37 @@
     p {
       font-size: 1rem;
       color: #94a3b8;
-      margin: 0;
+      margin: 0 0 16px 0;
       font-weight: 400;
+    }
+
+    .total-points-display, .total-sessions-display {
+      margin-top: 16px;
+      padding: 12px 20px;
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 8px;
+      display: inline-block;
+
+      .points-number, .sessions-number {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #a855f7;
+        transition: all 0.3s ease;
+        
+        &.animating {
+          animation: numberChange 0.5s ease-in-out;
+        }
+      }
+
+      .points-label, .sessions-label {
+        display: block;
+        font-size: 0.8rem;
+        color: #94a3b8;
+        margin-top: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
     }
   }
 
@@ -761,6 +790,44 @@
   }
 }
 
+// Écrans moyens
+@media (max-width: 1200px) and (min-width: 1025px) {
+  .header .header-content .stats {
+    gap: 18px;
+    
+    .stat-card {
+      min-width: 100px;
+      
+      .stat-number {
+        font-size: 1.7rem;
+      }
+      
+      .stat-label {
+        font-size: 0.72rem;
+      }
+    }
+  }
+}
+
+// Tablette
+@media (max-width: 1024px) and (min-width: 769px) {
+  .header .header-content .stats {
+    gap: 14px;
+    
+    .stat-card {
+      min-width: 85px;
+      
+      .stat-number {
+        font-size: 1.5rem;
+      }
+      
+      .stat-label {
+        font-size: 0.68rem;
+      }
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 24px 16px;
@@ -801,30 +868,34 @@
     }
 
     .stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
       justify-content: center;
-      max-width: 500px;
+      align-items: center;
+      max-width: 380px;
       margin: 0 auto;
       
       .stat-card {
-        min-width: unset;
-        flex: unset;
-        max-width: unset;
+        flex: 0 1 calc(33.333% - 10px);
+        min-width: 110px;
+        max-width: 120px;
+        text-align: center;
         
         .stat-number {
-          font-size: 1.4rem;
+          font-size: 1.3rem;
         }
         
         .stat-label {
-          font-size: 0.65rem;
+          font-size: 0.6rem;
+          line-height: 1.2;
         }
       }
       
-      // Dernière carte sur toute la largeur pour équilibrer
-      .stat-card:last-child {
-        grid-column: 2;
+      // Si 5 cartes, dernière centrée
+      .stat-card:nth-child(5) {
+        flex: 0 1 auto;
+        margin: 8px auto 0 auto;
       }
     }
   }
@@ -1214,25 +1285,20 @@
 // Extra small screens
 @media (max-width: 480px) {
   .header .header-content .stats {
-    grid-template-columns: 1fr 1fr;
+    max-width: 320px;
     gap: 8px;
-    max-width: 350px;
     
     .stat-card {
+      min-width: 90px;
+      max-width: 100px;
+      
       .stat-number {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
       
       .stat-label {
-        font-size: 0.6rem;
+        font-size: 0.55rem;
       }
-    }
-    
-    // 5 cartes en 2x2 + 1 centrée en bas
-    .stat-card:nth-child(5) {
-      grid-column: 1 / -1;
-      justify-self: center;
-      max-width: 140px;
     }
   }
 }
