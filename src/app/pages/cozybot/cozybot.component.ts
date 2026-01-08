@@ -481,12 +481,15 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   getRemainingUsers(): CozyUser[] {
-    if (this.currentPage === 1) {
-      // Page 1 : Afficher du 4ème au 100ème
-      return this.leaderboard.slice(3);
-    } else {
-      // Page 2+ : Afficher tous les éléments de la page courante
+    // Sur mobile, toujours afficher tous les utilisateurs de la page courante (pas de podium)
+    // Sur desktop, page 1 = du 4ème au 100ème, page 2+ = tous
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile || this.currentPage > 1) {
       return this.leaderboard;
+    } else {
+      // Desktop page 1 : Afficher du 4ème au 100ème
+      return this.leaderboard.slice(3);
     }
   }
 
