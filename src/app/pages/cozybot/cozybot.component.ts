@@ -238,7 +238,8 @@ export class CozybotComponent implements OnInit, OnDestroy {
   private loadSounds(): void {
     this.cozybotService.getTopSounds().subscribe({
       next: (response: SoundsResponse) => {
-        this.allSounds = response.sounds;
+        // Filtrer pour ne garder que les sons avec exactement 3 emojis
+        this.allSounds = response.sounds.filter(sound => this.hasThreeEmojis(sound.display_name));
         this.updatePagination();
         this.loading = false;
       },
@@ -443,15 +444,16 @@ export class CozybotComponent implements OnInit, OnDestroy {
     this.cozybotService.getTopSounds().subscribe({
       next: (response: SoundsResponse) => {
         const currentSessions = this.getTotalSessions();
-        
-        this.allSounds = response.sounds;
+
+        // Filtrer pour ne garder que les sons avec exactement 3 emojis
+        this.allSounds = response.sounds.filter(sound => this.hasThreeEmojis(sound.display_name));
         const newSessions = this.getTotalSessions();
-        
+
         if (currentSessions !== newSessions) {
           this.animatingSessions = true;
           setTimeout(() => this.animatingSessions = false, 500);
         }
-        
+
         // Mettre à jour l'affichage si on est sur la vue sounds
         if (this.selectedView === 'sounds') {
           this.updateDisplayedData();
@@ -596,5 +598,22 @@ export class CozybotComponent implements OnInit, OnDestroy {
       newLink.href = iconPath;
       document.getElementsByTagName('head')[0].appendChild(newLink);
     }
+  }
+
+  /**
+   * Compte le nombre d'emojis dans une chaîne de caractères
+   */
+  private countEmojis(text: string): number {
+    // Regex pour détecter les emojis Unicode
+    const emojiRegex = /\p{Emoji_Presentation}|\p{Emoji}\uFE0F/gu;
+    const matches = text.match(emojiRegex);
+    return matches ? matches.length : 0;
+  }
+
+  /**
+   * Vérifie si un nom de son contient exactement 3 emojis
+   */
+  private hasThreeEmojis(displayName: string): boolean {
+    return this.countEmojis(displayName) === 3;
   }
 }
