@@ -1,14 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
 import { CozybotService, CozyUser, LeaderboardResponse, LiveStats, CozyServer, CozySound, ServersResponse, SoundsResponse } from '../../services/cozybot.service';
 import { interval, Subscription } from 'rxjs';
+import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-cozybot',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgxChartsModule],
   templateUrl: './cozybot.component.html',
   styleUrls: ['./cozybot.component.scss']
 })
@@ -56,6 +57,23 @@ export class CozybotComponent implements OnInit, OnDestroy {
   private statsSubscription: Subscription | null = null;
   private headerStatsSubscription: Subscription | null = null;
 
+  // Configuration du graphique des sons
+  soundsChartData: { name: string; value: number }[] = [];
+  soundsByCategoryChartData: { name: string; value: number }[] = [];
+  colorScheme: Color = {
+    name: 'soundsColors',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: [
+      '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8',
+      '#F7DC6F', '#BB8FCE', '#85C1E2', '#F8B195', '#C06C84',
+      '#96CEB4', '#FFEAA7', '#DFE6E9', '#74B9FF', '#A29BFE',
+      '#FD79A8', '#FDCB6E', '#6C5CE7', '#00B894', '#E17055'
+    ]
+  };
+  chartView: [number, number] = [550, 450];
+  showChartLegend = true;
+
   constructor(
     private cozybotService: CozybotService,
     private titleService: Title,
@@ -67,14 +85,17 @@ export class CozybotComponent implements OnInit, OnDestroy {
     this.titleService.setTitle('CozyBot - Discord Bot Leaderboard');
     this.setFavicon('assets/images/cozybot/cozybot-logo3.png');
     this.metaService.updateTag({ name: 'description', content: 'CozyBot Discord Bot leaderboard with real-time stats and CozyPoints system.' });
-    
+
+    // Initialize chart size
+    this.updateChartSize();
+
     // Check URL parameter for view
     const urlParams = new URLSearchParams(window.location.search);
     const viewParam = urlParams.get('view');
     if (viewParam && ['users', 'servers', 'sounds'].includes(viewParam)) {
       this.selectedView = viewParam as 'users' | 'servers' | 'sounds';
     }
-    
+
     // Always load users data for header stats
     this.loadUsers();
     // Always load sounds data for sessions stats
@@ -240,6 +261,7 @@ export class CozybotComponent implements OnInit, OnDestroy {
       next: (response: SoundsResponse) => {
         // Filtrer pour ne garder que les sons avec exactement 3 emojis
         this.allSounds = response.sounds.filter(sound => this.hasThreeEmojis(sound.display_name));
+        this.prepareSoundsChartData();
         this.updatePagination();
         this.loading = false;
       },
@@ -447,6 +469,7 @@ export class CozybotComponent implements OnInit, OnDestroy {
 
         // Filtrer pour ne garder que les sons avec exactement 3 emojis
         this.allSounds = response.sounds.filter(sound => this.hasThreeEmojis(sound.display_name));
+        this.prepareSoundsChartData();
         const newSessions = this.getTotalSessions();
 
         if (currentSessions !== newSessions) {
@@ -604,8 +627,9 @@ export class CozybotComponent implements OnInit, OnDestroy {
    * Compte le nombre d'emojis dans une chaîne de caractères
    */
   private countEmojis(text: string): number {
-    // Regex pour détecter les emojis Unicode
-    const emojiRegex = /\p{Emoji_Presentation}|\p{Emoji}\uFE0F/gu;
+    // Regex améliorée pour détecter les emojis Unicode, incluant ceux avec ZWJ et modificateurs de peau
+    // Cette regex gère les emojis simples, composés (avec ZWJ), et ceux avec modificateurs de peau/variation
+    const emojiRegex = /(?:\p{Emoji_Modifier_Base}\p{Emoji_Modifier}?|\p{Emoji_Presentation}|\p{Emoji}\uFE0F)(?:\u200D(?:\p{Emoji_Modifier_Base}\p{Emoji_Modifier}?|\p{Emoji_Presentation}|\p{Emoji}\uFE0F))*/gu;
     const matches = text.match(emojiRegex);
     return matches ? matches.length : 0;
   }
@@ -615,5 +639,121 @@ export class CozybotComponent implements OnInit, OnDestroy {
    */
   private hasThreeEmojis(displayName: string): boolean {
     return this.countEmojis(displayName) === 3;
+  }
+
+  /**
+   * Prépare les données des sons pour le graphique en camembert
+   * Limite aux top 12 sons + catégorie "Autres" pour une meilleure visibilité
+   */
+  private prepareSoundsChartData(): void {
+    const topSoundsCount = 12;
+
+    // Trier les sons par temps d'écoute décroissant
+    const sortedSounds = [...this.allSounds].sort((a, b) => b.total_time - a.total_time);
+
+    // Prendre les top sons
+    const topSounds = sortedSounds.slice(0, topSoundsCount);
+    const otherSounds = sortedSounds.slice(topSoundsCount);
+
+    // Créer les données du graphique
+    this.soundsChartData = topSounds.map(sound => ({
+      name: `${sound.display_name}\n${this.formatChartValue(sound.total_time)}`,
+      value: sound.total_time
+    }));
+
+    // Ajouter une catégorie "Autres" si il y a des sons restants
+    if (otherSounds.length > 0) {
+      const othersTotalTime = otherSounds.reduce((sum, sound) => sum + sound.total_time, 0);
+      this.soundsChartData.push({
+        name: `🎶 Autres\n${this.formatChartValue(othersTotalTime)}`,
+        value: othersTotalTime
+      });
+    }
+
+    // Préparer aussi les données par catégorie
+    this.prepareSoundsByCategoryChartData();
+  }
+
+  /**
+   * Prépare les données des sons regroupés par catégorie (1er emoji)
+   */
+  private prepareSoundsByCategoryChartData(): void {
+    // Regrouper par premier emoji
+    const categoriesMap: { [key: string]: number } = {};
+
+    this.allSounds.forEach(sound => {
+      // Extraire le premier emoji
+      const firstEmoji = this.getFirstEmoji(sound.display_name);
+      if (firstEmoji) {
+        if (!categoriesMap[firstEmoji]) {
+          categoriesMap[firstEmoji] = 0;
+        }
+        categoriesMap[firstEmoji] += sound.total_time;
+      }
+    });
+
+    // Convertir en tableau et trier par temps décroissant
+    this.soundsByCategoryChartData = Object.entries(categoriesMap)
+      .map(([emoji, time]) => ({
+        name: `${emoji}\n${this.formatChartValue(time)}`,
+        value: time
+      }))
+      .sort((a, b) => b.value - a.value);
+  }
+
+  /**
+   * Extrait le premier emoji d'une chaîne de caractères
+   */
+  private getFirstEmoji(text: string): string {
+    const emojiRegex = /(?:\p{Emoji_Modifier_Base}\p{Emoji_Modifier}?|\p{Emoji_Presentation}|\p{Emoji}\uFE0F)(?:\u200D(?:\p{Emoji_Modifier_Base}\p{Emoji_Modifier}?|\p{Emoji_Presentation}|\p{Emoji}\uFE0F))*/u;
+    const match = text.match(emojiRegex);
+    return match ? match[0] : '';
+  }
+
+  /**
+   * Met à jour la taille du graphique en fonction de la taille de l'écran
+   */
+  @HostListener('window:resize')
+  onResize() {
+    this.updateChartSize();
+  }
+
+  private updateChartSize(): void {
+    const width = window.innerWidth;
+    if (width <= 768) {
+      this.chartView = [350, 320];
+      this.showChartLegend = false;
+    } else if (width <= 1200) {
+      this.chartView = [450, 400];
+      this.showChartLegend = true;
+    } else {
+      this.chartView = [550, 450];
+      this.showChartLegend = true;
+    }
+  }
+
+  /**
+   * Formate les labels du graphique pour afficher seulement les emojis (sans le temps)
+   */
+  formatChartLabel = (label: string): string => {
+    // Ne montrer que la première ligne (avant le \n) dans les labels du graphique
+    return label.split('\n')[0];
+  }
+
+  /**
+   * Formate la valeur du temps en jours, heures, minutes
+   */
+  formatChartValue = (value: number): string => {
+    const seconds = Math.floor(value);
+    const days = Math.floor(seconds / 86400);
+    const hours = Math.floor((seconds % 86400) / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+
+    const parts: string[] = [];
+    if (days > 0) parts.push(`${days}d`);
+    if (hours > 0) parts.push(`${hours}h`);
+    if (minutes > 0) parts.push(`${minutes}m`);
+
+    return parts.length > 0 ? parts.join(' ') : '0m';
   }
 }
