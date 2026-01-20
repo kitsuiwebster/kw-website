@@ -16,6 +16,8 @@ export interface CozyUser {
   sessions_joined: number;
   achievements_count: number;
   favorite_sound?: string;
+  current_sound?: string | null;
+  days_since_last_activity?: number;
 }
 
 export interface LeaderboardResponse {
@@ -58,6 +60,36 @@ export interface SoundsResponse {
   total_sounds: number;
 }
 
+export interface UserListeningBySound {
+  sound_name: string;
+  display_name: string;
+  total_time: number;
+  formatted_time: string;
+  session_count: number;
+}
+
+export interface UserDetails {
+  user_id: string;
+  username: string;
+  display_name: string;
+  total_points: number;
+  rank: number;
+  level: number;
+  level_progress: number;
+  listening_time_seconds: number;
+  listening_time_formatted: string;
+  daily_streak: number;
+  sessions_joined: number;
+  days_since_last_activity: number;
+  last_join_time: string;
+  last_active_date: string;
+  achievements: string[];
+  category_completions: string[];
+  favorite_sound: string | null;
+  listening_by_sound: UserListeningBySound[];
+  current_sound: string | null;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -80,5 +112,9 @@ export class CozybotService {
 
   getTopSounds(): Observable<SoundsResponse> {
     return this.http.get<SoundsResponse>(`${this.apiUrl}/top-sounds`);
+  }
+
+  getUserDetails(username: string): Observable<UserDetails> {
+    return this.http.get<UserDetails>(`${this.apiUrl}/user/${username}`);
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Title, Meta } from '@angular/platform-browser';
-import { CozybotService, CozyUser, LeaderboardResponse, LiveStats, CozyServer, CozySound, ServersResponse, SoundsResponse } from '../../services/cozybot.service';
+import { CozybotService, CozyUser, LeaderboardResponse, LiveStats, CozyServer, CozySound, ServersResponse, SoundsResponse, UserDetails } from '../../services/cozybot.service';
 import { interval, Subscription } from 'rxjs';
 import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 
@@ -74,6 +74,11 @@ export class CozybotComponent implements OnInit, OnDestroy {
   chartView: [number, number] = [550, 450];
   showChartLegend = true;
 
+  // Modal pour les détails de l'utilisateur
+  showUserModal = false;
+  selectedUserDetails: UserDetails | null = null;
+  loadingUserDetails = false;
+
   constructor(
     private cozybotService: CozybotService,
     private titleService: Title,
@@ -136,9 +141,11 @@ export class CozybotComponent implements OnInit, OnDestroy {
   updateDisplayedData(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    
+
     if (this.selectedView === 'users') {
       this.leaderboard = this.allUsers.slice(startIndex, endIndex);
+      // Enrichir les données de la nouvelle page
+      this.enrichUserData();
     } else if (this.selectedView === 'servers') {
       this.servers = this.allServers.slice(startIndex, endIndex);
     } else if (this.selectedView === 'sounds') {
@@ -219,12 +226,15 @@ export class CozybotComponent implements OnInit, OnDestroy {
       next: (response: LeaderboardResponse) => {
         this.allUsers = response.users;
         this.totalUsersCount = response.total_count;
-        
+
         if (this.selectedView === 'users') {
           this.updatePagination();
         }
         this.loading = false;
-        
+
+        // Enrichir les données de chaque utilisateur avec current_sound et days_since_last_activity
+        this.enrichUserData();
+
         // Animer les stats du header au premier chargement
         if (this.allUsers.length > 0) {
           this.triggerInitialAnimations();
@@ -237,6 +247,37 @@ export class CozybotComponent implements OnInit, OnDestroy {
         }
         this.loading = false;
       }
+    });
+  }
+
+  /**
+   * Enrichit les données des utilisateurs avec current_sound et days_since_last_activity
+   */
+  private enrichUserData(): void {
+    // Enrichir uniquement les utilisateurs de la page courante pour limiter les appels API
+    const usersToEnrich = this.leaderboard;
+
+    usersToEnrich.forEach(user => {
+      this.cozybotService.getUserDetails(user.username).subscribe({
+        next: (details) => {
+          // Mettre à jour les données du user dans allUsers
+          const userIndex = this.allUsers.findIndex(u => u.user_id === user.user_id);
+          if (userIndex !== -1) {
+            this.allUsers[userIndex].current_sound = details.current_sound;
+            this.allUsers[userIndex].days_since_last_activity = details.days_since_last_activity;
+          }
+
+          // Mettre à jour aussi dans leaderboard (page courante)
+          const leaderboardIndex = this.leaderboard.findIndex(u => u.user_id === user.user_id);
+          if (leaderboardIndex !== -1) {
+            this.leaderboard[leaderboardIndex].current_sound = details.current_sound;
+            this.leaderboard[leaderboardIndex].days_since_last_activity = details.days_since_last_activity;
+          }
+        },
+        error: (err) => {
+          console.error(`Error loading details for user ${user.username}:`, err);
+        }
+      });
     });
   }
 
@@ -259,8 +300,19 @@ export class CozybotComponent implements OnInit, OnDestroy {
   private loadSounds(): void {
     this.cozybotService.getTopSounds().subscribe({
       next: (response: SoundsResponse) => {
-        // Filtrer pour ne garder que les sons avec exactement 3 emojis
-        this.allSounds = response.sounds.filter(sound => this.hasThreeEmojis(sound.display_name));
+        // Filtrer pour ne garder que les sons avec exactement 3 emojis ou noise01.mp3
+        this.allSounds = response.sounds.filter(sound =>
+          this.hasThreeEmojis(sound.display_name) || sound.sound_name === 'noise01.mp3'
+        );
+
+        // Remplacer le display_name de noise01.mp3 par les emojis
+        this.allSounds = this.allSounds.map(sound => {
+          if (sound.sound_name === 'noise01.mp3') {
+            return { ...sound, display_name: '📡🤍🌌' };
+          }
+          return sound;
+        });
+
         this.prepareSoundsChartData();
         this.updatePagination();
         this.loading = false;
@@ -374,17 +426,18 @@ export class CozybotComponent implements OnInit, OnDestroy {
       next: (response: LeaderboardResponse) => {
         const currentUsers = this.totalUsersCount;
         const newUsers = response.total_count;
-        
+
         if (currentUsers !== newUsers) {
           this.animatingUsers = true;
           setTimeout(() => this.animatingUsers = false, 500);
         }
-        
+
         this.allUsers = response.users;
         this.totalUsersCount = response.total_count;
-        
+
         if (this.selectedView === 'users') {
           this.updateDisplayedData();
+          // enrichUserData() sera appelé par updateDisplayedData()
         }
       },
       error: (error) => {
@@ -416,17 +469,18 @@ export class CozybotComponent implements OnInit, OnDestroy {
       next: (response: LeaderboardResponse) => {
         const currentPoints = this.getTotalPoints();
         const newPoints = response.users.reduce((total, user) => total + user.total_points, 0);
-        
+
         if (currentPoints !== newPoints) {
           this.animatingPoints = true;
           setTimeout(() => this.animatingPoints = false, 500);
         }
-        
+
         this.allUsers = response.users;
         this.totalUsersCount = response.total_count;
-        
+
         if (this.selectedView === 'users') {
           this.updateDisplayedData();
+          // enrichUserData() sera appelé par updateDisplayedData()
         }
       },
       error: (error) => {
@@ -443,17 +497,18 @@ export class CozybotComponent implements OnInit, OnDestroy {
         const days = Math.floor(totalSeconds / 86400);
         const hours = Math.floor((totalSeconds % 86400) / 3600);
         const newTime = `${days}d ${hours}h`;
-        
+
         if (currentTime !== newTime) {
           this.animatingTime = true;
           setTimeout(() => this.animatingTime = false, 500);
         }
-        
+
         this.allUsers = response.users;
         this.totalUsersCount = response.total_count;
-        
+
         if (this.selectedView === 'users') {
           this.updateDisplayedData();
+          // enrichUserData() sera appelé par updateDisplayedData()
         }
       },
       error: (error) => {
@@ -467,8 +522,19 @@ export class CozybotComponent implements OnInit, OnDestroy {
       next: (response: SoundsResponse) => {
         const currentSessions = this.getTotalSessions();
 
-        // Filtrer pour ne garder que les sons avec exactement 3 emojis
-        this.allSounds = response.sounds.filter(sound => this.hasThreeEmojis(sound.display_name));
+        // Filtrer pour ne garder que les sons avec exactement 3 emojis ou noise01.mp3
+        this.allSounds = response.sounds.filter(sound =>
+          this.hasThreeEmojis(sound.display_name) || sound.sound_name === 'noise01.mp3'
+        );
+
+        // Remplacer le display_name de noise01.mp3 par les emojis
+        this.allSounds = this.allSounds.map(sound => {
+          if (sound.sound_name === 'noise01.mp3') {
+            return { ...sound, display_name: '📡🤍🌌' };
+          }
+          return sound;
+        });
+
         this.prepareSoundsChartData();
         const newSessions = this.getTotalSessions();
 
@@ -506,16 +572,8 @@ export class CozybotComponent implements OnInit, OnDestroy {
   }
 
   getRemainingUsers(): CozyUser[] {
-    // Sur mobile, toujours afficher tous les utilisateurs de la page courante (pas de podium)
-    // Sur desktop, page 1 = du 4ème au 100ème, page 2+ = tous
-    const isMobile = window.innerWidth <= 768;
-    
-    if (isMobile || this.currentPage > 1) {
-      return this.leaderboard;
-    } else {
-      // Desktop page 1 : Afficher du 4ème au 100ème
-      return this.leaderboard.slice(3);
-    }
+    // Toujours afficher tous les utilisateurs en liste (pas de podium)
+    return this.leaderboard;
   }
 
   startLiveStats(): void {
@@ -598,17 +656,13 @@ export class CozybotComponent implements OnInit, OnDestroy {
     return user.favorite_sound || '🌧️🏠🔥';
   }
 
-  getFavoriteSoundEmoji(user: CozyUser): string {
+  getFavoriteSoundEmoji(user: CozyUser | UserDetails): string {
     const favoriteSound = user.favorite_sound || '🌧️🏠🔥';
-    
-    // Cas spécial pour 🤍🌌🌕 - retourner 🤍
-    if (favoriteSound === '🤍🌌🌕') {
-      return '🤍';
-    }
-    
-    // Extraire le premier emoji avec une regex
-    const emojiMatch = favoriteSound.match(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/u);
-    return emojiMatch ? emojiMatch[0] : favoriteSound.charAt(0) || '🌧';
+
+    // Extraire le premier emoji avec une regex améliorée
+    const emojiRegex = /(?:\p{Emoji_Modifier_Base}\p{Emoji_Modifier}?|\p{Emoji_Presentation}|\p{Emoji}\uFE0F)(?:\u200D(?:\p{Emoji_Modifier_Base}\p{Emoji_Modifier}?|\p{Emoji_Presentation}|\p{Emoji}\uFE0F))*/u;
+    const match = favoriteSound.match(emojiRegex);
+    return match ? match[0] : '🌧';
   }
 
   private setFavicon(iconPath: string): void {
@@ -755,5 +809,80 @@ export class CozybotComponent implements OnInit, OnDestroy {
     if (minutes > 0) parts.push(`${minutes}m`);
 
     return parts.length > 0 ? parts.join(' ') : '0m';
+  }
+
+  /**
+   * Ouvre la modal avec les détails de l'utilisateur
+   */
+  openUserModal(username: string): void {
+    this.showUserModal = true;
+    this.loadingUserDetails = true;
+    this.selectedUserDetails = null;
+
+    this.cozybotService.getUserDetails(username).subscribe({
+      next: (details) => {
+        this.selectedUserDetails = details;
+        this.loadingUserDetails = false;
+      },
+      error: (err) => {
+        console.error('Error loading user details:', err);
+        this.loadingUserDetails = false;
+        this.closeUserModal();
+      }
+    });
+  }
+
+  /**
+   * Ferme la modal des détails de l'utilisateur
+   */
+  closeUserModal(): void {
+    this.showUserModal = false;
+    this.selectedUserDetails = null;
+  }
+
+  /**
+   * Formate le temps d'écoute en jours quand plus de 24h
+   */
+  formatListeningTimeDays(seconds: number): string {
+    const days = Math.floor(seconds / 86400);
+    const hours = Math.floor((seconds % 86400) / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+
+    if (days > 0) {
+      return `${days} day${days > 1 ? 's' : ''} ${hours}h`;
+    } else if (hours > 0) {
+      return `${hours}h ${minutes}m`;
+    } else {
+      return `${minutes}m`;
+    }
+  }
+
+  /**
+   * Retourne la classe CSS pour le numéro de rang en fonction de l'activité de l'utilisateur
+   * Vert: écoute actuellement
+   * Jaune: actif récemment (moins d'une semaine)
+   * Orange: inactif depuis plus d'une semaine
+   * Rouge: inactif depuis plus d'un mois
+   */
+  getRankColorClass(user: CozyUser): string {
+    // Si le user écoute actuellement (current_sound peut être null, undefined, ou une chaîne vide)
+    if (user.current_sound !== null && user.current_sound !== undefined && user.current_sound !== '') {
+      return 'rank-live';
+    }
+
+    const daysSinceActivity = user.days_since_last_activity ?? 0;
+
+    // Plus d'un mois (30 jours)
+    if (daysSinceActivity > 30) {
+      return 'rank-inactive-month';
+    }
+
+    // Plus d'une semaine (7 jours)
+    if (daysSinceActivity > 7) {
+      return 'rank-inactive-week';
+    }
+
+    // Actif récemment
+    return 'rank-active';
   }
 }

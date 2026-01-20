@@ -98,35 +98,13 @@
 
     <!-- Users Leaderboard -->
     <div *ngIf="!loading && !error && selectedView === 'users'" class="leaderboard">
-      <!-- Top 3 Podium - only on page 1 -->
-      <div *ngIf="currentPage === 1" class="podium users-podium">
-        <div *ngFor="let user of getTopThree(); let i = index" 
-             class="podium-item" 
-             [class.first]="i === 0" 
-             [class.second]="i === 1" 
-             [class.third]="i === 2">
-          <div class="podium-rank">{{ getRankEmoji(user.rank) }}</div>
-          <div class="podium-user">
-            <div class="user-avatar"><span class="emoji-only">{{ getFavoriteSoundEmoji(user) }}</span></div>
-            <div class="user-name">{{ getDisplayName(user) }}</div>
-            <div class="user-stats">
-              <div class="user-points">{{ formatPoints(user.total_points) }} pts</div>
-              <div class="user-level">Level {{ user.level }}</div>
-              <div class="user-time">
-                <span class="desktop-text">{{ getListeningTimeDays(user.listening_time_seconds) }} <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
-                <span class="mobile-text">{{ getListeningTimeDays(user.listening_time_seconds) }} <small class="favorite-sound">{{ getFavoriteSound(user) }}</small></span>
-              </div>
-              <div class="user-streak" *ngIf="user.daily_streak && user.daily_streak > 0"><span class="emoji-only">🔥</span> {{ user.daily_streak }} day streak</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Rest of leaderboard -->
+      <!-- Leaderboard list -->
       <div class="leaderboard-list users-list">
-        <div *ngFor="let user of getRemainingUsers(); trackBy: trackByUserId" 
-             class="leaderboard-item">
-          <div class="rank-number">{{ user.rank }}</div>
+        <div *ngFor="let user of getRemainingUsers(); trackBy: trackByUserId"
+             class="leaderboard-item"
+             (click)="openUserModal(user.username)"
+             style="cursor: pointer;">
+          <div class="rank-number" [ngClass]="getRankColorClass(user)">{{ user.rank }}</div>
           <div class="user-info">
             <div class="user-avatar-small"><span class="emoji-only">{{ getFavoriteSoundEmoji(user) }}</span></div>
             <div class="user-details">
@@ -319,3 +297,98 @@
     </div>
   </div>
 </footer>
+
+<!-- Modal des détails de l'utilisateur -->
+<div *ngIf="showUserModal" class="user-modal-overlay" (click)="closeUserModal()">
+  <div class="user-modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close-btn" (click)="closeUserModal()">✕</button>
+
+    <div *ngIf="loadingUserDetails" class="modal-loading">
+      <div class="spinner"></div>
+      <p>Loading user details...</p>
+    </div>
+
+    <div *ngIf="!loadingUserDetails && selectedUserDetails" class="user-details-container">
+      <!-- Header avec avatar et nom -->
+      <div class="user-header">
+        <div class="user-avatar-large">
+          <span class="emoji-only">{{ getFavoriteSoundEmoji(selectedUserDetails) }}</span>
+        </div>
+        <div class="user-header-info">
+          <h2 class="user-display-name">
+            {{ selectedUserDetails.display_name }}
+            <span *ngIf="selectedUserDetails.current_sound" class="live-indicator" title="Currently listening"></span>
+          </h2>
+        </div>
+      </div>
+
+      <!-- Stats principales -->
+      <div class="user-main-stats">
+        <div class="stat-box">
+          <div class="stat-value">{{ selectedUserDetails.total_points }}</div>
+          <div class="stat-label">Points</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">#{{ selectedUserDetails.rank }}</div>
+          <div class="stat-label">Rank</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">{{ selectedUserDetails.level }}</div>
+          <div class="stat-label">Level</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">{{ selectedUserDetails.daily_streak }}</div>
+          <div class="stat-label">Streak 🔥</div>
+        </div>
+      </div>
+
+      <!-- Progress bar du level -->
+      <div class="level-progress">
+        <div class="progress-label">Level Progress: {{ selectedUserDetails.level_progress }}%</div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="selectedUserDetails.level_progress"></div>
+        </div>
+      </div>
+
+      <!-- Listening stats -->
+      <div class="listening-stats">
+        <div class="stat-item">
+          <span class="stat-icon">⏱️</span>
+          <span class="stat-text">{{ formatListeningTimeDays(selectedUserDetails.listening_time_seconds) }}</span>
+          <span class="stat-desc">Total listening time</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🎧</span>
+          <span class="stat-text">{{ selectedUserDetails.sessions_joined }}</span>
+          <span class="stat-desc">Sessions joined</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">📅</span>
+          <span class="stat-text">{{ selectedUserDetails.days_since_last_activity }} day(s) ago</span>
+          <span class="stat-desc">Last activity</span>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div *ngIf="selectedUserDetails.achievements && selectedUserDetails.achievements.length > 0" class="achievements-section">
+        <h3>🏆 Achievements</h3>
+        <div class="achievements-grid">
+          <div *ngFor="let achievement of selectedUserDetails.achievements" class="achievement-badge">
+            {{ achievement }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Sounds -->
+      <div *ngIf="selectedUserDetails.listening_by_sound && selectedUserDetails.listening_by_sound.length > 0" class="top-sounds-section">
+        <h3>🎵 Top Listened Sounds</h3>
+        <div class="sounds-list">
+          <div *ngFor="let sound of selectedUserDetails.listening_by_sound.slice(0, 5); let i = index" class="sound-item">
+            <span class="sound-rank">{{ i + 1 }}</span>
+            <span class="sound-name emoji-only">{{ sound.display_name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
