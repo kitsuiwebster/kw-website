@@ -1,5 +1,5 @@
 <div class="layout">
-  <header class="layout-header" *ngIf="!isTasksPage && !isDouzePage && !isVitrinePage && !isCozybotPage && !isCozypointsPage && !isCreditsPage && !isLifePage">
+  <header class="layout-header" *ngIf="!isTasksPage && !isDouzePage && !isVitrinePage && !isLifePage">
     <div class="layout-header-title-container">
       <img
         class="layout-header-logo"
@@ -54,8 +54,9 @@
         <li class="layout-header-nav-ul-li">
           <a
             class="layout-header-nav-ul-li-a"
-            routerLink="/cozybot"
-            routerLinkActive="active"
+            href="https://cozybot.online"
+            target="_blank"
+            rel="noopener noreferrer"
             >CozyBot</a
           >
         </li>
@@ -73,7 +74,7 @@
   <main class="layout-main">
     <router-outlet></router-outlet>
   </main>
-  <footer class="layout-footer" *ngIf="!isTasksPage && !isDouzePage && !isVitrinePage && !isCozybotPage && !isCozypointsPage && !isCreditsPage && !isLifePage">
+  <footer class="layout-footer" *ngIf="!isTasksPage && !isDouzePage && !isVitrinePage && !isLifePage">
     <nav class="layout-footer-links">
       <a
         href="https://gitlab.com/kitsuiwebster"

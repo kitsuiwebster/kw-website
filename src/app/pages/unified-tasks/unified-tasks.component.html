@@ -208,7 +208,7 @@
         <div class="modal-actions">
           <div class="action-btn rename-btn" [class.renaming]="isRenaming">
             <div *ngIf="!isRenaming" (click)="startRename()" class="rename-trigger">
-              ✏️ Rename
+              Rename
             </div>
             <div *ngIf="isRenaming" class="rename-input-container">
               <input 
@@ -227,12 +227,12 @@
           </div>
           
           <button (click)="toggleTaskPriority()" class="action-btn priority-btn">
-            <span *ngIf="!selectedTask.isPriority">📌 Pin this task</span>
-            <span *ngIf="selectedTask.isPriority">📌 Unpin task</span>
+            <span *ngIf="!selectedTask.isPriority">Pin</span>
+            <span *ngIf="selectedTask.isPriority">Unpin</span>
           </button>
-          
+
           <button (click)="deleteTaskFromModal()" class="action-btn delete-btn">
-            🗑️ Delete
+            Delete
           </button>
         </div>
       </div>

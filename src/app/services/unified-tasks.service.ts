@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Task {
@@ -18,124 +19,46 @@ export type TaskType = 'kitsui' | 'bubble';
   providedIn: 'root'
 })
 export class UnifiedTasksService {
-  private readonly WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxhX69NdfbZ9-2KoI_G5n9jHvfuK_3mna8fITeuIjpBey8REQeyecKGCNrLBh_XQY7X/exec';
-
-  constructor() {}
-
-  // JSONP approach using direct URL
-  private makeJSONPRequest(params: any): Observable<any> {
-    return new Observable(observer => {
-      const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
-      
-      // Create script element
-      const script = document.createElement('script');
-      const url = new URL(this.WEB_APP_URL);
-      
-      // Add parameters
-      Object.keys(params).forEach(key => {
-        url.searchParams.append(key, params[key]);
-      });
-      url.searchParams.append('callback', callbackName);
-      
-      script.src = url.toString();
-      
-      // Create global callback
-      (window as any)[callbackName] = (data: any) => {
-        observer.next(data);
-        observer.complete();
-        document.head.removeChild(script);
-        delete (window as any)[callbackName];
-      };
-      
-      // Error handling
-      script.onerror = (error) => {
-        console.error('JSONP script error:', error);
-        observer.error('JSONP request failed: ' + error);
-        if (document.head.contains(script)) {
-          document.head.removeChild(script);
-        }
-        delete (window as any)[callbackName];
-      };
-      
-      // Timeout handling
-      setTimeout(() => {
-        if ((window as any)[callbackName]) {
-          console.error('JSONP timeout - callback still exists');
-          observer.error('JSONP request timeout');
-          if (document.head.contains(script)) {
-            document.head.removeChild(script);
-          }
-          delete (window as any)[callbackName];
-        }
-      }, 10000);
-      
-      document.head.appendChild(script);
-    });
-  }
+  private readonly BASE_URL = 'https://api.kitsuiwebster.com';
+  private http = inject(HttpClient);
 
   getTasks(taskType: TaskType): Observable<Task[]> {
-    console.log(`UnifiedTasksService.getTasks(${taskType}) called`);
-    return new Observable(observer => {
-      this.makeJSONPRequest({ 
-        action: 'getTasks', 
-        sheetType: taskType 
-      }).subscribe({
-        next: (response) => {
-          console.log('getTasks response:', response);
-          if (response && response.success) {
-            console.log('Tasks received:', response.tasks);
-            observer.next(response.tasks || []);
-          } else {
-            console.error('getTasks failed:', response);
-            observer.error('Failed to get tasks: ' + (response?.error || 'Unknown error'));
-          }
-          observer.complete();
-        },
-        error: (error) => {
-          console.error('Error fetching tasks:', error);
-          observer.error(error);
-        }
-      });
+    return this.http.get<Task[]>(`${this.BASE_URL}/tasks`, {
+      params: { type: taskType }
     });
   }
 
-  addTask(task: Task, taskType: TaskType): Observable<any> {
-    return this.makeJSONPRequest({
-      action: 'addTask',
-      sheetType: taskType,
-      id: task.id.toString(),
+  addTask(task: Task, taskType: TaskType): Observable<Task> {
+    return this.http.post<Task>(`${this.BASE_URL}/tasks`, {
+      id: task.id,
       text: task.text,
-      completed: task.completed.toString(),
-      isToday: (task.isToday || false).toString(),
-      label: task.label || (taskType === 'bubble' ? 'random' : 'other'),
-      isPriority: (task.isPriority || false).toString(),
-      createdAt: task.createdAt || new Date().toISOString(),
-      modifiedAt: task.modifiedAt || new Date().toISOString()
+      completed: task.completed,
+      isToday: task.isToday ?? false,
+      label: task.label ?? null,
+      isPriority: task.isPriority ?? false,
+      createdAt: task.createdAt,
+      modifiedAt: task.modifiedAt
+    }, {
+      params: { type: taskType }
     });
   }
 
-  updateTask(task: Task, taskType: TaskType): Observable<any> {
-    const params = {
-      action: 'updateTask',
-      sheetType: taskType,
-      id: task.id.toString(),
+  updateTask(task: Task, taskType: TaskType): Observable<Task> {
+    return this.http.patch<Task>(`${this.BASE_URL}/tasks/${task.id}`, {
       text: task.text,
-      completed: task.completed.toString(),
-      isToday: (task.isToday || false).toString(),
-      label: task.label || (taskType === 'bubble' ? 'random' : 'other'),
-      isPriority: (task.isPriority || false).toString(),
-      createdAt: task.createdAt || new Date().toISOString(),
-      modifiedAt: task.modifiedAt || new Date().toISOString()
-    };
-    console.log('Updating task with params:', params);
-    return this.makeJSONPRequest(params);
+      completed: task.completed,
+      isToday: task.isToday ?? false,
+      label: task.label ?? null,
+      isPriority: task.isPriority ?? false,
+      modifiedAt: task.modifiedAt
+    }, {
+      params: { type: taskType }
+    });
   }
 
-  deleteTask(id: number, taskType: TaskType): Observable<any> {
-    return this.makeJSONPRequest({
-      action: 'deleteTask',
-      sheetType: taskType,
-      id: id.toString()
+  deleteTask(id: number, taskType: TaskType): Observable<void> {
+    return this.http.delete<void>(`${this.BASE_URL}/tasks/${id}`, {
+      params: { type: taskType }
     });
   }
 }

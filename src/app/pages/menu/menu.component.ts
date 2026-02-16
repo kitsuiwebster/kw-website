@@ -7,6 +7,7 @@ interface MenuItem {
   path: string;
   description: string;
   category: string;
+  isExternal?: boolean;
 }
 
 @Component({
@@ -32,9 +33,10 @@ export class MenuComponent {
     },
     {
       title: 'CozyBot',
-      path: '/cozybot',
+      path: 'https://cozybot.online',
       description: 'Discord bot leaderboard',
-      category: 'Public'
+      category: 'Public',
+      isExternal: true
     },
     {
       title: 'Contact',

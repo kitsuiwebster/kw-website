@@ -1,20 +1,32 @@
 <div class="menu-container">
   <div class="section">
     <div class="menu-grid">
-      <a 
-        *ngFor="let item of publicItems"
-        [routerLink]="item.path"
-        class="menu-card"
-      >
-        <span class="card-title">{{ item.title }}</span>
-        <span class="card-path">{{ item.path }}</span>
-      </a>
+      <ng-container *ngFor="let item of publicItems">
+        <a
+          *ngIf="item.isExternal"
+          [href]="item.path"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="menu-card"
+        >
+          <span class="card-title">{{ item.title }}</span>
+          <span class="card-path">{{ item.path }}</span>
+        </a>
+        <a
+          *ngIf="!item.isExternal"
+          [routerLink]="item.path"
+          class="menu-card"
+        >
+          <span class="card-title">{{ item.title }}</span>
+          <span class="card-path">{{ item.path }}</span>
+        </a>
+      </ng-container>
     </div>
   </div>
 
   <div class="section">
     <div class="menu-grid">
-      <a 
+      <a
         *ngFor="let item of privateItems"
         [routerLink]="item.path"
         class="menu-card"

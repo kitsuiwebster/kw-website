@@ -140,7 +140,7 @@ export class UnifiedTasksComponent implements OnInit {
 
     this.unifiedTasksService.getTasks(this.activeTab).subscribe({
       next: (tasks) => {
-        console.log('Loaded tasks from Google Sheets:', tasks);
+        console.log('Loaded tasks from API:', tasks);
         
         const rawTasks = Array.isArray(tasks) ? tasks : [];
         
@@ -169,7 +169,7 @@ export class UnifiedTasksComponent implements OnInit {
         this.saveToLocalStorage();
       },
       error: (error) => {
-        console.warn('Google Sheets failed, using localStorage:', error);
+        console.warn('API unavailable, using localStorage:', error);
         this.loadFromLocalStorage();
         this.isLoading = false;
       }
@@ -227,15 +227,17 @@ export class UnifiedTasksComponent implements OnInit {
       this.saveToLocalStorage();
       
       this.unifiedTasksService.addTask(newTask, this.activeTab).subscribe({
-        next: (response) => {
-          if (response && !response.success) {
-            this.error = 'Google Sheets error: ' + (response.error || 'Function not defined');
-            setTimeout(() => this.error = '', 5000);
+        next: (savedTask) => {
+          // Update local task id with the one assigned by the backend
+          const index = this.tasks.findIndex(t => t.id === newTask.id);
+          if (index !== -1) {
+            this.tasks[index] = { ...this.tasks[index], ...savedTask };
           }
+          this.saveToLocalStorage();
         },
         error: (error) => {
-          console.warn('Could not sync to Google Sheets:', error);
-          this.error = 'Google Sheets unavailable - local storage only';
+          console.warn('Could not sync to API:', error);
+          this.error = 'API unavailable - local storage only';
           setTimeout(() => this.error = '', 5000);
         }
       });
@@ -253,14 +255,8 @@ export class UnifiedTasksComponent implements OnInit {
     this.saveToLocalStorage();
     
     this.unifiedTasksService.updateTask(task, this.activeTab).subscribe({
-      next: (response) => {
-        if (response && !response.success) {
-          this.error = 'Google Sheets error: ' + (response.error || 'Update failed');
-          setTimeout(() => this.error = '', 5000);
-        }
-      },
       error: (error) => {
-        console.warn('Could not sync to Google Sheets:', error);
+        console.warn('Could not sync to API:', error);
       }
     });
   }
@@ -270,11 +266,8 @@ export class UnifiedTasksComponent implements OnInit {
     this.saveToLocalStorage();
     
     this.unifiedTasksService.deleteTask(id, this.activeTab).subscribe({
-      next: (response) => {
-        console.log('Task deleted:', response);
-      },
       error: (error) => {
-        console.warn('Could not sync to Google Sheets:', error);
+        console.warn('Could not sync to API:', error);
       }
     });
   }
@@ -307,11 +300,8 @@ export class UnifiedTasksComponent implements OnInit {
       this.saveToLocalStorage();
       
       this.unifiedTasksService.updateTask(task, this.activeTab).subscribe({
-        next: (response) => {
-          console.log('Task moved to today:', response);
-        },
         error: (error) => {
-          console.warn('Could not sync to Google Sheets:', error);
+          console.warn('Could not sync to API:', error);
         }
       });
     }
@@ -328,11 +318,8 @@ export class UnifiedTasksComponent implements OnInit {
       this.saveToLocalStorage();
       
       this.unifiedTasksService.updateTask(task, this.activeTab).subscribe({
-        next: (response) => {
-          console.log('Task moved back to tasks:', response);
-        },
         error: (error) => {
-          console.warn('Could not sync to Google Sheets:', error);
+          console.warn('Could not sync to API:', error);
         }
       });
     }
@@ -388,17 +375,11 @@ export class UnifiedTasksComponent implements OnInit {
       this.saveToLocalStorage();
       
       this.unifiedTasksService.updateTask(this.selectedTask, this.activeTab).subscribe({
-        next: (response) => {
-          if (response && !response.success) {
-            this.error = 'Sync error: ' + (response.error || 'Error');
-            setTimeout(() => this.error = '', 5000);
-          }
-        },
         error: (error) => {
           console.warn('Could not sync:', error);
         }
       });
-      
+
       this.isRenaming = false;
       this.renameText = '';
     }
@@ -419,12 +400,6 @@ export class UnifiedTasksComponent implements OnInit {
       this.saveToLocalStorage();
       
       this.unifiedTasksService.updateTask(this.selectedTask, this.activeTab).subscribe({
-        next: (response) => {
-          if (response && !response.success) {
-            this.error = 'Sync error: ' + (response.error || 'Error');
-            setTimeout(() => this.error = '', 5000);
-          }
-        },
         error: (error) => {
           console.warn('Could not sync:', error);
         }

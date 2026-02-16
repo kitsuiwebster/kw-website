@@ -13,9 +13,6 @@ export class LayoutComponent {
   isTasksPage = false;
   isDouzePage = false;
   isVitrinePage = false;
-  isCozybotPage = false;
-  isCozypointsPage = false;
-  isCreditsPage = false;
   isLifePage = false;
 
   constructor(private router: Router) {
@@ -24,9 +21,6 @@ export class LayoutComponent {
         this.isTasksPage = event.url === '/tasks' || event.url.startsWith('/tasks#');
         this.isDouzePage = event.url === '/douze';
         this.isVitrinePage = event.url === '/vitrine';
-        this.isCozybotPage = event.url === '/cozybot' || event.url.startsWith('/cozybot?');
-        this.isCozypointsPage = event.url === '/cozypoints' || event.url.startsWith('/cozypoints?');
-        this.isCreditsPage = event.url === '/cozybot/credits' || event.url.startsWith('/cozybot/credits?');
         this.isLifePage = event.url === '/life' || event.url === '/shisui' || event.url.startsWith('/life?') || event.url.startsWith('/shisui?');
       }
     });
