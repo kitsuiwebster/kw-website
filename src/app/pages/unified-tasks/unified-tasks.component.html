@@ -25,13 +25,14 @@
     <div class="tasks-input-section">
       <div class="label-radio-group">
         <div class="label-radio-item" *ngFor="let label of currentLabels">
-          <input 
-            type="radio" 
+          <input
+            type="radio"
             [id]="'label-' + label.id"
-            [value]="label.id" 
+            [value]="label.id"
             [(ngModel)]="selectedLabel"
             [name]="activeTab + 'TaskLabel'"
             class="label-radio-input"
+            (change)="taskInput.focus()"
           >
           <label 
             [for]="'label-' + label.id"
@@ -48,8 +49,9 @@
         </div>
       </div>
       <div class="input-and-button">
-        <input 
-          type="text" 
+        <input
+          #taskInput
+          type="text"
           [(ngModel)]="newTaskText"
           (keypress)="onKeyPress($event)"
           placeholder="Add a new task..."

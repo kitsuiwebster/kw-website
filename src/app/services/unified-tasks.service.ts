@@ -30,7 +30,6 @@ export class UnifiedTasksService {
 
   addTask(task: Task, taskType: TaskType): Observable<Task> {
     return this.http.post<Task>(`${this.BASE_URL}/tasks`, {
-      id: task.id,
       text: task.text,
       completed: task.completed,
       isToday: task.isToday ?? false,

@@ -65,8 +65,6 @@ export class UnifiedTasksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('UnifiedTasksComponent ngOnInit called');
-    
     // Check for hash fragment in URL
     this.route.fragment.subscribe(fragment => {
       if (fragment === 'bubble' || fragment === 'kitsui') {
@@ -140,8 +138,6 @@ export class UnifiedTasksComponent implements OnInit {
 
     this.unifiedTasksService.getTasks(this.activeTab).subscribe({
       next: (tasks) => {
-        console.log('Loaded tasks from API:', tasks);
-        
         const rawTasks = Array.isArray(tasks) ? tasks : [];
         
         // Remove duplicates et initialiser les propriétés front-end
