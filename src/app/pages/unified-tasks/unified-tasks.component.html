@@ -23,7 +23,9 @@
     </header>
 
     <div class="tasks-input-section">
-      <div class="label-radio-group">
+      <div class="label-row">
+        <button class="toggle-filter-btn" [class.active]="showFilterRow" (click)="showFilterRow = !showFilterRow">Filter</button>
+        <div class="label-radio-group">
         <div class="label-radio-item" *ngFor="let label of currentLabels">
           <input
             type="radio"
@@ -47,6 +49,8 @@
             {{ label.name }}
           </label>
         </div>
+        </div>
+        <button class="edit-labels-btn" (click)="openLabelEditor()">Edit labels</button>
       </div>
       <div class="input-and-button">
         <input
@@ -68,6 +72,20 @@
       </div>
     </div>
 
+    <!-- Filtre par label -->
+    <div class="filter-row" *ngIf="!isLoading && showFilterRow">
+      <span
+        *ngFor="let label of currentLabels"
+        class="filter-pill"
+        [class.active]="filterLabel === label.id"
+        [style.--label-color]="label.color"
+        (click)="toggleFilterLabel(label.id)"
+      >
+        <span class="label-color-dot" [style.background-color]="label.color"></span>
+        {{ label.name }}
+      </span>
+    </div>
+
     <div class="tasks-columns">
       <!-- Loading State -->
       <div *ngIf="isLoading" class="loading-container">
@@ -77,7 +95,12 @@
 
       <!-- Left Column: All Tasks -->
       <div class="tasks-column" *ngIf="!isLoading">
-        <h2 class="column-title">All Tasks</h2>
+        <div class="column-header">
+          <h2 class="column-title">All Tasks <span class="task-count">{{ sortedTasks.length }}<ng-container *ngIf="filterLabel || hideCompletedAll">/{{ sortedTasksTotal }}</ng-container></span></h2>
+          <button class="hide-completed-btn" (click)="hideCompletedAll = !hideCompletedAll">
+            {{ hideCompletedAll ? 'Show completed' : 'Hide completed' }}
+          </button>
+        </div>
         <div 
           class="tasks-list drop-zone"
           (dragover)="onDragOver($event)"
@@ -129,7 +152,12 @@
 
       <!-- Right Column: Today Tasks -->
       <div class="tasks-column" *ngIf="!isLoading">
-        <h2 class="column-title">Today</h2>
+        <div class="column-header">
+          <h2 class="column-title">Today <span class="task-count">{{ todayTasks.length }}<ng-container *ngIf="filterLabel || hideCompletedToday">/{{ todayTasksTotal }}</ng-container></span></h2>
+          <button class="hide-completed-btn" (click)="hideCompletedToday = !hideCompletedToday">
+            {{ hideCompletedToday ? 'Show completed' : 'Hide completed' }}
+          </button>
+        </div>
         <div 
           class="tasks-list drop-zone today-zone"
           (dragover)="onDragOver($event)"
@@ -183,6 +211,47 @@
     <!-- Affichage des erreurs -->
     <div *ngIf="error" class="error-message">
       {{ error }}
+    </div>
+  </div>
+
+  <!-- Modal éditeur de labels -->
+  <div
+    *ngIf="showLabelEditor"
+    class="modal-overlay"
+    (click)="closeLabelEditor()"
+  >
+    <div class="task-modal label-editor-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Labels — {{ activeTab }}</h3>
+        <button (click)="closeLabelEditor()" class="close-btn">×</button>
+      </div>
+      <div class="modal-content">
+        <div class="label-editor-list">
+          <div *ngFor="let label of editingLabels; let i = index" class="label-editor-row">
+            <span class="label-preview-dot" [style.background-color]="label.color"></span>
+            <input
+              type="text"
+              [(ngModel)]="label.name"
+              class="label-name-input"
+              maxlength="20"
+            >
+            <div class="hex-input-wrapper">
+              <span class="hex-prefix">#</span>
+              <input
+                type="text"
+                [ngModel]="label.color.slice(1)"
+                (ngModelChange)="updateEditingHex(i, $event)"
+                class="label-hex-input"
+                maxlength="6"
+                placeholder="FFD700"
+              >
+            </div>
+            <button class="delete-label-btn" (click)="deleteEditingLabel(i)">×</button>
+          </div>
+        </div>
+        <button class="add-label-btn" (click)="addEditingLabel()">+ Add label</button>
+        <button (click)="saveLabelChanges()" class="save-labels-btn">Save</button>
+      </div>
     </div>
   </div>
 

@@ -31,10 +31,20 @@ export class UnifiedTasksComponent implements OnInit {
   // Modal pour les actions de tâche
   showTaskModal: boolean = false;
   selectedTask: Task | null = null;
-  
+
   // Renaming state
   isRenaming: boolean = false;
   renameText: string = '';
+
+  // Label editor
+  showLabelEditor: boolean = false;
+  editingLabels: Label[] = [];
+
+  // Filters
+  hideCompletedAll: boolean = false;
+  hideCompletedToday: boolean = false;
+  filterLabel: string = '';
+  showFilterRow: boolean = false;
 
   // Labels par type
   kitsuiLabels: Label[] = [
@@ -65,17 +75,61 @@ export class UnifiedTasksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadLabelsFromStorage();
+
     // Check for hash fragment in URL
     this.route.fragment.subscribe(fragment => {
       if (fragment === 'bubble' || fragment === 'kitsui') {
         this.activeTab = fragment as TaskType;
       }
     });
-    
+
     this.selectedLabel = this.defaultLabel;
     setTimeout(() => {
       this.loadTasks();
     }, 100);
+  }
+
+  private loadLabelsFromStorage(): void {
+    const kitsui = localStorage.getItem('kitsui-labels');
+    const bubble = localStorage.getItem('bubble-labels');
+    if (kitsui) this.kitsuiLabels = JSON.parse(kitsui);
+    if (bubble) this.bubbleLabels = JSON.parse(bubble);
+  }
+
+  openLabelEditor(): void {
+    this.editingLabels = this.currentLabels.map(l => ({ ...l }));
+    this.showLabelEditor = true;
+  }
+
+  closeLabelEditor(): void {
+    this.showLabelEditor = false;
+    this.editingLabels = [];
+  }
+
+  updateEditingHex(index: number, value: string): void {
+    const clean = value.replace(/[^0-9a-fA-F]/g, '').slice(0, 6);
+    this.editingLabels[index] = { ...this.editingLabels[index], color: '#' + clean };
+  }
+
+  addEditingLabel(): void {
+    this.editingLabels.push({ id: 'label-' + Date.now(), name: 'new', color: '#888888' });
+  }
+
+  deleteEditingLabel(index: number): void {
+    this.editingLabels.splice(index, 1);
+  }
+
+  saveLabelChanges(): void {
+    const saved = this.editingLabels.map(l => ({ ...l }));
+    if (this.activeTab === 'kitsui') {
+      this.kitsuiLabels = saved;
+      localStorage.setItem('kitsui-labels', JSON.stringify(saved));
+    } else {
+      this.bubbleLabels = saved;
+      localStorage.setItem('bubble-labels', JSON.stringify(saved));
+    }
+    this.closeLabelEditor();
   }
 
   get currentLabels(): Label[] {
@@ -86,32 +140,40 @@ export class UnifiedTasksComponent implements OnInit {
     return this.activeTab === 'bubble' ? 'random' : 'other';
   }
 
+  private sortFn(a: Task, b: Task): number {
+    if (a.completed !== b.completed) return a.completed ? 1 : -1;
+    if (a.isPriority !== b.isPriority) return a.isPriority ? -1 : 1;
+    return 0;
+  }
+
   get sortedTasks(): Task[] {
-    return this.tasks.filter(task => !task.isToday).sort((a, b) => {
-      // First sort by completed status
-      if (a.completed !== b.completed) {
-        return a.completed ? 1 : -1;
-      }
-      // Then sort by priority (pinned tasks on top)
-      if (a.isPriority !== b.isPriority) {
-        return a.isPriority ? -1 : 1;
-      }
-      return 0;
-    });
+    return this.tasks.filter(task => {
+      if (task.isToday) return false;
+      if (this.hideCompletedAll && task.completed) return false;
+      if (this.filterLabel && task.label !== this.filterLabel) return false;
+      return true;
+    }).sort((a, b) => this.sortFn(a, b));
+  }
+
+  get sortedTasksTotal(): number {
+    return this.tasks.filter(t => !t.isToday).length;
   }
 
   get todayTasks(): Task[] {
-    return this.tasks.filter(task => task.isToday).sort((a, b) => {
-      // First sort by completed status
-      if (a.completed !== b.completed) {
-        return a.completed ? 1 : -1;
-      }
-      // Then sort by priority (pinned tasks on top)
-      if (a.isPriority !== b.isPriority) {
-        return a.isPriority ? -1 : 1;
-      }
-      return 0;
-    });
+    return this.tasks.filter(task => {
+      if (!task.isToday) return false;
+      if (this.hideCompletedToday && task.completed) return false;
+      if (this.filterLabel && task.label !== this.filterLabel) return false;
+      return true;
+    }).sort((a, b) => this.sortFn(a, b));
+  }
+
+  get todayTasksTotal(): number {
+    return this.tasks.filter(t => t.isToday).length;
+  }
+
+  toggleFilterLabel(labelId: string): void {
+    this.filterLabel = this.filterLabel === labelId ? '' : labelId;
   }
 
   switchTab(tab: TaskType): void {
@@ -119,6 +181,10 @@ export class UnifiedTasksComponent implements OnInit {
       this.activeTab = tab;
       this.selectedLabel = this.defaultLabel;
       this.newTaskText = '';
+      this.filterLabel = '';
+      this.hideCompletedAll = false;
+      this.hideCompletedToday = false;
+      this.showFilterRow = false;
       this.closeTaskModal();
       
       // Update URL hash fragment
