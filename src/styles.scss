@@ -3,8 +3,9 @@ body {
     font-family: 'Space Grotesk', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #f1f1f1;
-    color: #000000;
+    background-color: #f5f5f3;
+    color: #111111;
+    scroll-behavior: smooth;
     height: 100vh;
     display: flex;
     justify-content: center;

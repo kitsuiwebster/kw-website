@@ -20,6 +20,12 @@ interface Certification {
   alt: string;
 }
 
+interface SkillSection {
+  key: string;
+  title: string;
+  technologies: Technology[];
+}
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -28,6 +34,9 @@ interface Certification {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  isDiscordCopied = false;
+  private discordToastTimeoutId?: number;
+
   aiTechnologies: Technology[] = [
     {
       src: 'assets/images/technos/mistral.webp',
@@ -50,7 +59,7 @@ export class HomeComponent {
       star5: 'assets/images/stars/yellow.webp',
     },
     {
-      src: 'assets/images/technos/claude.webp',
+      src: 'assets/images/technos/claude.svg',
       alt: 'Claude',
       name: 'Claude',
       star1: 'assets/images/stars/yellow.webp',
@@ -60,14 +69,24 @@ export class HomeComponent {
       star5: 'assets/images/stars/yellow.webp',
     },
     {
+      src: 'assets/images/technos/huggingface.png',
+      alt: 'HuggingFace',
+      name: 'HuggingFace',
+      star1: 'assets/images/stars/yellow.webp',
+      star2: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/yellow.webp',
+      star4: 'assets/images/stars/clear.webp',
+      star5: 'assets/images/stars/clear.webp',
+    },
+    {
       src: 'assets/images/technos/gemini.webp',
       alt: 'Gemini',
       name: 'Gemini',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
-      star4: 'assets/images/stars/half.webp',
-      star5: 'assets/images/stars/clear.webp',
+      star4: 'assets/images/stars/yellow.webp',
+      star5: 'assets/images/stars/yellow.webp',
     },
   ];
 
@@ -142,16 +161,6 @@ export class HomeComponent {
       star4: 'assets/images/stars/clear.webp',
       star5: 'assets/images/stars/clear.webp',
     },
-    {
-      src: 'assets/images/technos/c-sharp.png',
-      alt: 'C#',
-      name: 'C#',
-      star1: 'assets/images/stars/yellow.webp',
-      star2: 'assets/images/stars/yellow.webp',
-      star3: 'assets/images/stars/half.webp',
-      star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp',
-    },
   ];
 
   devTechnologies: Technology[] = [
@@ -172,7 +181,7 @@ export class HomeComponent {
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
-      star4: 'assets/images/stars/half.webp',
+      star4: 'assets/images/stars/yellow.webp',
       star5: 'assets/images/stars/clear.webp',
     },
     {
@@ -201,7 +210,7 @@ export class HomeComponent {
       name: 'Next.js',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
-      star3: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
       star5: 'assets/images/stars/clear.webp',
     },
@@ -236,22 +245,12 @@ export class HomeComponent {
       star5: 'assets/images/stars/clear.webp',
     },
     {
-      src: 'assets/images/technos/ionic.webp',
-      alt: 'Ionic',
-      name: 'Ionic',
-      star1: 'assets/images/stars/yellow.webp',
-      star2: 'assets/images/stars/yellow.webp',
-      star3: 'assets/images/stars/half.webp',
-      star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp',
-    },
-    {
       src: 'assets/images/technos/electron.png',
       alt: 'Electron.js',
       name: 'Electron.js',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
-      star3: 'assets/images/stars/half.webp',
+      star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/clear.webp',
       star5: 'assets/images/stars/clear.webp',
     },
@@ -269,6 +268,26 @@ export class HomeComponent {
       star5: 'assets/images/stars/half.webp',
     },
     {
+      src: 'assets/images/technos/gitlab.png',
+      alt: 'GitLab',
+      name: 'GitLab',
+      star1: 'assets/images/stars/yellow.webp',
+      star2: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/yellow.webp',
+      star4: 'assets/images/stars/clear.webp',
+      star5: 'assets/images/stars/clear.webp',
+    },
+    {
+      src: 'assets/images/technos/github.svg',
+      alt: 'GitHub',
+      name: 'GitHub',
+      star1: 'assets/images/stars/yellow.webp',
+      star2: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/yellow.webp',
+      star4: 'assets/images/stars/yellow.webp',
+      star5: 'assets/images/stars/half.webp',
+    },
+    {
       src: 'assets/images/technos/vs-code.webp',
       alt: 'VS Code',
       name: 'VS Code',
@@ -276,7 +295,7 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/half.webp',
+      star5: 'assets/images/stars/yellow.webp',
     },
     {
       src: 'assets/images/technos/figma.webp',
@@ -289,16 +308,6 @@ export class HomeComponent {
       star5: 'assets/images/stars/clear.webp',
     },
     {
-      src: 'assets/images/technos/unity.png',
-      alt: 'Unity',
-      name: 'Unity',
-      star1: 'assets/images/stars/yellow.webp',
-      star2: 'assets/images/stars/yellow.webp',
-      star3: 'assets/images/stars/half.webp',
-      star4: 'assets/images/stars/clear.webp',
-      star5: 'assets/images/stars/clear.webp',
-    },
-    {
       src: 'assets/images/technos/insomnia.png',
       alt: 'Insomnia',
       name: 'Insomnia',
@@ -306,16 +315,6 @@ export class HomeComponent {
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/half.webp',
-      star5: 'assets/images/stars/clear.webp',
-    },
-    {
-      src: 'assets/images/technos/android-studio.png',
-      alt: 'Android Studio',
-      name: 'Android Studio',
-      star1: 'assets/images/stars/yellow.webp',
-      star2: 'assets/images/stars/yellow.webp',
-      star3: 'assets/images/stars/half.webp',
-      star4: 'assets/images/stars/clear.webp',
       star5: 'assets/images/stars/clear.webp',
     },
   ];
@@ -357,17 +356,27 @@ export class HomeComponent {
     {
       src: 'assets/images/technos/docker.webp',
       alt: 'Docker',
-      name: 'Docker',
+      name: 'Docker❤️',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
+      star5: 'assets/images/stars/half.webp',
+    },
+    {
+      src: 'assets/images/technos/gcp.png',
+      alt: 'GCP',
+      name: 'GCP',
+      star1: 'assets/images/stars/yellow.webp',
+      star2: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/half.webp',
+      star4: 'assets/images/stars/clear.webp',
       star5: 'assets/images/stars/clear.webp',
     },
     {
       src: 'assets/images/technos/kubernetes.png',
       alt: 'Kubernetes',
-      name: 'Kubernetes❤️',
+      name: 'Kubernetes',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/half.webp',
@@ -400,7 +409,7 @@ export class HomeComponent {
       name: 'Azure',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
-      star3: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/half.webp',
       star4: 'assets/images/stars/clear.webp',
       star5: 'assets/images/stars/clear.webp',
     },
@@ -410,12 +419,12 @@ export class HomeComponent {
     {
       src: 'assets/images/technos/n8n.webp',
       alt: 'N8n',
-      name: 'N8n',
+      name: 'N8n❤️',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
       star4: 'assets/images/stars/yellow.webp',
-      star5: 'assets/images/stars/clear.webp',
+      star5: 'assets/images/stars/yellow.webp',
     },
     {
       src: 'assets/images/technos/nodered.webp',
@@ -525,8 +534,8 @@ export class HomeComponent {
   visualTools: Technology[] = [
     {
       src: 'assets/images/technos/premiere-pro.png',
-      alt: 'Prremiere Pro',
-      name: 'Prremiere Pro',
+      alt: 'Premiere Pro',
+      name: 'Premiere Pro',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
@@ -617,6 +626,16 @@ export class HomeComponent {
       star5: 'assets/images/stars/clear.webp',
     },
     {
+      src: 'assets/images/technos/logicpro.png',
+      alt: 'Logic Pro',
+      name: 'Logic Pro',
+      star1: 'assets/images/stars/yellow.webp',
+      star2: 'assets/images/stars/yellow.webp',
+      star3: 'assets/images/stars/half.webp',
+      star4: 'assets/images/stars/clear.webp',
+      star5: 'assets/images/stars/clear.webp',
+    },
+    {
       src: 'assets/images/technos/auto-tune.webp',
       alt: 'Auto-tune',
       name: 'Auto-tune',
@@ -665,12 +684,12 @@ export class HomeComponent {
     {
       date: '2024-11-18',
       src: 'assets/images/certifications/certified-junior-angular-developer.png',
-      alt: 'Certfiied Junior Angular Developer',
+      alt: 'Certified Junior Angular Developer',
     },
     {
       date: '2025-01-29',
       src: 'assets/images/certifications/certified-chatbot-expert.png',
-      alt: 'Certfiied Chatbot Expert',
+      alt: 'Certified Chatbot Expert',
     },
   ];
 
@@ -687,25 +706,45 @@ export class HomeComponent {
     },
   ];
 
+  collapsedSections: { [key: string]: boolean } = {
+    ai: true,
+    languages: true,
+    dev: true,
+    devTools: true,
+    databases: true,
+    architecture: true,
+    automation: true,
+    system: true,
+    visual: true,
+    music: true,
+  };
+
+  skillSections: SkillSection[] = [
+    { key: 'ai', title: 'AI - Prompt Engineering', technologies: this.aiTechnologies },
+    { key: 'languages', title: 'Languages', technologies: this.languages },
+    { key: 'dev', title: 'Development', technologies: this.devTechnologies },
+    { key: 'devTools', title: 'Development Tools', technologies: this.devTools },
+    { key: 'databases', title: 'Databases', technologies: this.databases },
+    { key: 'architecture', title: 'Architecture', technologies: this.architectureTechnologies },
+    { key: 'automation', title: 'Automation', technologies: this.automationTools },
+    { key: 'system', title: 'System', technologies: this.systems },
+    { key: 'visual', title: 'Visual', technologies: this.visualTools },
+    { key: 'music', title: 'Music', technologies: this.musicTools },
+  ];
+
+  toggleSection(key: string): void {
+    this.collapsedSections[key] = !this.collapsedSections[key];
+  }
+
   copyDiscordUsername(): void {
     navigator.clipboard.writeText('kitsuiwebster').then(() => {
-      const copiedMessage = document.createElement('div');
-      copiedMessage.id = 'copiedMessage';
-      copiedMessage.innerText = 'Copied to clipboard!';
-
-      copiedMessage.style.position = 'fixed';
-      copiedMessage.style.top = '40px';
-      copiedMessage.style.left = '50%';
-      copiedMessage.style.transform = 'translateX(-50%)';
-      copiedMessage.style.color = 'red';
-      copiedMessage.style.padding = '10px 20px';
-      copiedMessage.style.borderRadius = '4px';
-      copiedMessage.style.zIndex = '9999';
-
-      document.body.appendChild(copiedMessage);
-      setTimeout(() => {
-        document.body.removeChild(copiedMessage);
-      }, 3000);
+      this.isDiscordCopied = true;
+      if (this.discordToastTimeoutId) {
+        window.clearTimeout(this.discordToastTimeoutId);
+      }
+      this.discordToastTimeoutId = window.setTimeout(() => {
+        this.isDiscordCopied = false;
+      }, 2200);
     });
   }
 }

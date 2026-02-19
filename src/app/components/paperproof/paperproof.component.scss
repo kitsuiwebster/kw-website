@@ -6,25 +6,31 @@
     width: 28rem;
     min-height: 7.3rem;
     margin: 1rem;
-  
+
     &-image {
         width: 100%;
         height: auto;
-        margin-bottom: 5px;
-        transition: transform 0.2s;
+        margin-bottom: 8px;
         border-radius: 10px;
-  
+        opacity: 0.9;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+
         &:hover {
-            transform: scale(1.05);
+            opacity: 1;
+            transform: translateY(-4px);
         }
     }
-  
-    &-name {
-        font-size: 1.2rem;
-        color: #000000;
+
+    p {
+        font-size: 0.72rem;
+        color: #999;
+        letter-spacing: 0.08em;
+        font-weight: 400;
+        text-transform: uppercase;
+        margin: 0.25rem 0 0;
     }
 }
-  
+
 @media screen and (max-width: 1200px) {
     .paperproof {
         min-width: 20rem;
@@ -33,9 +39,8 @@
 
 @media screen and (max-width: 768px) {
     .paperproof {
-
-      margin: 1rem;
-      min-width: 1rem;
-      max-width: 15rem;
+        margin: 1rem;
+        min-width: 1rem;
+        max-width: 15rem;
     }
 }

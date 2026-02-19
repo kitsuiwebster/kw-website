@@ -4,13 +4,18 @@
   min-height: 100vh;
 
   &-header {
+    position: sticky;
     top: 0;
-    z-index: 3;
+    z-index: 100;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.4rem 0;
+    padding: 0.75rem 0;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(245, 245, 243, 0.92);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 
     &-mobile {
       display: none;
@@ -43,16 +48,24 @@
 
           &-a {
             text-decoration: none;
-            color: #000000;
-            font-weight: 600;
-            font-size: larger;
-            padding: 1.15rem 1rem 1.12rem 1rem;
-            margin: 0 1rem;
-            transition-duration: 0.2s;
+            color: #555;
+            font-weight: 300;
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 1rem 1.25rem;
+            margin: 0;
+            transition: color 0.25s ease;
+            border-bottom: none;
 
             &:hover {
               cursor: pointer;
-              color: red;
+              color: #ff3b2d;
+            }
+
+            &.active {
+              color: #111;
+              border-bottom: none;
             }
           }
         }
@@ -66,14 +79,19 @@
     }
 
     &-title {
-      font-size: 20px;
+      font-size: 0.82rem;
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #111;
     }
 
     &-logo {
-      width: 2rem;
-      height: 2rem;
-      margin-left: 1rem;
-      margin-right: 0.5rem;
+      width: 1.75rem;
+      height: 1.75rem;
+      margin-left: 1.5rem;
+      margin-right: 0.6rem;
+      opacity: 0.85;
     }
   }
 
@@ -93,28 +111,40 @@
     position: relative;
     flex-direction: column;
     z-index: 3;
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+    background: rgba(245, 245, 243, 0.9);
+    padding: 1rem 0 0.25rem;
 
     &-links {
       display: flex;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
     }
 
     &-link {
-      margin: 1rem;
-      border-radius: 10px;
+      margin: 0.6rem;
+      border-radius: 8px;
       cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+
+      &:hover {
+        opacity: 0.7;
+        transform: translateY(-2px);
+      }
 
       &-img {
-        width: 2rem;
-        height: 2rem;
+        width: 1.75rem;
+        height: 1.75rem;
         vertical-align: middle;
-        border-radius: 10px;
-        padding: 0.15rem;
+        border-radius: 8px;
+        padding: 0.1rem;
       }
     }
 
     &-text {
-      font-size: 15px;
+      font-size: 0.78rem;
+      color: #aaa;
+      letter-spacing: 0.06em;
+      margin: 0.5rem 0 0.75rem;
     }
   }
 }
@@ -136,15 +166,15 @@
         display: block;
         width: 2rem;
         height: 2rem;
-        margin: 1rem;
-        filter: brightness(0);
+        filter: brightness(0) invert(1);
         margin: 0.5rem;
       }
       &-nav {
         display: none;
         width: 100%;
         height: auto;
-        background-color: black;
+        background-color: rgba(10, 10, 10, 0.97);
+        backdrop-filter: blur(10px);
         transition: all 0.3s ease;
 
         &.open {
@@ -162,10 +192,18 @@
               text-align: center;
               margin: 0;
               padding: 1rem;
-              color: white;
+                      color: rgba(255, 255, 255, 0.75);
+              border-bottom: none;
+              letter-spacing: 0.06em;
 
               &:hover {
-                color: red;
+                color: #ff3b2d;
+              }
+
+              &.active {
+                color: #fff;
+                border-bottom: none;
+                padding-bottom: 1rem;
               }
             }
           }
@@ -179,13 +217,13 @@
         justify-content: center;
         max-width: 100%;
         padding: 0 1rem;
-        gap: 0.5rem;
+        gap: 0.25rem;
       }
       &-link {
-        margin: 0.5rem;
+        margin: 0.4rem;
         &-img {
-          width: 1.75rem;
-          height: 1.75rem;
+          width: 1.6rem;
+          height: 1.6rem;
         }
       }
     }
