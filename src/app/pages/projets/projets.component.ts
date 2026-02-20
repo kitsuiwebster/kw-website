@@ -41,7 +41,10 @@ export class ProjetsComponent {
         'assets/images/technos/python.webp',
         'assets/images/technos/docker.webp',
         'assets/images/technos/fastapi.svg',
+        'assets/images/technos/uvicorn.png',
+        'assets/images/technos/nginx.webp',
         'assets/images/technos/github.svg',
+        'assets/images/technos/gh-actions.png',
         'assets/images/technos/bash.webp',
         'assets/images/technos/couchdb.webp',
         'assets/images/technos/kuma.png'

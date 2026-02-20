@@ -1,8 +1,15 @@
 <section class="cozybot-project-shell">
   <div class="cozybot-project">
     <header class="cozybot-project-hero">
-      <p class="cozybot-project-kicker">Project Case Study</p>
-      <h1 class="cozybot-project-title">CozyBot</h1>
+      <div class="cozybot-project-hero-top">
+        <div class="cozybot-project-cover">
+          <img src="assets/images/cozybot/cozybot-logo3.png" alt="CozyBot logo" class="cozybot-project-cover-image" />
+        </div>
+        <div class="cozybot-project-heading">
+          <p class="cozybot-project-kicker">Project Case Study</p>
+          <h1 class="cozybot-project-title">CozyBot</h1>
+        </div>
+      </div>
       <p class="cozybot-project-description">
         CozyBot is a Discord audio companion designed to bring calm ambiences and background soundscapes
         to voice channels, while adding persistent gamification, statistics, and operational reliability.
@@ -16,6 +23,23 @@
         <a href="https://github.com/kitsuiwebster/cozy-bot/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">Changelog</a>
       </div>
     </header>
+
+    <section class="cozybot-project-section">
+      <h2>Technologies Used</h2>
+      <div class="cozybot-tech-grid">
+        <div class="cozybot-tech-item"><img src="assets/images/technos/python.webp" alt="Python" /><span>Python</span></div>
+        <div class="cozybot-tech-item"><img src="assets/images/technos/discordpy.png" alt="discord.py" /><span>discord.py</span></div>
+        <div class="cozybot-tech-item"><img src="assets/images/technos/fastapi.svg" alt="FastAPI" /><span>FastAPI</span></div>
+        <div class="cozybot-tech-item"><img src="assets/images/technos/uvicorn.png" alt="Uvicorn" /><span>Uvicorn</span></div>
+        <div class="cozybot-tech-item"><img src="assets/images/technos/nginx.webp" alt="Nginx" /><span>Nginx</span></div>
+        <div class="cozybot-tech-item"><img src="assets/images/technos/docker.webp" alt="Docker" /><span>Docker</span></div>
+        <div class="cozybot-tech-item"><img src="assets/images/technos/couchdb.webp" alt="CouchDB" /><span>CouchDB</span></div>
+        <div class="cozybot-tech-item"><img src="assets/images/technos/bash.webp" alt="Bash" /><span>Bash</span></div>
+        <div class="cozybot-tech-item"><img src="assets/images/technos/github.svg" alt="GitHub" /><span>GitHub</span></div>
+        <div class="cozybot-tech-item"><img src="assets/images/technos/gh-actions.png" alt="GitHub Actions" /><span>GitHub Actions</span></div>
+        <div class="cozybot-tech-item"><img src="assets/images/technos/kuma.png" alt="Uptime Kuma" /><span>Uptime Kuma</span></div>
+      </div>
+    </section>
 
     <section class="cozybot-project-section">
       <h2>Overview</h2>
@@ -34,7 +58,7 @@
         <li><strong>Live Bot API</strong>: health and live bot diagnostics endpoint surface used by monitoring and restore flows.</li>
         <li><strong>Data Layer</strong>: CouchDB for user stats, usernames, server data, sound metrics, and persistent state.</li>
         <li><strong>Status Layer</strong>: custom status page + status API + Uptime Kuma integration.</li>
-        <li><strong>Container Orchestration</strong>: Docker Compose stack (`bot`, `api`, `couchdb`, `status-api`, `status-page`, `uptime-kuma`).</li>
+        <li><strong>Container Orchestration</strong>: Docker Compose stack (bot, api, couchdb, status-api, status-page, uptime-kuma).</li>
       </ul>
       <p>
         Architecture details are intentionally kept at a defensive, public-safe level: enough to explain design quality,
@@ -58,8 +82,9 @@
         <li><strong>Language & Frameworks</strong>: Python, discord.py, FastAPI, Uvicorn.</li>
         <li><strong>Storage</strong>: CouchDB (with seeded views and persistent volumes).</li>
         <li><strong>Runtime & Ops</strong>: Docker, Docker Compose, Bash automation scripts.</li>
+        <li><strong>Service Control</strong>: Makefile-driven operational commands for start/stop/rebuild/logs/status.</li>
         <li><strong>CI/CD</strong>: GitHub Actions deployment pipelines (development + production).</li>
-        <li><strong>Security/Quality</strong>: Trivy image scanning and optional SonarQube scan jobs.</li>
+        <li><strong>Security/Quality</strong>: Trivy image scans plus SonarQube scan stage (enabled when credentials are configured).</li>
         <li><strong>Monitoring</strong>: Uptime Kuma + custom status API/page stack.</li>
       </ul>
     </section>
@@ -107,7 +132,7 @@
     </section>
 
     <section class="cozybot-project-section">
-      <h2>Security Posture (Public Summary)</h2>
+      <h2>Security Posture</h2>
       <ul>
         <li>Minimal Discord intents and reduced permission scope where possible.</li>
         <li>Containerized services with health checks and monitored status endpoints.</li>
