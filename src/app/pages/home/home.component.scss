@@ -16,6 +16,11 @@
   width: 100%;
   background: transparent;
   color: var(--home-text);
+  font-family: 'Space Grotesk', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+.home-shell *:not(code):not(pre):not(kbd):not(samp) {
+  font-family: inherit !important;
 }
 
 .home {
