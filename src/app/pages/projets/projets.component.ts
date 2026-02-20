@@ -22,7 +22,7 @@ export class ProjetsComponent {
   projets: ProjetItem[] = [
     {
       title: 'HackAPrompt 2023',
-      description: 'HackAPrompt 2023: How I tricked the AI models.',
+      description: 'HackAPrompt 2023: How I tricked the AI models during the first international prompt hacking hackathon.',
       link: '/hackaprompt',
       date: '2023-08-04',
       techLogos: [
@@ -55,7 +55,7 @@ export class ProjetsComponent {
     },
     {
       title: 'Palma Project',
-      description: 'Global palm species encyclopedia and dataset platform powered by Palma-1.0 biodiversity data.',
+      description: 'Comprehensive palm species dataset (Palma-1.0) and a dedicated web encyclopedia app built on top of this data foundation.',
       link: '/palma-project',
       date: 'Live',
       techLogos: [

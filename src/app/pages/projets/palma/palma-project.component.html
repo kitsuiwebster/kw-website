@@ -1,22 +1,30 @@
 <section class="palma-project-shell">
   <div class="palma-project">
+    <nav class="project-breadcrumb" aria-label="Breadcrumb">
+      <a routerLink="/">Home</a>
+      <span>/</span>
+      <a routerLink="/projets">Projects</a>
+      <span>/</span>
+      <span class="current">Palma Project</span>
+    </nav>
+
     <header class="palma-project-hero">
       <div class="palma-project-hero-top">
         <div class="palma-project-cover">
           <img src="assets/images/sites/palma/00.png" alt="Palma Project preview" class="palma-project-cover-image" />
         </div>
         <div class="palma-project-heading">
-          <p class="palma-project-kicker">Project Case Study</p>
+          <p class="palma-project-kicker">Data Engineering Project</p>
           <h1 class="palma-project-title">Palma Project</h1>
         </div>
       </div>
       <p class="palma-project-description">
-        Palma Project is built around two connected tracks: the creation of the Palma-1.0 dataset and the development
-        of a dedicated palm encyclopedia web platform. The objective is to provide a reliable, structured, and
-        research-ready knowledge base for global palm biodiversity.
+        Palma Project is a two-layer biodiversity product: a high-value research dataset (Palma-1.0) and a public
+        encyclopedia interface built to make palm knowledge easier to explore, validate, and reuse at scale.
       </p>
       <div class="palma-project-links">
         <a href="https://palma-encyclopedia.com/" target="_blank" rel="noopener noreferrer">Website</a>
+        <a href="https://palma-encyclopedia.com/data" target="_blank" rel="noopener noreferrer">Data & Methodology</a>
         <a href="https://huggingface.co/datasets/kitsuiwebster/Palma-1.0" target="_blank" rel="noopener noreferrer">Hugging Face Dataset</a>
       </div>
     </header>
@@ -36,120 +44,169 @@
     </section>
 
     <section class="palma-project-section">
-      <h2>Project Scope</h2>
+      <h2>Executive Scope</h2>
+      <p>
+        Palma Project is intentionally split into two professional deliverables:
+      </p>
       <ul>
-        <li><strong>Track 1 - Palma-1.0 Dataset</strong>: build and publish a large structured palm database combining taxonomy, morphology, geography, and fruit trait metadata.</li>
-        <li><strong>Track 2 - Encyclopedia Platform</strong>: build a public web experience to browse, interpret, and reuse palm data with a clean and usable research interface.</li>
+        <li><strong>Palma-1.0 Dataset</strong>: a global palm database designed for structured analysis, publication, and reproducible downstream usage.</li>
+        <li><strong>Palma Encyclopedia Web App</strong>: a front-end product that makes palm taxonomy and trait information accessible to non-specialists and technical users alike.</li>
       </ul>
       <p>
-        The platform and the dataset are designed as one ecosystem: data quality drives product quality, and product
-        clarity increases data accessibility.
+        This split keeps responsibilities clean: data engineering focuses on scientific coherence and normalization,
+        while product engineering focuses on navigation, understanding, and trust in the published knowledge.
       </p>
     </section>
 
     <section class="palma-project-section">
-      <h2>Dataset Overview</h2>
-      <p>
-        Palma-1.0 is a global database centered on the Arecaceae family and built from PalmTraits 1.0, then enriched
-        with additional biodiversity and media sources.
-      </p>
+      <h2>Dataset Snapshot</h2>
       <ul>
-        <li><strong>2,557 species</strong> documented across global tropical and subtropical regions.</li>
-        <li><strong>181 genera</strong> represented across the family breadth.</li>
-        <li><strong>120+ countries</strong> covered through distribution data.</li>
-        <li><strong>35 variables</strong> across taxonomy, growth form, morphology, fruit traits, and geography.</li>
+        <li><strong>Family Scope</strong>: Arecaceae (global palm diversity).</li>
+        <li><strong>Species Coverage</strong>: 2,557 species.</li>
+        <li><strong>Genus Coverage</strong>: 181 genera.</li>
+        <li><strong>Geographic Breadth</strong>: 120+ countries across tropical and subtropical regions.</li>
+        <li><strong>Variable Count</strong>: 35 core variables spanning taxonomy, growth, morphology, geography, and fruit descriptors.</li>
+        <li><strong>Publication Formats</strong>: CSV, JSON, and plain text.</li>
       </ul>
     </section>
 
     <section class="palma-project-section">
-      <h2>Data Sources</h2>
+      <h2>Source Stack</h2>
+      <p>
+        Palma-1.0 starts from PalmTraits 1.0 and is then enriched with high-value biodiversity and taxonomy providers:
+      </p>
       <ul>
-        <li><strong>PalmTraits 1.0</strong>: base layer for global palm trait and ecological information.</li>
-        <li><strong>GBIF</strong>: occurrence and taxonomic support with large-scale biodiversity records.</li>
-        <li><strong>iNaturalist</strong>: citizen-science observations and visual references.</li>
-        <li><strong>POWO</strong>: accepted taxonomy backbone from Royal Botanic Gardens, Kew.</li>
-        <li><strong>Wikimedia Commons</strong>: CC-licensed image references and attributions.</li>
+        <li><strong>PalmTraits 1.0</strong>: foundational trait/ecology base.</li>
+        <li><strong>GBIF</strong>: large-scale occurrence and taxonomic context.</li>
+        <li><strong>iNaturalist</strong>: observation and visual support from a citizen-science network.</li>
+        <li><strong>POWO</strong> (Plants of the World Online): taxonomy authority for accepted names and harmonization.</li>
+        <li><strong>Wikimedia Commons</strong>: reusable visual documentation with explicit attribution metadata.</li>
       </ul>
       <p>
-        Public data access and supporting pages:
-        <a href="https://palma-encyclopedia.com/data" target="_blank" rel="noopener noreferrer">palma-encyclopedia.com/data</a>.
+        The design goal is source complementarity: taxonomy consistency from POWO, occurrence depth from GBIF and
+        iNaturalist, and image traceability via Wikimedia metadata.
       </p>
     </section>
 
     <section class="palma-project-section">
-      <h2>Methodology</h2>
+      <h2>Methodology Deep Dive</h2>
       <p>
-        The production workflow follows a full scientific-style pipeline, from source collection to curated publication.
+        The methodology follows a strict staged pipeline aligned with the data page and dataset documentation.
       </p>
       <ul>
-        <li><strong>Collection</strong>: ingest PalmTraits 1.0 and enrich records via external source integrations.</li>
-        <li><strong>Taxonomic Harmonization</strong>: normalize taxonomy against POWO to resolve inconsistencies and synonym issues.</li>
-        <li><strong>Validation & Cleaning</strong>: detect outliers, correct anomalies, and verify problematic records against literature.</li>
-        <li><strong>Geospatial Enrichment</strong>: integrate environmental and location context to improve ecological interpretation.</li>
-        <li><strong>Analysis & Structuring</strong>: organize fields for practical biodiversity exploration and downstream analysis.</li>
-        <li><strong>Publication</strong>: release in multiple formats for broad compatibility across research and engineering workflows.</li>
-      </ul>
-    </section>
-
-    <section class="palma-project-section">
-      <h2>Data Structure Highlights</h2>
-      <ul>
-        <li><strong>Taxonomy</strong>: scientific names, genera, species epithet, tribe, and subfamily references.</li>
-        <li><strong>Native Zone & Names</strong>: regional origin and multilingual common names (EN/FR/ES).</li>
-        <li><strong>Growth & Habit</strong>: climbing, stem architecture, height/diameter limits, and canopy position.</li>
-        <li><strong>Leaf Variables</strong>: armature, counts, and dimensional metrics for blade, rachis, and petiole.</li>
-        <li><strong>Fruit Traits</strong>: length, width, shape, color descriptors, and conspicuousness categories.</li>
-        <li><strong>Media Metadata</strong>: photo links and attribution references where available.</li>
-      </ul>
-    </section>
-
-    <section class="palma-project-section">
-      <h2>Distribution Formats & Access</h2>
-      <p>
-        Palma-1.0 is distributed in researcher-friendly formats:
-      </p>
-      <ul>
-        <li>CSV</li>
-        <li>JSON</li>
-        <li>Plain text</li>
+        <li><strong>1) Baseline Ingestion</strong>: import PalmTraits 1.0 entities and normalize primary fields.</li>
+        <li><strong>2) External Enrichment</strong>: query GBIF, iNaturalist, and POWO layers to expand taxonomic and ecological context.</li>
+        <li><strong>3) Taxonomic Harmonization</strong>: enforce accepted naming references, resolve synonymies, and reduce naming drift.</li>
+        <li><strong>4) Validation & Cleaning</strong>: detect outliers, reconcile inconsistent records, and review edge cases against scientific references.</li>
+        <li><strong>5) Geospatial Enrichment</strong>: attach distribution-aware context and environmental framing where relevant.</li>
+        <li><strong>6) Structuring for Reuse</strong>: consolidate stable columns and semantic groupings for direct research usage.</li>
+        <li><strong>7) Multi-Format Publication</strong>: release in CSV/JSON/TXT with documentation and citation guidance.</li>
       </ul>
       <p>
-        Official dataset repository:
-        <a href="https://huggingface.co/datasets/kitsuiwebster/Palma-1.0" target="_blank" rel="noopener noreferrer">huggingface.co/datasets/kitsuiwebster/Palma-1.0</a>.
+        The core principle is not only adding data, but preserving coherence between taxonomy, trait semantics, and
+        distribution context. This improves reliability for both exploratory analysis and production reuse.
       </p>
     </section>
 
     <section class="palma-project-section">
-      <h2>Web Platform Architecture</h2>
+      <h2>Schema Design</h2>
+      <p>
+        Palma-1.0 is organized into practical variable families rather than a flat undocumented table. This makes
+        both manual exploration and programmatic parsing significantly cleaner.
+      </p>
       <ul>
-        <li><strong>Frontend</strong>: Angular single-page application for a responsive encyclopedia experience.</li>
-        <li><strong>UI Layer</strong>: SCSS-driven interface and structured page modules focused on readability and hierarchy.</li>
-        <li><strong>Data Presentation</strong>: species-centric views designed to surface taxonomy, traits, media, and distribution context.</li>
-        <li><strong>Deployment</strong>: Netlify-hosted static delivery for stable and fast global access.</li>
+        <li><strong>Taxonomy</strong>: species full name, genus, species epithet, tribe, subfamily.</li>
+        <li><strong>Native Zone & Common Names</strong>: native region fields plus multilingual naming (EN/FR/ES).</li>
+        <li><strong>Growth & Habit</strong>: climbing behavior, stem architecture, armed/not armed state, size limits.</li>
+        <li><strong>Leaf Morphology</strong>: armed status, max leaf count, blade/rachis/petiole dimensions.</li>
+        <li><strong>Fruit Morphology</strong>: min/avg/max dimensions, categorical size, shape and color descriptors.</li>
+        <li><strong>Visibility & Media</strong>: fruit conspicuousness and image references with attribution metadata.</li>
       </ul>
       <p>
-        The product is intentionally front-end focused: straightforward hosting, clear navigation, and strong content legibility.
+        This structure enables both descriptive usage (encyclopedia navigation) and analytical usage (trait filtering,
+        aggregation, correlation exploration, and model-ready preprocessing).
       </p>
     </section>
 
     <section class="palma-project-section">
-      <h2>Research Utility & Positioning</h2>
+      <h2>Quality & Reliability Strategy</h2>
       <ul>
-        <li>Supports exploration of global palm diversity at species and genus levels.</li>
-        <li>Combines functional traits and geographic context in one reusable format.</li>
-        <li>Improves accessibility for education, biodiversity analysis, and project prototyping.</li>
-        <li>Provides a base layer that can be extended in future dataset iterations.</li>
+        <li><strong>Consistency Checks</strong>: resolve conflicting taxonomy and malformed trait entries.</li>
+        <li><strong>Outlier Review</strong>: identify improbable values and prioritize manual verification on suspicious records.</li>
+        <li><strong>Semantic Normalization</strong>: align repeated descriptors to avoid fragmented categorical values.</li>
+        <li><strong>Attribution Hygiene</strong>: preserve source references for images and externally enriched metadata.</li>
+        <li><strong>Publication Stability</strong>: keep a documented and reproducible schema for future version upgrades.</li>
+      </ul>
+    </section>
+
+    <section class="palma-project-section">
+      <h2>Data Product Outputs</h2>
+      <p>
+        Palma-1.0 is published as a reusable data product, not as a one-off export. The outputs are designed for
+        interoperability across scientific and engineering workflows.
+      </p>
+      <ul>
+        <li><strong>CSV</strong>: spreadsheet-friendly and pipeline-friendly baseline exchange format.</li>
+        <li><strong>JSON</strong>: direct integration for web/data APIs and scripting workflows.</li>
+        <li><strong>TXT</strong>: lightweight text representation for simple processing and archival portability.</li>
+      </ul>
+      <p>
+        Official distribution:
+        <a href="https://huggingface.co/datasets/kitsuiwebster/Palma-1.0" target="_blank" rel="noopener noreferrer">Hugging Face - kitsuiwebster/Palma-1.0</a>.
+      </p>
+    </section>
+
+    <section class="palma-project-section">
+      <h2>Encyclopedia Frontend Architecture</h2>
+      <p>
+        The web platform is an Angular frontend focused on high legibility and structured content delivery.
+        Architecture decisions prioritize clean navigation and predictable rendering over unnecessary complexity.
+      </p>
+      <ul>
+        <li><strong>Framework Core</strong>: Angular + TypeScript for modular page composition.</li>
+        <li><strong>UI Layer</strong>: SCSS and semantic HTML for maintainable style architecture.</li>
+        <li><strong>Content Surfaces</strong>: species-oriented content and dedicated data/methodology context.</li>
+        <li><strong>Hosting Strategy</strong>: Netlify deployment for stable static delivery and simple release operations.</li>
+      </ul>
+      <p>
+        The approach remains intentionally front-end centric, which keeps operational load low while preserving a
+        professional and scalable presentation layer for a data-heavy domain.
+      </p>
+    </section>
+
+    <section class="palma-project-section">
+      <h2>How Dataset and App Reinforce Each Other</h2>
+      <ul>
+        <li>The dataset provides authoritative structure and measurable depth.</li>
+        <li>The app translates that structure into navigable and understandable pages.</li>
+        <li>The methodology page increases transparency for both technical and non-technical readers.</li>
+        <li>Hugging Face publication gives direct access for programmatic reuse and reproducibility.</li>
+      </ul>
+      <p>
+        In practice, this creates a full loop: collect and normalize data, publish it with clear framing, then expose
+        it in a user-facing encyclopedia with research-grade references.
+      </p>
+    </section>
+
+    <section class="palma-project-section">
+      <h2>Use Cases</h2>
+      <ul>
+        <li><strong>Biodiversity Research</strong>: trait exploration and cross-region species comparison.</li>
+        <li><strong>Education</strong>: clear entry point for students and readers discovering palm diversity.</li>
+        <li><strong>Data Engineering</strong>: normalized palm records reusable for dashboards and analytical tooling.</li>
+        <li><strong>Conservation Context</strong>: structured basis for geographic and ecological interpretation.</li>
       </ul>
     </section>
 
     <section class="palma-project-section">
       <h2>License & Citation</h2>
       <p>
-        Palma-1.0 is published under the Creative Commons Attribution-NonCommercial 4.0 International License
-        (CC BY-NC 4.0), allowing reuse with attribution for non-commercial contexts.
+        Palma-1.0 documentation describes a Creative Commons Attribution-NonCommercial 4.0 framework for dataset usage.
+        As with any dataset release, users should follow the exact license and citation instructions on the official
+        dataset card at time of download.
       </p>
       <p>
-        Reference and usage details are available from the official dataset page:
+        Dataset reference:
         <a href="https://huggingface.co/datasets/kitsuiwebster/Palma-1.0" target="_blank" rel="noopener noreferrer">Palma-1.0 on Hugging Face</a>.
       </p>
     </section>

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { marked } from 'marked';
 
 @Component({
   selector: 'app-hackaprompt',
   standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './hackaprompt.component.html',
   styleUrls: ['./hackaprompt.component.scss'],
 })

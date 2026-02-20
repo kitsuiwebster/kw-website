@@ -37,6 +37,33 @@
   padding: 3.4rem 0 4.2rem;
 }
 
+.project-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.9rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #786a55;
+
+  a {
+    color: #6a5b46;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      color: #4b3e2d;
+      border-color: rgba(75, 62, 45, 0.4);
+    }
+  }
+
+  .current {
+    color: #3b3126;
+  }
+}
+
 .gist-container {
   border: 1px solid rgba(145, 113, 63, 0.2);
   border-radius: 1rem;

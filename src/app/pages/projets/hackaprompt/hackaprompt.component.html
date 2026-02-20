@@ -1,5 +1,13 @@
 <section class="hackaprompt-shell">
   <div class="hackaprompt">
+    <nav class="project-breadcrumb" aria-label="Breadcrumb">
+      <a routerLink="/">Home</a>
+      <span>/</span>
+      <a routerLink="/projets">Projects</a>
+      <span>/</span>
+      <span class="current">HackAPrompt 2023</span>
+    </nav>
+
     <div [innerHTML]="gistContent" class="gist-container"></div>
   </div>
 </section>
