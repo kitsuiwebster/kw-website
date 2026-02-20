@@ -118,10 +118,10 @@
     position: relative;
     flex-direction: column;
     z-index: 3;
-    border-top: 1px solid rgba(143, 106, 49, 0.18);
-    backdrop-filter: saturate(160%) blur(16px);
-    -webkit-backdrop-filter: saturate(160%) blur(16px);
-    background: rgba(140, 130, 110, 0.9);
+    border-top: 1px solid rgba(143, 106, 49, 0.2);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: #f3efe6;
     padding: 1rem 0 0.25rem;
 
     &-links {
@@ -151,7 +151,7 @@
 
     &-text {
       font-size: 0.78rem;
-      color: #aaa;
+      color: #5f574d;
       letter-spacing: 0.06em;
       margin: 0.5rem 0 0.75rem;
     }

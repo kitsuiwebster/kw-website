@@ -1,29 +1,35 @@
-<div id="contact">
-    <div class="contact">
-      <h2 class="contact-title">Contact</h2>
-      <ul class="contact-list">
-        <li class="contact-list-item">
-          <span class="contact-list-item-label">E-mail address: </span>
-          <a href="mailto:raphael.martin@bashroom.com" class="contact-list-item-link">raphael.martin&#64;bashroom.com</a>
-        </li>
-        <li class="contact-list-item">
-          <span class="contact-list-item-label">Phone number: </span>
-          <a href="tel:+33652639088" class="contact-list-item-link">+33 6 52 63 90 88</a>
-        </li>
-        <li class="contact-list-item">
-          <span class="contact-list-item-label">Whatsapp: </span>
-          <a href="https://wa.me/33652639088" class="contact-list-item-link">Send a message</a>
-        </li>
-        <li class="contact-list-item">
-          <span class="contact-list-item-label">Telegram: </span>
-          <a href="https://t.me/kitsuiwebster" class="contact-list-item-link">Send a message</a>
-        </li>
-        <li class="contact-list-item" id="contact-discord">
-          <span class="contact-list-item-label">Discord: </span>
-          <p (click)="copyDiscordUsername()" class="contact-list-item-link" id="contact-discord-text">Copy</p>
-        </li>
-      </ul>
-      <p class="contact-emoji">😎</p>
-    </div>
+<section id="contact" class="contact-shell">
+  <div class="contact">
+    <header class="contact-head">
+      <p class="contact-kicker">Direct Communication</p>
+      <h1 class="contact-title">Contact</h1>
+    </header>
+
+    <ul class="contact-list">
+      <li class="contact-item">
+        <span class="contact-item-label">Email</span>
+        <a href="mailto:raphael.martin@bashroom.com" class="contact-item-link">raphael.martin&#64;bashroom.com</a>
+      </li>
+      <li class="contact-item">
+        <span class="contact-item-label">Phone</span>
+        <a href="tel:+33652639088" class="contact-item-link">+33 6 52 63 90 88</a>
+      </li>
+      <li class="contact-item">
+        <span class="contact-item-label">WhatsApp</span>
+        <a href="https://wa.me/33652639088" class="contact-item-link" target="_blank" rel="noopener noreferrer">Send a message</a>
+      </li>
+      <li class="contact-item">
+        <span class="contact-item-label">Telegram</span>
+        <a href="https://t.me/kitsuiwebster" class="contact-item-link" target="_blank" rel="noopener noreferrer">Send a message</a>
+      </li>
+      <li class="contact-item">
+        <span class="contact-item-label">Discord</span>
+        <button type="button" class="contact-item-copy" (click)="copyDiscordUsername()">Copy username</button>
+      </li>
+    </ul>
+
+    <p class="contact-toast" [class.contact-toast-visible]="isDiscordCopied" role="status" aria-live="polite">
+      Discord username copied
+    </p>
   </div>
-  
+</section>

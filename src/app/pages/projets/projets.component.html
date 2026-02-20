@@ -1,12 +1,7 @@
 <section class="projects-shell">
   <div class="projects">
     <header class="projects-hero">
-      <p class="projects-hero-kicker">Selected Work</p>
       <h1 class="projects-hero-title">Projects</h1>
-      <p class="projects-hero-text">
-        A curated set of products, experiments, and client platforms built with
-        a focus on quality, reliability, and sharp execution.
-      </p>
     </header>
 
     <div class="projects-grid">
@@ -17,12 +12,18 @@
           class="project-card"
         >
           <div class="project-card-topline">
-            <span class="project-card-badge">Internal</span>
+            <div class="project-card-techs">
+              <img
+                *ngFor="let logo of projet.techLogos"
+                [src]="logo"
+                alt="Tech logo"
+                class="project-card-tech-logo"
+              />
+            </div>
             <span class="project-card-date">{{ projet.date }}</span>
           </div>
           <h2 class="project-card-title">{{ projet.title }}</h2>
           <p class="project-card-description">{{ projet.description }}</p>
-          <span class="project-card-cta">View Project</span>
         </a>
 
         <a
@@ -33,12 +34,18 @@
           class="project-card"
         >
           <div class="project-card-topline">
-            <span class="project-card-badge">Live</span>
+            <div class="project-card-techs">
+              <img
+                *ngFor="let logo of projet.techLogos"
+                [src]="logo"
+                alt="Tech logo"
+                class="project-card-tech-logo"
+              />
+            </div>
             <span class="project-card-date">{{ projet.date }}</span>
           </div>
           <h2 class="project-card-title">{{ projet.title }}</h2>
           <p class="project-card-description">{{ projet.description }}</p>
-          <span class="project-card-cta">Open Website</span>
         </a>
       </ng-container>
     </div>

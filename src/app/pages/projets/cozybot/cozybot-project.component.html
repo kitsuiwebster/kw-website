@@ -1,0 +1,138 @@
+<section class="cozybot-project-shell">
+  <div class="cozybot-project">
+    <header class="cozybot-project-hero">
+      <p class="cozybot-project-kicker">Project Case Study</p>
+      <h1 class="cozybot-project-title">CozyBot</h1>
+      <p class="cozybot-project-description">
+        CozyBot is a Discord audio companion designed to bring calm ambiences and background soundscapes
+        to voice channels, while adding persistent gamification, statistics, and operational reliability.
+      </p>
+      <div class="cozybot-project-links">
+        <a href="https://cozybot.online/cozybot" target="_blank" rel="noopener noreferrer">Project Website</a>
+        <a href="https://status.cozybot.online" target="_blank" rel="noopener noreferrer">Status Page</a>
+        <a href="https://discord.gg/Rxeh64Y73U" target="_blank" rel="noopener noreferrer">Support Discord</a>
+        <a href="https://github.com/kitsuiwebster/cozy-bot" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+        <a href="https://discord.com/discovery/applications/1156917047284994178" target="_blank" rel="noopener noreferrer">Discord App Directory</a>
+        <a href="https://github.com/kitsuiwebster/cozy-bot/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">Changelog</a>
+      </div>
+    </header>
+
+    <section class="cozybot-project-section">
+      <h2>Overview</h2>
+      <p>
+        The product combines voice ambience playback, user-level progression, leaderboard mechanics, and
+        monitoring services into one cohesive Discord ecosystem. The goal is simple user experience on the surface,
+        with robust service behavior and maintainable operations behind it.
+      </p>
+    </section>
+
+    <section class="cozybot-project-section">
+      <h2>High-Level Architecture</h2>
+      <ul>
+        <li><strong>Discord Bot Runtime</strong>: Python + discord.py service handling slash commands, voice playback, and session tracking.</li>
+        <li><strong>Public API (FastAPI)</strong>: endpoints for leaderboard, public stats, and web integrations.</li>
+        <li><strong>Live Bot API</strong>: health and live bot diagnostics endpoint surface used by monitoring and restore flows.</li>
+        <li><strong>Data Layer</strong>: CouchDB for user stats, usernames, server data, sound metrics, and persistent state.</li>
+        <li><strong>Status Layer</strong>: custom status page + status API + Uptime Kuma integration.</li>
+        <li><strong>Container Orchestration</strong>: Docker Compose stack (`bot`, `api`, `couchdb`, `status-api`, `status-page`, `uptime-kuma`).</li>
+      </ul>
+      <p>
+        Architecture details are intentionally kept at a defensive, public-safe level: enough to explain design quality,
+        not enough to expose sensitive operational internals.
+      </p>
+    </section>
+
+    <section class="cozybot-project-section">
+      <h2>Core Product Features</h2>
+      <ul>
+        <li>Ambient command groups: <code>/rain</code>, <code>/sea</code>, <code>/sparkles</code>, <code>/music</code>, <code>/noise</code>.</li>
+        <li>Session control commands: <code>/stop</code> and <code>/menu</code>.</li>
+        <li>User progression commands: <code>/profile</code>, <code>/top-users</code>, <code>/top-servers</code>, <code>/achievements</code>.</li>
+        <li>Public statistics and status visibility for transparency and trust.</li>
+      </ul>
+    </section>
+
+    <section class="cozybot-project-section">
+      <h2>Technical Stack</h2>
+      <ul>
+        <li><strong>Language & Frameworks</strong>: Python, discord.py, FastAPI, Uvicorn.</li>
+        <li><strong>Storage</strong>: CouchDB (with seeded views and persistent volumes).</li>
+        <li><strong>Runtime & Ops</strong>: Docker, Docker Compose, Bash automation scripts.</li>
+        <li><strong>CI/CD</strong>: GitHub Actions deployment pipelines (development + production).</li>
+        <li><strong>Security/Quality</strong>: Trivy image scanning and optional SonarQube scan jobs.</li>
+        <li><strong>Monitoring</strong>: Uptime Kuma + custom status API/page stack.</li>
+      </ul>
+    </section>
+
+    <section class="cozybot-project-section">
+      <h2>Dev & Production Environments</h2>
+      <p>
+        CozyBot runs with distinct development and production deployment workflows. Branch-based CI pipelines trigger
+        environment-specific deployments, while keeping service topology consistent across both environments.
+      </p>
+      <ul>
+        <li>Dedicated deployment flow for <strong>dev</strong> and <strong>prod</strong>.</li>
+        <li>Automated pull/reset and deployment script execution.</li>
+        <li>Service health checks at container and API level.</li>
+        <li>Persistent data volumes for bot data, CouchDB, status history, and monitoring.</li>
+      </ul>
+    </section>
+
+    <section class="cozybot-project-section">
+      <h2>Gamification System</h2>
+      <p>
+        CozyBot includes a full gamification engine: points accumulation, level progression, streak logic,
+        achievements, and ranking endpoints. The system is designed to reward consistency without making
+        command usage complicated for end users.
+      </p>
+      <p>
+        Full point mechanics and formulas are documented publicly:
+        <a href="https://cozybot.online/cozypoints" target="_blank" rel="noopener noreferrer">cozybot.online/cozypoints</a>.
+      </p>
+    </section>
+
+    <section class="cozybot-project-section">
+      <h2>Versioning & Changelog</h2>
+      <p>
+        CozyBot uses structured release notes with incremental improvements and bug-fix traceability.
+      </p>
+      <ul>
+        <li><strong>v1.x era</strong>: foundation of core voice features, command evolution, stability fixes, and gamification maturity.</li>
+        <li><strong>v2.0.0</strong>: major architecture shift with split APIs, status stack, infra reorganization, and stronger deployment model.</li>
+      </ul>
+      <p>
+        Full release history:
+        <a href="https://github.com/kitsuiwebster/cozy-bot/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">CHANGELOG.md</a>.
+      </p>
+    </section>
+
+    <section class="cozybot-project-section">
+      <h2>Security Posture (Public Summary)</h2>
+      <ul>
+        <li>Minimal Discord intents and reduced permission scope where possible.</li>
+        <li>Containerized services with health checks and monitored status endpoints.</li>
+        <li>Automated image security scanning in CI/CD.</li>
+        <li>Operational details intentionally limited in public docs to reduce attack surface disclosure.</li>
+      </ul>
+    </section>
+
+    <section class="cozybot-project-section">
+      <h2>License</h2>
+      <p>
+        The project is released under the MIT License, enabling reuse with attribution and clear warranty limitations.
+        See:
+        <a href="https://github.com/kitsuiwebster/cozy-bot/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">LICENSE</a>.
+      </p>
+    </section>
+
+    <section class="cozybot-project-section">
+      <h2>Team</h2>
+      <p>
+        <strong>Raphaël MARTIN</strong>: infrastructure, operations, and development.
+      </p>
+      <p>
+        <strong><a href="https://github.com/imenemedjaoui" target="_blank" rel="noopener noreferrer">Imène MEDJAOUI</a></strong>: development.
+      </p>
+    </section>
+  </div>
+</section>

@@ -26,7 +26,7 @@ export class MenuComponent {
       category: 'Public'
     },
     {
-      title: 'Projets',
+      title: 'Projects',
       path: '/projets',
       description: 'All projects list',
       category: 'Public'

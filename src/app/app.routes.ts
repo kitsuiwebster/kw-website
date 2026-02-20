@@ -14,11 +14,13 @@ import { DouzeComponent } from './pages/douze/douze.component';
 import { VitrineComponent } from './pages/vitrine/vitrine.component';
 import { AffaireComponent } from './pages/affaire/affaire.component';
 import { SitesComponent } from './pages/sites/sites.component';
+import { CozybotProjectComponent } from './pages/projets/cozybot/cozybot-project.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'projets', component: ProjetsComponent },
   { path: 'hackaprompt', component: HackapromptComponent },
+  { path: 'cozybot', component: CozybotProjectComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'tasks', component: UnifiedTasksComponent },
