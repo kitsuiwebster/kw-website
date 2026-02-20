@@ -46,6 +46,8 @@ export class ProjetsComponent {
         'assets/images/technos/github.svg',
         'assets/images/technos/gh-actions.png',
         'assets/images/technos/bash.webp',
+        'https://cdn.simpleicons.org/hostinger/9f7aea',
+        'assets/images/technos/linux.webp',
         'assets/images/technos/couchdb.webp',
         'assets/images/technos/kuma.png'
       ],
@@ -54,18 +56,19 @@ export class ProjetsComponent {
     {
       title: 'Palma Project',
       description: 'Global palm species encyclopedia and dataset platform powered by Palma-1.0 biodiversity data.',
-      link: 'https://palma-encyclopedia.com/',
+      link: '/palma-project',
       date: 'Live',
       techLogos: [
         'assets/images/technos/huggingface.png',
         'assets/images/technos/angular.png',
+        'https://cdn.simpleicons.org/netlify/00ad9f',
         'assets/images/technos/node.webp',
         'assets/images/technos/ts.webp',
         'assets/images/technos/sass.webp',
         'assets/images/technos/html.webp',
         'assets/images/technos/bash.webp'
       ],
-      external: true
+      external: false
     }
   ];
 }

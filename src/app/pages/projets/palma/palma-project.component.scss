@@ -1,0 +1,189 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.palma-project-shell {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.palma-project {
+  width: min(980px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 3.5rem 0 4.2rem;
+}
+
+.palma-project-hero {
+  border: 1px solid rgba(145, 113, 63, 0.22);
+  border-radius: 1rem;
+  background: #fffaf2;
+  box-shadow: 0 10px 24px rgba(29, 20, 11, 0.09);
+  padding: 1.2rem 1.3rem;
+}
+
+.palma-project-hero-top {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.palma-project-cover {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.palma-project-cover-image {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(145, 113, 63, 0.24);
+  box-shadow: 0 8px 20px rgba(29, 20, 11, 0.12);
+  background: #fff7eb;
+}
+
+.palma-project-heading {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.palma-project-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7e5d2b;
+}
+
+.palma-project-title {
+  margin: 0.5rem 0 0;
+  font-size: clamp(2rem, 4.8vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: #18130f;
+}
+
+.palma-project-description {
+  margin: 0.9rem 0 0;
+  color: #4f463b;
+  line-height: 1.7;
+}
+
+.palma-project-links {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+
+  a {
+    text-decoration: none;
+    color: #2b231c;
+    border: 1px solid rgba(145, 113, 63, 0.28);
+    border-radius: 999px;
+    background: rgba(255, 253, 248, 0.95);
+    padding: 0.42rem 0.74rem;
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      border-color: rgba(145, 113, 63, 0.55);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.palma-project a {
+  color: #7e5d2b;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(126, 93, 43, 0.28);
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    color: #5f4521;
+    border-color: rgba(95, 69, 33, 0.55);
+  }
+}
+
+.palma-project-section {
+  margin-top: 1rem;
+  border: 1px solid rgba(145, 113, 63, 0.18);
+  border-radius: 1rem;
+  background: rgba(255, 252, 246, 0.94);
+  box-shadow: 0 8px 20px rgba(29, 20, 11, 0.06);
+  padding: 1rem 1.2rem;
+
+  h2 {
+    margin: 0;
+    font-size: 0.84rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #695b48;
+  }
+
+  p,
+  li {
+    color: #3f382f;
+    line-height: 1.65;
+  }
+
+  p {
+    margin: 0.8rem 0 0;
+  }
+
+  ul {
+    margin: 0.8rem 0 0;
+    padding-left: 1.1rem;
+  }
+}
+
+.palma-tech-grid {
+  margin-top: 0.85rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.55rem;
+}
+
+.palma-tech-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid rgba(145, 113, 63, 0.2);
+  border-radius: 0.7rem;
+  background: #fffaf2;
+  padding: 0.45rem 0.55rem;
+
+  img {
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #5f5343;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 720px) {
+  .palma-project {
+    width: calc(100% - 1.2rem);
+    padding: 2.8rem 0 3.4rem;
+  }
+
+  .palma-project-hero-top {
+    align-items: flex-start;
+  }
+
+  .palma-project-cover-image {
+    width: 72px;
+    height: 72px;
+  }
+}
