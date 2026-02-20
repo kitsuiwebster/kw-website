@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: transparent;
 
   &-header {
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 100;
     width: 100%;
@@ -12,10 +13,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem 0;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    background: rgba(245, 245, 243, 0.92);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    backdrop-filter: saturate(160%) blur(16px);
+    -webkit-backdrop-filter: saturate(160%) blur(16px);
+    background: rgba(243, 239, 230, 0.45);
+    border-bottom: 1px solid rgba(143, 106, 49, 0.18);
 
     &-mobile {
       display: none;
@@ -100,6 +101,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 60px; /* Espace pour le header fixe */
+    width: 100%;
+    background:
+      radial-gradient(circle at 12% 0%, rgba(154, 117, 56, 0.14), transparent 38%),
+      radial-gradient(circle at 88% 10%, rgba(255, 255, 255, 0.58), transparent 34%),
+      linear-gradient(180deg, #f8f3e9 0%, #f1ebdf 58%, #e8dfd0 100%);
   }
 
   &-footer {
@@ -111,8 +118,10 @@
     position: relative;
     flex-direction: column;
     z-index: 3;
-    border-top: 1px solid rgba(0, 0, 0, 0.07);
-    background: rgba(245, 245, 243, 0.9);
+    border-top: 1px solid rgba(143, 106, 49, 0.18);
+    backdrop-filter: saturate(160%) blur(16px);
+    -webkit-backdrop-filter: saturate(160%) blur(16px);
+    background: rgba(140, 130, 110, 0.9);
     padding: 1rem 0 0.25rem;
 
     &-links {

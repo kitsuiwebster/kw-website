@@ -1,210 +1,137 @@
-<div id="home">
+<div id="home" class="home-shell">
   <div class="home">
-    <header class="home-header">
-      <div class="home-header-text">
-        <h1 class="home-header-title">Raphaël MARTIN</h1>
-        <h2 class="home-header-subtitle">
-          Software Engineer, Prompt Engineer, Developer, Trainer 
-        </h2>
-        <h3 class="home-header-location">📍 Montpellier, France</h3>
-        <p class="home-header-bio">
-          Passionate about IT and deeply committed to security principles, I am
-          convinced by the values of opensource and knowledge sharing. As a
-          self-taught enthusiast, I have developed a wide range of skills since
-          my early years in this field. Always eager to learn and exchange
+    <section class="home-hero">
+      <div class="home-hero-copy">
+        <p class="home-eyebrow">Engineering Portfolio</p>
+        <h1 class="home-title">Raphaël MARTIN</h1>
+        <p class="home-subtitle">Software Engineer, Prompt Engineer, Developer, Trainer</p>
+        <p class="home-bio">
+          Passionate about IT and deeply committed to security principles, I am convinced by the values
+          of opensource and knowledge sharing. As a self-taught enthusiast, I have developed a wide
+          range of skills since my early years in this field. Always eager to learn and exchange
           knowledge with others, I never stop evolving in IT.
         </p>
-      </div>
-      <div class="home-header-profilepic-container">
-        <img
-          loading="lazy"
-          src="assets/images/profile-picture.png"
-          alt="Raphaël Martin kitsuiwebster"
-          class="home-header-profilepic"
-        />
-      </div>
-    </header>
 
-    <section class="home-social">
-      <nav class="home-social-links">
-        <a
-          href="https://gitlab.com/kitsuiwebster"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="home-social-link"
-        >
-          <img
-            loading="lazy"
-            src="assets/images/social/gitlab.webp"
-            alt="GitLab"
-            class="home-social-link-img"
-          />
-        </a>
-        <a
-          href="https://github.com/kitsuiwebster"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="home-social-link"
-        >
-          <img
-            loading="lazy"
-            src="assets/images/social/github.webp"
-            alt="GitHub"
-            class="home-social-link-img"
-          />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/kitsuiwebster"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="home-social-link"
-        >
-          <img
-            loading="lazy"
-            src="assets/images/social/linkedin.webp"
-            alt="LinkedIn"
-            class="home-social-link-img"
-          />
-        </a>
-        <a
-          href="https://twitter.com/kitsuiwebster"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="home-social-link"
-        >
-          <img
-            loading="lazy"
-            src="assets/images/social/x.webp"
-            alt="Twitter X"
-            class="home-social-link-img"
-          />
-        </a>
-        <a
-          href="https://kitsuiwebster.medium.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="home-social-link"
-        >
-          <img
-            loading="lazy"
-            src="assets/images/social/medium.webp"
-            alt="Medium"
-            class="home-social-link-img"
-          />
-        </a>
-        <a
-          href="https://dev.to/kitsuiwebster"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="home-social-link"
-        >
-          <img
-            loading="lazy"
-            src="assets/images/social/devto.webp"
-            alt="Dev.to"
-            class="home-social-link-img"
-          />
-        </a>
-        <button
-          type="button"
-          class="home-social-link home-social-link-button"
-          aria-label="Copy Discord username"
-          (click)="copyDiscordUsername()"
-        >
-          <img
-            loading="lazy"
-            src="assets/images/social/discord.webp"
-            alt="Discord"
-            class="home-social-link-img"
-          />
-        </button>
-      </nav>
-      <p class="home-toast" [class.home-toast-visible]="isDiscordCopied" role="status" aria-live="polite">
-        Discord username copied
-      </p>
-    </section>
+        <p class="home-location">
+          📍 Montpellier, France
+          <img loading="lazy" src="assets/images/flags/fr.webp" alt="French flag" class="home-location-flag" />
+        </p>
 
-    <section class="home-languages">
-      <img
-        loading="lazy"
-        class="home-languages-icon"
-        src="assets/images/speak.webp"
-        alt="speak"
-      />
-      <div class="home-languages-flags">
-        <img
-          loading="lazy"
-          src="assets/images/flags/fr.webp"
-          alt="French flag"
-          class="home-languages-flags-img"
-        />
-        <img
-          loading="lazy"
-          src="assets/images/flags/uk.webp"
-          alt="United Kingdom flag"
-          class="home-languages-flags-img"
-        />
+        <nav class="home-social" aria-label="Social links">
+          <a href="https://gitlab.com/kitsuiwebster" target="_blank" rel="noopener noreferrer" class="home-social-link">
+            <img loading="lazy" src="assets/images/social/gitlab.webp" alt="GitLab" class="home-social-link-img" />
+          </a>
+          <a href="https://github.com/kitsuiwebster" target="_blank" rel="noopener noreferrer" class="home-social-link">
+            <img loading="lazy" src="assets/images/social/github.webp" alt="GitHub" class="home-social-link-img" />
+          </a>
+          <a href="https://www.linkedin.com/in/kitsuiwebster" target="_blank" rel="noopener noreferrer" class="home-social-link">
+            <img loading="lazy" src="assets/images/social/linkedin.webp" alt="LinkedIn" class="home-social-link-img" />
+          </a>
+          <a href="https://twitter.com/kitsuiwebster" target="_blank" rel="noopener noreferrer" class="home-social-link">
+            <img loading="lazy" src="assets/images/social/x.webp" alt="Twitter X" class="home-social-link-img" />
+          </a>
+          <a href="https://kitsuiwebster.medium.com" target="_blank" rel="noopener noreferrer" class="home-social-link">
+            <img loading="lazy" src="assets/images/social/medium.webp" alt="Medium" class="home-social-link-img" />
+          </a>
+          <a href="https://dev.to/kitsuiwebster" target="_blank" rel="noopener noreferrer" class="home-social-link">
+            <img loading="lazy" src="assets/images/social/devto.webp" alt="Dev.to" class="home-social-link-img" />
+          </a>
+          <button
+            type="button"
+            class="home-social-link home-social-link-button"
+            aria-label="Copy Discord username"
+            (click)="copyDiscordUsername()"
+          >
+            <img loading="lazy" src="assets/images/social/discord.webp" alt="Discord" class="home-social-link-img" />
+          </button>
+        </nav>
+
+        <p class="home-toast" [class.home-toast-visible]="isDiscordCopied" role="status" aria-live="polite">
+          Discord username copied
+        </p>
+      </div>
+      <div class="home-hero-portrait">
+        <img loading="lazy" src="assets/images/profile-picture.png" alt="Raphaël Martin" class="home-hero-portrait-image" />
       </div>
     </section>
 
-    <section class="home-skills">
-      <h2 class="home-skills-title">Skills</h2>
+    <section class="home-section home-skills" aria-labelledby="skills-title">
+      <div class="home-section-head">
+        <p class="home-section-kicker">Core Expertise</p>
+        <h2 id="skills-title" class="home-section-title">Skills Matrix</h2>
+      </div>
 
-      <div class="skill-panel" *ngFor="let section of skillSections" [class.collapsed]="collapsedSections[section.key]">
-        <div class="skill-panel-header" (click)="toggleSection(section.key)">
-          <h3 class="skill-panel-title">{{ section.title }}</h3>
-          <div class="skill-panel-preview">
-            <img *ngFor="let tech of section.technologies" [src]="tech.src" [alt]="tech.alt" class="skill-panel-preview-img">
+      <div class="home-skills-panels">
+        <article class="skill-panel" *ngFor="let section of skillSections" [class.collapsed]="collapsedSections[section.key]">
+          <button type="button" class="skill-panel-header" (click)="toggleSection(section.key)" [attr.aria-expanded]="!collapsedSections[section.key]">
+            <h3 class="skill-panel-title">{{ section.title }}</h3>
+            <div class="skill-panel-preview">
+              <img *ngFor="let tech of section.technologies" [src]="tech.src" [alt]="tech.alt" class="skill-panel-preview-img" />
+            </div>
+            <span class="skill-panel-chevron" aria-hidden="true">›</span>
+          </button>
+          <div class="skill-panel-content">
+            <div class="home-skills-category">
+              <techno-icon
+                class="skill-techno-icon"
+                *ngFor="let tech of section.technologies"
+                [src]="tech.src"
+                [alt]="tech.alt"
+                [name]="tech.name"
+                [star1]="tech.star1"
+                [star2]="tech.star2"
+                [star3]="tech.star3"
+                [star4]="tech.star4"
+                [star5]="tech.star5"
+              ></techno-icon>
+            </div>
           </div>
-          <span class="skill-panel-chevron">›</span>
-        </div>
-        <div class="skill-panel-content">
-          <div class="home-skills-category">
-            <techno-icon
-              class="skill-techno-icon"
-              *ngFor="let tech of section.technologies"
-              [src]="tech.src" [alt]="tech.alt" [name]="tech.name"
-              [star1]="tech.star1" [star2]="tech.star2" [star3]="tech.star3"
-              [star4]="tech.star4" [star5]="tech.star5">
-            </techno-icon>
-          </div>
-        </div>
+        </article>
       </div>
     </section>
 
-    <section class="home-certifications">
-      <h2 class="home-certifications-title">Diplomas & Professional Titles</h2>
-
-      <div class="home-certifications-professional-title">
-        <paper-proof
-          *ngFor="let title of professionalTitles"
-          [date]="title.date"
-          [src]="title.src"
-          [alt]="title.alt"
-        >
-        </paper-proof>
+    <section class="home-section home-credentials" aria-labelledby="credentials-title">
+      <div class="home-section-head">
+        <p class="home-section-kicker">Trust Signals</p>
+        <h2 id="credentials-title" class="home-section-title">Credentials</h2>
       </div>
 
-      <h2 class="home-certifications-title">Certifications</h2>
-      <div class="home-certifications-certifs">
-        <paper-proof
-          *ngFor="let cert of certifs"
-          [date]="cert.date"
-          [src]="cert.src"
-          [alt]="cert.alt"
-        >
-        </paper-proof>
-      </div>
+      <div class="home-credentials-stack">
+        <article class="home-credentials-group">
+          <h3 class="home-credentials-title">Diplomas & Professional Titles</h3>
+          <div class="home-credentials-list">
+            <paper-proof
+              *ngFor="let title of professionalTitles"
+              [date]="title.date"
+              [src]="title.src"
+              [alt]="title.alt"
+            ></paper-proof>
+          </div>
+        </article>
 
-      <h2 class="home-certifications-subtitle">Certificates of Completion</h2>
-      <div class="home-certifications-certificates">
-        <paper-proof
-          *ngFor="let certificate of certificates"
-          [date]="certificate.date"
-          [src]="certificate.src"
-          [alt]="certificate.alt"
-        >
-        </paper-proof>
+        <article class="home-credentials-group">
+          <h3 class="home-credentials-title">Certifications</h3>
+          <div class="home-credentials-list">
+            <paper-proof
+              *ngFor="let cert of certifs"
+              [date]="cert.date"
+              [src]="cert.src"
+              [alt]="cert.alt"
+            ></paper-proof>
+          </div>
+        </article>
+
+        <article class="home-credentials-group">
+          <h3 class="home-credentials-title">Certificates of Completion</h3>
+          <div class="home-credentials-list">
+            <paper-proof
+              *ngFor="let certificate of certificates"
+              [date]="certificate.date"
+              [src]="certificate.src"
+              [alt]="certificate.alt"
+            ></paper-proof>
+          </div>
+        </article>
       </div>
     </section>
   </div>

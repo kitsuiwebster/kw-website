@@ -1,21 +1,46 @@
-<div class="container">
-  <div class="grid">
-    <a
-      *ngFor="let projet of projets"
-      [routerLink]="projet.link"
-      class="projet-card"
-    >
-      <div class="card-header">
-        <h2>{{ projet.title }}</h2>
-      </div>
-      
-      <div class="card-body">
-        <p class="description">{{ projet.description }}</p>
-      </div>
-      
-      <div class="card-footer">
-        <p class="date">{{ projet.date }}</p>
-      </div>
-    </a>
+<section class="projects-shell">
+  <div class="projects">
+    <header class="projects-hero">
+      <p class="projects-hero-kicker">Selected Work</p>
+      <h1 class="projects-hero-title">Projects</h1>
+      <p class="projects-hero-text">
+        A curated set of products, experiments, and client platforms built with
+        a focus on quality, reliability, and sharp execution.
+      </p>
+    </header>
+
+    <div class="projects-grid">
+      <ng-container *ngFor="let projet of projets">
+        <a
+          *ngIf="!projet.external"
+          [routerLink]="projet.link"
+          class="project-card"
+        >
+          <div class="project-card-topline">
+            <span class="project-card-badge">Internal</span>
+            <span class="project-card-date">{{ projet.date }}</span>
+          </div>
+          <h2 class="project-card-title">{{ projet.title }}</h2>
+          <p class="project-card-description">{{ projet.description }}</p>
+          <span class="project-card-cta">View Project</span>
+        </a>
+
+        <a
+          *ngIf="projet.external"
+          [href]="projet.link"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="project-card"
+        >
+          <div class="project-card-topline">
+            <span class="project-card-badge">Live</span>
+            <span class="project-card-date">{{ projet.date }}</span>
+          </div>
+          <h2 class="project-card-title">{{ projet.title }}</h2>
+          <p class="project-card-description">{{ projet.description }}</p>
+          <span class="project-card-cta">Open Website</span>
+        </a>
+      </ng-container>
+    </div>
   </div>
-</div>
+</section>

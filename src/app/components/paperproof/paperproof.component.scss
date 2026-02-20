@@ -3,12 +3,14 @@
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
-    width: 28rem;
+    width: 100%;
+    max-width: 100%;
     min-height: 7.3rem;
-    margin: 1rem;
+    margin: 0;
 
     &-image {
         width: 100%;
+        max-width: 100%;
         height: auto;
         margin-bottom: 8px;
         border-radius: 10px;
@@ -33,14 +35,13 @@
 
 @media screen and (max-width: 1200px) {
     .paperproof {
-        min-width: 20rem;
+        min-width: 0;
     }
 }
 
 @media screen and (max-width: 768px) {
     .paperproof {
-        margin: 1rem;
-        min-width: 1rem;
-        max-width: 15rem;
+        min-width: 0;
+        max-width: 100%;
     }
 }

@@ -32,13 +32,6 @@ export class MenuComponent {
       category: 'Public'
     },
     {
-      title: 'CozyBot',
-      path: 'https://cozybot.online',
-      description: 'Discord bot leaderboard',
-      category: 'Public',
-      isExternal: true
-    },
-    {
       title: 'Contact',
       path: '/contact',
       description: 'Contact page',

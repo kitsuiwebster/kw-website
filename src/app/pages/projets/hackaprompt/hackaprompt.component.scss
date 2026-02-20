@@ -1,48 +1,114 @@
 :host {
   display: block;
-  width: 60%;
-  background: #f4f4f4;
-  padding: 15px;
-  border-radius: 5px;
-  font-family: 'Courier New', Courier, monospace;
-  white-space: normal;
-  word-break: break-word;
-  font-size:medium;
+  width: 100%;
 }
 
-@media (max-width: 800px) {
-  :host {
-    width: 90%;
-  }
+.hackaprompt-shell {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  background: transparent;
+}
+
+.hackaprompt-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 82% 72%, rgba(154, 117, 56, 0.1), transparent 34%),
+    radial-gradient(circle at 20% 82%, rgba(255, 255, 255, 0.35), transparent 32%);
+}
+
+.hackaprompt-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image: linear-gradient(rgba(120, 98, 66, 0.08) 1px, transparent 1px);
+  background-size: 100% 44px;
+}
+
+.hackaprompt {
+  width: min(980px, calc(100% - 2.2rem));
+  margin: 0 auto;
+  padding: 3.4rem 0 4.2rem;
 }
 
 .gist-container {
-  max-width: 100%;
-  overflow: hidden;
-  word-wrap: break-word;
-  white-space: normal;
-  text-align: justify;
-  line-height: 1.5;
-  border-radius: 10px;
+  border: 1px solid rgba(145, 113, 63, 0.2);
+  border-radius: 1rem;
+  background: rgba(255, 252, 246, 0.94);
+  box-shadow: 0 12px 28px rgba(30, 22, 14, 0.1);
+  padding: clamp(1rem, 2.4vw, 1.8rem);
+  color: #1d1812;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+::ng-deep .gist-container h1,
+::ng-deep .gist-container h2,
+::ng-deep .gist-container h3 {
+  color: #1b1510;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+::ng-deep .gist-container h1 {
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  margin: 0 0 1rem;
+}
+
+::ng-deep .gist-container h2 {
+  margin-top: 2rem;
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+}
+
+::ng-deep .gist-container p,
+::ng-deep .gist-container li {
+  color: #3f382f;
+  font-size: 0.98rem;
+}
+
+::ng-deep .gist-container a {
+  color: #8a6833;
+  text-decoration-color: rgba(138, 104, 51, 0.36);
+}
+
+::ng-deep .gist-container blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 0.9rem;
+  border-left: 3px solid rgba(138, 104, 51, 0.6);
+  background: rgba(240, 232, 217, 0.7);
+  border-radius: 0.5rem;
 }
 
 ::ng-deep .gist-container pre {
-  background-color: #2d2d2d !important;
-  color: #ffffff !important;
-  padding: 15px !important;
-  border-radius: 8px !important;
+  background: #1f1a14 !important;
+  color: #f7f1e5 !important;
+  border: 1px solid rgba(220, 190, 143, 0.25);
+  border-radius: 0.75rem !important;
+  padding: 1rem !important;
   overflow-x: auto !important;
   max-width: 100% !important;
-  white-space: pre !important;
 }
 
-::ng-deep .gist-container pre code {
-  background: none !important;
-  color: #ffffff !important;
-  display: block !important;
-  font-size: 14px !important;
+::ng-deep .gist-container code {
+  font-family: 'Space Grotesk', monospace !important;
 }
 
-::ng-deep .gist-container p img {
-  width: 100%;
+::ng-deep .gist-container p img,
+::ng-deep .gist-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+}
+
+@media (max-width: 680px) {
+  .hackaprompt {
+    width: calc(100% - 1.2rem);
+    padding: 2.6rem 0 3.4rem;
+  }
 }
