@@ -107,6 +107,7 @@
   a {
     text-decoration: none;
     color: #2b231c;
+    font-weight: 500;
     border: 1px solid rgba(145, 113, 63, 0.28);
     border-radius: 999px;
     background: rgba(255, 253, 248, 0.95);
@@ -114,24 +115,39 @@
     font-size: 0.74rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.2s ease, transform 0.2s ease, color 0.2s ease, text-decoration-color 0.2s ease;
 
     &:hover {
       border-color: rgba(145, 113, 63, 0.55);
+      color: #20170f;
+      text-decoration: underline;
+      text-decoration-thickness: 1.2px;
+      text-underline-offset: 0.15em;
       transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(126, 93, 43, 0.55);
+      outline-offset: 2px;
     }
   }
 }
 
-.palma-project a {
+.palma-project-section a {
   color: #7e5d2b;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(126, 93, 43, 0.28);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  text-decoration: underline;
+  text-decoration-thickness: 1.3px;
+  text-underline-offset: 0.18em;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
 
   &:hover {
     color: #5f4521;
-    border-color: rgba(95, 69, 33, 0.55);
+    text-decoration-color: rgba(95, 69, 33, 0.85);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(126, 93, 43, 0.5);
+    outline-offset: 2px;
   }
 }
 

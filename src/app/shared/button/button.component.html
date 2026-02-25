@@ -1,0 +1,29 @@
+<a
+  *ngIf="routerLink"
+  [routerLink]="routerLink"
+  class="btn"
+  [ngClass]="getClasses()"
+>
+  {{ label }}<ng-content></ng-content>
+</a>
+
+<a
+  *ngIf="!routerLink && href"
+  [href]="href"
+  [target]="target"
+  [attr.rel]="target === '_blank' ? 'noopener noreferrer' : null"
+  class="btn"
+  [ngClass]="getClasses()"
+>
+  {{ label }}<ng-content></ng-content>
+</a>
+
+<button
+  *ngIf="!routerLink && !href"
+  type="button"
+  class="btn"
+  [ngClass]="getClasses()"
+  [disabled]="disabled"
+>
+  {{ label }}<ng-content></ng-content>
+</button>

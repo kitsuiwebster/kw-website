@@ -14,6 +14,8 @@ export class LayoutComponent {
   isDouzePage = false;
   isVitrinePage = false;
   isLifePage = false;
+  isLegalPage = false;
+  showCopiedToast = false;
 
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
@@ -22,29 +24,17 @@ export class LayoutComponent {
         this.isDouzePage = event.url === '/douze';
         this.isVitrinePage = event.url === '/vitrine';
         this.isLifePage = event.url === '/life' || event.url === '/shisui' || event.url.startsWith('/life?') || event.url.startsWith('/shisui?');
+        this.isLegalPage = event.url === '/legal';
       }
     });
   }
 
   copyDiscordUsername(): void {
     navigator.clipboard.writeText('kitsuiwebster').then(() => {
-      const copiedMessage = document.createElement('div');
-      copiedMessage.id = 'copiedMessage';
-      copiedMessage.innerText = 'Copied to clipboard!';
-
-      copiedMessage.style.position = 'fixed';
-      copiedMessage.style.top = '40px';
-      copiedMessage.style.left = '50%';
-      copiedMessage.style.transform = 'translateX(-50%)';
-      copiedMessage.style.color = 'red';
-      copiedMessage.style.padding = '10px 20px';
-      copiedMessage.style.borderRadius = '4px';
-      copiedMessage.style.zIndex = '9999';
-
-      document.body.appendChild(copiedMessage);
+      this.showCopiedToast = true;
       setTimeout(() => {
-        document.body.removeChild(copiedMessage);
-      }, 3000);
+        this.showCopiedToast = false;
+      }, 2500);
     });
   }
 

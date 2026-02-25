@@ -3,10 +3,10 @@ import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../shared/button/button.component';
 
 @Component({
-  selector: 'app-notfound',
+  selector: 'app-legal',
   standalone: true,
-  templateUrl: './notfound.component.html',
-  styleUrls: ['./notfound.component.scss'],
+  templateUrl: './legal.component.html',
+  styleUrls: ['./legal.component.scss'],
   imports: [RouterModule, ButtonComponent],
 })
-export class NotFoundComponent {}
+export class LegalComponent {}

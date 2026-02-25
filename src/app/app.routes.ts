@@ -16,6 +16,7 @@ import { AffaireComponent } from './pages/affaire/affaire.component';
 import { SitesComponent } from './pages/sites/sites.component';
 import { CozybotProjectComponent } from './pages/projets/cozybot/cozybot-project.component';
 import { PalmaProjectComponent } from './pages/projets/palma/palma-project.component';
+import { LegalComponent } from './pages/legal/legal.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -39,6 +40,7 @@ export const routes: Routes = [
   { path: 'vitrine', component: VitrineComponent },
   { path: 'affaire', component: AffaireComponent },
   { path: 'sites', component: SitesComponent },
+  { path: 'legal', component: LegalComponent },
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'notfound' }
 ];

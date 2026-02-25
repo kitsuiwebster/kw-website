@@ -66,87 +66,47 @@
     <router-outlet></router-outlet>
   </main>
   <footer class="layout-footer" *ngIf="!isTasksPage && !isDouzePage && !isVitrinePage && !isLifePage">
-    <nav class="layout-footer-links">
-      <a
-        href="https://gitlab.com/kitsuiwebster"
-        class="layout-footer-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          class="layout-footer-link-img"
-          src="assets/images/social/gitlab.webp"
-          alt="GitLab"
-        />
-      </a>
-      <a
-        href="https://github.com/kitsuiwebster"
-        class="layout-footer-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          class="layout-footer-link-img"
-          src="assets/images/social/github.webp"
-          alt="GitHub"
-        />
-      </a>
-      <a
-        href="https://www.linkedin.com/in/kitsuiwebster"
-        class="layout-footer-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          class="layout-footer-link-img"
-          src="assets/images/social/linkedin.webp"
-          alt="LinkedIn"
-        />
-      </a>
-      <a
-        href="https://twitter.com/kitsuiwebster"
-        class="layout-footer-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          class="layout-footer-link-img"
-          src="assets/images/social/x.webp"
-          alt="Twitter X"
-        />
-      </a>
-      <a
-        href="https://kitsuiwebster.medium.com"
-        class="layout-footer-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          class="layout-footer-link-img"
-          src="assets/images/social/medium.webp"
-          alt="Medium"
-        />
-      </a>
-      <a
-        href="https://dev.to/kitsuiwebster"
-        class="layout-footer-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          class="layout-footer-link-img"
-          src="assets/images/social/devto.webp"
-          alt="Dev.to"
-        />
-      </a>
-      <div (click)="copyDiscordUsername()" class="layout-footer-link">
-        <img
-          class="layout-footer-link-img"
-          src="assets/images/social/discord.webp"
-          alt="Discord"
-        />
+    <div class="layout-footer-container">
+      <!-- Social Links -->
+      <div class="layout-footer-social">
+        <a href="https://gitlab.com/kitsuiwebster" target="_blank" rel="noopener noreferrer" aria-label="GitLab">
+          <img src="assets/images/social/gitlab.webp" alt="GitLab" />
+        </a>
+        <a href="https://github.com/kitsuiwebster" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <img src="assets/images/social/github.webp" alt="GitHub" />
+        </a>
+        <a href="https://www.linkedin.com/in/kitsuiwebster" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <img src="assets/images/social/linkedin.webp" alt="LinkedIn" />
+        </a>
+        <a href="https://twitter.com/kitsuiwebster" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+          <img src="assets/images/social/x.webp" alt="Twitter X" />
+        </a>
+        <a href="https://kitsuiwebster.medium.com" target="_blank" rel="noopener noreferrer" aria-label="Medium">
+          <img src="assets/images/social/medium.webp" alt="Medium" />
+        </a>
+        <a href="https://dev.to/kitsuiwebster" target="_blank" rel="noopener noreferrer" aria-label="Dev.to">
+          <img src="assets/images/social/devto.webp" alt="Dev.to" />
+        </a>
+        <button (click)="copyDiscordUsername()" aria-label="Copy Discord username">
+          <img src="assets/images/social/discord.webp" alt="Discord" />
+        </button>
       </div>
-    </nav>
-    <p class="layout-footer-text">© 2026 kitsuiwebster</p>
+
+      <!-- Navigation & Copyright -->
+      <div class="layout-footer-bottom">
+        <nav class="layout-footer-nav">
+          <a routerLink="/">Home</a>
+          <a routerLink="/projets">Projects</a>
+          <a routerLink="/contact">Contact</a>
+          <a routerLink="/legal">Legal</a>
+        </nav>
+        <p class="layout-footer-copyright">© 2026 Raphaël MARTIN</p>
+      </div>
+    </div>
   </footer>
+
+  <!-- Toast notification -->
+  <div *ngIf="showCopiedToast" class="toast">
+    Discord username copied!
+  </div>
 </div>

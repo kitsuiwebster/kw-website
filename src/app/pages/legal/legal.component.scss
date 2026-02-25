@@ -1,0 +1,133 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.legal {
+  --home-bg: #f3efe6;
+  --home-surface: #f9f6ee;
+  --home-card: #fffdfa;
+  --home-text: #15120f;
+  --home-muted: #5f584f;
+  --home-line: #d8ccbb;
+  --home-accent: #af8a4e;
+  --home-accent-strong: #8f6a31;
+
+  min-height: calc(100vh - 60px);
+  width: 100%;
+  background: var(--home-bg);
+  color: var(--home-text);
+  font-family: 'Space Grotesk', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  padding: 2rem 1.5rem;
+}
+
+.legal-container {
+  max-width: 800px;
+  margin: 0 auto;
+  animation: rise-in 0.7s ease-out;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.legal-eyebrow {
+  margin: 0 0 0.8rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--home-accent-strong);
+  font-weight: 600;
+}
+
+.legal-title {
+  margin: 0 0 3rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--home-text);
+}
+
+.legal-section {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--home-line);
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.legal-section-title {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--home-text);
+  letter-spacing: -0.01em;
+}
+
+.legal-text {
+  margin: 0;
+  line-height: 1.75;
+  color: var(--home-muted);
+  font-size: 0.95rem;
+
+  strong {
+    color: var(--home-text);
+    font-weight: 600;
+  }
+}
+
+.legal-link {
+  color: var(--home-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--home-accent-strong);
+    text-decoration: underline;
+  }
+}
+
+.legal-back-button {
+  margin-top: 3rem;
+}
+
+@media (max-width: 640px) {
+  .legal {
+    padding: 1.5rem 1rem;
+  }
+
+  .legal-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .legal-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .legal-section-title {
+    font-size: 1.1rem;
+  }
+
+  .legal-text {
+    font-size: 0.9rem;
+  }
+
+  .legal-back-button {
+    width: 100%;
+
+    app-button {
+      width: 100%;
+    }
+  }
+}

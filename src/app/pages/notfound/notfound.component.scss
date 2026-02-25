@@ -69,30 +69,6 @@
   line-height: 1.7;
 }
 
-.notfound-button {
-  display: inline-block;
-  padding: 0.9rem 2rem;
-  background: var(--home-accent);
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  transition: all 0.2s ease;
-  border: 2px solid var(--home-accent);
-
-  &:hover {
-    background: var(--home-accent-strong);
-    border-color: var(--home-accent-strong);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(143, 106, 49, 0.25);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-}
 
 @media (max-width: 640px) {
   .notfound {
