@@ -46,6 +46,10 @@ export class UnifiedTasksComponent implements OnInit {
   filterLabel: string = '';
   showFilterRow: boolean = false;
 
+  // Order/Sort
+  showOrderModal: boolean = false;
+  sortOrder: 'default' | 'alphabetical' | 'newest' | 'oldest' = 'default';
+
   // Labels par type
   kitsuiLabels: Label[] = [
     { id: 'madpoof', name: 'madpoof', color: '#cc0000' },
@@ -141,9 +145,24 @@ export class UnifiedTasksComponent implements OnInit {
   }
 
   private sortFn(a: Task, b: Task): number {
+    // First: completed tasks always go to bottom
     if (a.completed !== b.completed) return a.completed ? 1 : -1;
+
+    // Second: priority tasks always go to top (if both not completed)
     if (a.isPriority !== b.isPriority) return a.isPriority ? -1 : 1;
-    return 0;
+
+    // Third: apply selected sort order
+    switch (this.sortOrder) {
+      case 'alphabetical':
+        return a.text.localeCompare(b.text);
+      case 'newest':
+        return (b.createdAt || '').localeCompare(a.createdAt || '');
+      case 'oldest':
+        return (a.createdAt || '').localeCompare(b.createdAt || '');
+      case 'default':
+      default:
+        return 0;
+    }
   }
 
   get sortedTasks(): Task[] {
@@ -397,6 +416,26 @@ export class UnifiedTasksComponent implements OnInit {
     return label ? label.name : this.defaultLabel;
   }
 
+  getTextColorForLabel(labelId: string): string {
+    const color = this.getLabelColor(labelId);
+    return this.getContrastColor(color);
+  }
+
+  private getContrastColor(hexColor: string): string {
+    // Convert hex to RGB
+    const hex = hexColor.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    // Calculate relative luminance (WCAG formula)
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+    // Return black for light colors, white for dark colors
+    // Lower threshold (0.45) makes it more sensitive to light colors
+    return luminance > 0.45 ? '#000000' : '#ffffff';
+  }
+
   // Modal pour les actions de tâche
   openTaskModal(task: Task): void {
     this.selectedTask = task;
@@ -475,5 +514,29 @@ export class UnifiedTasksComponent implements OnInit {
       this.deleteTask(this.selectedTask.id);
     }
     this.closeTaskModal();
+  }
+
+  // Order modal methods
+  openOrderModal(): void {
+    this.showOrderModal = true;
+  }
+
+  closeOrderModal(): void {
+    this.showOrderModal = false;
+  }
+
+  selectSortOrder(order: 'default' | 'alphabetical' | 'newest' | 'oldest'): void {
+    this.sortOrder = order;
+    this.closeOrderModal();
+  }
+
+  getSortOrderLabel(): string {
+    switch (this.sortOrder) {
+      case 'alphabetical': return 'A-Z';
+      case 'newest': return 'Newest';
+      case 'oldest': return 'Oldest';
+      case 'default': return 'Default';
+      default: return 'Default';
+    }
   }
 }

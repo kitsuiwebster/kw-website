@@ -1,19 +1,28 @@
 <div class="tasks">
   <div class="tasks-container">
     <header class="tasks-header">
-      <h1 class="tasks-title">Task Manager</h1>
-      
+      <div class="header-top">
+        <h1 class="tasks-title">KW Task Manager</h1>
+        <div class="header-actions">
+          <button class="toggle-filter-btn" [class.active]="showFilterRow" (click)="showFilterRow = !showFilterRow">Filter</button>
+          <button class="order-btn" (click)="openOrderModal()">
+            Order: {{ getSortOrderLabel() }}
+          </button>
+          <button class="edit-labels-btn" (click)="openLabelEditor()">Edit labels</button>
+        </div>
+      </div>
+
       <!-- Tab Navigation -->
       <div class="tab-navigation">
-        <button 
-          class="tab-btn" 
+        <button
+          class="tab-btn"
           [class.active]="activeTab === 'kitsui'"
           (click)="switchTab('kitsui')"
         >
           Kitsui
         </button>
-        <button 
-          class="tab-btn" 
+        <button
+          class="tab-btn"
           [class.active]="activeTab === 'bubble'"
           (click)="switchTab('bubble')"
         >
@@ -24,7 +33,6 @@
 
     <div class="tasks-input-section">
       <div class="label-row">
-        <button class="toggle-filter-btn" [class.active]="showFilterRow" (click)="showFilterRow = !showFilterRow">Filter</button>
         <div class="label-radio-group">
         <div class="label-radio-item" *ngFor="let label of currentLabels">
           <input
@@ -50,7 +58,6 @@
           </label>
         </div>
         </div>
-        <button class="edit-labels-btn" (click)="openLabelEditor()">Edit labels</button>
       </div>
       <div class="input-and-button">
         <input
@@ -126,10 +133,11 @@
             
             <span class="task-text">{{ task.text }}</span>
             
-            <span 
-              *ngIf="task.label" 
+            <span
+              *ngIf="task.label"
               class="task-label"
               [style.background-color]="getLabelColor(task.label)"
+              [style.color]="getTextColorForLabel(task.label)"
               [title]="getLabelName(task.label)"
             >
               {{ getLabelName(task.label) }}
@@ -153,10 +161,7 @@
       <!-- Right Column: Today Tasks -->
       <div class="tasks-column" *ngIf="!isLoading">
         <div class="column-header">
-          <h2 class="column-title">Today <span class="task-count">{{ todayTasks.length }}<ng-container *ngIf="filterLabel || hideCompletedToday">/{{ todayTasksTotal }}</ng-container></span></h2>
-          <button class="hide-completed-btn" (click)="hideCompletedToday = !hideCompletedToday">
-            {{ hideCompletedToday ? 'Show completed' : 'Hide completed' }}
-          </button>
+          <h2 class="column-title">Today <span class="task-count">{{ todayTasks.length }}</span></h2>
         </div>
         <div 
           class="tasks-list drop-zone today-zone"
@@ -183,10 +188,11 @@
             
             <span class="task-text">{{ task.text }}</span>
             
-            <span 
-              *ngIf="task.label" 
+            <span
+              *ngIf="task.label"
               class="task-label"
               [style.background-color]="getLabelColor(task.label)"
+              [style.color]="getTextColorForLabel(task.label)"
               [title]="getLabelName(task.label)"
             >
               {{ getLabelName(task.label) }}
@@ -304,6 +310,56 @@
 
           <button (click)="deleteTaskFromModal()" class="action-btn delete-btn">
             Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Order -->
+  <div
+    *ngIf="showOrderModal"
+    class="modal-overlay"
+    (click)="closeOrderModal()"
+  >
+    <div class="task-modal order-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Order Tasks</h3>
+        <button (click)="closeOrderModal()" class="close-btn">×</button>
+      </div>
+      <div class="modal-content">
+        <div class="order-options">
+          <button
+            class="order-option-btn"
+            [class.active]="sortOrder === 'default'"
+            (click)="selectSortOrder('default')"
+          >
+            <span class="option-label">Default</span>
+            <span class="option-description">Priority first, then creation order</span>
+          </button>
+          <button
+            class="order-option-btn"
+            [class.active]="sortOrder === 'alphabetical'"
+            (click)="selectSortOrder('alphabetical')"
+          >
+            <span class="option-label">Alphabetical (A-Z)</span>
+            <span class="option-description">Sort by task name</span>
+          </button>
+          <button
+            class="order-option-btn"
+            [class.active]="sortOrder === 'newest'"
+            (click)="selectSortOrder('newest')"
+          >
+            <span class="option-label">Newest First</span>
+            <span class="option-description">Recently created tasks first</span>
+          </button>
+          <button
+            class="order-option-btn"
+            [class.active]="sortOrder === 'oldest'"
+            (click)="selectSortOrder('oldest')"
+          >
+            <span class="option-label">Oldest First</span>
+            <span class="option-description">Oldest tasks first</span>
           </button>
         </div>
       </div>
