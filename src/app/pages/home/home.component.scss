@@ -248,9 +248,7 @@
 }
 
 .skill-panel-content {
-  max-height: 2200px;
   overflow: hidden;
-  transition: max-height 0.38s ease;
 }
 
 .skill-panel.collapsed .skill-panel-preview {
@@ -260,10 +258,6 @@
 
 .skill-panel.collapsed .skill-panel-chevron {
   transform: rotate(90deg);
-}
-
-.skill-panel.collapsed .skill-panel-content {
-  max-height: 0;
 }
 
 .home-skills-category {
@@ -277,6 +271,192 @@
   width: 6rem;
   display: flex;
   justify-content: center;
+}
+
+.home-journey-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.home-journey-item {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 1rem;
+  border: 1px solid rgba(143, 106, 49, 0.2);
+  border-radius: 1rem;
+  background: #fffaf2;
+  box-shadow: 0 10px 24px rgba(31, 22, 12, 0.08);
+  padding: 1rem;
+}
+
+.home-journey-meta {
+  border-right: 1px solid rgba(143, 106, 49, 0.18);
+  padding-right: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.home-journey-logos {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.home-journey-logo {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.home-journey-logo-horizontal {
+  width: 100%;
+  height: auto;
+}
+
+.home-journey-logo-rounded {
+  border-radius: 0.5rem;
+}
+
+.home-journey-logos-horizontal {
+  width: 100%;
+}
+
+.home-journey-logo-secondary {
+  width: 3rem;
+  height: 3rem;
+  opacity: 0.7;
+}
+
+.home-journey-period {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b5b45;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.home-journey-company {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.3;
+  color: #1f1a15;
+  font-weight: 600;
+}
+
+.home-journey-location {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: #7a6f62;
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.home-journey-flag {
+  font-size: 0.85rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.home-journey-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.home-journey-title {
+  margin: 0;
+  font-size: 1.04rem;
+  letter-spacing: -0.01em;
+  color: #1c1712;
+}
+
+.home-journey-talks-intro {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6b5b45;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.home-journey-highlights {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+
+  li {
+    color: #3f372d;
+    line-height: 1.6;
+    margin-bottom: 0.25rem;
+  }
+}
+
+.home-journey-stack {
+  margin-top: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.home-journey-tag {
+  border: 1px solid rgba(143, 106, 49, 0.24);
+  border-radius: 999px;
+  background: #fff6e7;
+  color: #5f4f3a;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.32rem 0.52rem;
+}
+
+.home-journey-tech-logos {
+  margin-top: auto;
+  padding-top: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.home-journey-tech-logo {
+  width: 1.3rem;
+  height: 1.3rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.home-journey-via {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(143, 106, 49, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.home-journey-via-text {
+  font-size: 0.7rem;
+  color: #7a6f62;
+  font-style: italic;
+}
+
+.home-journey-via-logo {
+  max-height: 1.5rem;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.home-journey-via-logo-kampus {
+  max-height: 3rem;
 }
 
 .home-credentials-stack {
@@ -329,6 +509,49 @@
 
   .home-hero-portrait-image {
     width: min(360px, 100%);
+  }
+
+  .home-journey-item {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .home-journey-meta {
+    border-right: 0;
+    border-bottom: 1px solid rgba(143, 106, 49, 0.18);
+    padding-right: 0;
+    padding-bottom: 0.7rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .home-journey-logos {
+    gap: 0.4rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .home-journey-logo {
+    margin-bottom: 0;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .home-journey-logo-horizontal {
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+    margin: 0 auto;
+  }
+
+  .home-journey-logo-secondary {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .home-journey-via {
+    width: 100%;
   }
 
 }

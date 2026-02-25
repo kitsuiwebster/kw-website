@@ -70,7 +70,7 @@
             </div>
             <span class="skill-panel-chevron" aria-hidden="true">›</span>
           </button>
-          <div class="skill-panel-content">
+          <div class="skill-panel-content" *ngIf="!collapsedSections[section.key]">
             <div class="home-skills-category">
               <techno-icon
                 class="skill-techno-icon"
@@ -85,6 +85,109 @@
                 [star5]="tech.star5"
               ></techno-icon>
             </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="home-section home-journey" aria-labelledby="journey-title">
+      <div class="home-section-head">
+        <p class="home-section-kicker">Track Record</p>
+        <h2 id="journey-title" class="home-section-title">Career Journey</h2>
+      </div>
+
+      <div class="home-journey-list">
+        <article class="home-journey-item" *ngFor="let item of journey">
+          <div class="home-journey-meta">
+            <div class="home-journey-logos" [class.home-journey-logos-horizontal]="item.horizontalLogo">
+              <img loading="lazy" [src]="item.logo" [alt]="item.title" class="home-journey-logo" [class.home-journey-logo-horizontal]="item.horizontalLogo" [class.home-journey-logo-rounded]="item.roundedLogo" />
+            </div>
+            <p class="home-journey-period">{{ item.period }}</p>
+            <p class="home-journey-company">{{ item.company }}</p>
+            <p class="home-journey-location">
+              <span class="home-journey-flag">{{ item.countryEmoji }}</span> {{ item.location }}
+            </p>
+            <div class="home-journey-via" *ngIf="item.secondaryLogo">
+              <span class="home-journey-via-text">via</span>
+              <img [src]="item.secondaryLogo" alt="via" class="home-journey-via-logo" [class.home-journey-via-logo-kampus]="item.secondaryLogo.includes('kampus')" loading="lazy" />
+            </div>
+          </div>
+
+          <div class="home-journey-content">
+            <h3 class="home-journey-title">{{ item.title }}</h3>
+            <ul class="home-journey-highlights">
+              <li *ngFor="let point of item.highlights">{{ point }}</li>
+            </ul>
+            <div class="home-journey-stack">
+              <span class="home-journey-tag" *ngFor="let tech of item.stack">{{ tech }}</span>
+            </div>
+            <div class="home-journey-tech-logos" *ngIf="item.techLogos && item.techLogos.length > 0">
+              <img *ngFor="let logo of item.techLogos" [src]="logo" [alt]="getTechNameFromPath(logo)" [title]="getTechNameFromPath(logo)" class="home-journey-tech-logo" loading="lazy" />
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="home-section home-trainings" aria-labelledby="trainings-title">
+      <div class="home-section-head">
+        <p class="home-section-kicker">Knowledge Sharing</p>
+        <h2 id="trainings-title" class="home-section-title">Training Sessions</h2>
+      </div>
+
+      <div class="home-journey-list">
+        <article class="home-journey-item" *ngFor="let training of trainings">
+          <div class="home-journey-meta">
+            <img loading="lazy" [src]="training.logo" [alt]="training.title" class="home-journey-logo" [class.home-journey-logo-horizontal]="training.horizontalLogo" [class.home-journey-logo-rounded]="training.roundedLogo" />
+            <p class="home-journey-period">{{ training.period }}</p>
+            <p class="home-journey-company">{{ training.company }}</p>
+            <p class="home-journey-location">
+              <span class="home-journey-flag">{{ training.countryEmoji }}</span> {{ training.location }}
+            </p>
+            <div class="home-journey-via" *ngIf="training.secondaryLogo">
+              <span class="home-journey-via-text">via</span>
+              <img [src]="training.secondaryLogo" alt="via" class="home-journey-via-logo" [class.home-journey-via-logo-kampus]="training.secondaryLogo.includes('kampus')" loading="lazy" />
+            </div>
+          </div>
+
+          <div class="home-journey-content">
+            <h3 class="home-journey-title">{{ training.title }}</h3>
+            <ul class="home-journey-highlights" *ngIf="training.highlights && training.highlights.length > 0">
+              <li *ngFor="let highlight of training.highlights">{{ highlight }}</li>
+            </ul>
+            <div class="home-journey-stack">
+              <span class="home-journey-tag" *ngFor="let topic of training.topics">{{ topic }}</span>
+            </div>
+            <div class="home-journey-tech-logos" *ngIf="training.techLogos && training.techLogos.length > 0">
+              <img *ngFor="let logo of training.techLogos" [src]="logo" [alt]="getTechNameFromPath(logo)" [title]="getTechNameFromPath(logo)" class="home-journey-tech-logo" loading="lazy" />
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="home-section home-conferences" aria-labelledby="conferences-title">
+      <div class="home-section-head">
+        <p class="home-section-kicker">Community Engagement</p>
+        <h2 id="conferences-title" class="home-section-title">Conferences & Events</h2>
+      </div>
+
+      <div class="home-journey-list">
+        <article class="home-journey-item" *ngFor="let conference of conferences">
+          <div class="home-journey-meta">
+            <img loading="lazy" [src]="conference.logo" [alt]="conference.title" class="home-journey-logo" [class.home-journey-logo-horizontal]="conference.horizontalLogo" [class.home-journey-logo-rounded]="conference.roundedLogo" />
+            <p class="home-journey-period">{{ conference.period }}</p>
+            <p class="home-journey-location">
+              <span class="home-journey-flag">{{ conference.countryEmoji }}</span> {{ conference.location }}
+            </p>
+          </div>
+
+          <div class="home-journey-content">
+            <h3 class="home-journey-title">{{ conference.title }}</h3>
+            <p class="home-journey-talks-intro">{{ conference.talks[0] }}</p>
+            <ul class="home-journey-highlights">
+              <li *ngFor="let talk of conference.talks.slice(1)">{{ talk }}</li>
+            </ul>
           </div>
         </article>
       </div>
