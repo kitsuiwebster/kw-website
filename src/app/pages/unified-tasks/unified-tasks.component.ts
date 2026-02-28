@@ -16,6 +16,20 @@ interface HistoryDayGroup {
   tasks: Task[];
 }
 
+interface LabelSlice {
+  id: string;
+  name: string;
+  color: string;
+  count: number;
+  percent: number;
+}
+
+interface PieSegment {
+  d: string;
+  color: string;
+  tooltip: string;
+}
+
 @Component({
   selector: 'app-unified-tasks',
   standalone: true,
@@ -201,6 +215,22 @@ export class UnifiedTasksComponent implements OnInit {
 
   get todayTasksTotal(): number {
     return this.tasks.filter(t => t.isToday && !t.completed).length;
+  }
+
+  get allTasksTotalCount(): number {
+    return this.sortedTasks.length;
+  }
+
+  get todayTotalCount(): number {
+    return this.todayTasks.length;
+  }
+
+  get allTasksLabelSlices(): LabelSlice[] {
+    return this.buildLabelSlices(this.sortedTasks);
+  }
+
+  get todayLabelSlices(): LabelSlice[] {
+    return this.buildLabelSlices(this.todayTasks);
   }
 
   toggleFilterLabel(labelId: string): void {
@@ -634,5 +664,64 @@ export class UnifiedTasksComponent implements OnInit {
       month: 'long',
       year: 'numeric'
     }).format(parsed);
+  }
+
+  getPieSegments(slices: LabelSlice[]): PieSegment[] {
+    if (slices.length === 0) return [];
+
+    const center = 53;
+    const radius = 52;
+    let currentAngle = -90;
+
+    return slices.map((slice) => {
+      const sliceAngle = (slice.percent / 100) * 360;
+      const startAngle = currentAngle;
+      const endAngle = currentAngle + sliceAngle;
+      currentAngle = endAngle;
+
+      const start = this.polarToCartesian(center, center, radius, startAngle);
+      const end = this.polarToCartesian(center, center, radius, endAngle);
+      const largeArcFlag = sliceAngle > 180 ? 1 : 0;
+      const d = [
+        `M ${center} ${center}`,
+        `L ${start.x} ${start.y}`,
+        `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${end.x} ${end.y}`,
+        'Z'
+      ].join(' ');
+
+      return {
+        d,
+        color: slice.color,
+        tooltip: `${slice.name}: ${slice.count} task${slice.count > 1 ? 's' : ''}`
+      };
+    });
+  }
+
+  private buildLabelSlices(tasks: Task[]): LabelSlice[] {
+    if (tasks.length === 0) return [];
+
+    const countMap = new Map<string, number>();
+    tasks.forEach((task) => {
+      const labelId = task.label || this.defaultLabel;
+      countMap.set(labelId, (countMap.get(labelId) || 0) + 1);
+    });
+
+    return Array.from(countMap.entries())
+      .map(([labelId, count]) => ({
+        id: labelId,
+        name: this.getLabelName(labelId),
+        color: this.getLabelColor(labelId),
+        count,
+        percent: (count / tasks.length) * 100
+      }))
+      .sort((a, b) => b.count - a.count);
+  }
+
+  private polarToCartesian(centerX: number, centerY: number, radius: number, angleInDegrees: number) {
+    const angleInRadians = (angleInDegrees * Math.PI) / 180;
+    return {
+      x: centerX + radius * Math.cos(angleInRadians),
+      y: centerY + radius * Math.sin(angleInRadians)
+    };
   }
 }

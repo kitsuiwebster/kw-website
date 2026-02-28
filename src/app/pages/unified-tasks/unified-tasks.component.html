@@ -252,6 +252,64 @@
       </div>
     </div>
 
+    <div class="charts-section" *ngIf="!isLoading && !showHistory">
+      <div class="chart-card">
+        <h3 class="chart-title">All Tasks</h3>
+        <div
+          class="camembert"
+          [attr.aria-label]="'All tasks labels distribution'"
+        >
+          <svg class="camembert-svg" viewBox="0 0 106 106" aria-hidden="true">
+            <path
+              *ngFor="let segment of getPieSegments(allTasksLabelSlices)"
+              class="camembert-segment"
+              [attr.d]="segment.d"
+              [attr.fill]="segment.color"
+            >
+              <title>{{ segment.tooltip }}</title>
+            </path>
+          </svg>
+          <span class="camembert-value">{{ allTasksTotalCount }}</span>
+        </div>
+        <p class="chart-meta">{{ allTasksTotalCount }} active tasks</p>
+        <div class="chart-legend" *ngIf="allTasksLabelSlices.length > 0">
+          <div class="legend-item" *ngFor="let slice of allTasksLabelSlices">
+            <span class="legend-dot" [style.background-color]="slice.color"></span>
+            <span class="legend-name">{{ slice.name }}</span>
+            <span class="legend-count">{{ slice.count }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h3 class="chart-title">Today</h3>
+        <div
+          class="camembert"
+          [attr.aria-label]="'Today labels distribution'"
+        >
+          <svg class="camembert-svg" viewBox="0 0 106 106" aria-hidden="true">
+            <path
+              *ngFor="let segment of getPieSegments(todayLabelSlices)"
+              class="camembert-segment"
+              [attr.d]="segment.d"
+              [attr.fill]="segment.color"
+            >
+              <title>{{ segment.tooltip }}</title>
+            </path>
+          </svg>
+          <span class="camembert-value">{{ todayTotalCount }}</span>
+        </div>
+        <p class="chart-meta">{{ todayTotalCount }} active tasks</p>
+        <div class="chart-legend" *ngIf="todayLabelSlices.length > 0">
+          <div class="legend-item" *ngFor="let slice of todayLabelSlices">
+            <span class="legend-dot" [style.background-color]="slice.color"></span>
+            <span class="legend-name">{{ slice.name }}</span>
+            <span class="legend-count">{{ slice.count }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Affichage des erreurs -->
     <div *ngIf="error" class="error-message">
       {{ error }}
