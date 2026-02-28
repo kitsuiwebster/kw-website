@@ -401,6 +401,20 @@ export class UnifiedTasksComponent implements OnInit {
     });
   }
 
+  revokeTaskFromHistory(task: Task): void {
+    task.completed = false;
+    task.isToday = false;
+    task.completedAt = undefined;
+    task.modifiedAt = new Date().toISOString();
+    this.saveToLocalStorage();
+
+    this.unifiedTasksService.updateTask(task, this.activeTab).subscribe({
+      error: (error) => {
+        console.warn('Could not sync to API:', error);
+      }
+    });
+  }
+
   onKeyPress(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       this.addTask();
@@ -670,6 +684,16 @@ export class UnifiedTasksComponent implements OnInit {
 
   getPieSegments(slices: LabelSlice[]): PieSegment[] {
     if (slices.length === 0) return [];
+    if (slices.length === 1) {
+      const onlySlice = slices[0];
+      return [
+        {
+          d: 'M 53 53 m -52 0 a 52 52 0 1 0 104 0 a 52 52 0 1 0 -104 0',
+          color: onlySlice.color,
+          tooltip: `${onlySlice.name}: ${onlySlice.count} task${onlySlice.count > 1 ? 's' : ''}`
+        }
+      ];
+    }
 
     const center = 53;
     const radius = 52;

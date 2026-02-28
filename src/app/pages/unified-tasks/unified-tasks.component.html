@@ -243,6 +243,22 @@
             >
               {{ getLabelName(task.label) }}
             </span>
+            <div class="history-actions">
+              <button
+                class="history-action-btn revoke-btn"
+                (click)="revokeTaskFromHistory(task)"
+                title="Revoke task"
+              >
+                Revoke
+              </button>
+              <button
+                class="history-action-btn delete-btn"
+                (click)="deleteTask(task.id)"
+                title="Delete task"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>
