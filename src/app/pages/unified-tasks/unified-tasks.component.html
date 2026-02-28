@@ -243,22 +243,13 @@
             >
               {{ getLabelName(task.label) }}
             </span>
-            <div class="history-actions">
-              <button
-                class="history-action-btn revoke-btn"
-                (click)="revokeTaskFromHistory(task)"
-                title="Revoke task"
-              >
-                Revoke
-              </button>
-              <button
-                class="history-action-btn delete-btn"
-                (click)="deleteTask(task.id)"
-                title="Delete task"
-              >
-                Delete
-              </button>
-            </div>
+            <button
+              (click)="openHistoryTaskModal(task)"
+              class="task-menu-btn"
+              title="History options"
+            >
+              ⋯
+            </button>
           </div>
         </div>
       </div>
@@ -421,6 +412,37 @@
           </button>
 
           <button (click)="deleteTaskFromModal()" class="action-btn delete-btn">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Order -->
+  <div
+    *ngIf="showHistoryTaskModal"
+    class="modal-overlay"
+    (click)="closeHistoryTaskModal()"
+  >
+    <div class="task-modal history-task-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>History Actions</h3>
+        <button (click)="closeHistoryTaskModal()" class="close-btn">×</button>
+      </div>
+      <div class="modal-content" *ngIf="selectedHistoryTask">
+        <div class="task-preview">
+          <strong>{{ selectedHistoryTask.text }}</strong>
+          <span class="task-info">
+            {{ getLabelName(selectedHistoryTask.label || '') }}
+          </span>
+        </div>
+
+        <div class="modal-actions">
+          <button (click)="revokeTaskFromHistoryModal()" class="action-btn">
+            Revoke
+          </button>
+          <button (click)="deleteTaskFromHistoryModal()" class="action-btn delete-btn">
             Delete
           </button>
         </div>

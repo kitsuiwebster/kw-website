@@ -52,6 +52,8 @@ export class UnifiedTasksComponent implements OnInit {
   // Modal pour les actions de tâche
   showTaskModal: boolean = false;
   selectedTask: Task | null = null;
+  showHistoryTaskModal: boolean = false;
+  selectedHistoryTask: Task | null = null;
 
   // Renaming state
   isRenaming: boolean = false;
@@ -248,6 +250,7 @@ export class UnifiedTasksComponent implements OnInit {
       this.filterLabel = '';
       this.showFilterRow = false;
       this.closeTaskModal();
+      this.closeHistoryTaskModal();
       
       // Update URL hash fragment
       this.router.navigate([], { 
@@ -413,6 +416,28 @@ export class UnifiedTasksComponent implements OnInit {
         console.warn('Could not sync to API:', error);
       }
     });
+  }
+
+  openHistoryTaskModal(task: Task): void {
+    this.selectedHistoryTask = task;
+    this.showHistoryTaskModal = true;
+  }
+
+  closeHistoryTaskModal(): void {
+    this.showHistoryTaskModal = false;
+    this.selectedHistoryTask = null;
+  }
+
+  revokeTaskFromHistoryModal(): void {
+    if (!this.selectedHistoryTask) return;
+    this.revokeTaskFromHistory(this.selectedHistoryTask);
+    this.closeHistoryTaskModal();
+  }
+
+  deleteTaskFromHistoryModal(): void {
+    if (!this.selectedHistoryTask) return;
+    this.deleteTask(this.selectedHistoryTask.id);
+    this.closeHistoryTaskModal();
   }
 
   onKeyPress(event: KeyboardEvent): void {
@@ -604,11 +629,15 @@ export class UnifiedTasksComponent implements OnInit {
 
   toggleHistory(): void {
     this.showHistory = !this.showHistory;
+    if (!this.showHistory) {
+      this.closeHistoryTaskModal();
+    }
     this.syncFragment();
   }
 
   showTasksView(): void {
     this.showHistory = false;
+    this.closeHistoryTaskModal();
     this.syncFragment();
   }
 

@@ -628,40 +628,8 @@
   color: #d0d0d0;
 }
 
-.history-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.history-action-btn {
-  padding: 0.26rem 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #2a2a2a;
-  background: #171717;
-  color: #bbbbbb;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.66rem;
-  cursor: pointer;
-  transition: all 0.15s;
-  white-space: nowrap;
-
-  &:hover {
-    border-color: #3a3a3a;
-    background: #1f1f1f;
-    color: #efefef;
-  }
-
-  &.delete-btn {
-    color: #e07b7b;
-    border-color: #3a2323;
-
-    &:hover {
-      background: #241616;
-      border-color: #563030;
-      color: #f29a9a;
-    }
-  }
+.history-task-modal {
+  max-width: 420px;
 }
 
 .charts-section {
@@ -1205,16 +1173,6 @@
     padding: 0.12rem 0.32rem;
   }
 
-  .history-actions {
-    width: 100%;
-    justify-content: flex-end;
-    margin-top: 0.1rem;
-  }
-
-  .history-action-btn {
-    font-size: 0.62rem;
-    padding: 0.24rem 0.44rem;
-  }
 }
 
 // Order modal
