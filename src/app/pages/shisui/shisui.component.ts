@@ -1,5 +1,5 @@
 // shisui.component.ts
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Ajouté pour ngModel
@@ -99,7 +99,7 @@ interface CityWithFlag {
   templateUrl: './shisui.component.html',
   styleUrls: ['./shisui.component.scss'],
 })
-export class ShisuiComponent implements OnInit {
+export class ShisuiComponent implements OnInit, OnDestroy {
   // Utiliser une chaîne simple pour la position de la légende
   legendPosition: string = 'right';
   
@@ -204,6 +204,8 @@ export class ShisuiComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    document.body.classList.add('life-page');
+    document.documentElement.classList.add('life-page');
     this.updateChartSize();
     
     // Lire les paramètres d'URL d'abord
@@ -224,6 +226,11 @@ export class ShisuiComponent implements OnInit {
       // Charger les données puis déclencher les recherches
       this.fetchData();
     });
+  }
+
+  ngOnDestroy(): void {
+    document.body.classList.remove('life-page');
+    document.documentElement.classList.remove('life-page');
   }
 
   @HostListener('window:resize')
