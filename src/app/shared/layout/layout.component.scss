@@ -7,8 +7,11 @@
   &-header {
     position: fixed;
     top: 0;
-    z-index: 100;
+    z-index: 20;
+    left: 0;
+    right: 0;
     width: 100%;
+    clip-path: inset(0 13px 0 0);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,16 +28,18 @@
       top: 0;
       right: 0;
       padding: 0.3rem;
+      z-index: 22;
     }
 
     &-icon {
       display: none;
     }
 
-    &-nav {
-      height: 3rem;
-      display: flex;
-      width: 100%;
+      &-nav {
+        height: 3rem;
+        display: flex;
+        width: 100%;
+        z-index: 21;
 
       &-ul {
         width: 100%;
@@ -227,6 +232,7 @@
   .layout {
     &-header {
       flex-direction: column;
+      clip-path: none;
 
       &-mobile {
         display: block;
