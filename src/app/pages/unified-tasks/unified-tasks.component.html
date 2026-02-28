@@ -13,20 +13,36 @@
       </div>
 
       <!-- Tab Navigation -->
-      <div class="tab-navigation">
+      <div class="tab-row">
+        <div class="tab-navigation">
+          <button
+            class="tab-btn"
+            [class.active]="activeTab === 'kitsui'"
+            (click)="switchTab('kitsui')"
+          >
+            Kitsui
+          </button>
+          <button
+            class="tab-btn"
+            [class.active]="activeTab === 'bubble'"
+            (click)="switchTab('bubble')"
+          >
+            Bubble
+          </button>
+        </div>
         <button
-          class="tab-btn"
-          [class.active]="activeTab === 'kitsui'"
-          (click)="switchTab('kitsui')"
+          class="tab-btn history-tab-btn"
+          [class.active]="!showHistory"
+          (click)="showTasksView()"
         >
-          Kitsui
+          Tasks
         </button>
         <button
-          class="tab-btn"
-          [class.active]="activeTab === 'bubble'"
-          (click)="switchTab('bubble')"
+          class="tab-btn history-tab-btn"
+          [class.active]="showHistory"
+          (click)="toggleHistory()"
         >
-          Bubble
+          History
         </button>
       </div>
     </header>
@@ -93,7 +109,7 @@
       </span>
     </div>
 
-    <div class="tasks-columns">
+    <div class="tasks-columns" *ngIf="!showHistory">
       <!-- Loading State -->
       <div *ngIf="isLoading" class="loading-container">
         <div class="loading-spinner"></div>
@@ -103,10 +119,7 @@
       <!-- Left Column: All Tasks -->
       <div class="tasks-column" *ngIf="!isLoading">
         <div class="column-header">
-          <h2 class="column-title">All Tasks <span class="task-count">{{ sortedTasks.length }}<ng-container *ngIf="filterLabel || hideCompletedAll">/{{ sortedTasksTotal }}</ng-container></span></h2>
-          <button class="hide-completed-btn" (click)="hideCompletedAll = !hideCompletedAll">
-            {{ hideCompletedAll ? 'Show completed' : 'Hide completed' }}
-          </button>
+          <h2 class="column-title">All Tasks <span class="task-count">{{ sortedTasks.length }}<ng-container *ngIf="filterLabel">/{{ sortedTasksTotal }}</ng-container></span></h2>
         </div>
         <div 
           class="tasks-list drop-zone"
@@ -211,6 +224,31 @@
             <p class="tasks-empty-text">Drag tasks here for today!</p>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="history-view" *ngIf="!isLoading && showHistory">
+      <div class="history-day-block" *ngFor="let group of completedHistoryGroups">
+        <h2 class="history-day-title">{{ group.dayLabel }}</h2>
+        <div class="history-day-list">
+          <div class="history-item" *ngFor="let task of group.tasks">
+            <span class="history-time">{{ formatHistoryTime(task) }}</span>
+            <span class="history-text">{{ task.text }}</span>
+            <span
+              *ngIf="task.label"
+              class="task-label history-label"
+              [style.background-color]="getLabelColor(task.label)"
+              [style.color]="getTextColorForLabel(task.label)"
+              [title]="getLabelName(task.label)"
+            >
+              {{ getLabelName(task.label) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tasks-empty" *ngIf="completedHistoryGroups.length === 0">
+        <p class="tasks-empty-text">No completed task history yet.</p>
       </div>
     </div>
 

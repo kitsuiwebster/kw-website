@@ -10,6 +10,12 @@ export interface Label {
   color: string;
 }
 
+interface HistoryDayGroup {
+  dayKey: string;
+  dayLabel: string;
+  tasks: Task[];
+}
+
 @Component({
   selector: 'app-unified-tasks',
   standalone: true,
@@ -27,6 +33,7 @@ export class UnifiedTasksComponent implements OnInit {
   
   // Tab management
   activeTab: TaskType = 'kitsui';
+  showHistory: boolean = false;
   
   // Modal pour les actions de tâche
   showTaskModal: boolean = false;
@@ -41,8 +48,6 @@ export class UnifiedTasksComponent implements OnInit {
   editingLabels: Label[] = [];
 
   // Filters
-  hideCompletedAll: boolean = false;
-  hideCompletedToday: boolean = false;
   filterLabel: string = '';
   showFilterRow: boolean = false;
 
@@ -85,6 +90,13 @@ export class UnifiedTasksComponent implements OnInit {
     this.route.fragment.subscribe(fragment => {
       if (fragment === 'bubble' || fragment === 'kitsui') {
         this.activeTab = fragment as TaskType;
+        this.showHistory = false;
+      } else if (fragment === 'bubble-history') {
+        this.activeTab = 'bubble';
+        this.showHistory = true;
+      } else if (fragment === 'kitsui-history') {
+        this.activeTab = 'kitsui';
+        this.showHistory = true;
       }
     });
 
@@ -168,27 +180,27 @@ export class UnifiedTasksComponent implements OnInit {
   get sortedTasks(): Task[] {
     return this.tasks.filter(task => {
       if (task.isToday) return false;
-      if (this.hideCompletedAll && task.completed) return false;
+      if (task.completed) return false;
       if (this.filterLabel && task.label !== this.filterLabel) return false;
       return true;
     }).sort((a, b) => this.sortFn(a, b));
   }
 
   get sortedTasksTotal(): number {
-    return this.tasks.filter(t => !t.isToday).length;
+    return this.tasks.filter(t => !t.isToday && !t.completed).length;
   }
 
   get todayTasks(): Task[] {
     return this.tasks.filter(task => {
       if (!task.isToday) return false;
-      if (this.hideCompletedToday && task.completed) return false;
+      if (task.completed) return false;
       if (this.filterLabel && task.label !== this.filterLabel) return false;
       return true;
     }).sort((a, b) => this.sortFn(a, b));
   }
 
   get todayTasksTotal(): number {
-    return this.tasks.filter(t => t.isToday).length;
+    return this.tasks.filter(t => t.isToday && !t.completed).length;
   }
 
   toggleFilterLabel(labelId: string): void {
@@ -198,17 +210,16 @@ export class UnifiedTasksComponent implements OnInit {
   switchTab(tab: TaskType): void {
     if (this.activeTab !== tab) {
       this.activeTab = tab;
+      this.showHistory = false;
       this.selectedLabel = this.defaultLabel;
       this.newTaskText = '';
       this.filterLabel = '';
-      this.hideCompletedAll = false;
-      this.hideCompletedToday = false;
       this.showFilterRow = false;
       this.closeTaskModal();
       
       // Update URL hash fragment
       this.router.navigate([], { 
-        fragment: tab, 
+        fragment: this.getCurrentFragment(tab, this.showHistory),
         relativeTo: this.route,
         replaceUrl: true 
       });
@@ -233,7 +244,8 @@ export class UnifiedTasksComponent implements OnInit {
             ...task,
             isPriority: task.isPriority || false,
             createdAt: task.createdAt || now,
-            modifiedAt: task.modifiedAt || task.createdAt || now
+            modifiedAt: task.modifiedAt || task.createdAt || now,
+            completedAt: task.completedAt || undefined
           };
           taskMap.set(task.id, taskWithDefaults);
         });
@@ -327,7 +339,11 @@ export class UnifiedTasksComponent implements OnInit {
 
   toggleTask(task: Task): void {
     task.completed = !task.completed;
-    task.modifiedAt = new Date().toISOString();
+    const now = new Date().toISOString();
+    task.modifiedAt = now;
+    if (task.completed && !task.completedAt) {
+      task.completedAt = now;
+    }
     
     if (task.completed && task.isToday) {
       task.isToday = false;
@@ -538,5 +554,85 @@ export class UnifiedTasksComponent implements OnInit {
       case 'default': return 'Default';
       default: return 'Default';
     }
+  }
+
+  toggleHistory(): void {
+    this.showHistory = !this.showHistory;
+    this.syncFragment();
+  }
+
+  showTasksView(): void {
+    this.showHistory = false;
+    this.syncFragment();
+  }
+
+  private syncFragment(): void {
+    this.router.navigate([], {
+      fragment: this.getCurrentFragment(this.activeTab, this.showHistory),
+      relativeTo: this.route,
+      replaceUrl: true
+    });
+  }
+
+  private getCurrentFragment(tab: TaskType, history: boolean): string {
+    return history ? `${tab}-history` : tab;
+  }
+
+  get completedHistoryGroups(): HistoryDayGroup[] {
+    const now = new Date().toISOString();
+    const completedTasks = this.tasks
+      .filter((task) => {
+        if (!task.completed) return false;
+        if (this.filterLabel && task.label !== this.filterLabel) return false;
+        return true;
+      })
+      .slice()
+      .sort((a, b) => {
+        const bDate = b.completedAt || b.modifiedAt || b.createdAt || '';
+        const aDate = a.completedAt || a.modifiedAt || a.createdAt || '';
+        return bDate.localeCompare(aDate);
+      });
+
+    const grouped = new Map<string, Task[]>();
+    completedTasks.forEach((task) => {
+      const dateValue = task.completedAt || task.modifiedAt || task.createdAt || now;
+      const dayKey = dateValue.slice(0, 10);
+      const existing = grouped.get(dayKey) || [];
+      existing.push(task);
+      grouped.set(dayKey, existing);
+    });
+
+    return Array.from(grouped.entries())
+      .sort((a, b) => b[0].localeCompare(a[0]))
+      .map(([dayKey, tasks]) => ({
+        dayKey,
+        dayLabel: this.formatHistoryDay(dayKey),
+        tasks
+      }));
+  }
+
+  formatHistoryTime(task: Task): string {
+    const dateValue = task.completedAt || task.modifiedAt || task.createdAt;
+    if (!dateValue) return '';
+
+    const parsed = new Date(dateValue);
+    if (Number.isNaN(parsed.getTime())) return '';
+
+    return new Intl.DateTimeFormat('fr-FR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(parsed);
+  }
+
+  private formatHistoryDay(dayKey: string): string {
+    const parsed = new Date(`${dayKey}T00:00:00`);
+    if (Number.isNaN(parsed.getTime())) return dayKey;
+
+    return new Intl.DateTimeFormat('fr-FR', {
+      weekday: 'long',
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    }).format(parsed);
   }
 }

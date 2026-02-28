@@ -151,6 +151,12 @@
   border: 1px solid #222222;
 }
 
+.tab-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 .tab-btn {
   padding: 0.5rem 1.5rem;
   background: transparent;
@@ -172,6 +178,23 @@
     background: #ffffff;
     color: #000000;
     font-weight: 600;
+  }
+}
+
+.history-tab-btn {
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  color: #888888;
+
+  &:hover {
+    border-color: #3a3a3a;
+    color: #b5b5b5;
+  }
+
+  &.active {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
   }
 }
 
@@ -337,22 +360,6 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.75rem;
-}
-
-.hide-completed-btn {
-  background: none;
-  border: none;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.65rem;
-  color: #444444;
-  cursor: pointer;
-  padding: 0;
-  transition: color 0.15s;
-  white-space: nowrap;
-
-  &:hover {
-    color: #888888;
-  }
 }
 
 .task-count {
@@ -566,6 +573,58 @@
   font-size: 0.8rem;
   border: 1px solid #3d1f1f;
   background-color: #1a0e0e;
+}
+
+.history-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.history-day-block {
+  background: #101010;
+  border: 1px solid #1d1d1d;
+  border-radius: 6px;
+  padding: 0.75rem;
+}
+
+.history-day-title {
+  margin: 0 0 0.6rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+}
+
+.history-day-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #151515;
+  border: 1px solid #232323;
+  border-radius: 5px;
+  padding: 0.5rem 0.6rem;
+}
+
+.history-time {
+  min-width: 3.2rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.68rem;
+  color: #6e6e6e;
+}
+
+.history-text {
+  flex: 1;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.82rem;
+  color: #d0d0d0;
 }
 
 // Modal
@@ -951,6 +1010,11 @@
   .tab-btn {
     padding: 0.4rem 1rem;
     font-size: 0.75rem;
+  }
+
+  .tab-row {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .task-item {

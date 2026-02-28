@@ -11,6 +11,7 @@ export interface Task {
   isPriority?: boolean;
   createdAt?: string;
   modifiedAt?: string;
+  completedAt?: string;
 }
 
 export type TaskType = 'kitsui' | 'bubble';
@@ -36,7 +37,8 @@ export class UnifiedTasksService {
       label: task.label ?? null,
       isPriority: task.isPriority ?? false,
       createdAt: task.createdAt,
-      modifiedAt: task.modifiedAt
+      modifiedAt: task.modifiedAt,
+      completedAt: task.completedAt ?? null
     }, {
       params: { type: taskType }
     });
@@ -49,7 +51,8 @@ export class UnifiedTasksService {
       isToday: task.isToday ?? false,
       label: task.label ?? null,
       isPriority: task.isPriority ?? false,
-      modifiedAt: task.modifiedAt
+      modifiedAt: task.modifiedAt,
+      completedAt: task.completedAt ?? null
     }, {
       params: { type: taskType }
     });
