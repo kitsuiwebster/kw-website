@@ -7,6 +7,202 @@
   padding: 0;
 }
 
+/* Tasks-like theme overrides for /life */
+:host {
+  background: #0a0a0a;
+  color: #e8e8e8;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.container {
+  max-width: 1180px;
+  padding: 2rem 1.5rem 3rem;
+  color: #e8e8e8;
+}
+
+.title,
+.section-title,
+.search-main-title,
+.all-years-title,
+.person-results-title,
+.city-results-title,
+.person-section-title,
+.city-section-title {
+  color: #ffffff;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.title {
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.table-filter-section,
+.search-section,
+.search-results-fancy,
+.table-container,
+.chart-section,
+.person-stats-section,
+.city-stats-section,
+.person-year-section,
+.city-year-section,
+.year-entry {
+  background: #111111;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.search-section::before {
+  display: none;
+}
+
+.filter-label {
+  color: #aaaaaa;
+}
+
+.table-type-select,
+.date-input,
+.person-input,
+.city-input {
+  background: #141414;
+  color: #e8e8e8;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  box-shadow: none;
+  transform: none;
+}
+
+.table-type-select:hover,
+.date-input:hover,
+.person-input:hover,
+.city-input:hover {
+  border-color: #3a3a3a;
+  transform: none;
+}
+
+.table-type-select:focus,
+.date-input:focus,
+.person-input:focus,
+.city-input:focus {
+  border-color: #555555;
+  box-shadow: none;
+  transform: none;
+  outline: none;
+}
+
+.date-input::placeholder,
+.person-input::placeholder,
+.city-input::placeholder {
+  color: #666666;
+}
+
+.clear-search-btn,
+.search-button,
+.clear-button,
+.export-button,
+.nav-to-nights-btn {
+  background: #161616;
+  color: #cccccc;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  box-shadow: none;
+  transform: none;
+}
+
+.clear-search-btn:hover,
+.search-button:hover:not(:disabled),
+.clear-button:hover:not(:disabled),
+.export-button:hover,
+.nav-to-nights-btn:hover {
+  background: #1e1e1e;
+  border-color: #3a3a3a;
+  color: #ffffff;
+  transform: none;
+}
+
+.stats-table {
+  border: 1px solid #222222;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.stats-table th {
+  background: #1a1a1a !important;
+  color: #bdbdbd;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.stats-table td {
+  background: #121212;
+  color: #d4d4d4;
+  border-bottom: 1px solid #1d1d1d;
+}
+
+.stats-table tr:hover td {
+  background: #161616;
+}
+
+.table-container h3,
+.table-container h4,
+.person-year-title,
+.city-year-title,
+.year-title,
+.list-title {
+  color: #f2f2f2;
+}
+
+.person-stat-card,
+.city-stat-card {
+  background: #161616;
+  border: 1px solid #2a2a2a;
+  box-shadow: none;
+}
+
+.person-stat-label,
+.city-stat-label,
+.list-item,
+.inline-list li,
+.date-label {
+  color: #b3b3b3;
+}
+
+.person-stat-value,
+.city-stat-value {
+  color: #ffffff;
+}
+
+.loading-container p {
+  color: #9a9a9a;
+}
+
+.loading-spinner {
+  border-color: #222222;
+  border-top-color: #6a6a6a;
+}
+
+.table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #111111;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #2d2d2d;
+  border-radius: 999px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
+
 .container {
   min-height: 100vh;
   width: 100%;
@@ -1757,5 +1953,151 @@
   .search-main-title {
     font-size: 1.5rem;
     margin-bottom: 20px;
+  }
+}
+
+/* FINAL /life-only overrides (kept at end for priority) */
+:host {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1;
+  background: #0a0a0a !important;
+  color: #e8e8e8 !important;
+}
+
+:host::-webkit-scrollbar {
+  width: 10px;
+}
+
+:host::-webkit-scrollbar-track {
+  background: #111111;
+}
+
+:host::-webkit-scrollbar-thumb {
+  background: #2f2f2f;
+  border-radius: 999px;
+  border: 2px solid #111111;
+}
+
+:host::-webkit-scrollbar-thumb:hover {
+  background: #444444;
+}
+
+.container {
+  background: transparent !important;
+  max-width: 1160px !important;
+  min-height: 100vh;
+  padding: 1.8rem 1.25rem 2.8rem !important;
+}
+
+.table-filter-section,
+.search-section,
+.search-results-fancy,
+.table-container,
+.chart-section,
+.person-stats-section,
+.city-stats-section,
+.person-year-section,
+.city-year-section,
+.year-entry,
+.result-list-container {
+  background: #111111 !important;
+  border: 1px solid #222222 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.title,
+.section-title,
+.search-main-title,
+.all-years-title,
+.person-results-title,
+.city-results-title,
+.person-section-title,
+.city-section-title,
+.year-title,
+.person-year-title,
+.city-year-title,
+.list-title {
+  color: #f5f5f5 !important;
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+.filter-label,
+.list-item,
+.inline-list li,
+.person-stat-label,
+.city-stat-label {
+  color: #a8a8a8 !important;
+}
+
+.table-type-select,
+.date-input,
+.person-input,
+.city-input,
+.clear-search-btn,
+.search-button,
+.clear-button,
+.export-button,
+.nav-to-nights-btn {
+  background: #141414 !important;
+  border: 1px solid #2a2a2a !important;
+  color: #d7d7d7 !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+
+.table-type-select:hover,
+.date-input:hover,
+.person-input:hover,
+.city-input:hover,
+.clear-search-btn:hover,
+.search-button:hover:not(:disabled),
+.clear-button:hover:not(:disabled),
+.export-button:hover,
+.nav-to-nights-btn:hover {
+  background: #1b1b1b !important;
+  border-color: #3a3a3a !important;
+  transform: none !important;
+}
+
+.table-type-select:focus,
+.date-input:focus,
+.person-input:focus,
+.city-input:focus {
+  outline: none !important;
+  border-color: #555555 !important;
+  box-shadow: none !important;
+}
+
+.stats-table {
+  border: 1px solid #242424 !important;
+}
+
+.stats-table th {
+  background: #1a1a1a !important;
+  color: #bdbdbd !important;
+  border-bottom: 1px solid #2a2a2a !important;
+}
+
+.stats-table td {
+  background: #121212 !important;
+  color: #d4d4d4 !important;
+  border-bottom: 1px solid #1d1d1d !important;
+}
+
+.stats-table tr:hover td {
+  background: #171717 !important;
+}
+
+@media (max-width: 650px) {
+  .container {
+    padding: 1.2rem 0.9rem 2rem !important;
   }
 }
