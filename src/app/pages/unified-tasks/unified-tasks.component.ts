@@ -139,7 +139,9 @@ export class UnifiedTasksComponent implements OnInit {
 
   updateEditingHex(index: number, value: string): void {
     const clean = value.replace(/[^0-9a-fA-F]/g, '').slice(0, 6);
-    this.editingLabels[index] = { ...this.editingLabels[index], color: '#' + clean };
+    if (this.editingLabels[index]) {
+      this.editingLabels[index].color = '#' + clean;
+    }
   }
 
   addEditingLabel(): void {
