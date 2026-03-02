@@ -15,6 +15,7 @@ export class LayoutComponent {
   isVitrinePage = false;
   isLifePage = false;
   isLegalPage = false;
+  isLoginPage = false;
   showCopiedToast = false;
 
   constructor(private router: Router) {
@@ -25,6 +26,7 @@ export class LayoutComponent {
         this.isVitrinePage = event.url === '/vitrine';
         this.isLifePage = event.url === '/life' || event.url === '/shisui' || event.url.startsWith('/life?') || event.url.startsWith('/shisui?');
         this.isLegalPage = event.url === '/legal';
+        this.isLoginPage = event.url === '/login' || event.url.startsWith('/login?');
       }
     });
   }
