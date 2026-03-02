@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Task {
   id: number;
@@ -20,7 +21,7 @@ export type TaskType = 'kitsui' | 'bubble';
   providedIn: 'root'
 })
 export class UnifiedTasksService {
-  private readonly BASE_URL = 'https://api.kitsuiwebster.com';
+  private readonly BASE_URL = environment.apiUrl;
   private http = inject(HttpClient);
 
   getTasks(taskType: TaskType): Observable<Task[]> {

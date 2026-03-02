@@ -11,12 +11,11 @@ import { HtmlToPdfComponent } from './pages/html-to-pdf/html-to-pdf.component';
 import { UnifiedTasksComponent } from './pages/unified-tasks/unified-tasks.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { DouzeComponent } from './pages/douze/douze.component';
-import { VitrineComponent } from './pages/vitrine/vitrine.component';
-import { AffaireComponent } from './pages/affaire/affaire.component';
-import { SitesComponent } from './pages/sites/sites.component';
 import { CozybotProjectComponent } from './pages/projets/cozybot/cozybot-project.component';
 import { PalmaProjectComponent } from './pages/projets/palma/palma-project.component';
 import { LegalComponent } from './pages/legal/legal.component';
+import { LoginComponent } from './pages/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,22 +24,20 @@ export const routes: Routes = [
   { path: 'cozybot', component: CozybotProjectComponent },
   { path: 'palma-project', component: PalmaProjectComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'menu', component: MenuComponent },
-  { path: 'tasks', component: UnifiedTasksComponent },
+  { path: 'menu', component: MenuComponent, canActivate: [authGuard] },
+  { path: 'tasks', component: UnifiedTasksComponent, canActivate: [authGuard] },
   // Redirect old routes
   { path: 'articles', redirectTo: 'projets' },
   { path: 'tasks/kitsui', redirectTo: 'tasks' },
   { path: 'tasks/bubble', redirectTo: 'tasks' },
-  { path: 'life', component: ShisuiComponent },
+  { path: 'life', component: ShisuiComponent, canActivate: [authGuard] },
   // Redirect old shisui route
   { path: 'shisui', redirectTo: 'life' },
   { path: 'decoder', component: DecoderComponent },
   { path: 'html-to-pdf', component: HtmlToPdfComponent },
   { path: 'douze', component: DouzeComponent },
-  { path: 'vitrine', component: VitrineComponent },
-  { path: 'affaire', component: AffaireComponent },
-  { path: 'sites', component: SitesComponent },
   { path: 'legal', component: LegalComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'notfound' }
 ];

@@ -9,6 +9,30 @@
   overflow-x: hidden;
   z-index: 1;
   font-family: 'Space Grotesk', sans-serif;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #222222;
+    border-radius: 5px;
+    border: 2px solid #0a0a0a;
+    transition: background 0.2s;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #333333;
+  }
+
+  // Firefox scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: #222222 #0a0a0a;
 }
 
 .tasks {
