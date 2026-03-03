@@ -15,6 +15,12 @@ export interface Task {
   completedAt?: string;
 }
 
+export interface TaskLabel {
+  id: string;
+  name: string;
+  color: string;
+}
+
 export type TaskType = 'kitsui' | 'bubble';
 
 @Injectable({
@@ -61,6 +67,20 @@ export class UnifiedTasksService {
 
   deleteTask(id: number, taskType: TaskType): Observable<void> {
     return this.http.delete<void>(`${this.BASE_URL}/tasks/${id}`, {
+      params: { type: taskType }
+    });
+  }
+
+  getLabels(taskType: TaskType): Observable<TaskLabel[]> {
+    return this.http.get<TaskLabel[]>(`${this.BASE_URL}/labels`, {
+      params: { type: taskType }
+    });
+  }
+
+  saveLabels(labels: TaskLabel[], taskType: TaskType): Observable<TaskLabel[]> {
+    return this.http.put<TaskLabel[]>(`${this.BASE_URL}/labels`, {
+      labels
+    }, {
       params: { type: taskType }
     });
   }

@@ -109,6 +109,7 @@ export class UnifiedTasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadLabelsFromStorage();
+    this.loadLabelsFromApi();
 
     // Check for hash fragment in URL
     this.route.fragment.subscribe(fragment => {
@@ -135,6 +136,43 @@ export class UnifiedTasksComponent implements OnInit {
     const bubble = localStorage.getItem('bubble-labels');
     if (kitsui) this.kitsuiLabels = JSON.parse(kitsui);
     if (bubble) this.bubbleLabels = JSON.parse(bubble);
+    this.ensureSelectedLabelExists();
+  }
+
+  private loadLabelsFromApi(): void {
+    this.unifiedTasksService.getLabels('kitsui').subscribe({
+      next: (labels) => {
+        if (Array.isArray(labels) && labels.length > 0) {
+          this.kitsuiLabels = labels;
+          localStorage.setItem('kitsui-labels', JSON.stringify(labels));
+          this.ensureSelectedLabelExists();
+        }
+      },
+      error: (error) => {
+        console.warn('Could not load kitsui labels from API:', error);
+      }
+    });
+
+    this.unifiedTasksService.getLabels('bubble').subscribe({
+      next: (labels) => {
+        if (Array.isArray(labels) && labels.length > 0) {
+          this.bubbleLabels = labels;
+          localStorage.setItem('bubble-labels', JSON.stringify(labels));
+          this.ensureSelectedLabelExists();
+        }
+      },
+      error: (error) => {
+        console.warn('Could not load bubble labels from API:', error);
+      }
+    });
+  }
+
+  private ensureSelectedLabelExists(): void {
+    const labels = this.currentLabels;
+    if (!labels.some((label) => label.id === this.selectedLabel)) {
+      const fallback = labels.find((label) => label.id === this.defaultLabel)?.id || labels[0]?.id || '';
+      this.selectedLabel = fallback;
+    }
   }
 
   openLabelEditor(): void {
@@ -171,6 +209,23 @@ export class UnifiedTasksComponent implements OnInit {
       this.bubbleLabels = saved;
       localStorage.setItem('bubble-labels', JSON.stringify(saved));
     }
+    this.ensureSelectedLabelExists();
+    this.unifiedTasksService.saveLabels(saved, this.activeTab).subscribe({
+      next: (labels) => {
+        const sanitized = Array.isArray(labels) ? labels : [];
+        if (this.activeTab === 'kitsui') {
+          this.kitsuiLabels = sanitized;
+          localStorage.setItem('kitsui-labels', JSON.stringify(sanitized));
+        } else {
+          this.bubbleLabels = sanitized;
+          localStorage.setItem('bubble-labels', JSON.stringify(sanitized));
+        }
+        this.ensureSelectedLabelExists();
+      },
+      error: (error) => {
+        console.warn('Could not sync labels to API:', error);
+      }
+    });
     this.closeLabelEditor();
   }
 
@@ -254,6 +309,7 @@ export class UnifiedTasksComponent implements OnInit {
       this.activeTab = tab;
       this.showHistory = false;
       this.selectedLabel = this.defaultLabel;
+      this.ensureSelectedLabelExists();
       this.newTaskText = '';
       this.filterLabel = '';
       this.showFilterRow = false;
