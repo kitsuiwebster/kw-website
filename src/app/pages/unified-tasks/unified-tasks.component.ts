@@ -71,6 +71,14 @@ export class UnifiedTasksComponent implements OnInit {
   showOrderModal: boolean = false;
   sortOrder: 'default' | 'alphabetical' | 'newest' | 'oldest' = 'default';
 
+  // Edit dates
+  showEditDatesModal: boolean = false;
+  editDatesForm = {
+    createdAt: '',
+    completedAt: '',
+    modifiedAt: ''
+  };
+
   // Labels par type
   kitsuiLabels: Label[] = [
     { id: 'madpoof', name: 'madpoof', color: '#cc0000' },
@@ -438,6 +446,70 @@ export class UnifiedTasksComponent implements OnInit {
     if (!this.selectedHistoryTask) return;
     this.deleteTask(this.selectedHistoryTask.id);
     this.closeHistoryTaskModal();
+  }
+
+  openEditDatesModal(): void {
+    if (!this.selectedHistoryTask) return;
+
+    // Convertir ISO dates en format datetime-local (YYYY-MM-DDTHH:mm)
+    const formatDateForInput = (isoDate: string | undefined): string => {
+      if (!isoDate) return '';
+      const date = new Date(isoDate);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
+
+    this.editDatesForm = {
+      createdAt: formatDateForInput(this.selectedHistoryTask.createdAt),
+      completedAt: formatDateForInput(this.selectedHistoryTask.completedAt),
+      modifiedAt: formatDateForInput(this.selectedHistoryTask.modifiedAt)
+    };
+
+    this.showEditDatesModal = true;
+  }
+
+  closeEditDatesModal(): void {
+    this.showEditDatesModal = false;
+  }
+
+  saveDates(): void {
+    if (!this.selectedHistoryTask) return;
+
+    // Convertir datetime-local en ISO string
+    const toISOString = (dateTimeLocal: string): string | undefined => {
+      if (!dateTimeLocal) return undefined;
+      return new Date(dateTimeLocal).toISOString();
+    };
+
+    const updatedTask = {
+      ...this.selectedHistoryTask,
+      createdAt: toISOString(this.editDatesForm.createdAt) || this.selectedHistoryTask.createdAt,
+      completedAt: toISOString(this.editDatesForm.completedAt) || this.selectedHistoryTask.completedAt,
+      modifiedAt: toISOString(this.editDatesForm.modifiedAt) || this.selectedHistoryTask.modifiedAt
+    };
+
+    // Update in local array
+    const index = this.tasks.findIndex(t => t.id === updatedTask.id);
+    if (index !== -1) {
+      this.tasks[index] = updatedTask;
+    }
+
+    // Update via API
+    this.unifiedTasksService.updateTask(updatedTask, this.activeTab).subscribe({
+      next: () => {
+        console.log('Dates updated successfully');
+        this.closeEditDatesModal();
+        this.closeHistoryTaskModal();
+      },
+      error: (error) => {
+        console.error('Error updating dates:', error);
+        alert('Failed to update dates');
+      }
+    });
   }
 
   onKeyPress(event: KeyboardEvent): void {

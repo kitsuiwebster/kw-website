@@ -439,11 +439,74 @@
         </div>
 
         <div class="modal-actions">
+          <button (click)="openEditDatesModal()" class="action-btn">
+            Edit Dates
+          </button>
           <button (click)="revokeTaskFromHistoryModal()" class="action-btn">
             Revoke
           </button>
           <button (click)="deleteTaskFromHistoryModal()" class="action-btn delete-btn">
             Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Dates -->
+  <div
+    *ngIf="showEditDatesModal"
+    class="modal-overlay"
+    (click)="closeEditDatesModal()"
+  >
+    <div class="task-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Edit Task Dates</h3>
+        <button (click)="closeEditDatesModal()" class="close-btn">×</button>
+      </div>
+      <div class="modal-content" *ngIf="selectedHistoryTask">
+        <div class="task-preview">
+          <strong>{{ selectedHistoryTask.text }}</strong>
+        </div>
+
+        <div class="date-edit-form">
+          <div class="form-group">
+            <label for="createdAt">Created At</label>
+            <input
+              type="datetime-local"
+              id="createdAt"
+              [(ngModel)]="editDatesForm.createdAt"
+              class="date-input"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="completedAt">Completed At</label>
+            <input
+              type="datetime-local"
+              id="completedAt"
+              [(ngModel)]="editDatesForm.completedAt"
+              class="date-input"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="modifiedAt">Modified At</label>
+            <input
+              type="datetime-local"
+              id="modifiedAt"
+              [(ngModel)]="editDatesForm.modifiedAt"
+              class="date-input"
+            />
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button (click)="saveDates()" class="action-btn">
+            Save
+          </button>
+          <button (click)="closeEditDatesModal()" class="action-btn">
+            Cancel
           </button>
         </div>
       </div>
