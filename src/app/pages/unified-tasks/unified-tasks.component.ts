@@ -201,7 +201,40 @@ export class UnifiedTasksComponent implements OnInit {
   }
 
   saveLabelChanges(): void {
-    const saved = this.editingLabels.map(l => ({ ...l }));
+    const existingIds = new Set(
+      this.currentLabels
+        .map((label) => label.id)
+        .filter((id) => !id.startsWith('label-'))
+    );
+
+    const usedIds = new Set<string>();
+    const toSlug = (value: string): string =>
+      value
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '') || 'label';
+
+    const getUniqueId = (base: string): string => {
+      let candidate = base;
+      let index = 2;
+      while (existingIds.has(candidate) || usedIds.has(candidate)) {
+        candidate = `${base}-${index}`;
+        index++;
+      }
+      usedIds.add(candidate);
+      return candidate;
+    };
+
+    const saved = this.editingLabels.map((label) => {
+      const shouldGenerateId = !label.id || label.id.startsWith('label-');
+      const id = shouldGenerateId ? getUniqueId(toSlug(label.name)) : label.id;
+      if (!shouldGenerateId) {
+        usedIds.add(id);
+      }
+      return { ...label, id };
+    });
     if (this.activeTab === 'kitsui') {
       this.kitsuiLabels = saved;
       localStorage.setItem('kitsui-labels', JSON.stringify(saved));
