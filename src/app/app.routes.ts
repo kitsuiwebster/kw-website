@@ -15,6 +15,7 @@ import { CozybotProjectComponent } from './pages/projets/cozybot/cozybot-project
 import { PalmaProjectComponent } from './pages/projets/palma/palma-project.component';
 import { LegalComponent } from './pages/legal/legal.component';
 import { LoginComponent } from './pages/login/login.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -37,6 +38,7 @@ export const routes: Routes = [
   { path: 'html-to-pdf', component: HtmlToPdfComponent },
   { path: 'douze', component: DouzeComponent },
   { path: 'legal', component: LegalComponent },
+  { path: 'gallery', component: GalleryComponent },
   { path: 'login', component: LoginComponent },
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: 'notfound' }

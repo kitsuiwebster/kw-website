@@ -1,0 +1,17 @@
+<div class="gallery">
+  <div class="gallery-container">
+    <p class="gallery-eyebrow">Portfolio</p>
+    <h1 class="gallery-title">Gallery</h1>
+
+    <div class="gallery-masonry">
+      <img
+        *ngFor="let image of images"
+        [src]="image.src"
+        [alt]="image.alt"
+        [title]="image.title"
+        loading="lazy"
+        class="gallery-image"
+      />
+    </div>
+  </div>
+</div>
