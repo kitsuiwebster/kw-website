@@ -104,7 +104,7 @@ export class HomeComponent {
     {
       src: 'assets/images/technos/claude.svg',
       alt: 'Claude',
-      name: 'Claude',
+      name: 'Claude❤️',
       star1: 'assets/images/stars/yellow.webp',
       star2: 'assets/images/stars/yellow.webp',
       star3: 'assets/images/stars/yellow.webp',
@@ -797,6 +797,11 @@ export class HomeComponent {
   ];
 
   certificates: Certification[] = [
+    {
+      date: '2026-03-03',
+      src: 'assets/images/certifications/claude-code-in-action.jpg',
+      alt: 'Certificate of Completion Claude Code in Action - Anthropic',
+    },
     {
       date: '2023-07-02',
       src: 'assets/images/certifications/coc-linux.webp',
