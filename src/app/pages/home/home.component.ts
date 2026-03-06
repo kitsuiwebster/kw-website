@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TechnoIconComponent } from '../../components/techno-icon/techno-icon.component';
 import { PaperProofComponent } from '../../components/paperproof/paperproof.component';
@@ -79,6 +79,7 @@ interface ConferenceItem {
 export class HomeComponent {
   isDiscordCopied = false;
   private discordToastTimeoutId?: number;
+  selectedCredential: Certification | null = null;
 
   aiTechnologies: Technology[] = [
     {
@@ -1468,6 +1469,27 @@ export class HomeComponent {
 
   toggleSection(key: string): void {
     this.collapsedSections[key] = !this.collapsedSections[key];
+  }
+
+  openCredentialModal(credential: Certification): void {
+    this.selectedCredential = credential;
+  }
+
+  closeCredentialModal(): void {
+    this.selectedCredential = null;
+  }
+
+  onModalBackdropClick(event: MouseEvent): void {
+    if (event.target === event.currentTarget) {
+      this.closeCredentialModal();
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.selectedCredential) {
+      this.closeCredentialModal();
+    }
   }
 
   copyDiscordUsername(): void {

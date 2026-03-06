@@ -203,39 +203,87 @@
         <article class="home-credentials-group">
           <h3 class="home-credentials-title">Diplomas & Professional Titles</h3>
           <div class="home-credentials-list">
-            <paper-proof
+            <button
+              type="button"
+              class="home-credential-trigger"
               *ngFor="let title of professionalTitles"
-              [date]="title.date"
-              [src]="title.src"
-              [alt]="title.alt"
-            ></paper-proof>
+              (click)="openCredentialModal(title)"
+              [attr.aria-label]="'Open credential: ' + title.alt"
+            >
+              <paper-proof
+                [date]="title.date"
+                [src]="title.src"
+                [alt]="title.alt"
+              ></paper-proof>
+            </button>
           </div>
         </article>
 
         <article class="home-credentials-group">
           <h3 class="home-credentials-title">Certifications</h3>
           <div class="home-credentials-list">
-            <paper-proof
+            <button
+              type="button"
+              class="home-credential-trigger"
               *ngFor="let cert of certifs"
-              [date]="cert.date"
-              [src]="cert.src"
-              [alt]="cert.alt"
-            ></paper-proof>
+              (click)="openCredentialModal(cert)"
+              [attr.aria-label]="'Open credential: ' + cert.alt"
+            >
+              <paper-proof
+                [date]="cert.date"
+                [src]="cert.src"
+                [alt]="cert.alt"
+              ></paper-proof>
+            </button>
           </div>
         </article>
 
         <article class="home-credentials-group">
           <h3 class="home-credentials-title">Certificates of Completion</h3>
           <div class="home-credentials-list">
-            <paper-proof
+            <button
+              type="button"
+              class="home-credential-trigger"
               *ngFor="let certificate of certificates"
-              [date]="certificate.date"
-              [src]="certificate.src"
-              [alt]="certificate.alt"
-            ></paper-proof>
+              (click)="openCredentialModal(certificate)"
+              [attr.aria-label]="'Open credential: ' + certificate.alt"
+            >
+              <paper-proof
+                [date]="certificate.date"
+                [src]="certificate.src"
+                [alt]="certificate.alt"
+              ></paper-proof>
+            </button>
           </div>
         </article>
       </div>
     </section>
+  </div>
+
+  <div
+    *ngIf="selectedCredential"
+    class="home-credential-modal"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="selectedCredential.alt"
+    (click)="onModalBackdropClick($event)"
+  >
+    <div class="home-credential-modal-content">
+      <button
+        type="button"
+        class="home-credential-modal-close"
+        aria-label="Close credential preview"
+        (click)="closeCredentialModal()"
+      >
+        ×
+      </button>
+      <img
+        [src]="selectedCredential.src"
+        [alt]="selectedCredential.alt"
+        class="home-credential-modal-image"
+      />
+      <p class="home-credential-modal-caption">{{ selectedCredential.alt }}</p>
+      <p class="home-credential-modal-date">{{ selectedCredential.date }}</p>
+    </div>
   </div>
 </div>
