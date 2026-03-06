@@ -5,9 +5,6 @@
         <h1 class="tasks-title">KW Task Manager</h1>
         <div class="header-actions">
           <button class="toggle-filter-btn" [class.active]="showFilterRow" (click)="showFilterRow = !showFilterRow">Filter</button>
-          <button class="order-btn" (click)="openOrderModal()">
-            Order: {{ getSortOrderLabel() }}
-          </button>
           <button class="edit-labels-btn" (click)="openLabelEditor()">Edit labels</button>
         </div>
       </div>
@@ -405,6 +402,24 @@
               </div>
             </div>
           </div>
+
+          <div class="action-btn label-btn" [class.editing]="isEditingLabel">
+            <div *ngIf="!isEditingLabel" (click)="startLabelEdit()" class="label-trigger">
+              Change label
+            </div>
+            <div *ngIf="isEditingLabel" class="label-select-container">
+              <select
+                class="label-select-input"
+                [ngModel]="selectedTask.label || defaultLabel"
+                (ngModelChange)="updateTaskLabel($event)"
+              >
+                <option *ngFor="let label of currentLabels" [value]="label.id">
+                  {{ label.name }}
+                </option>
+              </select>
+              <button (click)="cancelLabelEdit()" class="cancel-btn" type="button">×</button>
+            </div>
+          </div>
           
           <button (click)="toggleTaskPriority()" class="action-btn priority-btn">
             <span *ngIf="!selectedTask.isPriority">Pin</span>
@@ -513,53 +528,4 @@
     </div>
   </div>
 
-  <!-- Modal Order -->
-  <div
-    *ngIf="showOrderModal"
-    class="modal-overlay"
-    (click)="closeOrderModal()"
-  >
-    <div class="task-modal order-modal" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h3>Order Tasks</h3>
-        <button (click)="closeOrderModal()" class="close-btn">×</button>
-      </div>
-      <div class="modal-content">
-        <div class="order-options">
-          <button
-            class="order-option-btn"
-            [class.active]="sortOrder === 'default'"
-            (click)="selectSortOrder('default')"
-          >
-            <span class="option-label">Default</span>
-            <span class="option-description">Priority first, then creation order</span>
-          </button>
-          <button
-            class="order-option-btn"
-            [class.active]="sortOrder === 'alphabetical'"
-            (click)="selectSortOrder('alphabetical')"
-          >
-            <span class="option-label">Alphabetical (A-Z)</span>
-            <span class="option-description">Sort by task name</span>
-          </button>
-          <button
-            class="order-option-btn"
-            [class.active]="sortOrder === 'newest'"
-            (click)="selectSortOrder('newest')"
-          >
-            <span class="option-label">Newest First</span>
-            <span class="option-description">Recently created tasks first</span>
-          </button>
-          <button
-            class="order-option-btn"
-            [class.active]="sortOrder === 'oldest'"
-            (click)="selectSortOrder('oldest')"
-          >
-            <span class="option-label">Oldest First</span>
-            <span class="option-description">Oldest tasks first</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

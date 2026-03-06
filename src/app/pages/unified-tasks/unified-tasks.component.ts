@@ -58,6 +58,7 @@ export class UnifiedTasksComponent implements OnInit {
   // Renaming state
   isRenaming: boolean = false;
   renameText: string = '';
+  isEditingLabel: boolean = false;
 
   // Label editor
   showLabelEditor: boolean = false;
@@ -66,10 +67,6 @@ export class UnifiedTasksComponent implements OnInit {
   // Filters
   filterLabel: string = '';
   showFilterRow: boolean = false;
-
-  // Order/Sort
-  showOrderModal: boolean = false;
-  sortOrder: 'default' | 'alphabetical' | 'newest' | 'oldest' = 'default';
 
   // Edit dates
   showEditDatesModal: boolean = false;
@@ -277,18 +274,10 @@ export class UnifiedTasksComponent implements OnInit {
     // Second: priority tasks always go to top (if both not completed)
     if (a.isPriority !== b.isPriority) return a.isPriority ? -1 : 1;
 
-    // Third: apply selected sort order
-    switch (this.sortOrder) {
-      case 'alphabetical':
-        return a.text.localeCompare(b.text);
-      case 'newest':
-        return (b.createdAt || '').localeCompare(a.createdAt || '');
-      case 'oldest':
-        return (a.createdAt || '').localeCompare(b.createdAt || '');
-      case 'default':
-      default:
-        return 0;
-    }
+    // Third: newest first, oldest last
+    const bDate = b.createdAt || b.modifiedAt || '';
+    const aDate = a.createdAt || a.modifiedAt || '';
+    return bDate.localeCompare(aDate);
   }
 
   get sortedTasks(): Task[] {
@@ -694,6 +683,7 @@ export class UnifiedTasksComponent implements OnInit {
     this.showTaskModal = false;
     this.selectedTask = null;
     this.cancelRename();
+    this.cancelLabelEdit();
   }
 
   // Actions de la modal
@@ -715,6 +705,30 @@ export class UnifiedTasksComponent implements OnInit {
   cancelRename(): void {
     this.isRenaming = false;
     this.renameText = '';
+  }
+
+  startLabelEdit(): void {
+    this.isEditingLabel = true;
+  }
+
+  cancelLabelEdit(): void {
+    this.isEditingLabel = false;
+  }
+
+  updateTaskLabel(labelId: string): void {
+    if (!this.selectedTask) return;
+
+    this.selectedTask.label = labelId;
+    this.selectedTask.modifiedAt = new Date().toISOString();
+    this.saveToLocalStorage();
+
+    this.unifiedTasksService.updateTask(this.selectedTask, this.activeTab).subscribe({
+      error: (error) => {
+        console.warn('Could not sync:', error);
+      }
+    });
+
+    this.isEditingLabel = false;
   }
   
   saveRename(): void {
@@ -762,30 +776,6 @@ export class UnifiedTasksComponent implements OnInit {
       this.deleteTask(this.selectedTask.id);
     }
     this.closeTaskModal();
-  }
-
-  // Order modal methods
-  openOrderModal(): void {
-    this.showOrderModal = true;
-  }
-
-  closeOrderModal(): void {
-    this.showOrderModal = false;
-  }
-
-  selectSortOrder(order: 'default' | 'alphabetical' | 'newest' | 'oldest'): void {
-    this.sortOrder = order;
-    this.closeOrderModal();
-  }
-
-  getSortOrderLabel(): string {
-    switch (this.sortOrder) {
-      case 'alphabetical': return 'A-Z';
-      case 'newest': return 'Newest';
-      case 'oldest': return 'Oldest';
-      case 'default': return 'Default';
-      default: return 'Default';
-    }
   }
 
   toggleHistory(): void {
