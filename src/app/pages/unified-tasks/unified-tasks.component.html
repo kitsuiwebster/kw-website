@@ -5,6 +5,7 @@
         <h1 class="tasks-title">KW Task Manager</h1>
         <div class="header-actions">
           <button class="toggle-filter-btn" [class.active]="showFilterRow" (click)="showFilterRow = !showFilterRow">Filter</button>
+          <button class="reset-time-btn" (click)="openResetTimeModal()">Reset: {{ resetTime }}</button>
           <button class="edit-labels-btn" (click)="openLabelEditor()">Edit labels</button>
         </div>
       </div>
@@ -128,20 +129,35 @@
             class="task-item"
             [class.completed]="task.completed"
             [class.priority-task]="task.isPriority"
+            [class.recurring-instance-task]="task.isRecurringInstance"
+            [style.--recurring-color]="task.isRecurringInstance ? getLabelColor(task.label || defaultLabel) : null"
+            [style.--recurring-bg]="task.isRecurringInstance ? getLabelColorAlpha(task.label || defaultLabel, 0.14) : null"
             draggable="true"
             (dragstart)="onDragStart($event, task)"
+            (click)="openTaskModal(task)"
           >
-            <label class="task-checkbox-container">
+            <label class="task-checkbox-container" (click)="$event.stopPropagation()">
               <input 
                 type="checkbox" 
                 [checked]="task.completed"
                 (change)="toggleTask(task)"
+                (click)="$event.stopPropagation()"
                 class="task-checkbox"
               >
               <span class="task-checkmark"></span>
             </label>
             
             <span class="task-text">{{ task.text }}</span>
+
+            <span
+              *ngIf="task.isRecurringInstance"
+              class="task-recurring-chip"
+              [style.color]="getLabelColor(task.label || defaultLabel)"
+              [style.border-color]="getLabelColorAlpha(task.label || defaultLabel, 0.5)"
+              [style.background-color]="getLabelColorAlpha(task.label || defaultLabel, 0.16)"
+            >
+              Recurring
+            </span>
             
             <span
               *ngIf="task.label"
@@ -153,13 +169,6 @@
               {{ getLabelName(task.label) }}
             </span>
             
-            <button 
-              (click)="openTaskModal(task)" 
-              class="task-menu-btn"
-              title="Options"
-            >
-              ⋯
-            </button>
           </div>
           
           <div class="tasks-empty" *ngIf="sortedTasks.length === 0">
@@ -183,20 +192,35 @@
             class="task-item today-task"
             [class.completed]="task.completed"
             [class.priority-task]="task.isPriority"
+            [class.recurring-instance-task]="task.isRecurringInstance"
+            [style.--recurring-color]="task.isRecurringInstance ? getLabelColor(task.label || defaultLabel) : null"
+            [style.--recurring-bg]="task.isRecurringInstance ? getLabelColorAlpha(task.label || defaultLabel, 0.14) : null"
             draggable="true"
             (dragstart)="onDragStart($event, task)"
+            (click)="openTaskModal(task)"
           >
-            <label class="task-checkbox-container">
+            <label class="task-checkbox-container" (click)="$event.stopPropagation()">
               <input 
                 type="checkbox" 
                 [checked]="task.completed"
                 (change)="toggleTask(task)"
+                (click)="$event.stopPropagation()"
                 class="task-checkbox"
               >
               <span class="task-checkmark"></span>
             </label>
             
             <span class="task-text">{{ task.text }}</span>
+
+            <span
+              *ngIf="task.isRecurringInstance"
+              class="task-recurring-chip"
+              [style.color]="getLabelColor(task.label || defaultLabel)"
+              [style.border-color]="getLabelColorAlpha(task.label || defaultLabel, 0.5)"
+              [style.background-color]="getLabelColorAlpha(task.label || defaultLabel, 0.16)"
+            >
+              Recurring
+            </span>
             
             <span
               *ngIf="task.label"
@@ -208,13 +232,6 @@
               {{ getLabelName(task.label) }}
             </span>
             
-            <button 
-              (click)="openTaskModal(task)" 
-              class="task-menu-btn"
-              title="Options"
-            >
-              ⋯
-            </button>
           </div>
           
           <div class="tasks-empty" *ngIf="todayTasks.length === 0">
@@ -367,68 +384,227 @@
     class="modal-overlay"
     (click)="closeTaskModal()"
   >
-    <div class="task-modal" (click)="$event.stopPropagation()">
+    <div class="task-modal task-modal-main" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h3>Task Actions</h3>
+        <div class="modal-header-main">
+          <h3>Edit Task</h3>
+        </div>
         <button (click)="closeTaskModal()" class="close-btn">×</button>
       </div>
       
-      <div class="modal-content" *ngIf="selectedTask">
-        <div class="task-preview">
+      <div class="modal-content modal-content-main" *ngIf="selectedTask">
+        <div
+          class="task-preview"
+          [style.border-left-color]="getLabelColor(selectedTask.label || defaultLabel)"
+        >
           <strong>{{ selectedTask.text }}</strong>
           <span class="task-info">
-            {{ getLabelName(selectedTask.label || '') }}
+            <span
+              class="modal-label-pill"
+              [style.background-color]="getLabelColor(selectedTask.label || defaultLabel)"
+              [style.color]="getTextColorForLabel(selectedTask.label || defaultLabel)"
+            >
+              {{ getLabelName(selectedTask.label || defaultLabel) }}
+            </span>
+            <span class="recurrence-badge" *ngIf="selectedTask.recurrenceType && selectedTask.recurrenceType !== 'none'">
+              {{ getRecurrenceLabel(selectedTask) }}
+            </span>
+            <span class="schedule-badge" *ngIf="selectedTask.scheduledForDate && (!selectedTask.recurrenceType || selectedTask.recurrenceType === 'none')">
+              {{ selectedTask.scheduledForDate }}
+            </span>
             <span *ngIf="selectedTask.isPriority" class="priority-badge">Pinned</span>
           </span>
         </div>
         
-        <div class="modal-actions">
-          <div class="action-btn rename-btn" [class.renaming]="isRenaming">
-            <div *ngIf="!isRenaming" (click)="startRename()" class="rename-trigger">
-              Rename
-            </div>
-            <div *ngIf="isRenaming" class="rename-input-container">
-              <input 
-                [(ngModel)]="renameText"
-                (keydown)="onRenameKeyPress($event)"
-                (blur)="saveRename()"
-                class="rename-input"
-                #renameInput
-                maxlength="200"
-              >
-              <div class="rename-actions">
-                <button (click)="saveRename()" class="save-btn">✓</button>
-                <button (click)="cancelRename()" class="cancel-btn">×</button>
+        <div class="modal-sections">
+          <section class="modal-section">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">Text</p>
+                <h4 class="section-title">Task Name</h4>
               </div>
             </div>
-          </div>
+            <input
+              [(ngModel)]="renameText"
+              (keydown)="onRenameKeyPress($event)"
+              class="rename-input field-input"
+              maxlength="200"
+            >
+          </section>
 
-          <div class="action-btn label-btn" [class.editing]="isEditingLabel">
-            <div *ngIf="!isEditingLabel" (click)="startLabelEdit()" class="label-trigger">
-              Change label
+          <section class="modal-section">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">Classification</p>
+                <h4 class="section-title">Label</h4>
+              </div>
             </div>
-            <div *ngIf="isEditingLabel" class="label-select-container">
-              <select
-                class="label-select-input"
-                [ngModel]="selectedTask.label || defaultLabel"
-                (ngModelChange)="updateTaskLabel($event)"
+            <select class="field-select" [(ngModel)]="labelDraft">
+              <option *ngFor="let label of currentLabels" [value]="label.id">
+                {{ label.name }}
+              </option>
+            </select>
+            <div
+              class="selected-label-preview"
+              [style.background-color]="getLabelColorAlpha(labelDraft || defaultLabel, 0.18)"
+              [style.border-color]="getLabelColorAlpha(labelDraft || defaultLabel, 0.55)"
+            >
+              <span
+                class="selected-label-dot"
+                [style.background-color]="getLabelColor(labelDraft || defaultLabel)"
+              ></span>
+              <span
+                class="selected-label-name"
+                [style.color]="getLabelColor(labelDraft || defaultLabel)"
               >
-                <option *ngFor="let label of currentLabels" [value]="label.id">
-                  {{ label.name }}
-                </option>
-              </select>
-              <button (click)="cancelLabelEdit()" class="cancel-btn" type="button">×</button>
+                {{ getLabelName(labelDraft || defaultLabel) }}
+              </span>
             </div>
-          </div>
-          
-          <button (click)="toggleTaskPriority()" class="action-btn priority-btn">
-            <span *ngIf="!selectedTask.isPriority">Pin</span>
-            <span *ngIf="selectedTask.isPriority">Unpin</span>
-          </button>
+          </section>
 
-          <button (click)="deleteTaskFromModal()" class="action-btn delete-btn">
-            Delete
+          <section class="modal-section">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">Automation</p>
+                <h4 class="section-title">Recurrence</h4>
+              </div>
+            </div>
+            <div class="edit-block recurrence-edit-container">
+              <select
+                class="field-select"
+                [ngModel]="recurrenceDraftType"
+                (ngModelChange)="onRecurrenceTypeChange($event)"
+              >
+                <option value="none">No repeat</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="quarterly">Quarterly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+
+              <div class="weekday-grid" *ngIf="recurrenceDraftType === 'weekly'">
+                <button
+                  *ngFor="let day of weekdayOptions"
+                  type="button"
+                  class="weekday-btn"
+                  [class.active]="recurrenceDraftDays.includes(day.value)"
+                  (click)="toggleRecurrenceDay(day.value)"
+                >
+                  {{ day.label }}
+                </button>
+              </div>
+
+              <div
+                class="recurrence-start-date"
+                *ngIf="recurrenceDraftType === 'monthly' || recurrenceDraftType === 'quarterly' || recurrenceDraftType === 'yearly'"
+              >
+                <label for="recurrenceStartDate">Start date</label>
+                <input
+                  id="recurrenceStartDate"
+                  type="date"
+                  class="field-input"
+                  [(ngModel)]="recurrenceDraftStartDate"
+                />
+                <small *ngIf="recurrenceDraftType === 'quarterly'">
+                  Quarterly uses this month + day as anchor.
+                </small>
+              </div>
+            </div>
+          </section>
+
+          <section class="modal-section" [class.planning-disabled]="recurrenceDraftType !== 'none'">
+            <div class="section-head">
+              <div class="schedule-head">
+                <p class="section-kicker">Planning</p>
+                <div class="schedule-title-row">
+                  <h4 class="section-title">Schedule for Date</h4>
+                  <small class="section-help-inline" *ngIf="recurrenceDraftType !== 'none'">
+                    Disabled for recurring tasks.
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="edit-block">
+              <input
+                type="date"
+                class="field-input"
+                [(ngModel)]="scheduledForDraftDate"
+                [disabled]="recurrenceDraftType !== 'none'"
+              />
+            </div>
+          </section>
+
+          <section class="modal-section modal-section-action-card" [class.pin-disabled]="recurrenceDraftType !== 'none'">
+            <div class="section-head">
+              <div class="schedule-head">
+                <p class="section-kicker">Actions</p>
+                <div class="schedule-title-row">
+                  <h4 class="section-title">Pin</h4>
+                  <small class="section-help-inline" *ngIf="recurrenceDraftType !== 'none'">
+                    Disabled for recurring tasks.
+                  </small>
+                </div>
+              </div>
+            </div>
+            <button
+              (click)="togglePriorityDraft()"
+              class="action-btn priority-btn"
+              [disabled]="recurrenceDraftType !== 'none'"
+              [title]="recurrenceDraftType !== 'none' ? 'Recurring tasks cannot be pinned' : 'Toggle priority'"
+            >
+              <span *ngIf="!priorityDraft">Pin</span>
+              <span *ngIf="priorityDraft">Unpin</span>
+            </button>
+          </section>
+
+          <section class="modal-section modal-section-action-card">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">Actions</p>
+                <h4 class="section-title">Delete</h4>
+              </div>
+            </div>
+            <button (click)="deleteTaskFromModal()" class="action-btn delete-btn">
+              Delete
+            </button>
+          </section>
+        </div>
+
+        <div class="modal-save-bar">
+          <button type="button" class="modal-save-btn" (click)="saveTaskModalChanges()">
+            Save
           </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="showDeleteConfirmModal && deleteCandidateTask"
+    class="modal-overlay"
+    (click)="closeDeleteConfirmModal()"
+  >
+    <div class="task-modal confirm-delete-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Delete Task</h3>
+        <button (click)="closeDeleteConfirmModal()" class="close-btn">×</button>
+      </div>
+      <div class="modal-content">
+        <div class="task-preview">
+          <strong>{{ deleteCandidateTask.text }}</strong>
+          <span class="task-info">
+            {{ getLabelName(deleteCandidateTask.label || '') }}
+          </span>
+        </div>
+
+        <p class="confirm-delete-copy">
+          Are you sure you want to delete this task? This action cannot be undone.
+        </p>
+
+        <div class="confirm-delete-actions">
+          <button type="button" class="action-btn" (click)="closeDeleteConfirmModal()">Cancel</button>
+          <button type="button" class="action-btn delete-btn" (click)="confirmDeleteTask()">Delete</button>
         </div>
       </div>
     </div>
@@ -454,9 +630,6 @@
         </div>
 
         <div class="modal-actions">
-          <button (click)="openEditDatesModal()" class="action-btn">
-            Edit Dates
-          </button>
           <button (click)="revokeTaskFromHistoryModal()" class="action-btn">
             Revoke
           </button>
@@ -468,61 +641,33 @@
     </div>
   </div>
 
-  <!-- Modal Edit Dates -->
+  <!-- Modal Reset Time -->
   <div
-    *ngIf="showEditDatesModal"
+    *ngIf="showResetTimeModal"
     class="modal-overlay"
-    (click)="closeEditDatesModal()"
+    (click)="closeResetTimeModal()"
   >
-    <div class="task-modal" (click)="$event.stopPropagation()">
+    <div class="task-modal reset-time-modal" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h3>Edit Task Dates</h3>
-        <button (click)="closeEditDatesModal()" class="close-btn">×</button>
+        <h3>Reset Time</h3>
+        <button (click)="closeResetTimeModal()" class="close-btn">×</button>
       </div>
-      <div class="modal-content" *ngIf="selectedHistoryTask">
-        <div class="task-preview">
-          <strong>{{ selectedHistoryTask.text }}</strong>
+      <div class="modal-content">
+        <div class="reset-time-form">
+          <label for="resetTime">Daily reset hour</label>
+          <input
+            id="resetTime"
+            type="time"
+            [(ngModel)]="resetTime"
+            class="date-input"
+          />
+          <p class="reset-time-help">
+            At this time, recurring and scheduled tasks from left column are moved to Today.
+          </p>
         </div>
-
-        <div class="date-edit-form">
-          <div class="form-group">
-            <label for="createdAt">Created At</label>
-            <input
-              type="datetime-local"
-              id="createdAt"
-              [(ngModel)]="editDatesForm.createdAt"
-              class="date-input"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="completedAt">Completed At</label>
-            <input
-              type="datetime-local"
-              id="completedAt"
-              [(ngModel)]="editDatesForm.completedAt"
-              class="date-input"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="modifiedAt">Modified At</label>
-            <input
-              type="datetime-local"
-              id="modifiedAt"
-              [(ngModel)]="editDatesForm.modifiedAt"
-              class="date-input"
-            />
-          </div>
-        </div>
-
         <div class="modal-actions">
-          <button (click)="saveDates()" class="action-btn">
-            Save
-          </button>
-          <button (click)="closeEditDatesModal()" class="action-btn">
-            Cancel
-          </button>
+          <button (click)="saveResetTime()" class="action-btn">Save</button>
+          <button (click)="closeResetTimeModal()" class="action-btn">Cancel</button>
         </div>
       </div>
     </div>

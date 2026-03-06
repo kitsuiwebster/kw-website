@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,6 +30,8 @@ interface PieSegment {
   tooltip: string;
 }
 
+type RecurrenceType = 'none' | 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'yearly';
+
 @Component({
   selector: 'app-unified-tasks',
   standalone: true,
@@ -37,7 +39,7 @@ interface PieSegment {
   templateUrl: './unified-tasks.component.html',
   styleUrls: ['./unified-tasks.component.scss']
 })
-export class UnifiedTasksComponent implements OnInit {
+export class UnifiedTasksComponent implements OnInit, OnDestroy {
   tasks: Task[] = [];
   newTaskText: string = '';
   selectedLabel: string = '';
@@ -54,11 +56,21 @@ export class UnifiedTasksComponent implements OnInit {
   selectedTask: Task | null = null;
   showHistoryTaskModal: boolean = false;
   selectedHistoryTask: Task | null = null;
+  showDeleteConfirmModal: boolean = false;
+  deleteCandidateTask: Task | null = null;
+  deleteConfirmSource: 'task' | 'history' | null = null;
 
   // Renaming state
   isRenaming: boolean = false;
   renameText: string = '';
   isEditingLabel: boolean = false;
+  labelDraft: string = '';
+  isEditingRecurrence: boolean = false;
+  recurrenceDraftType: RecurrenceType = 'none';
+  recurrenceDraftDays: number[] = [];
+  recurrenceDraftStartDate: string = '';
+  scheduledForDraftDate: string = '';
+  priorityDraft: boolean = false;
 
   // Label editor
   showLabelEditor: boolean = false;
@@ -68,13 +80,11 @@ export class UnifiedTasksComponent implements OnInit {
   filterLabel: string = '';
   showFilterRow: boolean = false;
 
-  // Edit dates
-  showEditDatesModal: boolean = false;
-  editDatesForm = {
-    createdAt: '',
-    completedAt: '',
-    modifiedAt: ''
-  };
+  // Reset schedule
+  showResetTimeModal: boolean = false;
+  resetTime: string = '00:00';
+  private readonly resetTimeStorageKey = 'kw-reset-time';
+  private resetCheckInterval: ReturnType<typeof setInterval> | null = null;
 
   // Labels par type
   kitsuiLabels: Label[] = [
@@ -98,6 +108,16 @@ export class UnifiedTasksComponent implements OnInit {
     { id: 'random', name: 'random', color: '#888888' }
   ];
 
+  readonly weekdayOptions: Array<{ value: number; label: string }> = [
+    { value: 1, label: 'Mon' },
+    { value: 2, label: 'Tue' },
+    { value: 3, label: 'Wed' },
+    { value: 4, label: 'Thu' },
+    { value: 5, label: 'Fri' },
+    { value: 6, label: 'Sat' },
+    { value: 0, label: 'Sun' },
+  ];
+
   constructor(
     private unifiedTasksService: UnifiedTasksService,
     private route: ActivatedRoute,
@@ -107,6 +127,8 @@ export class UnifiedTasksComponent implements OnInit {
   ngOnInit(): void {
     this.loadLabelsFromStorage();
     this.loadLabelsFromApi();
+    this.loadResetTimeFromStorage();
+    this.startResetScheduler();
 
     // Check for hash fragment in URL
     this.route.fragment.subscribe(fragment => {
@@ -126,6 +148,13 @@ export class UnifiedTasksComponent implements OnInit {
     setTimeout(() => {
       this.loadTasks();
     }, 100);
+  }
+
+  ngOnDestroy(): void {
+    if (this.resetCheckInterval) {
+      clearInterval(this.resetCheckInterval);
+      this.resetCheckInterval = null;
+    }
   }
 
   private loadLabelsFromStorage(): void {
@@ -271,6 +300,11 @@ export class UnifiedTasksComponent implements OnInit {
     // First: completed tasks always go to bottom
     if (a.completed !== b.completed) return a.completed ? 1 : -1;
 
+    // Second: recurring generated instances always stay below normal tasks
+    if (!!a.isRecurringInstance !== !!b.isRecurringInstance) {
+      return a.isRecurringInstance ? 1 : -1;
+    }
+
     // Second: priority tasks always go to top (if both not completed)
     if (a.isPriority !== b.isPriority) return a.isPriority ? -1 : 1;
 
@@ -366,7 +400,12 @@ export class UnifiedTasksComponent implements OnInit {
             isPriority: task.isPriority || false,
             createdAt: task.createdAt || now,
             modifiedAt: task.modifiedAt || task.createdAt || now,
-            completedAt: task.completedAt || undefined
+            completedAt: task.completedAt || undefined,
+            recurrenceType: this.normalizeRecurrenceType(task.recurrenceType),
+            recurrenceDays: this.normalizeRecurrenceDays(task.recurrenceDays),
+            isRecurringInstance: !!task.isRecurringInstance,
+            recurrenceStartDate: this.normalizeRecurrenceStartDate(task.recurrenceStartDate),
+            scheduledForDate: this.normalizeScheduledForDate(task.scheduledForDate)
           };
           taskMap.set(task.id, taskWithDefaults);
         });
@@ -381,11 +420,13 @@ export class UnifiedTasksComponent implements OnInit {
         this.isLoading = false;
         this.error = '';
         this.saveToLocalStorage();
+        this.runRecurringResetIfNeeded();
       },
       error: (error) => {
         console.warn('API unavailable, using localStorage:', error);
         this.loadFromLocalStorage();
         this.isLoading = false;
+        this.runRecurringResetIfNeeded();
       }
     });
   }
@@ -396,7 +437,15 @@ export class UnifiedTasksComponent implements OnInit {
       const saved = localStorage.getItem(storageKey);
       if (saved) {
         const data = JSON.parse(saved);
-        this.tasks = data.tasks || [];
+        const rawTasks = Array.isArray(data.tasks) ? data.tasks : [];
+        this.tasks = rawTasks.map((task: Task) => ({
+          ...task,
+          recurrenceType: this.normalizeRecurrenceType(task.recurrenceType),
+          recurrenceDays: this.normalizeRecurrenceDays(task.recurrenceDays),
+          isRecurringInstance: !!task.isRecurringInstance,
+          recurrenceStartDate: this.normalizeRecurrenceStartDate(task.recurrenceStartDate),
+          scheduledForDate: this.normalizeScheduledForDate(task.scheduledForDate)
+        }));
         this.nextId = data.nextId || 1;
       } else {
         this.tasks = [];
@@ -431,6 +480,11 @@ export class UnifiedTasksComponent implements OnInit {
         isToday: false,
         label: this.selectedLabel,
         isPriority: false,
+        recurrenceType: 'none' as RecurrenceType,
+        recurrenceDays: [] as number[],
+        isRecurringInstance: false,
+        recurrenceStartDate: undefined,
+        scheduledForDate: undefined,
         createdAt: new Date().toISOString(),
         modifiedAt: new Date().toISOString()
       };
@@ -459,6 +513,7 @@ export class UnifiedTasksComponent implements OnInit {
   }
 
   toggleTask(task: Task): void {
+    const wasCompleted = !!task.completed;
     task.completed = !task.completed;
     const now = new Date().toISOString();
     task.modifiedAt = now;
@@ -477,6 +532,10 @@ export class UnifiedTasksComponent implements OnInit {
         console.warn('Could not sync to API:', error);
       }
     });
+
+    if (!wasCompleted && task.completed && this.isTaskRecurring(task)) {
+      this.createNextRecurringTask(task);
+    }
   }
 
   deleteTask(id: number): void {
@@ -522,72 +581,23 @@ export class UnifiedTasksComponent implements OnInit {
 
   deleteTaskFromHistoryModal(): void {
     if (!this.selectedHistoryTask) return;
-    this.deleteTask(this.selectedHistoryTask.id);
-    this.closeHistoryTaskModal();
+    this.openDeleteConfirmModal(this.selectedHistoryTask, 'history');
   }
 
-  openEditDatesModal(): void {
-    if (!this.selectedHistoryTask) return;
-
-    // Convertir ISO dates en format datetime-local (YYYY-MM-DDTHH:mm)
-    const formatDateForInput = (isoDate: string | undefined): string => {
-      if (!isoDate) return '';
-      const date = new Date(isoDate);
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      return `${year}-${month}-${day}T${hours}:${minutes}`;
-    };
-
-    this.editDatesForm = {
-      createdAt: formatDateForInput(this.selectedHistoryTask.createdAt),
-      completedAt: formatDateForInput(this.selectedHistoryTask.completedAt),
-      modifiedAt: formatDateForInput(this.selectedHistoryTask.modifiedAt)
-    };
-
-    this.showEditDatesModal = true;
+  openResetTimeModal(): void {
+    this.showResetTimeModal = true;
   }
 
-  closeEditDatesModal(): void {
-    this.showEditDatesModal = false;
+  closeResetTimeModal(): void {
+    this.showResetTimeModal = false;
   }
 
-  saveDates(): void {
-    if (!this.selectedHistoryTask) return;
-
-    // Convertir datetime-local en ISO string
-    const toISOString = (dateTimeLocal: string): string | undefined => {
-      if (!dateTimeLocal) return undefined;
-      return new Date(dateTimeLocal).toISOString();
-    };
-
-    const updatedTask = {
-      ...this.selectedHistoryTask,
-      createdAt: toISOString(this.editDatesForm.createdAt) || this.selectedHistoryTask.createdAt,
-      completedAt: toISOString(this.editDatesForm.completedAt) || this.selectedHistoryTask.completedAt,
-      modifiedAt: toISOString(this.editDatesForm.modifiedAt) || this.selectedHistoryTask.modifiedAt
-    };
-
-    // Update in local array
-    const index = this.tasks.findIndex(t => t.id === updatedTask.id);
-    if (index !== -1) {
-      this.tasks[index] = updatedTask;
-    }
-
-    // Update via API
-    this.unifiedTasksService.updateTask(updatedTask, this.activeTab).subscribe({
-      next: () => {
-        console.log('Dates updated successfully');
-        this.closeEditDatesModal();
-        this.closeHistoryTaskModal();
-      },
-      error: (error) => {
-        console.error('Error updating dates:', error);
-        alert('Failed to update dates');
-      }
-    });
+  saveResetTime(): void {
+    const value = this.normalizeResetTime(this.resetTime);
+    this.resetTime = value;
+    localStorage.setItem(this.resetTimeStorageKey, value);
+    this.closeResetTimeModal();
+    this.runRecurringResetIfNeeded();
   }
 
   onKeyPress(event: KeyboardEvent): void {
@@ -648,6 +658,18 @@ export class UnifiedTasksComponent implements OnInit {
     return label ? label.color : '#888888';
   }
 
+  getLabelColorAlpha(labelId: string, alpha: number): string {
+    const hexColor = this.getLabelColor(labelId).replace('#', '');
+    if (hexColor.length !== 6) {
+      return `rgba(136, 136, 136, ${alpha})`;
+    }
+
+    const r = parseInt(hexColor.substring(0, 2), 16);
+    const g = parseInt(hexColor.substring(2, 4), 16);
+    const b = parseInt(hexColor.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
   getLabelName(labelId: string): string {
     const label = this.currentLabels.find(l => l.id === labelId);
     return label ? label.name : this.defaultLabel;
@@ -676,6 +698,17 @@ export class UnifiedTasksComponent implements OnInit {
   // Modal pour les actions de tâche
   openTaskModal(task: Task): void {
     this.selectedTask = task;
+    this.renameText = task.text;
+    this.labelDraft = task.label || this.defaultLabel;
+    this.recurrenceDraftType = this.normalizeRecurrenceType(task.recurrenceType);
+    this.recurrenceDraftDays = this.normalizeRecurrenceDays(task.recurrenceDays);
+    if (this.recurrenceDraftType === 'weekly' && this.recurrenceDraftDays.length === 0) {
+      this.recurrenceDraftDays = [new Date().getDay()];
+    }
+    this.recurrenceDraftStartDate =
+      this.normalizeRecurrenceStartDate(task.recurrenceStartDate) || this.getTodayDateString();
+    this.scheduledForDraftDate = this.normalizeScheduledForDate(task.scheduledForDate) || '';
+    this.priorityDraft = !!task.isPriority;
     this.showTaskModal = true;
   }
 
@@ -684,6 +717,10 @@ export class UnifiedTasksComponent implements OnInit {
     this.selectedTask = null;
     this.cancelRename();
     this.cancelLabelEdit();
+    this.cancelRecurrenceEdit();
+    this.labelDraft = '';
+    this.scheduledForDraftDate = '';
+    this.priorityDraft = false;
   }
 
   // Actions de la modal
@@ -708,11 +745,18 @@ export class UnifiedTasksComponent implements OnInit {
   }
 
   startLabelEdit(): void {
+    this.labelDraft = this.selectedTask?.label || this.defaultLabel;
     this.isEditingLabel = true;
   }
 
   cancelLabelEdit(): void {
     this.isEditingLabel = false;
+    this.labelDraft = '';
+  }
+
+  saveLabelEdit(): void {
+    if (!this.labelDraft) return;
+    this.updateTaskLabel(this.labelDraft);
   }
 
   updateTaskLabel(labelId: string): void {
@@ -729,6 +773,105 @@ export class UnifiedTasksComponent implements OnInit {
     });
 
     this.isEditingLabel = false;
+  }
+
+  startRecurrenceEdit(): void {
+    if (!this.selectedTask) return;
+    this.recurrenceDraftType = this.normalizeRecurrenceType(this.selectedTask.recurrenceType);
+    this.recurrenceDraftDays = this.normalizeRecurrenceDays(this.selectedTask.recurrenceDays);
+    this.recurrenceDraftStartDate =
+      this.normalizeRecurrenceStartDate(this.selectedTask.recurrenceStartDate) || this.getTodayDateString();
+    this.isEditingRecurrence = true;
+  }
+
+  cancelRecurrenceEdit(): void {
+    this.isEditingRecurrence = false;
+    this.recurrenceDraftType = 'none';
+    this.recurrenceDraftDays = [];
+    this.recurrenceDraftStartDate = '';
+  }
+
+  onRecurrenceTypeChange(value: string): void {
+    this.recurrenceDraftType = this.normalizeRecurrenceType(value);
+    if (this.recurrenceDraftType !== 'weekly') {
+      this.recurrenceDraftDays = [];
+    } else if (this.recurrenceDraftDays.length === 0) {
+      this.recurrenceDraftDays = [new Date().getDay()];
+    }
+    if (
+      (this.recurrenceDraftType === 'monthly' ||
+        this.recurrenceDraftType === 'quarterly' ||
+        this.recurrenceDraftType === 'yearly') &&
+      !this.recurrenceDraftStartDate
+    ) {
+      this.recurrenceDraftStartDate = this.getTodayDateString();
+    }
+    if (this.recurrenceDraftType !== 'none') {
+      this.priorityDraft = false;
+      this.scheduledForDraftDate = '';
+    }
+  }
+
+  toggleRecurrenceDay(day: number): void {
+    if (this.recurrenceDraftType !== 'weekly') return;
+    if (this.recurrenceDraftDays.includes(day)) {
+      this.recurrenceDraftDays = this.recurrenceDraftDays.filter((d) => d !== day);
+      return;
+    }
+    this.recurrenceDraftDays = [...this.recurrenceDraftDays, day].sort((a, b) => a - b);
+  }
+
+  saveRecurrence(): void {
+    if (!this.selectedTask) return;
+
+    const recurrenceType = this.recurrenceDraftType;
+    const recurrenceDays =
+      recurrenceType === 'weekly' ? this.normalizeRecurrenceDays(this.recurrenceDraftDays) : [];
+    if (recurrenceType === 'weekly' && recurrenceDays.length === 0) {
+      this.error = 'Select at least one weekday for weekly recurrence';
+      setTimeout(() => (this.error = ''), 3500);
+      return;
+    }
+    const recurrenceStartDate =
+      recurrenceType === 'monthly' ||
+      recurrenceType === 'quarterly' ||
+      recurrenceType === 'yearly'
+        ? this.normalizeRecurrenceStartDate(this.recurrenceDraftStartDate) || this.getTodayDateString()
+        : undefined;
+
+    this.selectedTask.recurrenceType = recurrenceType;
+    this.selectedTask.recurrenceDays = recurrenceDays;
+    this.selectedTask.recurrenceStartDate = recurrenceStartDate;
+    if (this.selectedTask.recurrenceType !== 'none') {
+      this.selectedTask.isPriority = false;
+    }
+    this.selectedTask.modifiedAt = new Date().toISOString();
+    this.saveToLocalStorage();
+
+    this.unifiedTasksService.updateTask(this.selectedTask, this.activeTab).subscribe({
+      error: (error) => {
+        console.warn('Could not sync:', error);
+      }
+    });
+
+    this.cancelRecurrenceEdit();
+  }
+
+  getRecurrenceLabel(task: Task): string {
+    const recurrenceType = this.normalizeRecurrenceType(task.recurrenceType);
+    if (recurrenceType === 'daily') return 'Daily';
+    if (recurrenceType === 'weekly') {
+      const days = this.normalizeRecurrenceDays(task.recurrenceDays);
+      if (days.length === 0) return 'Weekly';
+      const labels = this.weekdayOptions
+        .filter((day) => days.includes(day.value))
+        .map((day) => day.label);
+      return `Weekly (${labels.join(', ')})`;
+    }
+    if (recurrenceType === 'monthly') return 'Monthly';
+    if (recurrenceType === 'quarterly') return 'Quarterly';
+    if (recurrenceType === 'yearly') return 'Yearly';
+    return 'No repeat';
   }
   
   saveRename(): void {
@@ -750,14 +893,21 @@ export class UnifiedTasksComponent implements OnInit {
   
   onRenameKeyPress(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
-      this.saveRename();
+      event.preventDefault();
+      this.saveTaskModalChanges();
     } else if (event.key === 'Escape') {
-      this.cancelRename();
+      event.preventDefault();
+      this.closeTaskModal();
     }
   }
 
   toggleTaskPriority(): void {
     if (this.selectedTask) {
+      if (this.isTaskRecurring(this.selectedTask)) {
+        this.error = 'Pinned is disabled for recurring tasks';
+        setTimeout(() => this.error = '', 3500);
+        return;
+      }
       this.selectedTask.isPriority = !this.selectedTask.isPriority;
       this.selectedTask.modifiedAt = new Date().toISOString();
       this.saveToLocalStorage();
@@ -771,11 +921,93 @@ export class UnifiedTasksComponent implements OnInit {
     this.closeTaskModal();
   }
 
-  deleteTaskFromModal(): void {
-    if (this.selectedTask) {
-      this.deleteTask(this.selectedTask.id);
+  togglePriorityDraft(): void {
+    if (this.recurrenceDraftType !== 'none') {
+      this.priorityDraft = false;
+      return;
     }
+    this.priorityDraft = !this.priorityDraft;
+  }
+
+  saveTaskModalChanges(): void {
+    if (!this.selectedTask) return;
+
+    const trimmedText = this.renameText.trim();
+    if (!trimmedText) {
+      this.error = 'Task name cannot be empty';
+      setTimeout(() => (this.error = ''), 3500);
+      return;
+    }
+
+    const recurrenceType = this.recurrenceDraftType;
+    const recurrenceDays =
+      recurrenceType === 'weekly' ? this.normalizeRecurrenceDays(this.recurrenceDraftDays) : [];
+    if (recurrenceType === 'weekly' && recurrenceDays.length === 0) {
+      this.error = 'Select at least one weekday for weekly recurrence';
+      setTimeout(() => (this.error = ''), 3500);
+      return;
+    }
+
+    const recurrenceStartDate =
+      recurrenceType === 'monthly' ||
+      recurrenceType === 'quarterly' ||
+      recurrenceType === 'yearly'
+        ? this.normalizeRecurrenceStartDate(this.recurrenceDraftStartDate) || this.getTodayDateString()
+        : undefined;
+    const scheduledForDate =
+      recurrenceType === 'none' ? this.normalizeScheduledForDate(this.scheduledForDraftDate) : undefined;
+    if (scheduledForDate && scheduledForDate < this.getTodayDateString()) {
+      this.error = 'Scheduled date cannot be in the past';
+      setTimeout(() => (this.error = ''), 3500);
+      return;
+    }
+
+    this.selectedTask.text = trimmedText;
+    this.selectedTask.label = this.labelDraft || this.defaultLabel;
+    this.selectedTask.recurrenceType = recurrenceType;
+    this.selectedTask.recurrenceDays = recurrenceDays;
+    this.selectedTask.recurrenceStartDate = recurrenceStartDate;
+    this.selectedTask.scheduledForDate = scheduledForDate;
+    this.selectedTask.isPriority = recurrenceType === 'none' ? this.priorityDraft : false;
+    this.selectedTask.modifiedAt = new Date().toISOString();
+
+    this.saveToLocalStorage();
+    this.unifiedTasksService.updateTask(this.selectedTask, this.activeTab).subscribe({
+      error: (error) => {
+        console.warn('Could not sync:', error);
+      }
+    });
+
     this.closeTaskModal();
+  }
+
+  deleteTaskFromModal(): void {
+    if (!this.selectedTask) return;
+    this.openDeleteConfirmModal(this.selectedTask, 'task');
+  }
+
+  openDeleteConfirmModal(task: Task, source: 'task' | 'history'): void {
+    this.deleteCandidateTask = task;
+    this.deleteConfirmSource = source;
+    this.showDeleteConfirmModal = true;
+  }
+
+  closeDeleteConfirmModal(): void {
+    this.showDeleteConfirmModal = false;
+    this.deleteCandidateTask = null;
+    this.deleteConfirmSource = null;
+  }
+
+  confirmDeleteTask(): void {
+    if (!this.deleteCandidateTask || !this.deleteConfirmSource) return;
+
+    this.deleteTask(this.deleteCandidateTask.id);
+    if (this.deleteConfirmSource === 'task') {
+      this.closeTaskModal();
+    } else {
+      this.closeHistoryTaskModal();
+    }
+    this.closeDeleteConfirmModal();
   }
 
   toggleHistory(): void {
@@ -929,5 +1161,241 @@ export class UnifiedTasksComponent implements OnInit {
       x: centerX + radius * Math.cos(angleInRadians),
       y: centerY + radius * Math.sin(angleInRadians)
     };
+  }
+
+  private normalizeRecurrenceType(value: unknown): RecurrenceType {
+    if (value === 'custom') return 'weekly';
+    if (
+      value === 'daily' ||
+      value === 'weekly' ||
+      value === 'monthly' ||
+      value === 'quarterly' ||
+      value === 'yearly'
+    ) {
+      return value;
+    }
+    return 'none';
+  }
+
+  private normalizeRecurrenceDays(value: unknown): number[] {
+    if (!Array.isArray(value)) return [];
+    const days = value
+      .map((day) => Number(day))
+      .filter((day) => Number.isInteger(day) && day >= 0 && day <= 6);
+    return Array.from(new Set(days)).sort((a, b) => a - b);
+  }
+
+  private normalizeRecurrenceStartDate(value: unknown): string | undefined {
+    if (typeof value !== 'string') return undefined;
+    const trimmed = value.trim();
+    if (!trimmed) return undefined;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) return trimmed;
+    const parsed = new Date(trimmed);
+    if (Number.isNaN(parsed.getTime())) return undefined;
+    return this.toDateOnlyString(parsed);
+  }
+
+  private normalizeScheduledForDate(value: unknown): string | undefined {
+    return this.normalizeRecurrenceStartDate(value);
+  }
+
+  private isTaskRecurring(task: Task): boolean {
+    const recurrenceType = this.normalizeRecurrenceType(task.recurrenceType);
+    if (recurrenceType === 'none') return false;
+    if (recurrenceType !== 'weekly') return true;
+    return this.normalizeRecurrenceDays(task.recurrenceDays).length > 0;
+  }
+
+  private createNextRecurringTask(task: Task): void {
+    const now = new Date().toISOString();
+    const nextTask: Task = {
+      id: this.nextId++,
+      text: task.text,
+      completed: false,
+      isToday: false,
+      label: task.label,
+      isPriority: task.isPriority,
+      recurrenceType: this.normalizeRecurrenceType(task.recurrenceType),
+      recurrenceDays: this.normalizeRecurrenceDays(task.recurrenceDays),
+      isRecurringInstance: true,
+      recurrenceStartDate: this.normalizeRecurrenceStartDate(task.recurrenceStartDate),
+      scheduledForDate: undefined,
+      createdAt: now,
+      modifiedAt: now,
+      completedAt: undefined,
+    };
+
+    this.tasks.push(nextTask);
+    this.saveToLocalStorage();
+
+    this.unifiedTasksService.addTask(nextTask, this.activeTab).subscribe({
+      next: (savedTask) => {
+        const index = this.tasks.findIndex((existingTask) => existingTask.id === nextTask.id);
+        if (index !== -1) {
+          this.tasks[index] = { ...this.tasks[index], ...savedTask };
+        }
+        this.saveToLocalStorage();
+      },
+      error: (error) => {
+        console.warn('Could not sync to API:', error);
+      }
+    });
+  }
+
+  private loadResetTimeFromStorage(): void {
+    const saved = localStorage.getItem(this.resetTimeStorageKey);
+    this.resetTime = this.normalizeResetTime(saved ?? '00:00');
+  }
+
+  private startResetScheduler(): void {
+    this.runRecurringResetIfNeeded();
+    this.resetCheckInterval = setInterval(() => {
+      this.runRecurringResetIfNeeded();
+    }, 30_000);
+  }
+
+  private normalizeResetTime(value: string): string {
+    if (!/^\d{2}:\d{2}$/.test(value)) return '00:00';
+    const [hourRaw, minuteRaw] = value.split(':');
+    const hour = Number(hourRaw);
+    const minute = Number(minuteRaw);
+    if (!Number.isInteger(hour) || !Number.isInteger(minute)) return '00:00';
+    if (hour < 0 || hour > 23 || minute < 0 || minute > 59) return '00:00';
+    return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+  }
+
+  private getResetMarkerStorageKey(): string {
+    return `kw-last-reset-marker-${this.activeTab}`;
+  }
+
+  private getDateMarker(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  private getCurrentResetReference(now: Date): { marker: string; resetDate: Date } {
+    const [hourRaw, minuteRaw] = this.normalizeResetTime(this.resetTime).split(':');
+    const hour = Number(hourRaw);
+    const minute = Number(minuteRaw);
+
+    const resetDate = new Date(now);
+    resetDate.setHours(hour, minute, 0, 0);
+
+    if (now < resetDate) {
+      resetDate.setDate(resetDate.getDate() - 1);
+    }
+
+    return {
+      marker: this.getDateMarker(resetDate),
+      resetDate,
+    };
+  }
+
+  private runRecurringResetIfNeeded(): void {
+    const now = new Date();
+    const { marker, resetDate } = this.getCurrentResetReference(now);
+    const markerKey = this.getResetMarkerStorageKey();
+    const lastMarker = localStorage.getItem(markerKey);
+
+    if (lastMarker === marker) return;
+
+    this.applyRecurringReset(resetDate);
+    localStorage.setItem(markerKey, marker);
+  }
+
+  private applyRecurringReset(resetDate: Date): void {
+    const nowIso = new Date().toISOString();
+    const candidates = this.tasks.filter((task) => {
+      if (task.completed || task.isToday) return false;
+      return this.shouldTaskBeMovedToTodayAtReset(task, resetDate);
+    });
+
+    if (candidates.length === 0) return;
+
+    candidates.forEach((task) => {
+      task.isToday = true;
+      if (!this.isTaskRecurring(task)) {
+        task.scheduledForDate = undefined;
+      }
+      task.modifiedAt = nowIso;
+
+      this.unifiedTasksService.updateTask(task, this.activeTab).subscribe({
+        error: (error) => {
+          console.warn('Could not sync to API:', error);
+        }
+      });
+    });
+
+    this.saveToLocalStorage();
+  }
+
+  private shouldTaskBeMovedToTodayAtReset(task: Task, resetDate: Date): boolean {
+    const recurrenceType = this.normalizeRecurrenceType(task.recurrenceType);
+    if (recurrenceType === 'none') {
+      const scheduledForDate = this.normalizeScheduledForDate(task.scheduledForDate);
+      if (!scheduledForDate) return false;
+      return scheduledForDate <= this.getDateMarker(resetDate);
+    }
+
+    const resetWeekday = resetDate.getDay();
+    const anchorDate = this.getRecurrenceAnchorDate(task);
+
+    if (recurrenceType === 'daily') return true;
+
+    if (recurrenceType === 'weekly') {
+      const days = this.normalizeRecurrenceDays(task.recurrenceDays);
+      return days.includes(resetWeekday);
+    }
+
+    if (recurrenceType === 'monthly') {
+      if (!anchorDate) return false;
+      return anchorDate.getDate() === resetDate.getDate();
+    }
+
+    if (recurrenceType === 'quarterly') {
+      if (!anchorDate) return false;
+
+      const monthsDiff =
+        (resetDate.getFullYear() - anchorDate.getFullYear()) * 12 +
+        (resetDate.getMonth() - anchorDate.getMonth());
+
+      return monthsDiff >= 0 && monthsDiff % 3 === 0 && anchorDate.getDate() === resetDate.getDate();
+    }
+
+    if (recurrenceType === 'yearly') {
+      if (!anchorDate) return false;
+      return (
+        anchorDate.getMonth() === resetDate.getMonth() &&
+        anchorDate.getDate() === resetDate.getDate()
+      );
+    }
+
+    return false;
+  }
+
+  private getRecurrenceAnchorDate(task: Task): Date | null {
+    const startDate = this.normalizeRecurrenceStartDate(task.recurrenceStartDate);
+    if (startDate) {
+      const [year, month, day] = startDate.split('-').map((v) => Number(v));
+      const parsed = new Date(year, month - 1, day, 0, 0, 0, 0);
+      if (!Number.isNaN(parsed.getTime())) return parsed;
+    }
+
+    const createdDate = task.createdAt ? new Date(task.createdAt) : null;
+    if (!createdDate || Number.isNaN(createdDate.getTime())) return null;
+    return createdDate;
+  }
+
+  private toDateOnlyString(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  private getTodayDateString(): string {
+    return this.toDateOnlyString(new Date());
   }
 }

@@ -13,6 +13,11 @@ export interface Task {
   createdAt?: string;
   modifiedAt?: string;
   completedAt?: string;
+  recurrenceType?: 'none' | 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'yearly';
+  recurrenceDays?: number[];
+  isRecurringInstance?: boolean;
+  recurrenceStartDate?: string;
+  scheduledForDate?: string;
 }
 
 export interface TaskLabel {
@@ -45,7 +50,12 @@ export class UnifiedTasksService {
       isPriority: task.isPriority ?? false,
       createdAt: task.createdAt,
       modifiedAt: task.modifiedAt,
-      completedAt: task.completedAt ?? null
+      completedAt: task.completedAt ?? null,
+      recurrenceType: task.recurrenceType ?? 'none',
+      recurrenceDays: task.recurrenceDays ?? [],
+      isRecurringInstance: task.isRecurringInstance ?? false,
+      recurrenceStartDate: task.recurrenceStartDate ?? null,
+      scheduledForDate: task.scheduledForDate ?? null
     }, {
       params: { type: taskType }
     });
@@ -59,7 +69,12 @@ export class UnifiedTasksService {
       label: task.label ?? null,
       isPriority: task.isPriority ?? false,
       modifiedAt: task.modifiedAt,
-      completedAt: task.completedAt ?? null
+      completedAt: task.completedAt ?? null,
+      recurrenceType: task.recurrenceType ?? 'none',
+      recurrenceDays: task.recurrenceDays ?? [],
+      isRecurringInstance: task.isRecurringInstance ?? false,
+      recurrenceStartDate: task.recurrenceStartDate ?? null,
+      scheduledForDate: task.scheduledForDate ?? null
     }, {
       params: { type: taskType }
     });
