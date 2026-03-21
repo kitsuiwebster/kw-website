@@ -242,9 +242,28 @@
     </div>
 
     <div class="history-view" *ngIf="!isLoading && showHistory">
+      <div class="history-filters">
+        <div class="history-filters-row">
+          <label class="history-filter-label">
+            From
+            <input type="date" [(ngModel)]="historyDateFrom" class="history-date-input" />
+          </label>
+          <label class="history-filter-label">
+            To
+            <input type="date" [(ngModel)]="historyDateTo" class="history-date-input" />
+          </label>
+          <button class="history-filter-btn" (click)="clearHistoryFilters()" title="Clear filters">
+            Clear
+          </button>
+          <button class="history-filter-btn export-btn" (click)="exportHistory()" title="Export history">
+            Export .txt
+          </button>
+        </div>
+      </div>
+
       <div class="history-day-block" *ngFor="let group of completedHistoryGroups">
-        <h2 class="history-day-title">{{ group.dayLabel }}</h2>
-        <div class="history-day-list">
+        <h2 class="history-day-title" [class.empty-day]="group.tasks.length === 0">{{ group.dayLabel }}</h2>
+        <div class="history-day-list" *ngIf="group.tasks.length > 0">
           <div class="history-item" *ngFor="let task of group.tasks">
             <span class="history-time">{{ formatHistoryTime(task) }}</span>
             <span class="history-text">{{ task.text }}</span>
@@ -265,6 +284,9 @@
               ⋯
             </button>
           </div>
+        </div>
+        <div class="history-empty-day-msg" *ngIf="group.tasks.length === 0">
+          No tasks
         </div>
       </div>
 

@@ -80,6 +80,11 @@ export class UnifiedTasksComponent implements OnInit, OnDestroy {
   filterLabel: string = '';
   showFilterRow: boolean = false;
 
+  // History date range filters
+  historyDateFrom: string = '';
+  historyDateTo: string = '';
+  private readonly historyStartDate = '2026-02-19';
+
   // Reset schedule
   showResetTimeModal: boolean = false;
   resetTime: string = '00:00';
@@ -1038,10 +1043,16 @@ export class UnifiedTasksComponent implements OnInit, OnDestroy {
 
   get completedHistoryGroups(): HistoryDayGroup[] {
     const now = new Date().toISOString();
+    const fromDate = this.historyDateFrom || this.historyStartDate;
+    const toDate = this.historyDateTo || now.slice(0, 10);
+
     const completedTasks = this.tasks
       .filter((task) => {
         if (!task.completed) return false;
         if (this.filterLabel && task.label !== this.filterLabel) return false;
+        const dateValue = task.completedAt || task.modifiedAt || task.createdAt || now;
+        const dayKey = dateValue.slice(0, 10);
+        if (dayKey < fromDate || dayKey > toDate) return false;
         return true;
       })
       .slice()
@@ -1059,6 +1070,18 @@ export class UnifiedTasksComponent implements OnInit, OnDestroy {
       existing.push(task);
       grouped.set(dayKey, existing);
     });
+
+    // Fill in empty days between fromDate and toDate
+    const start = new Date(`${fromDate}T00:00:00`);
+    const end = new Date(`${toDate}T00:00:00`);
+    const cursor = new Date(start);
+    while (cursor <= end) {
+      const key = cursor.toISOString().slice(0, 10);
+      if (!grouped.has(key)) {
+        grouped.set(key, []);
+      }
+      cursor.setDate(cursor.getDate() + 1);
+    }
 
     return Array.from(grouped.entries())
       .sort((a, b) => b[0].localeCompare(a[0]))
@@ -1092,6 +1115,42 @@ export class UnifiedTasksComponent implements OnInit, OnDestroy {
       month: 'long',
       year: 'numeric'
     }).format(parsed);
+  }
+
+  exportHistory(): void {
+    const groups = this.completedHistoryGroups;
+    const lines: string[] = [];
+    const fromDate = this.historyDateFrom || this.historyStartDate;
+    const toDate = this.historyDateTo || new Date().toISOString().slice(0, 10);
+    lines.push(`History export — ${this.activeTab} — ${fromDate} → ${toDate}`);
+    lines.push('');
+
+    for (const group of groups) {
+      lines.push(`── ${group.dayLabel} ──`);
+      if (group.tasks.length === 0) {
+        lines.push('  (no tasks)');
+      } else {
+        for (const task of group.tasks) {
+          const time = this.formatHistoryTime(task);
+          const label = task.label ? ` [${this.getLabelName(task.label)}]` : '';
+          lines.push(`  ${time}  ${task.text}${label}`);
+        }
+      }
+      lines.push('');
+    }
+
+    const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `history-${this.activeTab}-${fromDate}-to-${toDate}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  clearHistoryFilters(): void {
+    this.historyDateFrom = '';
+    this.historyDateTo = '';
   }
 
   getPieSegments(slices: LabelSlice[]): PieSegment[] {
