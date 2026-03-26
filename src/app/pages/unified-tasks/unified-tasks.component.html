@@ -353,6 +353,47 @@
       </div>
     </div>
 
+    <!-- Label Presence Stats -->
+    <div class="label-presence-section" *ngIf="!isLoading && !showHistory">
+      <h3 class="label-presence-title">Label Presence</h3>
+
+      <!-- Monthly Stats -->
+      <div class="presence-block" *ngFor="let month of labelPresenceMonthlyStats">
+        <h4 class="presence-period">{{ month.monthLabel }}</h4>
+        <div class="presence-bars">
+          <div class="presence-row" *ngFor="let stat of month.labels">
+            <span class="presence-label-name">{{ stat.labelName }}</span>
+            <div class="presence-bar-track">
+              <div
+                class="presence-bar-fill"
+                [style.width.%]="stat.totalDays > 0 ? (stat.daysPresent / stat.totalDays) * 100 : 0"
+                [style.background-color]="stat.labelColor"
+              ></div>
+            </div>
+            <span class="presence-count">{{ stat.daysPresent }}/{{ stat.totalDays }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Yearly Stats -->
+      <div class="presence-block presence-block-year" *ngFor="let year of labelPresenceYearlyStats">
+        <h4 class="presence-period">{{ year.yearLabel }}</h4>
+        <div class="presence-bars">
+          <div class="presence-row" *ngFor="let stat of year.labels">
+            <span class="presence-label-name">{{ stat.labelName }}</span>
+            <div class="presence-bar-track">
+              <div
+                class="presence-bar-fill"
+                [style.width.%]="stat.totalDays > 0 ? (stat.daysPresent / stat.totalDays) * 100 : 0"
+                [style.background-color]="stat.labelColor"
+              ></div>
+            </div>
+            <span class="presence-count">{{ stat.daysPresent }}/{{ stat.totalDays }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Affichage des erreurs -->
     <div *ngIf="error" class="error-message">
       {{ error }}

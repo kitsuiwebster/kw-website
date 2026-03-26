@@ -30,6 +30,28 @@ interface PieSegment {
   tooltip: string;
 }
 
+interface LabelPresenceStat {
+  labelId: string;
+  labelName: string;
+  labelColor: string;
+  daysPresent: number;
+  totalDays: number;
+}
+
+interface MonthLabelStats {
+  monthKey: string;
+  monthLabel: string;
+  totalDays: number;
+  labels: LabelPresenceStat[];
+}
+
+interface YearLabelStats {
+  year: number;
+  yearLabel: string;
+  totalDays: number;
+  labels: LabelPresenceStat[];
+}
+
 type RecurrenceType = 'none' | 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'yearly';
 
 @Component({
@@ -359,6 +381,122 @@ export class UnifiedTasksComponent implements OnInit, OnDestroy {
 
   get todayLabelSlices(): LabelSlice[] {
     return this.buildLabelSlices(this.todayTasks);
+  }
+
+  get labelPresenceMonthlyStats(): MonthLabelStats[] {
+    const completedTasks = this.tasks.filter(t => t.completed);
+    const labels = this.currentLabels;
+    const now = new Date();
+    const startDate = new Date(this.historyStartDate);
+    const results: MonthLabelStats[] = [];
+
+    // Build a map: labelId -> Set of day keys (YYYY-MM-DD)
+    const labelDaysMap = new Map<string, Set<string>>();
+    for (const label of labels) {
+      labelDaysMap.set(label.id, new Set());
+    }
+    for (const task of completedTasks) {
+      const dateValue = task.completedAt || task.modifiedAt || task.createdAt || '';
+      if (!dateValue) continue;
+      const dayKey = dateValue.slice(0, 10);
+      const labelId = task.label || this.defaultLabel;
+      if (!labelDaysMap.has(labelId)) continue;
+      labelDaysMap.get(labelId)!.add(dayKey);
+    }
+
+    // Iterate months from startDate to now
+    let cursor = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+    while (cursor <= now) {
+      const year = cursor.getFullYear();
+      const month = cursor.getMonth();
+      const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      // Determine actual total days to count in this month
+      const monthStart = new Date(year, month, 1);
+      const monthEnd = new Date(year, month + 1, 0);
+      const effectiveStart = monthStart < startDate ? startDate : monthStart;
+      const effectiveEnd = monthEnd > now ? now : monthEnd;
+      const totalDays = Math.floor((effectiveEnd.getTime() - effectiveStart.getTime()) / 86400000) + 1;
+
+      const monthLabel = cursor.toLocaleString('en-US', { month: 'short', year: 'numeric' });
+
+      const labelStats: LabelPresenceStat[] = labels.map(label => {
+        let daysPresent = 0;
+        const daySet = labelDaysMap.get(label.id)!;
+        const cur = new Date(effectiveStart);
+        while (cur <= effectiveEnd) {
+          const key = `${cur.getFullYear()}-${String(cur.getMonth() + 1).padStart(2, '0')}-${String(cur.getDate()).padStart(2, '0')}`;
+          if (daySet.has(key)) daysPresent++;
+          cur.setDate(cur.getDate() + 1);
+        }
+        return {
+          labelId: label.id,
+          labelName: label.name,
+          labelColor: label.color,
+          daysPresent,
+          totalDays: daysInMonth,
+        };
+      });
+
+      results.push({ monthKey, monthLabel, totalDays: daysInMonth, labels: labelStats });
+      cursor = new Date(year, month + 1, 1);
+    }
+
+    return results.reverse();
+  }
+
+  get labelPresenceYearlyStats(): YearLabelStats[] {
+    const completedTasks = this.tasks.filter(t => t.completed);
+    const labels = this.currentLabels;
+    const now = new Date();
+    const startYear = new Date(this.historyStartDate).getFullYear();
+    const results: YearLabelStats[] = [];
+
+    const labelDaysMap = new Map<string, Set<string>>();
+    for (const label of labels) {
+      labelDaysMap.set(label.id, new Set());
+    }
+    for (const task of completedTasks) {
+      const dateValue = task.completedAt || task.modifiedAt || task.createdAt || '';
+      if (!dateValue) continue;
+      const dayKey = dateValue.slice(0, 10);
+      const labelId = task.label || this.defaultLabel;
+      if (!labelDaysMap.has(labelId)) continue;
+      labelDaysMap.get(labelId)!.add(dayKey);
+    }
+
+    for (let year = startYear; year <= now.getFullYear(); year++) {
+      const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+      const daysInYear = isLeapYear ? 366 : 365;
+      const yearStart = new Date(year, 0, 1);
+      const yearEnd = new Date(year, 11, 31);
+      const startDate = new Date(this.historyStartDate);
+      const effectiveStart = yearStart < startDate ? startDate : yearStart;
+      const effectiveEnd = yearEnd > now ? now : yearEnd;
+
+      const labelStats: LabelPresenceStat[] = labels.map(label => {
+        let daysPresent = 0;
+        const daySet = labelDaysMap.get(label.id)!;
+        const cur = new Date(effectiveStart);
+        while (cur <= effectiveEnd) {
+          const key = `${cur.getFullYear()}-${String(cur.getMonth() + 1).padStart(2, '0')}-${String(cur.getDate()).padStart(2, '0')}`;
+          if (daySet.has(key)) daysPresent++;
+          cur.setDate(cur.getDate() + 1);
+        }
+        return {
+          labelId: label.id,
+          labelName: label.name,
+          labelColor: label.color,
+          daysPresent,
+          totalDays: daysInYear,
+        };
+      });
+
+      results.push({ year, yearLabel: `${year}`, totalDays: daysInYear, labels: labelStats });
+    }
+
+    return results.reverse();
   }
 
   toggleFilterLabel(labelId: string): void {
