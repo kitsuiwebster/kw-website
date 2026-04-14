@@ -367,8 +367,20 @@ export class UnifiedTasksComponent implements OnInit, OnDestroy {
     return this.tasks.filter(t => t.isToday && !t.completed).length;
   }
 
+  get allTasksNonRecurring(): Task[] {
+    return this.sortedTasks.filter(t => !t.isRecurringInstance);
+  }
+
+  get allTasksRecurring(): Task[] {
+    return this.sortedTasks.filter(t => t.isRecurringInstance);
+  }
+
   get allTasksTotalCount(): number {
-    return this.sortedTasks.length;
+    return this.allTasksNonRecurring.length;
+  }
+
+  get recurringTasksTotalCount(): number {
+    return this.allTasksRecurring.length;
   }
 
   get todayTotalCount(): number {
@@ -376,11 +388,36 @@ export class UnifiedTasksComponent implements OnInit, OnDestroy {
   }
 
   get allTasksLabelSlices(): LabelSlice[] {
-    return this.buildLabelSlices(this.sortedTasks);
+    return this.buildLabelSlices(this.allTasksNonRecurring);
+  }
+
+  get recurringTasksLabelSlices(): LabelSlice[] {
+    return this.buildLabelSlices(this.allTasksRecurring);
   }
 
   get todayLabelSlices(): LabelSlice[] {
     return this.buildLabelSlices(this.todayTasks);
+  }
+
+  get doneTodayTasks(): Task[] {
+    const { resetDate } = this.getCurrentResetReference(new Date());
+    return this.tasks.filter(task => {
+      if (!task.completed) return false;
+      if (this.filterLabel && task.label !== this.filterLabel) return false;
+      const raw = task.completedAt || task.modifiedAt;
+      if (!raw) return false;
+      const completedAt = new Date(raw);
+      if (isNaN(completedAt.getTime())) return false;
+      return completedAt >= resetDate;
+    });
+  }
+
+  get doneTodayTotalCount(): number {
+    return this.doneTodayTasks.length;
+  }
+
+  get doneTodayLabelSlices(): LabelSlice[] {
+    return this.buildLabelSlices(this.doneTodayTasks);
   }
 
   get labelPresenceMonthlyStats(): MonthLabelStats[] {

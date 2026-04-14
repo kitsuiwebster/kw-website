@@ -117,7 +117,7 @@
       <!-- Left Column: All Tasks -->
       <div class="tasks-column" *ngIf="!isLoading">
         <div class="column-header">
-          <h2 class="column-title">All Tasks <span class="task-count">{{ sortedTasks.length }}<ng-container *ngIf="filterLabel">/{{ sortedTasksTotal }}</ng-container></span></h2>
+          <h2 class="column-title">All Tasks <span class="task-count">{{ allTasksTotalCount }}<ng-container *ngIf="filterLabel">/{{ sortedTasksTotal }}</ng-container></span></h2>
         </div>
         <div 
           class="tasks-list drop-zone"
@@ -325,6 +325,34 @@
       </div>
 
       <div class="chart-card">
+        <h3 class="chart-title">Recurring Tasks</h3>
+        <div
+          class="camembert"
+          [attr.aria-label]="'Recurring tasks labels distribution'"
+        >
+          <svg class="camembert-svg" viewBox="0 0 106 106" aria-hidden="true">
+            <path
+              *ngFor="let segment of getPieSegments(recurringTasksLabelSlices)"
+              class="camembert-segment"
+              [attr.d]="segment.d"
+              [attr.fill]="segment.color"
+            >
+              <title>{{ segment.tooltip }}</title>
+            </path>
+          </svg>
+          <span class="camembert-value">{{ recurringTasksTotalCount }}</span>
+        </div>
+        <p class="chart-meta">{{ recurringTasksTotalCount }} active tasks</p>
+        <div class="chart-legend" *ngIf="recurringTasksLabelSlices.length > 0">
+          <div class="legend-item" *ngFor="let slice of recurringTasksLabelSlices">
+            <span class="legend-dot" [style.background-color]="slice.color"></span>
+            <span class="legend-name">{{ slice.name }}</span>
+            <span class="legend-count">{{ slice.count }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
         <h3 class="chart-title">Today</h3>
         <div
           class="camembert"
@@ -345,6 +373,34 @@
         <p class="chart-meta">{{ todayTotalCount }} active tasks</p>
         <div class="chart-legend" *ngIf="todayLabelSlices.length > 0">
           <div class="legend-item" *ngFor="let slice of todayLabelSlices">
+            <span class="legend-dot" [style.background-color]="slice.color"></span>
+            <span class="legend-name">{{ slice.name }}</span>
+            <span class="legend-count">{{ slice.count }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h3 class="chart-title">Done Today</h3>
+        <div
+          class="camembert"
+          [attr.aria-label]="'Done today labels distribution'"
+        >
+          <svg class="camembert-svg" viewBox="0 0 106 106" aria-hidden="true">
+            <path
+              *ngFor="let segment of getPieSegments(doneTodayLabelSlices)"
+              class="camembert-segment"
+              [attr.d]="segment.d"
+              [attr.fill]="segment.color"
+            >
+              <title>{{ segment.tooltip }}</title>
+            </path>
+          </svg>
+          <span class="camembert-value">{{ doneTodayTotalCount }}</span>
+        </div>
+        <p class="chart-meta">{{ doneTodayTotalCount }} completed</p>
+        <div class="chart-legend" *ngIf="doneTodayLabelSlices.length > 0">
+          <div class="legend-item" *ngFor="let slice of doneTodayLabelSlices">
             <span class="legend-dot" [style.background-color]="slice.color"></span>
             <span class="legend-name">{{ slice.name }}</span>
             <span class="legend-count">{{ slice.count }}</span>
