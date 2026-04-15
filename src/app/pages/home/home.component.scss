@@ -164,6 +164,44 @@
   margin-top: 4.2rem;
   padding-top: 2rem;
   border-top: 1px solid var(--home-line);
+  scroll-margin-top: 1.5rem;
+}
+
+.home-quicknav {
+  margin-top: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.home-quicknav-link {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+  text-align: left;
+  padding: 0.35rem 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: fit-content;
+  transition: color 0.18s ease, gap 0.18s ease;
+
+  &::before {
+    content: '→';
+    color: var(--home-accent-strong);
+    transition: transform 0.18s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--home-accent-strong);
+    gap: 0.85rem;
+    outline: none;
+  }
 }
 
 .home-section-head {
@@ -182,6 +220,7 @@
   margin: 0.55rem 0 0;
   font-size: clamp(1.35rem, 2.4vw, 2rem);
   letter-spacing: -0.02em;
+  scroll-margin-top: 1.5rem;
 }
 
 .home-skills-panels {
