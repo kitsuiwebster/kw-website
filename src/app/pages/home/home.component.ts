@@ -1360,6 +1360,23 @@ export class HomeComponent {
 
   conferences: ConferenceItem[] = [
     {
+      period: 'Mar 2026',
+      title: 'KubeCon 2026',
+      type: 'Attendee',
+      location: 'Amsterdam',
+      countryEmoji: '🇳🇱',
+      talks: [
+        'My selection of talks:',
+        'What Survived Production: Operating Game Backends at Million-Player Scale - Berkay Uckac, Futureplay Games',
+        'Real-World Supply-Chain Security - Alex Leong, Buoyant',
+        'Privacy as Infrastructure: Declarative Data Protection for AI on Kubernetes - Joaquin Rodriguez, Microsoft & Krishnendu Dasgupta, AXONVERTEX AI',
+        'Cloud Native at the Far(m) Edge: Running Kubernetes and AI on Tractors - Mauro Morales, Spectro Cloud & Jordan Karapanagiotis, Aurea Imaging',
+      ],
+      logo: 'assets/images/logos/kubecon.avif',
+      horizontalLogo: true,
+      roundedLogo: true,
+    },
+    {
       period: 'Jul 2025',
       title: 'RivieraDev 2025',
       type: 'Attendee/Sponsor',
